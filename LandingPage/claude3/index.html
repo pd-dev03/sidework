@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildMyFolio — Xtract Dark</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <!-- Fallback since Clash Display may need CDN -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Background grid -->
+  <div class="bg-grid"></div>
+  <!-- Glow orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__logo"><span class="logo-dot"></span>BuildMyFolio</div>
+    <div class="nav__links">
+      <a href="#features">Features</a>
+      <a href="#templates">Templates</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://buildmyfolio.in/login" class="nav__btn">Get Started →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <div class="hero__badge load-in" style="--d:.1s">✦ Portfolio Builder · Zero Code Required</div>
+      <h1 class="hero__title">
+        <span class="title-line load-in" style="--d:.2s">Your Portfolio.</span>
+        <span class="title-line title-line--grad load-in" style="--d:.32s">Live in Minutes.</span>
+        <span class="title-line title-line--dim load-in" style="--d:.44s">Not Months.</span>
+      </h1>
+      <p class="hero__sub load-in" style="--d:.56s">No drag-and-drop headaches. No CSS nightmares. Fill in your details, click Publish — and share your URL with the world.</p>
+      <div class="hero__btns load-in" style="--d:.68s">
+        <a href="https://buildmyfolio.in/login" class="btn btn--violet">Create Your Portfolio <span>→</span></a>
+        <a href="#features" class="btn btn--outline">See Features</a>
+      </div>
+      <!-- Stats row -->
+      <div class="hero__stats load-in" style="--d:.8s">
+        <div class="stat"><span class="stat-n" data-target="5">0</span><span class="stat-u">min</span><span class="stat-l">to go live</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-n">0</span><span class="stat-u">lines</span><span class="stat-l">of code</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-n" data-target="1">0</span><span class="stat-u">click</span><span class="stat-l">to publish</span></div>
+      </div>
+    </div>
+
+    <!-- Floating UI Widgets -->
+    <div class="hero__widgets">
+      <!-- Widget 1: Profile card -->
+      <div class="widget widget-1 load-in" style="--d:.4s">
+        <div class="widget__header"><span class="w-dot w-dot--green"></span><span class="w-dot w-dot--yellow"></span><span class="w-dot w-dot--red"></span><span class="widget__title">Profile</span></div>
+        <div class="widget__field"><span class="wf-label">Name</span><span class="wf-val">Priyanshu Dave</span></div>
+        <div class="widget__field"><span class="wf-label">Role</span><span class="wf-val">Full Stack Dev</span></div>
+        <div class="widget__field"><span class="wf-label">URL</span><span class="wf-val wf-val--accent">buildmyfolio.in/priyanshu</span></div>
+      </div>
+      <!-- Widget 2: Sections list -->
+      <div class="widget widget-2 load-in" style="--d:.55s">
+        <div class="widget__header"><span class="widget__title">Sections</span><span class="widget__action">+ Add</span></div>
+        <div class="widget__section-item"><span class="wsi-drag">⠿</span>About Me <span class="wsi-badge wsi-badge--on">ON</span></div>
+        <div class="widget__section-item"><span class="wsi-drag">⠿</span>Skills <span class="wsi-badge wsi-badge--on">ON</span></div>
+        <div class="widget__section-item"><span class="wsi-drag">⠿</span>Projects <span class="wsi-badge wsi-badge--on">ON</span></div>
+        <div class="widget__section-item wsi-dim"><span class="wsi-drag">⠿</span>Contact <span class="wsi-badge">OFF</span></div>
+      </div>
+      <!-- Widget 3: Publish button -->
+      <div class="widget widget-3 load-in" style="--d:.7s">
+        <div class="widget__pub-status"><span class="pub-dot"></span>Live at your URL</div>
+        <button class="widget__pub-btn">Publish Changes →</button>
+        <div class="widget__pub-meta">Last published: just now ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee"><span>ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; DASHBOARD CONTROL &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp; ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; DASHBOARD CONTROL &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp;</span><span aria-hidden="true">ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; DASHBOARD CONTROL &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp; ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; DASHBOARD CONTROL &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp;</span></div>
+  </div>
+
+  <!-- STORY -->
+  <section class="section story" id="story">
+    <div class="story__inner">
+      <div class="story__left">
+        <div class="section-tag up">01 / Origin</div>
+        <h2 class="story__h up" style="--d:.05s">Built from<br/><em>Frustration.</em></h2>
+        <p class="story__credit up" style="--d:.1s">— Priyanshu Dave, Creator</p>
+      </div>
+      <div class="story__right">
+        <p class="highlight-text up" id="manifesto" style="--d:.08s">
+          I needed a portfolio. Fast. Every builder I touched felt like assembling
+          IKEA furniture with pages missing from the manual — drag, drop, break, cry,
+          repeat. So I built my own system. Clean. Fast. Live in five minutes.
+          Then it hit me — I wasn't alone. Thousands of busy, talented people
+          need a sharp professional portfolio without sacrificing their evenings
+          or emptying their wallets. And that's how BuildMyFolio became the
+          definitive answer to "Ugh, not another PDF."
+        </p>
+        <blockquote class="story__quote up" style="--d:.18s">"The answer to <em>not another PDF."</em></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE PREVIEW STRIP -->
+  <section class="section templates" id="templates">
+    <div class="section-tag up">02 / Portfolio Previews</div>
+    <h2 class="templates__h up" style="--d:.05s">Your Portfolio,<br/><em>Your Style.</em></h2>
+    <p class="templates__sub up" style="--d:.1s">Here's a glimpse of the kind of portfolio you'll get — professional, clean, and uniquely yours.</p>
+    <div class="templates__track-wrap">
+      <div class="templates__track">
+        <!-- Mini portfolio cards — CSS built, no images -->
+        <div class="tpl-card tpl-card--1">
+          <div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div>
+          <div class="tpl-card__header"><div class="tpl-avatar">PD</div><div><div class="tpl-name">Priyanshu Dave</div><div class="tpl-role">Full Stack Developer</div></div></div>
+          <div class="tpl-section-bar"><span>About</span><span>Skills</span><span>Projects</span></div>
+          <div class="tpl-lines"><div class="tpl-line tpl-line--long"></div><div class="tpl-line"></div><div class="tpl-line tpl-line--med"></div></div>
+          <div class="tpl-card__label">Dark Minimal</div>
+        </div>
+        <div class="tpl-card tpl-card--2">
+          <div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div>
+          <div class="tpl-card__hero-strip"></div>
+          <div class="tpl-card__body"><div class="tpl-name">Sarah Johnson</div><div class="tpl-role">UI/UX Designer</div></div>
+          <div class="tpl-skill-tags"><span>Figma</span><span>React</span><span>CSS</span></div>
+          <div class="tpl-card__label">Light Creative</div>
+        </div>
+        <div class="tpl-card tpl-card--3">
+          <div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div>
+          <div class="tpl-card__split"><div class="tpl-split-left"></div><div class="tpl-split-right"><div class="tpl-name">Alex Chen</div><div class="tpl-role">Data Scientist</div><div class="tpl-lines mt8"><div class="tpl-line"></div><div class="tpl-line tpl-line--med"></div></div></div></div>
+          <div class="tpl-card__label">Bold Split</div>
+        </div>
+        <div class="tpl-card tpl-card--4">
+          <div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div>
+          <div class="tpl-centered"><div class="tpl-avatar tpl-avatar--lg">MK</div><div class="tpl-name">Maya Kapoor</div><div class="tpl-role">Product Manager</div></div>
+          <div class="tpl-section-bar tpl-section-bar--center"><span>Work</span><span>About</span><span>Contact</span></div>
+          <div class="tpl-card__label">Centered Clean</div>
+        </div>
+        <div class="tpl-card tpl-card--5">
+          <div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div>
+          <div class="tpl-card__big-name">RAVI<br/>VERMA</div>
+          <div class="tpl-role tpl-role--sm">Frontend Engineer · Mumbai</div>
+          <div class="tpl-card__label">Editorial Bold</div>
+        </div>
+        <!-- Duplicates for infinite loop -->
+        <div class="tpl-card tpl-card--1" aria-hidden="true"><div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div><div class="tpl-card__header"><div class="tpl-avatar">PD</div><div><div class="tpl-name">Priyanshu Dave</div><div class="tpl-role">Full Stack Developer</div></div></div><div class="tpl-section-bar"><span>About</span><span>Skills</span><span>Projects</span></div><div class="tpl-lines"><div class="tpl-line tpl-line--long"></div><div class="tpl-line"></div><div class="tpl-line tpl-line--med"></div></div><div class="tpl-card__label">Dark Minimal</div></div>
+        <div class="tpl-card tpl-card--2" aria-hidden="true"><div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div><div class="tpl-card__hero-strip"></div><div class="tpl-card__body"><div class="tpl-name">Sarah Johnson</div><div class="tpl-role">UI/UX Designer</div></div><div class="tpl-skill-tags"><span>Figma</span><span>React</span><span>CSS</span></div><div class="tpl-card__label">Light Creative</div></div>
+        <div class="tpl-card tpl-card--3" aria-hidden="true"><div class="tpl-card__bar"><div class="tpl-dot"></div><div class="tpl-dot"></div><div class="tpl-dot"></div></div><div class="tpl-card__split"><div class="tpl-split-left"></div><div class="tpl-split-right"><div class="tpl-name">Alex Chen</div><div class="tpl-role">Data Scientist</div><div class="tpl-lines mt8"><div class="tpl-line"></div><div class="tpl-line tpl-line--med"></div></div></div></div><div class="tpl-card__label">Bold Split</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES TAB SECTION -->
+  <section class="section features" id="features">
+    <div class="section-tag up">03 / Features</div>
+    <h2 class="features__h up" style="--d:.05s">Everything You Need.<br/><em>Nothing Else.</em></h2>
+    <div class="features__tabs up" style="--d:.1s">
+      <button class="ftab active" data-tab="dashboard">Dashboard</button>
+      <button class="ftab" data-tab="publish">Publish</button>
+      <button class="ftab" data-tab="share">Share</button>
+      <button class="ftab" data-tab="design">Design</button>
+    </div>
+    <div class="features__body">
+      <div class="ftab-content active" data-content="dashboard">
+        <div class="ftab-text">
+          <h3>Zero Code. Full Control.</h3>
+          <p>Add, edit, reorder, and delete sections directly from your personal dashboard. No CSS wizardry. No developer needed. You're the editor — not the coder.</p>
+          <ul><li>Drag-and-drop section reordering</li><li>One-click section toggle on/off</li><li>Live content editing</li><li>Mobile preview built-in</li></ul>
+        </div>
+        <div class="ftab-ui">
+          <div class="fui-window">
+            <div class="fui-bar"><span></span><span></span><span></span></div>
+            <div class="fui-content">
+              <div class="fui-sidebar"><div class="fui-nav-item fui-nav-item--active">Dashboard</div><div class="fui-nav-item">Sections</div><div class="fui-nav-item">Preview</div><div class="fui-nav-item">Publish</div></div>
+              <div class="fui-main"><div class="fui-section-row"><span>⠿ About Me</span><span class="fui-toggle fui-toggle--on"></span></div><div class="fui-section-row"><span>⠿ Skills</span><span class="fui-toggle fui-toggle--on"></span></div><div class="fui-section-row"><span>⠿ Projects</span><span class="fui-toggle fui-toggle--on"></span></div><div class="fui-section-row fui-dim"><span>⠿ Blog</span><span class="fui-toggle"></span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftab-content" data-content="publish">
+        <div class="ftab-text">
+          <h3>One Click. Instantly Live.</h3>
+          <p>Hit Publish and your portfolio is live within seconds at buildmyfolio.in/yourname. No waiting, no deployment pipelines, no server management.</p>
+          <ul><li>Instant one-click deployment</li><li>Auto-updated live URL</li><li>Zero server management</li><li>Always up, 99.9% uptime</li></ul>
+        </div>
+        <div class="ftab-ui">
+          <div class="fui-window">
+            <div class="fui-bar"><span></span><span></span><span></span></div>
+            <div class="fui-publish-content">
+              <div class="fui-url-bar">buildmyfolio.in/yourname</div>
+              <button class="fui-publish-btn">Publish Now →</button>
+              <div class="fui-status fui-status--live"><span class="pub-dot"></span>Portfolio is Live</div>
+              <div class="fui-last">Last updated: just now</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftab-content" data-content="share">
+        <div class="ftab-text">
+          <h3>One URL. Share Everywhere.</h3>
+          <p>Your portfolio lives at buildmyfolio.in/yourname. Drop it on LinkedIn, in your email signature, on business cards. No PDF attachments ever again.</p>
+          <ul><li>Clean personal URL</li><li>Works on all devices</li><li>Share via link, QR, or email</li><li>SEO-friendly pages</li></ul>
+        </div>
+        <div class="ftab-ui">
+          <div class="fui-window">
+            <div class="fui-bar"><span></span><span></span><span></span></div>
+            <div class="fui-share-content">
+              <div class="fui-share-url"><span class="fui-url-text">buildmyfolio.in/priyanshu</span><button class="fui-copy-btn">Copy</button></div>
+              <div class="fui-share-btns"><div class="fui-share-btn">LinkedIn</div><div class="fui-share-btn">Email</div><div class="fui-share-btn">WhatsApp</div></div>
+              <div class="fui-qr-placeholder">QR<br/>Code</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftab-content" data-content="design">
+        <div class="ftab-text">
+          <h3>Instant Mobile-Responsive.</h3>
+          <p>Your portfolio looks flawless on every device — desktop, tablet, mobile. Zero extra effort on your part. It just works, always.</p>
+          <ul><li>Auto mobile responsive</li><li>Cross-browser tested</li><li>Fast load times</li><li>Clean, professional layouts</li></ul>
+        </div>
+        <div class="ftab-ui">
+          <div class="fui-window">
+            <div class="fui-bar"><span></span><span></span><span></span></div>
+            <div class="fui-devices">
+              <div class="fui-desktop"><div class="fui-device-screen"><div class="fui-ds-line fui-ds-line--h"></div><div class="fui-ds-line"></div><div class="fui-ds-line fui-ds-line--m"></div></div></div>
+              <div class="fui-mobile"><div class="fui-device-screen fui-device-screen--sm"><div class="fui-ds-line fui-ds-line--h"></div><div class="fui-ds-line"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how" id="how">
+    <div class="section-tag up">04 / Process</div>
+    <h2 class="how__h up" style="--d:.05s">Three Steps.<br/><em>That's it.</em></h2>
+    <div class="how__steps">
+      <div class="how__step up" style="--d:.05s"><div class="how__step-n">01</div><h3>Login &amp; Fill In</h3><p>Sign up, enter your name, skills, projects. Our guided form handles the structure for you.</p></div>
+      <div class="how__arrow up" style="--d:.1s">→</div>
+      <div class="how__step up" style="--d:.15s"><div class="how__step-n">02</div><h3>Customise</h3><p>Reorder sections, update content, add your projects — all from your clean dashboard.</p></div>
+      <div class="how__arrow up" style="--d:.2s">→</div>
+      <div class="how__step how__step--accent up" style="--d:.25s"><div class="how__step-n">03</div><h3>Publish &amp; Share</h3><p>Hit Publish. Live at buildmyfolio.in/yourname in seconds. Share it everywhere.</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonials" id="testimonials">
+    <div class="section-tag up">05 / Testimonials</div>
+    <h2 class="testi__h up" style="--d:.05s">What People<br/><em>Are Saying.</em></h2>
+    <div class="testi__grid">
+      <div class="testi-card up" style="--d:.05s" data-color="violet">
+        <div class="testi-quote">"Finally a portfolio builder that doesn't make me want to cry. Setup was 5 minutes flat. My recruiter loved it."</div>
+        <div class="testi-author"><div class="testi-avatar" style="--c:#7C3AED">RK</div><div><strong>Rahul Kapoor</strong><span>Software Engineer · Bangalore</span></div></div>
+        <div class="testi-stars">★★★★★</div>
+      </div>
+      <div class="testi-card up" style="--d:.12s" data-color="emerald">
+        <div class="testi-quote">"I sent my portfolio link in a job application and got a callback the same day. The design is clean and professional."</div>
+        <div class="testi-author"><div class="testi-avatar" style="--c:#10B981">SP</div><div><strong>Sneha Patel</strong><span>UI/UX Designer · Mumbai</span></div></div>
+        <div class="testi-stars">★★★★★</div>
+      </div>
+      <div class="testi-card up" style="--d:.19s" data-color="orange">
+        <div class="testi-quote">"Went from 'I need a portfolio' to 'here's my URL' in under 10 minutes. BuildMyFolio is genuinely magic."</div>
+        <div class="testi-author"><div class="testi-avatar" style="--c:#F97316">AV</div><div><strong>Arjun Verma</strong><span>Product Manager · Delhi</span></div></div>
+        <div class="testi-stars">★★★★★</div>
+      </div>
+      <div class="testi-card up" style="--d:.26s" data-color="violet">
+        <div class="testi-quote">"My old portfolio was a mess of broken Wix blocks. This is clean, fast, and actually looks like a real developer made it."</div>
+        <div class="testi-author"><div class="testi-avatar" style="--c:#7C3AED">DM</div><div><strong>Divya Menon</strong><span>Full Stack Developer · Pune</span></div></div>
+        <div class="testi-stars">★★★★★</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section pricing" id="pricing">
+    <div class="section-tag up">06 / Pricing</div>
+    <h2 class="pricing__h up" style="--d:.05s">Simple,<br/><em>Honest Pricing.</em></h2>
+    <div class="pricing__grid">
+      <div class="pricing__card up" style="--d:.08s">
+        <div class="pricing__type">One-Time</div>
+        <div class="pricing__price">Flat Fee</div>
+        <p>Pay once. Portfolio live forever.</p>
+        <ul><li>Full dashboard access</li><li>All sections included</li><li>Personal URL</li><li>Mobile responsive</li><li>Instant publish</li></ul>
+        <a href="https://buildmyfolio.in/subscription" class="btn btn--outline btn--sm">See Pricing →</a>
+      </div>
+      <div class="pricing__card pricing__card--feat up" style="--d:.18s">
+        <div class="pricing__popular">POPULAR</div>
+        <div class="pricing__glow"></div>
+        <div class="pricing__type">Monthly</div>
+        <div class="pricing__price">Low Monthly</div>
+        <p>Flexible. Cancel anytime.</p>
+        <ul><li>Everything in One-Time</li><li>Priority support</li><li>Future features</li><li>Razorpay secured</li><li>Cancel anytime</li></ul>
+        <a href="https://buildmyfolio.in/subscription" class="btn btn--violet btn--sm">Get Started →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq" id="faq">
+    <div class="section-tag up">07 / FAQ</div>
+    <h2 class="faq__h up" style="--d:.05s">Questions,<br/><em>Answered.</em></h2>
+    <div class="faq__list">
+      <div class="faq__item up" style="--d:.05s"><button class="faq__q" aria-expanded="false">Do I get a personal domain?<span>+</span></button><div class="faq__a">You get buildmyfolio.in/yourname — clean, shareable, professional. Perfect for most use cases.</div></div>
+      <div class="faq__item up" style="--d:.1s"><button class="faq__q" aria-expanded="false">Is payment secure?<span>+</span></button><div class="faq__a">All payments through Razorpay with bank-grade encryption. We never store your card details.</div></div>
+      <div class="faq__item up" style="--d:.15s"><button class="faq__q" aria-expanded="false">What if I delete my account?<span>+</span></button><div class="faq__a">Data permanently removed within 24 hours. Search engine caches clear naturally over time.</div></div>
+      <div class="faq__item up" style="--d:.2s"><button class="faq__q" aria-expanded="false">Can my account be suspended?<span>+</span></button><div class="faq__a">Only for ToS violations — illegal content, fraud, or platform abuse. We protect the community.</div></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta">
+    <div class="finalcta__orb"></div>
+    <div class="finalcta__inner">
+      <p class="finalcta__tag up">Ready?</p>
+      <h2 class="finalcta__h up" style="--d:.1s">Your Portfolio.<br/><em>Live. Now.</em></h2>
+      <p class="finalcta__sub up" style="--d:.2s">Five minutes. Zero code. Built by Priyanshu Dave for everyone tired of PDF attachments.</p>
+      <a href="https://buildmyfolio.in/login" class="btn btn--violet btn--lg up" style="--d:.3s">Create Your Portfolio — Free</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand"><span class="logo-dot"></span>BuildMyFolio</div>
+      <div class="footer__links"><a href="https://buildmyfolio.in/about-me">Contact</a><a href="https://buildmyfolio.in/subscription">Pricing</a><a href="https://buildmyfolio.in/terms">Terms</a><a href="https://buildmyfolio.in/privacy">Privacy</a></div>
+      <p class="footer__copy">© 2025 Priyanshu Dave</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet/48/rocket.png">
+    <title>Project Details | BuildMyFolio</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --primary-bg: #1E1E1F;
+            --accent-gradient: linear-gradient(135deg, #8AA5FF, #854DFF);
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --emerald: #10b981;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-bg: #f0f2f5;
+            --accent-gradient: linear-gradient(135deg, #5a7dff, #6c3aff);
+            --text-main: #1a1a1a;
+            --text-dim: #5a5a5a;
+            --emerald: #0d966c;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, .clash {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(133, 77, 255, 0.08), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .light-mode .glow-overlay {
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(138, 165, 255, 0.05), transparent 60%);
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-main);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0 1.5rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+            gap: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            margin-left: auto;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        main {
+            padding: 2rem 0;
+            width: 100%;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 4rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #8AA5FF;
+            gap: 12px;
+        }
+
+        /* Project Hero - Vertical Card Layout */
+        .project-hero {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            opacity: 0.05;
+            filter: blur(80px);
+        }
+
+        .project-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+            word-wrap: break-word;
+        }
+
+        .project-title .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 100%;
+        }
+
+        /* Project Stats - Horizontal Layout */
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .stat-item {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #8AA5FF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Content Section - Large Image with Text */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-bottom: 4rem;
+            width: 100%;
+        }
+
+        .content-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.3px;
+            word-wrap: break-word;
+        }
+
+        .content-text p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .content-image {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            aspect-ratio: 4/5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+        }
+
+        .content-image i {
+            font-size: 4rem;
+            color: var(--text-dim);
+            opacity: 0.3;
+        }
+
+        .content-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, var(--accent-gradient) 100%);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        /* Full Width Image Section */
+        .full-image {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            width: 100%;
+        }
+
+        .full-image i {
+            font-size: 5rem;
+            color: var(--text-dim);
+            opacity: 0.2;
+        }
+
+        .full-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, var(--accent-gradient) 100%);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        /* Highlights Grid */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+            width: 100%;
+        }
+
+        .highlight-card {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            border-color: rgba(133, 77, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .highlight-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .highlight-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(133, 77, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8AA5FF;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .highlight-description {
+            color: var(--text-dim);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Tech Stack */
+        .tech-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+
+        .tech-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .tech-category {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .tech-category-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #8AA5FF;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tech-category-title i {
+            font-size: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tech-tag {
+            background: rgba(133, 77, 255, 0.1);
+            color: #8AA5FF;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(133, 77, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(133, 77, 255, 0.2);
+            border-color: rgba(133, 77, 255, 0.4);
+        }
+
+        /* Results Section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+            width: 100%;
+        }
+
+        .result-card {
+            background: var(--accent-gradient);
+            border-radius: 16px;
+            padding: 2.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .result-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .result-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-description {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .content-image {
+                min-height: 250px;
+            }
+
+            .project-title {
+                font-size: 1.8rem;
+            }
+
+            .content-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .project-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .project-hero {
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .tech-section {
+                padding: 2rem;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+                padding: 1rem 0 1.5rem 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            body {
+                overflow-x: hidden;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .content-text h2 {
+                font-size: 1.2rem;
+            }
+
+            .project-stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .stat-item {
+                padding: 1rem;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+            }
+
+            .stat-value {
+                font-size: 1.1rem;
+            }
+
+            .project-hero {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .full-image {
+                min-height: 200px;
+                margin: 2rem 0;
+            }
+
+            .highlights-grid {
+                gap: 1rem;
+            }
+
+            .tech-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            header {
+                padding: 1rem 0;
+                margin-bottom: 1rem;
+            }
+
+            main {
+                padding: 1rem 0;
+            }
+
+            .back-link {
+                margin-bottom: 2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-overlay"></div>
+    <div class="grid-pattern"></div>
+
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <header>
+        <a href="portfolio1.html" class="logo">
+            <i class="fas fa-rocket"></i> BuildMyFolio
+        </a>
+        <nav class="nav-links">
+            <a href="portfolio1.html#home" class="nav-link">Home</a>
+            <a href="portfolio1.html#about" class="nav-link">About</a>
+            <a href="portfolio1.html#projects" class="nav-link">Projects</a>
+            <a href="portfolio1.html#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="portfolio1.html#projects" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+
+            <!-- Project Hero -->
+            <section class="project-hero">
+                <div class="project-hero-content">
+                    <h1 class="project-title">
+                        <span class="gradient-text">SaaS Platform</span> Overhaul
+                    </h1>
+                    <p class="project-description">
+                        Complete redesign and reconstruction of a legacy SaaS application. Built modern, scalable infrastructure with enhanced user experience, improved performance by 300%, and increased user retention by 45%.
+                    </p>
+                </div>
+
+                <div class="project-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Duration</span>
+                        <span class="stat-value">8 Months</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Team Size</span>
+                        <span class="stat-value">12 People</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Role</span>
+                        <span class="stat-value">Lead Designer</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value">Live</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Section 1 -->
+            <section class="content-section">
+                <div class="content-text">
+                    <h2>The Challenge</h2>
+                    <p>
+                        The existing platform had accumulated technical debt over 5 years. Users struggled with slow performance, confusing navigation, and outdated design. We needed to reimagine the entire product while maintaining backward compatibility with existing data.
+                    </p>
+                    <p>
+                        Key challenges included migrating 50GB+ of user data, maintaining service uptime during transition, and ensuring all custom integrations continued working seamlessly.
+                    </p>
+                </div>
+                <div class="content-image">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+            </section>
+
+            <!-- Highlights -->
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="highlight-title">3x Performance</h3>
+                    <p class="highlight-description">Optimized database queries and caching strategies resulted in 300% faster load times</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="highlight-title">Redesigned UI</h3>
+                    <p class="highlight-description">Complete visual overhaul with modern design system based on extensive user research</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="highlight-title">Enhanced Security</h3>
+                    <p class="highlight-description">Implemented enterprise-grade security standards and compliance certifications</p>
+                </div>
+            </div>
+
+            <!-- Full Image Section -->
+            <div class="full-image">
+                <i class="fas fa-window-maximize"></i>
+            </div>
+
+            <!-- Content Section 2 -->
+            <section class="content-section">
+                <div class="content-image">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="content-text">
+                    <h2>Our Approach</h2>
+                    <p>
+                        We started by conducting extensive user interviews and analyzing usage patterns. This informed our design strategy and feature prioritization.
+                    </p>
+                    <p>
+                        Using a phased rollout approach, we gradually migrated users to the new platform while maintaining both systems in parallel. This zero-downtime migration was critical to customer retention.
+                    </p>
+                    <p>
+                        Post-launch, we invested heavily in customer education through webinars, documentation, and personalized onboarding sessions to ensure smooth adoption.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Results -->
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">45%</div>
+                    <div class="result-description">Increase in User Retention</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">300%</div>
+                    <div class="result-description">Performance Improvement</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">98%</div>
+                    <div class="result-description">Customer Satisfaction</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">2.5x</div>
+                    <div class="result-description">Revenue Growth YoY</div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <section class="tech-section">
+                <h2>Technology Stack</h2>
+                <div class="tech-grid">
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-palette"></i> Design
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Figma</span>
+                            <span class="tech-tag">Adobe XD</span>
+                            <span class="tech-tag">Framer</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-code"></i> Frontend
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Next.js</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-server"></i> Backend
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">GraphQL</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-cloud"></i> DevOps
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Section 3 -->
+            <section class="content-section">
+                <div class="content-text">
+                    <h2>Lessons Learned</h2>
+                    <p>
+                        This project reinforced the importance of stakeholder communication during major transitions. Clear timelines, honest progress updates, and proactive customer support were critical to success.
+                    </p>
+                    <p>
+                        We also learned that investing in comprehensive testing infrastructure early saved countless hours during development. Automated testing was invaluable for catching regression bugs as we refactored the codebase.
+                    </p>
+                </div>
+                <div class="content-image">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function toggleTheme() {
+            document.documentElement.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.documentElement.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+
+        // Load theme preference
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-mode');
+        }
+
+        // Mouse tracking for glow effect
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.querySelector('.glow-overlay').style.setProperty('--mouse-x', x + '%');
+            document.querySelector('.glow-overlay').style.setProperty('--mouse-y', y + '%');
+        });
+    </script>
+</body>
+</html>

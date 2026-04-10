@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet/48/rocket.png">
+    <title>Launching Soon | BuildMyFolio</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --primary-bg: #1E1E1F;
+            --accent-gradient: linear-gradient(135deg, #8AA5FF, #854DFF);
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --emerald: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .clash {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        /* Abstract Background Elements */
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(133, 77, 255, 0.15), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header / Logo */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(133, 77, 255, 0.1);
+            border: 1px solid rgba(133, 77, 255, 0.2);
+            border-radius: 99px;
+            color: #A5B4FC;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(133, 77, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 5px rgba(138, 165, 255, 0.2)); }
+            to { filter: drop-shadow(0 0 15px rgba(138, 165, 255, 0.4)); }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 4rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-value {
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Clash Display', sans-serif;
+            margin-bottom: 8px;
+            background: linear-gradient(180deg, #fff 0%, #71717a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Feature Card Shine */
+        .feature-card {
+            background: rgba(18,18,18,0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::after {
+            left: 100%;
+            top: 100%;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(133, 77, 255, 0.1);
+            border: 1px solid rgba(133, 77, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8AA5FF;
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(138, 165, 255, 0.05), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(133, 77, 255, 0.3);
+            background: rgba(18, 18, 18, 0.8);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(133, 77, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8AA5FF;
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 8rem;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            color: #8AA5FF;
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(138, 165, 255, 0.5);
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .heart {
+            color: #f43f5e;
+            animation: beat 1s infinite alternate;
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+
+        .copyright {
+            color: #52525b;
+            font-size: 0.75rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .countdown-container { gap: 12px; }
+            .countdown-item { min-width: 70px; }
+            .countdown-value { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+        }
+
+        /* Animation for values */
+        .value-change {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-overlay"></div>
+    <div class="grid-pattern"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <!-- <img src="{{ asset('images/logo.png') }}" alt="BuildMyFolio Logo"> -->
+                 <!-- we have to increate the size of the following text  -->
+                <span class="clash" style="font-size: 2rem;">BuildMyFolio</span>
+            </div>
+        </header>
+
+        <section class="hero">
+            <span class="badge">Next Generation Portfolios</span>
+            <h1>The Wait is Almost Over.<br><span class="gradient-text">We're Going Live.</span></h1>
+            <p>Ditch the PDF resumes. Get ready for a professional, mobile-responsive portfolio built in minutes, not months.</p>
+
+            <div class="countdown-container" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Mins</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Secs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Story Section -->
+        <div style="background: rgba(133, 77, 255, 0.05); border: 1px solid rgba(133, 77, 255, 0.1); border-radius: 32px; padding: 4rem 2rem; margin-bottom: 6rem; text-align: center;">
+            <h2 class="clash" style="font-size: 2.5rem; margin-bottom: 1.5rem;">The <span class="gradient-text">Story</span></h2>
+            <p style="color: var(--text-dim); font-size: 1.15rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                At first it was <strong>"just for me."</strong> Then I realized there are thousands of busy, perfection-phobic folks who need a quick, elegant resume site—without selling their souls (or wallets). That’s how BuildMyFolio became the answer to <span class="gradient-text" style="font-weight: 700;">"Ugh, not another PDF!"</span>
+            </p>
+        </div>
+
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 4rem;">What You <span class="gradient-text">Get?</span></h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <h3>Zero Coding Hub</h3>
+                <p>Forget <code>&lt;div&gt;</code>-mania. Add, edit, or reorder sections directly from your dashboard. No CSS wizardry required.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <h3>Instant Mobile-Ready</h3>
+                <p>Your portfolio looks great on desktop, tablet, or the tiny phone your boss borrowed—so you always come off polished.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3>Lightning-Fast Updates</h3>
+                <p>New project? Career pivot? Five-minute dashboard edit, one-click publish—and voilà, your site is up to date.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                </div>
+                <h3>Shareable—Everywhere</h3>
+                <p>Send a simple URL instead of juggling PDFs. Impress recruiters or your Grandma—all from the same professional link.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+                <h3>Ditch the Headaches</h3>
+                <p>Ditch the drag-and-drop headaches and endless tweaks. Fill details, click "Publish," and you are live!</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-money-bill-trend-up"></i>
+                </div>
+                <h3>Transparent Pricing</h3>
+                <p>A tiny flat fee unlocks everything. No hidden gates, no complicated subscriptions. Just professional value.</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-socials">
+                <a href="https://www.linkedin.com/in/priyanshu-dave2001" class="social-link" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <!-- <a href="mailto:priyanshuoffice03@gmail.com" class="social-link" title="Email"><i class="fa-solid fa-envelope"></i></a> -->
+            </div>
+            <p class="footer-text">Built with <span class="heart">❤️</span> for the perfection-phobic builders.</p>
+            <p class="copyright">&copy; 2026 BuildMyFolio. All rights reserved. Crafting digital identities since 2025.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set the launch date: February 15, 2026 00:00:00
+        const launchDate = new Date("Feb 15, 2026 00:00:00").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = "<h2 class='clash'>WE ARE LIVE!</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const updateElement = (id, value) => {
+                const el = document.getElementById(id);
+                const strValue = value < 10 ? "0" + value : value;
+                if (el.innerText !== strValue.toString()) {
+                    el.innerText = strValue;
+                    el.classList.remove('value-change');
+                    void el.offsetWidth; // Trigger reflow
+                    el.classList.add('value-change');
+                }
+            };
+
+            updateElement('days', days);
+            updateElement('hours', hours);
+            updateElement('minutes', minutes);
+            updateElement('seconds', seconds);
+        };
+
+        // Update every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Mouse tracking for background glow
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+        });
+    </script>
+</body>
+</html>

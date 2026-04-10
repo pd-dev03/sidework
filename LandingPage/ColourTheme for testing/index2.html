@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Builder · Red Luxe</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        /* ---------- 🍷 DEEP LUXURY RED + WARM WHITE SYSTEM ---------- */
+        :root {
+            /* 🎨 BACKGROUND – Warm white with depth */
+            --bg-main: #FAF7F5;
+            --bg-card: #FFFFFF;
+            --bg-soft: #FFFCFA;
+            --border-light: #EAE5E2;
+            
+            /* 🍷 RED FAMILY – Deep luxury red (wine/burgundy) */
+            --color-primary: #B22234;      /* Rich wine red */
+            --color-primary-hover: #8B1A1A; /* Deep burgundy */
+            --color-primary-light: #FDF3F3; /* Rose tint */
+            --color-primary-soft: #FFE9E9;  /* Blush */
+            
+            /* ✦ TEXT – Near black, premium */
+            --text-main: #1E1E1E;
+            --text-body: #2C3E4F;
+            --text-secondary: #6B7280;
+            --text-dim: #8B8F95;
+            
+            /* ✦ Gradients – Red only */
+            --gradient-primary: linear-gradient(135deg, #B22234, #8B1A1A);
+            --gradient-soft: linear-gradient(135deg, #C2363C, #9E2024);
+            --gradient-wine: linear-gradient(135deg, #A51C30, #7A1725);
+            
+            /* ✦ Button grays */
+            --gray-bg: #F3F4F6;
+            --gray-bg-hover: #E5E7EB;
+            
+            /* Effects */
+            --shadow-sm: 0 10px 30px -10px rgba(178, 34, 52, 0.08);
+            --shadow-md: 0 20px 40px -12px rgba(178, 34, 52, 0.12);
+            --shadow-lg: 0 30px 60px -15px rgba(178, 34, 52, 0.15);
+            
+            /* Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .clash {
+            font-family: 'Clash Display', sans-serif;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        /* ----- PREMIUM BACKGROUND EFFECTS (adapted from DevOps portfolio) ----- */
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), 
+                        rgba(178, 34, 52, 0.05), 
+                        transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border-light) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, var(--border-light) 0.5px, transparent 0.5px);
+            background-size: 40px 40px;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.1;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-primary);
+            top: 5%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--gradient-wine);
+            top: 60%;
+            right: 5%;
+            animation-delay: -7s;
+        }
+
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #C0394B, #A52A2A);
+            bottom: 10%;
+            left: 15%;
+            animation-delay: -14s;
+        }
+
+        .shape-4 {
+            width: 250px;
+            height: 250px;
+            background: var(--gradient-soft);
+            top: 30%;
+            right: 25%;
+            animation-delay: -21s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+            }
+            25% { 
+                transform: translateY(-30px) rotate(5deg) scale(1.05); 
+            }
+            50% { 
+                transform: translateY(15px) rotate(-5deg) scale(0.95); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(3deg) scale(1.02); 
+            }
+        }
+
+        /* Scroll Progress - Red */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-primary);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+            position: relative;
+        }
+
+        /* ----- BUTTON SYSTEM – All red, no blues/greens ----- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.6rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        /* 🔴 PRIMARY – Deep luxury red */
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(178, 34, 52, 0.2);
+        }
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(178, 34, 52, 0.3);
+        }
+
+        /* ⚪ SECONDARY – Soft gray */
+        .btn-secondary {
+            background: var(--gray-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-light);
+        }
+        .btn-secondary:hover {
+            background: var(--gray-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        /* 🔘 OUTLINE RED – For "Add New" buttons */
+        .btn-outline-red {
+            background: transparent;
+            border: 1.5px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+        .btn-outline-red:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* 🌹 LIGHT RED – Alternative for secondary adds */
+        .btn-light-red {
+            background: var(--color-primary-light);
+            color: var(--color-primary-hover);
+            border: 1px solid var(--color-primary);
+        }
+        .btn-light-red:hover {
+            background: #FCE4E4;
+            transform: translateY(-2px);
+        }
+
+        /* Cards – Premium white with subtle red glow */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 2rem 2.2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Red accent line on cards */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--gradient-primary);
+            transition: height 0.3s ease;
+        }
+
+        .card:hover::after {
+            height: 100%;
+        }
+
+        /* Form inputs – Red focus */
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: white;
+            transition: all 0.2s ease;
+            color: var(--text-body);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(178, 34, 52, 0.08);
+        }
+
+        label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Red gradient text for highlights */
+        .gradient-red {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        /* Section headers with red accent */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-icon {
+            font-size: 2.2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Template selection – Red border + light red bg */
+        .template-selected {
+            border: 2px solid var(--color-primary);
+            background: var(--color-primary-light);
+            padding: 1.2rem;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Toggle – Red */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 28px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #E0DCD9;
+            transition: 0.2s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.2s;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        input:checked + .slider {
+            background: var(--color-primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(28px);
+        }
+
+        /* MODAL – Premium with red accent */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            animation: modalSlide 0.3s ease;
+            position: relative;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient-primary);
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            font-size: 2.2rem;
+            cursor: pointer;
+            color: var(--text-dim);
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--color-primary);
+        }
+
+        /* Subscription plans */
+        .subscription-plan {
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscription-plan::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .subscription-plan:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .subscription-plan:hover::before {
+            opacity: 1;
+        }
+
+        .subscription-plan.selected {
+            border: 2px solid var(--color-primary);
+            background: var(--color-primary-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Testimonial card with red left border */
+        .testimonial-card {
+            background: #FDF8F6;
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            border-left: 6px solid var(--color-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Badge with red */
+        .red-badge {
+            background: var(--color-primary-light);
+            color: var(--color-primary-hover);
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--color-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Pipeline/Progress - Red theme */
+        .pipeline-visual {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .pipeline-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stage-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid var(--border-light);
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pipeline-stage:hover .stage-icon {
+            border-color: var(--color-primary);
+            background: var(--color-primary-light);
+            transform: scale(1.05);
+        }
+
+        .stage-check {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .stage-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .pipeline-connector {
+            position: absolute;
+            top: 35px;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: var(--border-light);
+            z-index: 1;
+        }
+
+        .pipeline-flow {
+            position: absolute;
+            top: 35px;
+            left: 60px;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            z-index: 2;
+            animation: flow 8s infinite ease-in-out;
+        }
+
+        @keyframes flow {
+            0% { width: 0; opacity: 0; }
+            10% { width: 10%; opacity: 1; }
+            30% { width: 30%; }
+            50% { width: 50%; }
+            70% { width: 70%; }
+            90% { width: 90%; }
+            100% { width: calc(100% - 120px); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container { padding: 1.5rem; }
+            .section-title { font-size: 2.2rem; }
+            .pipeline-visual { flex-wrap: wrap; gap: 1.5rem; }
+            .pipeline-connector, .pipeline-flow { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Premium Background Effects – Red Theme -->
+    <div class="glow-overlay"></div>
+    <div class="grid-pattern"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header with Red Gradient -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+            <div>
+                <h1 style="font-size: 2.8rem; margin-bottom: 0.3rem;">
+                    <span class="gradient-red">Portfolio</span> Builder
+                </h1>
+                <p style="color: var(--text-secondary); font-size: 1.2rem;">
+                    Where <span class="gradient-red" style="font-weight: 600;">your career</span> takes flight ✦
+                </p>
+            </div>
+            <div class="red-badge">
+                <i class="fas fa-wine-glass-alt"></i> Wine Red Edition
+            </div>
+        </div>
+
+        <!-- Action Buttons – All Red Theme -->
+        <div style="display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 4rem;">
+            <button class="btn btn-primary" id="openFormModalBtn">
+                <i class="fas fa-plus-circle"></i> New Project
+            </button>
+            <button class="btn btn-outline-red" id="openTestimonialModalBtn">
+                <i class="fas fa-star"></i> Add Testimonial
+            </button>
+            <a href="#loginSection" class="btn btn-light-red">
+                <i class="fas fa-sign-in-alt"></i> Login / Register
+            </a>
+            <a href="#subscriptionSection" class="btn btn-secondary">
+                <i class="fas fa-crown"></i> Subscription
+            </a>
+        </div>
+
+        <!-- Pipeline / Progress Visualization – Red Theme -->
+        <div class="card" style="margin-bottom: 4rem; padding: 2.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.8rem; display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-stream gradient-red"></i> 
+                    Portfolio Pipeline
+                </h3>
+                <div class="red-badge">
+                    <span class="status-dot" style="width: 8px; height: 8px; background: var(--color-primary); border-radius: 50%; display: inline-block; margin-right: 8px;"></span>
+                    Active: 4 Projects
+                </div>
+            </div>
+            
+            <div class="pipeline-visual">
+                <div class="pipeline-connector"></div>
+                <div class="pipeline-flow"></div>
+                
+                <div class="pipeline-stage">
+                    <div class="stage-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="stage-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <span class="stage-label">Draft</span>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <span class="stage-label">Design</span>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <span class="stage-label">Build</span>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <span class="stage-label">Review</span>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <span class="stage-label">Deploy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Selection Demo – Red Border -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem;">
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <span style="background: var(--color-primary-light); padding: 0.8rem; border-radius: var(--radius-md);">
+                        <i class="fas fa-palette" style="color: var(--color-primary);"></i>
+                    </span>
+                    <h3 style="font-size: 1.4rem;">Template Selection</h3>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Current selection:</p>
+                <div class="template-selected">
+                    <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 1.3rem;"></i>
+                    <div>
+                        <strong style="font-size: 1.1rem;">Template “Burgundy”</strong>
+                        <p style="color: var(--text-secondary); margin-top: 0.2rem;">Selected with red border & light red bg</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <span style="background: var(--color-primary-light); padding: 0.8rem; border-radius: var(--radius-md);">
+                        <i class="fas fa-bolt" style="color: var(--color-primary);"></i>
+                    </span>
+                    <h3 style="font-size: 1.4rem;">Quick Actions</h3>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <button class="btn btn-primary" style="background: var(--color-primary-hover);">Save & Next →</button>
+                    <button class="btn btn-outline-red"><i class="fas fa-plus"></i> Add New</button>
+                </div>
+                <p style="color: var(--text-secondary); margin-top: 1.2rem; font-size: 0.85rem;">
+                    ✦ All primary buttons: Wine Red • Add New: Outline Red
+                </p>
+            </div>
+        </div>
+
+        <!-- LOGIN / REGISTRATION SECTION -->
+        <section id="loginSection" style="margin-bottom: 5rem;">
+            <div class="card" style="padding: 2.5rem;">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2 class="section-title"><span class="gradient-red">Sign</span> In</h2>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;">
+                    <!-- Login -->
+                    <div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 1.8rem;">Login</h3>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="hello@design.dev" value="demo@portfolio.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="••••••••">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;"><i class="fas fa-arrow-right-to-bracket"></i> Log in</button>
+                        
+                        <div style="margin-top: 2rem;">
+                            <div style="position: relative; text-align: center; margin-bottom: 1.2rem;">
+                                <span style="background: white; padding: 0 1rem; color: var(--text-secondary); font-size: 0.8rem;">OR</span>
+                                <hr style="margin: 1rem 0; border-color: var(--border-light);">
+                            </div>
+                            
+                            <!-- Google Login Button (Styled) -->
+                            <div style="display: flex; justify-content: center;">
+                                <div class="g-signin2" data-width="250" data-height="45" data-longtitle="true" data-theme="light" data-onsuccess="onGoogleSignIn"></div>
+                            </div>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary); text-align: center; margin-top: 1rem;">
+                                Google Sign-In • Red theme
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Register -->
+                    <div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 1.8rem;">Register</h3>
+                        <div class="form-group">
+                            <label>Full name</label>
+                            <input type="text" placeholder="Alex Morgan">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="alex@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Min. 8 characters">
+                        </div>
+                        <button class="btn btn-outline-red" style="width: 100%;">Create account</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSCRIPTION SECTION -->
+        <section id="subscriptionSection" style="margin-bottom: 5rem;">
+            <div class="card">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-crown"></i></div>
+                    <h2 class="section-title"><span class="gradient-red">Premium</span> Plans</h2>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <!-- Basic -->
+                    <div class="subscription-plan">
+                        <h3 style="font-size: 1.4rem;">Basic</h3>
+                        <div class="price">$0</div>
+                        <p style="margin: 1rem 0; color: var(--text-secondary);">Essential portfolio</p>
+                        <ul style="list-style: none; margin: 1.8rem 0;">
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: var(--color-primary); margin-right: 0.8rem;"></i> 1 portfolio</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: var(--color-primary); margin-right: 0.8rem;"></i> Red accent UI</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: var(--color-primary); margin-right: 0.8rem;"></i> Basic templates</li>
+                        </ul>
+                        <button class="btn btn-outline-red" style="width: 100%;">Current</button>
+                    </div>
+                    
+                    <!-- Pro – Selected -->
+                    <div class="subscription-plan selected">
+                        <span style="position: absolute; top: 1rem; right: 1.5rem; background: var(--color-primary); color: white; padding: 0.2rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">POPULAR</span>
+                        <h3 style="font-size: 1.4rem; color: var(--color-primary);">Pro</h3>
+                        <div class="price">$12</div>
+                        <span style="color: var(--text-secondary);">/ month</span>
+                        <ul style="list-style: none; margin: 1.8rem 0;">
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--color-primary); margin-right: 0.8rem;"></i> Everything in Basic</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--color-primary); margin-right: 0.8rem;"></i> Advanced modals</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--color-primary); margin-right: 0.8rem;"></i> Google Sign-In</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--color-primary); margin-right: 0.8rem;"></i> Priority support</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%;">Subscribe Now</button>
+                    </div>
+                    
+                    <!-- Studio -->
+                    <div class="subscription-plan">
+                        <h3 style="font-size: 1.4rem;">Studio</h3>
+                        <div class="price">$32</div>
+                        <span style="color: var(--text-secondary);">/ month</span>
+                        <p style="margin: 1.5rem 0; color: var(--text-body);">For teams & agencies</p>
+                        <button class="btn btn-secondary" style="width: 100%;">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 3rem 0 1rem; border-top: 1px solid var(--border-light);">
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem;">
+                <a href="#" style="color: var(--text-secondary); font-size: 1.3rem; transition: color 0.2s;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color: var(--text-secondary); font-size: 1.3rem; transition: color 0.2s;"><i class="fab fa-linkedin"></i></a>
+                <a href="#" style="color: var(--text-secondary); font-size: 1.3rem; transition: color 0.2s;"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" style="color: var(--text-secondary); font-size: 1.3rem; transition: color 0.2s;"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">✦ Wine Red • Warm White • Premium Minimal ✦</p>
+            <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 1rem;">© 2026 Portfolio Builder — Redefining portfolios with red</p>
+        </div>
+    </div>
+
+    <!-- RICH FORM MODAL -->
+    <div id="richFormModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span style="color: var(--color-primary);">●</span> New Project</h2>
+                <span class="close-modal" id="closeFormModalBtn">&times;</span>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" placeholder="e.g. UX Portfolio 2026" value="Wine Red Portfolio">
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label>Email</label>
+                        <input type="email" placeholder="client@example.com" value="hello@portfolio.dev">
+                    </div>
+                    <div>
+                        <label>Pages</label>
+                        <input type="number" value="8">
+                    </div>
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label>Start Date</label>
+                        <input type="date" value="2025-05-01">
+                    </div>
+                    <div>
+                        <label>End Date</label>
+                        <input type="date" value="2025-06-15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Features</label>
+                    <div style="display: flex; gap: 1.5rem;">
+                        <div class="checkbox-group" style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="seo" checked style="width: 18px; height: 18px;">
+                            <label for="seo" style="text-transform: none; font-weight: 400;">SEO</label>
+                        </div>
+                        <div class="checkbox-group" style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="analytics" style="width: 18px; height: 18px;">
+                            <label for="analytics" style="text-transform: none; font-weight: 400;">Analytics</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-weight: 500;">Dark mode support</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <hr style="margin: 1.8rem 0; border-color: var(--border-light);">
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" class="btn btn-secondary close-trigger">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-primary" style="background: var(--color-primary-hover);">Save & Next →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TESTIMONIAL MODAL -->
+    <div id="testimonialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span style="color: var(--color-primary);">"</span> Add Testimonial</h2>
+                <span class="close-modal" id="closeTestimonialModalBtn">&times;</span>
+            </div>
+            <div style="background: var(--color-primary-light); padding: 1rem 1.5rem; border-radius: var(--radius-md); margin-bottom: 2rem; color: var(--color-primary-hover);">
+                <i class="fas fa-quote-left" style="margin-right: 0.5rem;"></i> Share your client's feedback
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Jane Cooper">
+                </div>
+                <div class="form-group">
+                    <label>Role & Company</label>
+                    <input type="text" placeholder="Product Director, Stellar">
+                </div>
+                <div class="form-group">
+                    <label>Testimonial</label>
+                    <textarea rows="3" placeholder="Their work on our portfolio was exceptional..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Rating</label>
+                    <select>
+                        <option>5 – Excellent</option>
+                        <option>4 – Great</option>
+                        <option>3 – Good</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                    <span style="font-weight: 500;">Display publicly</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" class="btn btn-secondary close-trigger">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+            
+            <!-- Preview Card -->
+            <hr style="margin: 2rem 0 1.5rem;">
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left" style="color: var(--color-primary); font-size: 1.2rem; opacity: 0.7;"></i>
+                <p style="font-style: italic; margin: 0.8rem 0; color: var(--text-body);">
+                    "The wine red theme feels incredibly premium. Clients love it."
+                </p>
+                <p style="font-weight: 600;">— R. Ramirez, <span style="color: var(--text-secondary);">Design Lead</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Sign-In Library -->
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+        // Mouse tracking for glow overlay
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+        });
+
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Google Sign-In callback
+        function onGoogleSignIn(googleUser) {
+            console.log('Google Sign-In successful - Red theme');
+        }
+
+        // Modal functionality
+        const formModal = document.getElementById('richFormModal');
+        const testimonialModal = document.getElementById('testimonialModal');
+        
+        // Open modals
+        document.getElementById('openFormModalBtn').addEventListener('click', () => {
+            formModal.style.display = 'flex';
+        });
+        
+        document.getElementById('openTestimonialModalBtn').addEventListener('click', () => {
+            testimonialModal.style.display = 'flex';
+        });
+        
+        // Close modals
+        document.getElementById('closeFormModalBtn').addEventListener('click', () => {
+            formModal.style.display = 'none';
+        });
+        
+        document.getElementById('closeTestimonialModalBtn').addEventListener('click', () => {
+            testimonialModal.style.display = 'none';
+        });
+        
+        // Close with close-trigger buttons
+        document.querySelectorAll('.close-trigger').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) modal.style.display = 'none';
+            });
+        });
+        
+        // Close when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+        
+        // Prevent form submission
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('✨ Saved with Wine Red theme');
+                const modal = form.closest('.modal');
+                if (modal) modal.style.display = 'none';
+            });
+        });
+
+        // Animate skill bars on scroll (if added later)
+        console.log('Portfolio Builder – Wine Red Edition');
+    </script>
+</body>
+</html>

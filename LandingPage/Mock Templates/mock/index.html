@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildMyFolio — Navy Blue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet"/>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06080F;--s1:#0C0F1A;--s2:#121625;--s3:#1A1F30;--border:rgba(79,140,255,.12);
+  --blue:#4F8CFF;--blue2:#3B7AEE;--blue-soft:rgba(79,140,255,.1);--blue-glow:rgba(79,140,255,.2);
+  --text:#EEF2FF;--muted:rgba(238,242,255,.45);--muted2:rgba(238,242,255,.18);
+  --green:#34D399;--ease:cubic-bezier(.16,1,.3,1);
+  --display:'Bricolage Grotesque',sans-serif;--body:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.7;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.noise{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(79,140,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(79,140,255,.025) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(79,140,255,.06),transparent 65%);top:-200px;right:-200px;animation:of 18s ease-in-out infinite}
+.orb2{width:450px;height:450px;background:radial-gradient(circle,rgba(79,140,255,.04),transparent 65%);bottom:0;left:-100px;animation:of 24s ease-in-out infinite reverse}
+@keyframes of{0%,100%{transform:scale(1)}50%{transform:scale(1.1) translateY(-20px)}}
+
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.75rem 1.8rem;border-radius:8px;font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.02em;transition:all .25s var(--ease);cursor:pointer;border:1px solid transparent}
+.btn--blue{background:var(--blue);color:#fff}
+.btn--blue:hover{background:var(--blue2);box-shadow:0 0 40px var(--blue-glow);transform:translateY(-2px)}
+.btn--outline{background:transparent;color:var(--text);border-color:rgba(79,140,255,.35)}
+.btn--outline:hover{border-color:var(--blue);background:var(--blue-soft);transform:translateY(-2px)}
+.btn--lg{padding:.9rem 2.3rem;font-size:.82rem}
+
+.fi{opacity:0;transform:translateY(20px);animation:fiA .7s var(--ease) forwards;animation-delay:var(--d,0s)}
+@keyframes fiA{to{opacity:1;transform:translateY(0)}}
+.up{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.up.in{opacity:1;transform:translateY(0)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:1.2rem 5rem;display:flex;align-items:center;justify-content:space-between;transition:all .35s}
+.nav.stuck{background:rgba(6,8,15,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-brand{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.4rem}
+.nb{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:2rem;font-size:.82rem;color:var(--muted)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--blue);color:#fff!important;padding:.45rem 1.2rem;border-radius:7px;font-family:var(--display);font-weight:700;font-size:.75rem;transition:all .25s!important}
+.nav-cta:hover{background:var(--blue2)!important;box-shadow:0 0 20px var(--blue-glow)}
+
+/* HERO — Two column */
+.hero{min-height:100vh;padding:9rem 5rem 5rem;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-label{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border-radius:6px;background:var(--blue-soft);border:1px solid rgba(79,140,255,.3);font-size:.68rem;letter-spacing:.1em;color:var(--blue);margin-bottom:2rem;font-family:var(--display);font-weight:700;text-transform:uppercase}
+.hero-h{font-family:var(--display);font-weight:800;font-size:clamp(2.5rem,4.5vw,4rem);line-height:1.0;letter-spacing:-.04em;margin-bottom:1.5rem}
+.hero-h .bl{color:var(--blue)}
+.hero-h .dim{opacity:.3}
+.hero-sub{font-size:.94rem;color:var(--muted);max-width:430px;margin-bottom:2.5rem;line-height:1.85}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero-tags{display:flex;gap:.5rem;flex-wrap:wrap}
+.hero-tag{font-size:.7rem;padding:.3rem .75rem;border-radius:4px;background:var(--s2);border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;gap:.3rem}
+.hero-tag .t-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* DASHBOARD WINDOW */
+.dash-win{position:relative}
+.dw{border-radius:14px;overflow:hidden;border:1px solid rgba(79,140,255,.2);box-shadow:0 40px 80px rgba(0,0,0,.8);background:var(--s1)}
+.dw-bar{background:#06080F;padding:.7rem 1rem;display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--border)}
+.dw-dot{width:10px;height:10px;border-radius:50%}
+.dw-title-bar{font-family:var(--display);font-size:.7rem;font-weight:700;flex:1;text-align:center;color:var(--muted)}
+.dw-logo{font-family:var(--display);font-weight:800;font-size:.8rem}
+.dw-logo .b{color:var(--blue)}
+.dw-top-right{display:flex;align-items:center;gap:.8rem;font-size:.68rem;color:var(--muted)}
+.dw-notif{position:relative;cursor:pointer}
+.dw-nbadge{position:absolute;top:-4px;right:-4px;width:13px;height:13px;border-radius:50%;background:#EF4444;font-size:.45rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #06080F}
+.dw-body{display:flex}
+.dw-sb{width:165px;border-right:1px solid var(--border);background:#06080F;flex-shrink:0;display:flex;flex-direction:column}
+.dw-sb-active{font-size:.7rem;font-weight:700;color:#fff;padding:.6rem 1rem;background:var(--blue-soft);border-left:2px solid var(--blue);display:flex;align-items:center;gap:.4rem}
+.dw-sb-item{font-size:.68rem;color:var(--muted);padding:.52rem 1rem;cursor:pointer;display:flex;align-items:center;gap:.4rem;border-left:2px solid transparent;transition:background .2s}
+.dw-sb-item:hover{background:var(--s2)}
+.dw-sb-sep{height:1px;background:var(--border);margin:.3rem 0}
+.dw-sb-circle{width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.4rem;flex-shrink:0;opacity:.5}
+.dw-sb-item.done .dw-sb-circle{background:var(--green);border-color:var(--green);color:#060F1A;opacity:1}
+.dw-sb-item.active2 .dw-sb-circle{background:var(--blue);border-color:var(--blue);color:#fff;opacity:1}
+.dw-sb-footer{margin-top:auto;border-top:1px solid var(--border);padding:.7rem 1rem}
+.dw-sb-user{display:flex;align-items:center;gap:.4rem;font-size:.63rem}
+.dw-user-av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#9333EA);display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:#fff;flex-shrink:0}
+.dw-main{flex:1;overflow:hidden;max-height:370px}
+/* Dashboard main header */
+.dw-main-head{padding:.9rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dw-main-title{font-family:var(--display);font-weight:700;font-size:.9rem;line-height:1.3}
+.dw-main-title .b{color:var(--blue)}
+.dw-pub-btn{background:linear-gradient(135deg,var(--blue),#9333EA);color:#fff;border:none;padding:.38rem .9rem;border-radius:5px;font-family:var(--display);font-size:.65rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.3rem}
+.dw-pulse{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse .9s step-end infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0}}
+
+/* Profile Settings view */
+.dw-ps-content{padding:1.2rem}
+.dw-ps-title{font-family:var(--display);font-weight:700;font-size:.9rem;margin-bottom:1rem}
+.dw-ps-title .b{color:var(--blue)}
+.dw-ps-section{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;margin-bottom:1rem}
+.dw-ps-label-col{font-size:.68rem}
+.dw-ps-label-col h4{font-weight:600;margin-bottom:.2rem}
+.dw-ps-label-col p{color:var(--muted);font-size:.62rem;line-height:1.4}
+.dw-ps-form{background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:.8rem}
+.dw-form-group{margin-bottom:.6rem}
+.dw-form-label{font-size:.62rem;font-weight:600;margin-bottom:.25rem;display:flex;gap:.2rem}
+.dw-form-req{color:#EF4444}
+.dw-form-input{width:100%;background:var(--s3);border:1px solid var(--border);border-radius:5px;padding:.38rem .6rem;font-size:.68rem;color:var(--text);font-family:var(--body);outline:none}
+.dw-form-input.active{border-color:var(--blue);box-shadow:0 0 0 2px rgba(79,140,255,.1)}
+.dw-form-input.ph{color:var(--muted)}
+
+/* PROJECT MODAL inside right panel */
+.dw-modal-overlay{padding:1rem;background:rgba(6,8,15,.5)}
+.dw-modal{background:var(--s1);border:1px solid rgba(79,140,255,.25);border-radius:10px;overflow:hidden}
+.dw-modal-header{background:var(--s2);padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.dw-modal-title{font-family:var(--display);font-weight:700;font-size:.8rem}
+.dw-modal-close{width:20px;height:20px;border-radius:4px;background:var(--s3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer}
+.dw-modal-body{display:flex;max-height:200px}
+.dw-modal-sb{width:120px;border-right:1px solid var(--border);background:var(--s2);flex-shrink:0}
+.dw-modal-sb-item{padding:.45rem .7rem;font-size:.62rem;color:var(--muted);cursor:pointer;border-left:2px solid transparent}
+.dw-modal-sb-item.active{color:var(--blue);font-weight:600;border-left-color:var(--blue);background:rgba(79,140,255,.05)}
+.dw-modal-content{flex:1;padding:.75rem;overflow:hidden}
+.dw-modal-fg{margin-bottom:.6rem}
+.dw-modal-label{font-size:.6rem;font-weight:600;margin-bottom:.2rem;display:flex;gap:.15rem}
+.dw-modal-input{width:100%;background:var(--s3);border:1px solid var(--border);border-radius:5px;padding:.32rem .5rem;font-size:.62rem;color:var(--text);font-family:var(--body)}
+.dw-modal-input.ph{color:var(--muted)}
+.dw-modal-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem}
+.dw-modal-check{display:flex;align-items:center;gap:.3rem;font-size:.6rem;color:var(--muted);background:var(--s3);border:1px solid var(--border);border-radius:5px;padding:.3rem .5rem;cursor:pointer}
+.dw-modal-cb{width:11px;height:11px;border-radius:2px;border:1px solid var(--border);background:var(--s2);flex-shrink:0}
+.dw-modal-editor{background:var(--s3);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-top:.5rem}
+.dw-modal-toolbar{display:flex;gap:.15rem;padding:.3rem .4rem;border-bottom:1px solid var(--border)}
+.dw-modal-tbtn{font-size:.58rem;color:var(--muted);padding:.08rem .2rem;border-radius:2px;cursor:pointer}
+.dw-modal-tsep{width:1px;height:10px;background:var(--border);margin:0 .12rem}
+.dw-modal-area{height:28px;padding:.3rem .4rem;font-size:.6rem;color:var(--muted)}
+.dw-modal-foot{border-top:1px solid var(--border);padding:.6rem 1rem;display:flex;justify-content:flex-end;gap:.4rem;background:var(--s2)}
+.dw-modal-btn{padding:.32rem .75rem;border-radius:5px;font-size:.65rem;font-weight:600;cursor:pointer;font-family:var(--display);border:1px solid var(--border);background:var(--s3);color:var(--text)}
+.dw-modal-btn.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.dw-modal-btn.alt{background:linear-gradient(135deg,var(--blue),#9333EA);border-color:transparent;color:#fff}
+
+/* LIVE BAR */
+.dw-live{border-top:1px solid var(--border);padding:.65rem 1.2rem;display:flex;align-items:center;justify-content:space-between;background:#06080F}
+.dw-live-l{display:flex;align-items:center;gap:.4rem;font-size:.65rem;font-family:var(--display);font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
+.dw-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite}
+.dw-live-btn{background:linear-gradient(135deg,var(--blue),#9333EA);color:#fff;border:none;padding:.3rem .8rem;border-radius:4px;font-size:.62rem;font-family:var(--display);font-weight:700;cursor:pointer}
+
+/* MARQUEE */
+.mq-outer{position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.75rem 0}
+.mq-in{display:flex;white-space:nowrap;animation:mq 30s linear infinite}
+.mq-in span{font-family:var(--display);font-size:.62rem;letter-spacing:.2em;color:rgba(79,140,255,.35)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.sec{padding:8rem 5rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
+.sec-tag{font-family:var(--display);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:1.5rem;font-weight:700}
+.sec-h{font-family:var(--display);font-weight:800;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.05;letter-spacing:-.04em;margin-bottom:.8rem}
+.sec-sub{font-size:.9rem;color:var(--muted);max-width:480px;margin-bottom:3rem;line-height:1.8}
+
+/* STORY */
+.sg{display:grid;grid-template-columns:280px 1fr;gap:8rem;align-items:start}
+.hl{font-size:.95rem;line-height:2.1;color:rgba(238,242,255,.18)}
+.hl .word.lit{color:var(--text)}
+.sq{font-size:1.2rem;font-style:italic;border-left:2px solid var(--blue);padding-left:1.2rem;line-height:1.5;color:rgba(238,242,255,.75);margin-top:2rem}
+.sq em{color:var(--blue);font-style:normal}
+
+/* TPL GALLERY */
+.tg-mock{background:var(--s1);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:2rem}
+.tgm-head{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:#06080F}
+.tgm-title{font-family:var(--display);font-weight:700;font-size:1.1rem}
+.tgm-title .b{color:var(--blue)}
+.tgm-tabs{display:flex;gap:.35rem;flex-wrap:wrap}
+.tgt{padding:.28rem .7rem;border-radius:20px;font-size:.65rem;background:var(--s2);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:.25rem;font-family:var(--display);font-weight:600}
+.tgt.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tg-grid{padding:1rem;display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}
+.tg-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--s2);transition:border-color .25s,transform .25s;cursor:pointer}
+.tg-card:hover{border-color:rgba(79,140,255,.4);transform:translateY(-2px)}
+.tg-card.sel{border-color:var(--blue);box-shadow:0 0 14px var(--blue-glow)}
+.tg-img{height:65px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--muted2);position:relative}
+.tg-lock{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem}
+.tg-lock-circle{width:20px;height:20px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff}
+.tg-mem{font-size:.46rem;letter-spacing:.06em;color:rgba(255,255,255,.8);font-weight:700}
+.tg-check{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#fff;font-weight:700}
+.tg-soon-box{position:absolute;inset:0;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.tg-soon-txt{font-family:var(--display);font-weight:700;font-size:.6rem;letter-spacing:.04em;text-align:center;line-height:1.4}
+.tg-info{padding:.45rem}
+.tg-name{font-size:.62rem;font-weight:700;margin-bottom:.12rem}
+.tg-desc{font-size:.52rem;color:var(--muted);line-height:1.3;margin-bottom:.35rem}
+.tg-btns{display:flex;gap:.25rem}
+.tg-btn{flex:1;padding:.2rem;font-size:.52rem;border-radius:3px;background:var(--s3);border:1px solid var(--border);color:var(--text);cursor:pointer;text-align:center;font-family:var(--display);font-weight:600}
+.tg-btn.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.tg-unlocked{font-size:.48rem;color:var(--green);text-align:center;padding:.18rem;font-weight:700}
+.tg-cur{font-size:.55rem;color:var(--blue);background:var(--blue-soft);border-radius:3px;padding:.22rem .3rem;text-align:center;border:1px solid rgba(79,140,255,.2);margin:.25rem .3rem .1rem;font-family:var(--display);font-weight:700}
+.tg-active-l{font-size:.48rem;color:var(--muted);text-align:right;padding:.08rem .4rem;font-weight:700}
+
+/* TPL SCROLL */
+.tpl-outer{overflow:hidden;margin:3rem -5rem 0}
+.tpl-roll{display:flex;gap:1rem;padding:0 5rem;animation:tr 32s linear infinite}
+.tpl-roll:hover{animation-play-state:paused}
+@keyframes tr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tc3{flex-shrink:0;width:195px;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:var(--s1);transition:border-color .3s,transform .3s}
+.tc3:hover{border-color:rgba(79,140,255,.35);transform:translateY(-5px)}
+.tc3-bar{background:var(--s2);padding:.4rem .6rem;display:flex;gap:.3rem;border-bottom:1px solid var(--border)}
+.tc3-dot{width:7px;height:7px;border-radius:50%;background:var(--s3)}
+.tc3-body{padding:.7rem}
+.tc3-label{font-family:var(--display);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-top:.45rem;padding-top:.4rem;border-top:1px solid var(--border);font-weight:700}
+.tc3-line{height:3px;border-radius:2px;background:rgba(79,140,255,.1);margin-bottom:.22rem}
+.tc3-line.l{width:100%}
+.tc3-line.m{width:70%}
+.tc3-line.s{width:45%}
+
+/* FEATURES GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.fg{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:border-color .3s,transform .3s}
+.fg:hover{border-color:rgba(79,140,255,.3);transform:translateY(-3px)}
+.fg-num{font-family:var(--display);font-weight:800;font-size:2.2rem;letter-spacing:-.06em;color:rgba(79,140,255,.12);line-height:1;margin-bottom:.8rem}
+.fg h3{font-family:var(--display);font-weight:700;font-size:.95rem;margin-bottom:.5rem}
+.fg p{font-size:.82rem;color:var(--muted);line-height:1.7}
+
+/* TESTI */
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem}
+.tsti{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:1.6rem;border-top:2px solid var(--blue);transition:transform .3s}
+.tsti:hover{transform:translateY(-3px)}
+.tsti-stars{font-size:.75rem;color:var(--blue);margin-bottom:.7rem;letter-spacing:.06em}
+.tsti-text{font-size:.87rem;line-height:1.8;color:rgba(238,242,255,.78);font-style:italic;margin-bottom:1rem}
+.tsti-person{display:flex;align-items:center;gap:.6rem}
+.tsti-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#9333EA);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff;flex-shrink:0}
+.tsti-name{font-family:var(--display);font-weight:700;font-size:.82rem}
+.tsti-role{font-size:.7rem;color:var(--muted)}
+
+/* PRICING */
+.pricing-duo{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:680px;margin-top:1rem}
+.pd{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:2.5rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.pd:hover{border-color:rgba(79,140,255,.35);transform:translateY(-3px)}
+.pd--feat{border-color:rgba(79,140,255,.3);background:rgba(79,140,255,.04)}
+.pd-glow{position:absolute;top:-80px;right:-80px;width:180px;height:180px;background:radial-gradient(circle,rgba(79,140,255,.15),transparent 65%)}
+.pd-pop{position:absolute;top:1.5rem;right:1.5rem;background:linear-gradient(135deg,var(--blue),#9333EA);color:#fff;font-size:.58rem;font-weight:700;letter-spacing:.12em;padding:.2rem .6rem;border-radius:20px;font-family:var(--display)}
+.pd-type{font-family:var(--display);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:.6rem}
+.pd-price{font-family:var(--display);font-weight:800;font-size:1.8rem;letter-spacing:-.04em;margin-bottom:.8rem}
+.pd p{font-size:.85rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.7}
+.pd ul{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:.45rem}
+.pd li{font-size:.82rem;color:var(--muted);display:flex;gap:.4rem}
+.pd li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0}
+
+/* FAQ */
+.faq-wrap{max-width:700px;margin-top:1rem}
+.fi3{border-bottom:1px solid var(--border)}
+.fq3{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);font-family:var(--body);font-size:.88rem;cursor:pointer;text-align:left;gap:2rem;transition:color .2s}
+.fq3:hover{color:var(--blue)}
+.fq3 span{font-size:1.2rem;color:var(--blue);transition:transform .4s var(--ease);line-height:1;flex-shrink:0}
+.fq3[aria-expanded="true"] span{transform:rotate(45deg)}
+.fa3{max-height:0;overflow:hidden;font-size:.85rem;color:var(--muted);line-height:1.8;transition:max-height .5s var(--ease),padding .4s}
+.fa3.open{max-height:200px;padding-bottom:1.2rem}
+
+/* CTA */
+.fcta{padding:12rem 5rem;text-align:center;position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--border)}
+.fcta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(79,140,255,.07),transparent 60%);pointer-events:none}
+.fcta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.fcta h2{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.0;letter-spacing:-.05em;margin-bottom:1.5rem}
+.fcta h2 .b{color:var(--blue)}
+
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2.5rem 5rem;background:var(--s1)}
+.f-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.f-brand{font-family:var(--display);font-weight:800;font-size:.92rem;display:flex;align-items:center;gap:.3rem}
+.f-brand .b{color:var(--blue)}
+.f-links{display:flex;gap:2rem}
+.f-links a{font-size:.75rem;color:var(--muted);transition:color .2s}
+.f-links a:hover{color:var(--text)}
+.f-copy{font-size:.7rem;color:var(--muted2)}
+
+@media(max-width:1000px){
+  .nav{padding:1rem 1.5rem}
+  .hero{grid-template-columns:1fr;padding:8rem 1.5rem 4rem}
+  .sec{padding:5rem 1.5rem}
+  .sg{grid-template-columns:1fr;gap:3rem}
+  .feat-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .pricing-duo{grid-template-columns:1fr;max-width:380px}
+  .tg-grid{grid-template-columns:repeat(3,1fr)}
+  .fcta{padding:7rem 1.5rem}
+  footer{padding:2rem 1.5rem}
+}
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-brand"><span class="nb">Build</span>MyFolio</div>
+    <div class="nav-links">
+      <a href="#features">Features</a><a href="#templates">Templates</a><a href="#pricing">Pricing</a>
+      <a href="https://buildmyfolio.in/login" class="nav-cta">Get Started →</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div>
+      <div class="hero-label fi" style="--d:.1s">⚡ The Portfolio Builder That Works</div>
+      <h1 class="hero-h fi" style="--d:.2s">Your Portfolio.<br/><span class="bl">Live in Minutes.</span><br/><span class="dim">No code. Ever.</span></h1>
+      <p class="hero-sub fi" style="--d:.35s">Fill in your dashboard across all sections — profile, education, experience, projects — click Publish. You're live. Share your URL everywhere.</p>
+      <div class="hero-btns fi" style="--d:.5s">
+        <a href="https://buildmyfolio.in/login" class="btn btn--blue btn--lg">Create My Portfolio →</a>
+        <a href="#features" class="btn btn--outline">See Features</a>
+      </div>
+      <div class="hero-tags fi" style="--d:.65s">
+        <div class="hero-tag"><span class="t-dot"></span>5-min setup</div>
+        <div class="hero-tag"><span class="t-dot"></span>Zero code</div>
+        <div class="hero-tag"><span class="t-dot"></span>10+ templates</div>
+        <div class="hero-tag"><span class="t-dot"></span>Personal URL</div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD WINDOW -->
+    <div class="dw fi" style="--d:.3s">
+      <div class="dw-bar">
+        <div class="dw-dot" style="background:#FF5F57"></div>
+        <div class="dw-dot" style="background:#FEBC2E"></div>
+        <div class="dw-dot" style="background:#28C840"></div>
+        <div class="dw-title-bar">dashboard.buildmyfolio.in</div>
+        <div class="dw-logo"><span class="b">Build</span>MyFolio</div>
+        <div class="dw-top-right"><div class="dw-notif">🔔<span class="dw-nbadge">1</span></div><span>👁 View Portfolio</span></div>
+      </div>
+      <div class="dw-body">
+        <div class="dw-sb">
+          <div class="dw-sb-active">⊞ Dashboard</div>
+          <div class="dw-sb-item active2"><div class="dw-sb-circle" style="background:var(--blue);border-color:var(--blue);color:#fff;opacity:1">●</div>Basic Profile</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>About Me</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>My Education</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>My Experience</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>My Projects</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>Skill Section</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>Interest Section</div>
+          <div class="dw-sb-item"><div class="dw-sb-circle"></div>Known Languages</div>
+          <div class="dw-sb-sep"></div>
+          <div class="dw-sb-item"><span style="font-size:.75rem">⊞</span>Browse Templates</div>
+          <div class="dw-sb-footer">
+            <div class="dw-sb-user">
+              <div class="dw-user-av">P</div>
+              <div><div style="font-weight:600">Priyanshu Dave</div><div style="font-size:.5rem;color:#EF4444">13 MISSING DETAILS →</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="dw-main">
+          <!-- Profile Settings View -->
+          <div class="dw-main-head">
+            <div class="dw-main-title">Profile <span class="b">Settings</span></div>
+            <button class="dw-pub-btn"><span class="dw-pulse"></span>Publish</button>
+          </div>
+          <div class="dw-ps-content">
+            <div style="font-size:.7rem;font-weight:600;margin-bottom:.6rem;color:var(--muted)">Basic Information</div>
+            <div class="dw-ps-form">
+              <div class="dw-form-group"><div class="dw-form-label">Full Name <span class="dw-form-req">*</span></div><div class="dw-form-input active">Priyanshu Dave</div></div>
+              <div class="dw-form-group" style="margin-bottom:0"><div class="dw-form-label">Professional Title</div><div class="dw-form-input ph">Software Engineer</div></div>
+            </div>
+          </div>
+          <!-- Add Project Modal preview -->
+          <div class="dw-modal-overlay">
+            <div class="dw-modal">
+              <div class="dw-modal-header">
+                <span class="dw-modal-title">Add New Project</span>
+                <span class="dw-modal-close">✕</span>
+              </div>
+              <div class="dw-modal-body">
+                <div class="dw-modal-sb">
+                  <div class="dw-modal-sb-item active">General Info</div>
+                  <div class="dw-modal-sb-item">Timeline &amp; Status</div>
+                  <div class="dw-modal-sb-item">Case Study</div>
+                  <div class="dw-modal-sb-item">Media &amp; Links</div>
+                  <div class="dw-modal-sb-item">Tech Stack</div>
+                </div>
+                <div class="dw-modal-content">
+                  <div class="dw-modal-fg"><div class="dw-modal-label">Title <span style="color:#EF4444">*</span></div><div class="dw-modal-input ph">E.g., Personal Portfolio Website</div></div>
+                  <div class="dw-modal-fg"><div class="dw-modal-label">Category <span style="color:#EF4444">*</span></div><div class="dw-modal-input ph">E.g., Web Development</div></div>
+                  <div class="dw-modal-check"><div class="dw-modal-cb"></div>Feature this project (Show on Home)</div>
+                </div>
+              </div>
+              <div class="dw-modal-foot">
+                <button class="dw-modal-btn">Cancel</button>
+                <button class="dw-modal-btn">Save Changes</button>
+                <button class="dw-modal-btn alt">Save and Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dw-live">
+        <div class="dw-live-l"><span class="dw-live-dot"></span>🔗 YOUR LIVE PORTFOLIO</div>
+        <button class="dw-live-btn">👁 View Portfolio</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="mq-outer">
+    <div class="mq-in">
+      <span>ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; PROFILE FORM &nbsp;·&nbsp; PROJECT MODAL &nbsp;·&nbsp; 10+ TEMPLATES &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; PROFILE FORM &nbsp;·&nbsp; PROJECT MODAL &nbsp;·&nbsp; 10+ TEMPLATES &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp;</span>
+      <span aria-hidden="true">ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; PROFILE FORM &nbsp;·&nbsp; PROJECT MODAL &nbsp;·&nbsp; 10+ TEMPLATES &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; ZERO CODE &nbsp;·&nbsp; INSTANT PUBLISH &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; PROFILE FORM &nbsp;·&nbsp; PROJECT MODAL &nbsp;·&nbsp; 10+ TEMPLATES &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="sec" id="story">
+    <div class="sec-tag up">01 / Origin</div>
+    <div class="sg">
+      <div>
+        <h2 class="sec-h up" style="--d:.05s">Built from<br/><span style="color:var(--blue)">Frustration.</span></h2>
+        <p class="up" style="font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);--d:.1s;margin-top:1rem">— Priyanshu Dave</p>
+      </div>
+      <div>
+        <p class="hl up" id="manifesto" style="--d:.08s">I needed a portfolio. Fast. Every builder I touched felt like assembling IKEA furniture with pages missing from the manual — drag, drop, break, cry, repeat. So I built my own system. Clean. Fast. Live in five minutes. Then it hit me — I wasn't alone. Thousands of talented people need a sharp portfolio without burning their evenings. That's how BuildMyFolio became the definitive answer to "Ugh, not another PDF."</p>
+        <blockquote class="sq up" style="--d:.18s">"The answer to <em>not another PDF."</em></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE GALLERY -->
+  <section class="sec" id="templates">
+    <div class="sec-tag up">02 / Templates</div>
+    <h2 class="sec-h up" style="--d:.05s">10+ Portfolio Templates.<br/><span style="color:var(--blue)">Preview &amp; Activate.</span></h2>
+    <p class="sec-sub up" style="--d:.1s">Browse the template gallery from your dashboard. Preview live, activate with one click — no designers needed.</p>
+    <div class="tg-mock up" style="--d:.12s">
+      <div class="tgm-head">
+        <div class="tgm-title">Template <span class="b">Gallery</span></div>
+        <div class="tgm-tabs">
+          <div class="tgt active">⊞ All</div>
+          <div class="tgt">✏️ Creative</div>
+          <div class="tgt">📋 Basic</div>
+          <div class="tgt">⚡ Modern</div>
+          <div class="tgt">🌟 Professional</div>
+        </div>
+      </div>
+      <div class="tg-grid">
+        <div class="tg-card"><div class="tg-img">🖼️<div class="tg-lock"><div class="tg-lock-circle">🔒</div><div class="tg-mem">MEMBERSHIP REQUIRED</div></div></div><div class="tg-info"><div class="tg-name">Modern Pro</div><div class="tg-desc">Premium gradient hero</div><div class="tg-btns"><div class="tg-btn p">Live Demo</div></div></div></div>
+        <div class="tg-card"><div class="tg-img">🖼️</div><div class="tg-info"><div class="tg-name">Basic Clean</div><div class="tg-desc">Structured layout</div><div class="tg-btns"><div class="tg-btn">Demo</div><div class="tg-btn p">Activate</div></div><div class="tg-unlocked">UNLOCKED</div></div></div>
+        <div class="tg-card"><div class="tg-img">🖼️</div><div class="tg-info"><div class="tg-name">Modern Dark</div><div class="tg-desc">Dark sidebar design</div><div class="tg-btns"><div class="tg-btn">Demo</div><div class="tg-btn p">Activate</div></div><div class="tg-unlocked">UNLOCKED</div></div></div>
+        <div class="tg-card sel"><div class="tg-img">🖼️<div class="tg-check">✓</div></div><div class="tg-info"><div class="tg-name">Classic Portfolio</div><div class="tg-desc">Timeless elegance</div><div class="tg-cur">✓ Current Design</div><div class="tg-active-l">ACTIVE</div></div></div>
+        <div class="tg-card"><div class="tg-img"><div class="tg-soon-box"><div class="tg-soon-txt">🚀<br/>COMING<br/>SOON</div></div></div><div class="tg-info"><div class="tg-name">New Design</div><div class="tg-desc">Stay tuned</div></div></div>
+      </div>
+    </div>
+    <div class="tpl-outer up" style="--d:.2s">
+      <div class="tpl-roll">
+        <div class="tc3"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="height:38px;background:linear-gradient(135deg,#06080F,#0D1225);border-radius:5px;margin-bottom:.5rem;display:flex;align-items:center;padding:0 .4rem;gap:.3rem"><div style="width:18px;height:18px;border-radius:50%;background:var(--blue);font-size:.45rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0">PD</div><div style="font-size:.58rem;font-weight:600">Priyanshu Dave</div></div><div class="tc3-line l"></div><div class="tc3-line m"></div><div class="tc3-line s"></div><div class="tc3-label">Dark Minimal</div></div></div>
+        <div class="tc3"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="height:45px;background:linear-gradient(135deg,var(--blue),#9333EA);border-radius:5px;margin-bottom:.65rem;position:relative"><div style="position:absolute;bottom:-8px;left:.4rem;width:20px;height:20px;border-radius:50%;background:var(--s1);border:2px solid var(--blue);font-size:.48rem;color:var(--blue);font-weight:700;display:flex;align-items:center;justify-content:center">SJ</div></div><div style="margin-top:.3rem;font-size:.6rem;font-weight:600">Sarah Johnson</div><div class="tc3-line m" style="margin-top:.25rem"></div><div class="tc3-line s"></div><div class="tc3-label">Blue Gradient</div></div></div>
+        <div class="tc3"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="display:flex;gap:.4rem;height:52px;margin-bottom:.4rem"><div style="width:38%;background:var(--blue);border-radius:5px;opacity:.4"></div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:.22rem"><div class="tc3-line m"></div><div class="tc3-line s"></div></div></div><div class="tc3-label">Bold Split</div></div></div>
+        <div class="tc3"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="display:flex;flex-direction:column;align-items:center;padding:.3rem 0;margin-bottom:.3rem"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#9333EA);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;margin-bottom:.3rem">MK</div><div style="font-size:.6rem;font-weight:600">Maya Kapoor</div></div><div class="tc3-line l"></div><div class="tc3-line m"></div><div class="tc3-label">Centered</div></div></div>
+        <div class="tc3"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="height:55px;background:var(--s2);border-radius:5px;margin-bottom:.4rem;display:flex;align-items:flex-end;padding:.3rem .4rem;border-bottom:2px solid var(--blue)"><div style="font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:-.03em;line-height:1">RAVI<br/>VERMA</div></div><div class="tc3-line m"></div><div class="tc3-line s"></div><div class="tc3-label">Editorial</div></div></div>
+        <!-- dupes -->
+        <div class="tc3" aria-hidden="true"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="height:38px;background:linear-gradient(135deg,#06080F,#0D1225);border-radius:5px;margin-bottom:.5rem;display:flex;align-items:center;padding:0 .4rem;gap:.3rem"><div style="width:18px;height:18px;border-radius:50%;background:var(--blue);font-size:.45rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0">PD</div><div style="font-size:.58rem;font-weight:600">Priyanshu Dave</div></div><div class="tc3-line l"></div><div class="tc3-line m"></div><div class="tc3-line s"></div><div class="tc3-label">Dark Minimal</div></div></div>
+        <div class="tc3" aria-hidden="true"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="height:45px;background:linear-gradient(135deg,var(--blue),#9333EA);border-radius:5px;margin-bottom:.65rem;position:relative"><div style="position:absolute;bottom:-8px;left:.4rem;width:20px;height:20px;border-radius:50%;background:var(--s1);border:2px solid var(--blue);font-size:.48rem;color:var(--blue);font-weight:700;display:flex;align-items:center;justify-content:center">SJ</div></div><div style="margin-top:.3rem;font-size:.6rem;font-weight:600">Sarah Johnson</div><div class="tc3-line m" style="margin-top:.25rem"></div><div class="tc3-line s"></div><div class="tc3-label">Blue Gradient</div></div></div>
+        <div class="tc3" aria-hidden="true"><div class="tc3-bar"><div class="tc3-dot"></div><div class="tc3-dot"></div><div class="tc3-dot"></div></div><div class="tc3-body"><div style="display:flex;gap:.4rem;height:52px;margin-bottom:.4rem"><div style="width:38%;background:var(--blue);border-radius:5px;opacity:.4"></div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:.22rem"><div class="tc3-line m"></div><div class="tc3-line s"></div></div></div><div class="tc3-label">Bold Split</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec" id="features">
+    <div class="sec-tag up">03 / Features</div>
+    <h2 class="sec-h up" style="--d:.05s">Everything You Need.<br/><span style="color:var(--blue)">Nothing Extra.</span></h2>
+    <div class="feat-grid">
+      <div class="fg up" style="--d:.05s"><div class="fg-num">01</div><h3>Guided Dashboard</h3><p>Step through your profile, education, experience, projects, skills. Every section has a clean, structured form.</p></div>
+      <div class="fg up" style="--d:.1s"><div class="fg-num">02</div><h3>Project Management</h3><p>Add projects with general info, timeline, case study, media, tech stack — a full modal for each project entry.</p></div>
+      <div class="fg up" style="--d:.15s"><div class="fg-num">03</div><h3>One-Click Publish</h3><p>Hit Publish. Live at buildmyfolio.in/yourname in seconds. No deployment, no server management.</p></div>
+      <div class="fg up" style="--d:.2s"><div class="fg-num">04</div><h3>Template Gallery</h3><p>10+ professional portfolio templates. Preview live, activate instantly, change anytime you want.</p></div>
+      <div class="fg up" style="--d:.25s"><div class="fg-num">05</div><h3>Auto Mobile-Ready</h3><p>Your portfolio looks flawless on desktop, tablet, and mobile. Automatically. Zero extra effort.</p></div>
+      <div class="fg up" style="--d:.3s"><div class="fg-num">06</div><h3>Personal URL</h3><p>buildmyfolio.in/yourname — clean, professional, shareable. Drop it on LinkedIn or in email signatures.</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="sec" id="testimonials">
+    <div class="sec-tag up">04 / Testimonials</div>
+    <h2 class="sec-h up" style="--d:.05s">Loved by People<br/><span style="color:var(--blue)">Who Tried It.</span></h2>
+    <div class="testi-grid">
+      <div class="tsti up" style="--d:.05s"><div class="tsti-stars">★ ★ ★ ★ ★</div><div class="tsti-text">"Finally a portfolio builder that doesn't make me want to rage-quit. Five minutes, looked great, recruiter loved it."</div><div class="tsti-person"><div class="tsti-av">RK</div><div><div class="tsti-name">Rahul Kapoor</div><div class="tsti-role">Software Engineer · Bangalore</div></div></div></div>
+      <div class="tsti up" style="--d:.12s"><div class="tsti-stars">★ ★ ★ ★ ★</div><div class="tsti-text">"Dropped my portfolio link in an application and got a callback the same day. Clean and professional."</div><div class="tsti-person"><div class="tsti-av" style="background:linear-gradient(135deg,#0EA5E9,#6366F1)">SP</div><div><div class="tsti-name">Sneha Patel</div><div class="tsti-role">UI/UX Designer · Mumbai</div></div></div></div>
+      <div class="tsti up" style="--d:.19s"><div class="tsti-stars">★ ★ ★ ★ ★</div><div class="tsti-text">"8 minutes from zero to a live URL. The project modal is chef's kiss — so easy to add work samples."</div><div class="tsti-person"><div class="tsti-av" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">AV</div><div><div class="tsti-name">Arjun Verma</div><div class="tsti-role">Product Manager · Delhi</div></div></div></div>
+      <div class="tsti up" style="--d:.26s"><div class="tsti-stars">★ ★ ★ ★ ★</div><div class="tsti-text">"My old Wix mess is gone. This is fast, clean, and looks like a professional designer built it."</div><div class="tsti-person"><div class="tsti-av" style="background:linear-gradient(135deg,#34D399,#059669)">DM</div><div><div class="tsti-name">Divya Menon</div><div class="tsti-role">Full Stack Dev · Pune</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec" id="pricing">
+    <div class="sec-tag up">05 / Pricing</div>
+    <h2 class="sec-h up" style="--d:.05s">Honest Pricing.<br/><span style="color:var(--blue)">No Surprises.</span></h2>
+    <div class="pricing-duo">
+      <div class="pd up" style="--d:.08s"><div class="pd-type">Portfolio Preview</div><div class="pd-price">Free</div><p>14-day full access. No card required. Essential features.</p><ul><li>Standard templates</li><li>Personal URL</li><li>All dashboard sections</li><li>Mobile responsive</li></ul><a href="https://buildmyfolio.in/login" class="btn btn--outline" style="font-size:.72rem;padding:.6rem 1.4rem">Start Free →</a></div>
+      <div class="pd pd--feat up" style="--d:.16s"><div class="pd-glow"></div><div class="pd-pop">RECOMMENDED</div><div class="pd-type">Portfolio Starter — ₹69/mo</div><div class="pd-price">Growth</div><p>Unlimited creativity for your career portfolio.</p><ul><li>Unlimited Sections</li><li>Advanced Customization</li><li>Custom Domain Link</li><li>Priority Support</li><li>All Premium Templates</li></ul><a href="https://buildmyfolio.in/subscription" class="btn btn--blue" style="font-size:.72rem;padding:.65rem 1.5rem">Upgrade Experience →</a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec" id="faq">
+    <div class="sec-tag up">06 / FAQ</div>
+    <h2 class="sec-h up" style="--d:.05s">Questions<br/><span style="color:var(--blue)">Answered.</span></h2>
+    <div class="faq-wrap">
+      <div class="fi3 up" style="--d:.05s"><button class="fq3" aria-expanded="false">Do I get a personal domain?<span>+</span></button><div class="fa3">You get buildmyfolio.in/yourname — clean, shareable, professional. Perfect for all use cases.</div></div>
+      <div class="fi3 up" style="--d:.1s"><button class="fq3" aria-expanded="false">Is payment secure?<span>+</span></button><div class="fa3">Razorpay with bank-grade encryption. We never store card details.</div></div>
+      <div class="fi3 up" style="--d:.15s"><button class="fq3" aria-expanded="false">What templates are included?<span>+</span></button><div class="fa3">Free plan includes Classic Portfolio, Basic Clean, Modern Dark Sidebar. Premium unlocks all 10+ templates.</div></div>
+      <div class="fi3 up" style="--d:.2s"><button class="fq3" aria-expanded="false">How detailed can my portfolio be?<span>+</span></button><div class="fa3">Very — profile, about, education, experience, projects (with case study, tech stack, media), skills, interests, languages. Everything structured and live.</div></div>
+    </div>
+  </section>
+
+  <section class="fcta">
+    <div class="fcta-in">
+      <div class="sec-tag up" style="display:block;text-align:center;margin-bottom:1.5rem">Ready?</div>
+      <h2 class="up" style="--d:.1s">Your Portfolio.<br/><span class="b">Live. Now.</span></h2>
+      <p class="up" style="color:var(--muted);font-size:.9rem;margin:1.5rem auto 3rem;max-width:420px;line-height:1.8;--d:.2s">Five minutes. Zero code. Built by Priyanshu Dave for everyone tired of PDF attachments.</p>
+      <a href="https://buildmyfolio.in/login" class="btn btn--blue btn--lg up" style="--d:.3s">Create Your Portfolio — Free →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="f-in">
+      <div class="f-brand"><span class="b">Build</span>MyFolio</div>
+      <div class="f-links"><a href="https://buildmyfolio.in/about-me">Contact</a><a href="https://buildmyfolio.in/subscription">Pricing</a><a href="https://buildmyfolio.in/terms">Terms</a><a href="https://buildmyfolio.in/privacy">Privacy</a></div>
+      <span class="f-copy">© 2025 Priyanshu Dave</span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+$(function(){
+  $(window).on('scroll',()=>$('#nav').toggleClass('stuck',$(window).scrollTop()>50));
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.1});
+  document.querySelectorAll('.up').forEach(el=>obs.observe(el));
+  const $p=$('#manifesto');
+  if($p.length){$p.html($p.text().split(/\s+/).map(w=>`<span class="word">${w}</span>`).join(' '));function upd(){const top=$p.offset().top,h=$p.outerHeight(),s=$(window).scrollTop(),wh=$(window).height();const prog=Math.min(1,Math.max(0,(s-(top-wh*.85))/(h+wh*.5)));const words=$p.find('.word'),lit=Math.floor(prog*words.length);words.each((i,w)=>i<lit?$(w).addClass('lit'):$(w).removeClass('lit'));}$(window).on('scroll',upd);upd();}
+  $('.fq3').on('click',function(){const open=$(this).attr('aria-expanded')==='true';$('.fq3').attr('aria-expanded','false');$('.fa3').removeClass('open');if(!open){$(this).attr('aria-expanded','true');$(this).next('.fa3').addClass('open');}});
+  $('.tgt').on('click',function(){$('.tgt').removeClass('active');$(this).addClass('active');});
+});
+  </script>
+</body>
+</html>

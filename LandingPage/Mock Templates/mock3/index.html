@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildMyFolio — Official Brand</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0D12;--s1:#13131E;--s2:#1A1A2E;--s3:#1E1E35;
+  --border:rgba(107,111,245,.15);--border2:rgba(255,255,255,.07);
+  --text:#EEEEF5;--muted:rgba(238,238,245,.5);
+  --violet:#6B6FF5;--violet2:#5458D9;--violet3:rgba(107,111,245,.12);
+  --green:#22C55E;--ease:cubic-bezier(.16,1,.3,1);
+  --sans:'Space Grotesk',sans-serif;--serif:'Crimson Pro',Georgia,serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.7;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+em{font-family:var(--serif);font-style:italic}
+
+/* GLOW BACKGROUND */
+.glow-bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.glow-bg::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(107,111,245,.07),transparent 70%);animation:glowPulse 12s ease-in-out infinite}
+.glow-bg::after{content:'';position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(107,111,245,.05),transparent 70%)}
+@keyframes glowPulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.08)}}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;border-radius:8px;font-family:var(--sans);font-weight:600;font-size:.875rem;letter-spacing:.01em;transition:all .28s var(--ease);cursor:pointer;border:1.5px solid transparent}
+.btn--violet{background:var(--violet);color:#fff}
+.btn--violet:hover{background:var(--violet2);box-shadow:0 0 40px rgba(107,111,245,.45);transform:translateY(-2px)}
+.btn--ghost{background:transparent;color:var(--text);border-color:var(--border2)}
+.btn--ghost:hover{border-color:var(--violet);background:var(--violet3);transform:translateY(-2px)}
+.btn--lg{padding:1rem 2.4rem;font-size:.95rem;border-radius:10px}
+.btn--sm{padding:.55rem 1.2rem;font-size:.8rem}
+
+/* ANIMATIONS */
+.rise{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.rise.in{opacity:1;transform:translateY(0)}
+.load{opacity:0;transform:translateY(18px);animation:loadA .7s var(--ease) forwards;animation-delay:var(--d,0s)}
+@keyframes loadA{to{opacity:1;transform:translateY(0)}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5rem;transition:all .35s}
+.nav.stuck{background:rgba(13,13,18,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav__brand{font-weight:700;font-size:1.1rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.4rem}
+.nav__brand span{color:var(--violet)}
+.nav__links{display:flex;align-items:center;gap:2.5rem;font-size:.85rem;font-weight:500}
+.nav__links a{color:var(--muted);transition:color .2s}
+.nav__links a:hover{color:var(--text)}
+.nav__cta{background:var(--violet);color:#fff!important;padding:.5rem 1.2rem;border-radius:7px;font-weight:600}
+.nav__cta:hover{background:var(--violet2)!important;box-shadow:0 0 20px rgba(107,111,245,.4)}
+
+/* HERO */
+.hero{min-height:100vh;padding:9rem 5rem 5rem;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.hero__inner{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:center;max-width:1300px;margin:0 auto;width:100%}
+.hero__badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .9rem;border-radius:20px;background:var(--violet3);border:1px solid var(--border);font-size:.72rem;letter-spacing:.07em;color:rgba(167,169,255,.9);margin-bottom:1.8rem;font-weight:500}
+.hero__title{font-family:var(--sans);font-weight:700;font-size:clamp(2.6rem,5vw,4.6rem);line-height:1.0;letter-spacing:-.04em;margin-bottom:1.5rem}
+.hero__title .line{display:block}
+.hero__title .violet{color:var(--violet)}
+.hero__title .serif-it{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.05em}
+.hero__sub{font-size:.975rem;color:var(--muted);max-width:440px;margin-bottom:2.5rem;line-height:1.8}
+.hero__btns{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero__stats{display:flex;gap:3rem}
+.h-stat-n{font-family:var(--sans);font-weight:700;font-size:1.8rem;letter-spacing:-.04em;color:var(--violet);line-height:1}
+.h-stat-l{font-size:.72rem;color:var(--muted);letter-spacing:.04em;margin-top:.15rem}
+
+/* === THE REAL DASHBOARD MOCKUP === */
+.dashboard-mockup{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 60px rgba(107,111,245,.08);position:relative}
+.dm-topbar{background:#0D0D18;border-bottom:1px solid var(--border);padding:.75rem 1.2rem;display:flex;align-items:center;justify-content:space-between}
+.dm-brand{font-family:var(--sans);font-weight:700;font-size:.9rem;letter-spacing:-.01em}
+.dm-brand span{color:var(--violet)}
+.dm-topbar-right{display:flex;align-items:center;gap:1rem;font-size:.72rem;color:var(--muted)}
+.dm-notif{position:relative;cursor:pointer}
+.dm-notif-dot{position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#EF4444;font-size:.5rem;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.dm-view-btn{display:flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.72rem}
+.dm-body{display:flex;height:360px}
+/* Sidebar */
+.dm-sidebar{width:160px;background:#0D0D18;border-right:1px solid var(--border);padding:.5rem 0;flex-shrink:0;display:flex;flex-direction:column}
+.dm-sb-item{padding:.45rem .8rem;font-size:.7rem;cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:.4rem;color:var(--muted);border-radius:0}
+.dm-sb-item.active{background:rgba(107,111,245,.15);color:var(--text);font-weight:600;border-right:2px solid var(--violet)}
+.dm-sb-item:hover:not(.active){background:rgba(255,255,255,.04);color:var(--text)}
+.dm-sb-dot{width:5px;height:5px;border-radius:50%;background:var(--violet)}
+.dm-sb-section{padding:.5rem .8rem .2rem;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:.3rem}
+.dm-sb-browse{margin-top:auto;border-top:1px solid var(--border);padding:.6rem .8rem;font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+/* Main content */
+.dm-main{flex:1;overflow:hidden;background:#13131E;padding:1rem}
+/* Dashboard greeting section */
+.dm-greeting{font-family:var(--sans);font-weight:700;font-size:.95rem;letter-spacing:-.02em;margin-bottom:1rem}
+.dm-greeting span{color:var(--violet)}
+/* Template cards section */
+.dm-section-title{font-size:.72rem;font-weight:600;margin-bottom:.3rem}
+.dm-section-sub{font-size:.62rem;color:var(--muted);margin-bottom:.7rem}
+.dm-templates-row{display:flex;gap:.6rem;overflow:hidden}
+.dm-tpl-card{flex-shrink:0;width:100px;background:#1A1A2E;border:1px solid var(--border);border-radius:8px;overflow:hidden;position:relative}
+.dm-tpl-card.active-card{border-color:var(--violet);border-width:1.5px}
+.dm-tpl-preview{height:50px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.2);position:relative}
+.dm-tpl-check{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff}
+.dm-tpl-info{padding:.35rem .4rem}
+.dm-tpl-name{font-size:.6rem;font-weight:600;line-height:1.2;margin-bottom:.15rem}
+.dm-tpl-btns{display:flex;gap:.2rem;margin-top:.3rem}
+.dm-demo-btn{font-size:.55rem;padding:.15rem .35rem;background:rgba(255,255,255,.08);border:none;color:var(--muted);border-radius:3px;cursor:pointer}
+.dm-activate-btn{font-size:.55rem;padding:.15rem .35rem;background:var(--violet);border:none;color:#fff;border-radius:3px;cursor:pointer;font-weight:600}
+.dm-current-btn{font-size:.55rem;padding:.2rem .4rem;background:rgba(107,111,245,.15);border:1px solid rgba(107,111,245,.3);color:var(--violet);border-radius:3px;width:100%;text-align:center;margin-top:.2rem;font-size:.55rem}
+.dm-unlocked{font-size:.5rem;color:var(--green);letter-spacing:.08em;text-transform:uppercase;margin-top:.2rem}
+.dm-live-badge{font-size:.5rem;background:var(--violet);color:#fff;padding:.1rem .3rem;border-radius:2px;position:absolute;bottom:6px;left:50%;transform:translateX(-50%);white-space:nowrap}
+/* Live portfolio bar */
+.dm-live-bar{background:#1A1A2E;border-top:1px solid var(--border);padding:.6rem .8rem;display:flex;align-items:center;justify-content:space-between;font-size:.68rem}
+.dm-live-label{display:flex;align-items:center;gap:.4rem;color:var(--violet);font-weight:600;letter-spacing:.04em}
+.dm-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.dm-view-portfolio-btn{background:var(--violet);color:#fff;border:none;border-radius:5px;padding:.3rem .8rem;font-size:.65rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.3rem}
+/* User bar */
+.dm-userbar{background:#0D0D18;border-top:1px solid var(--border);padding:.5rem .8rem;display:flex;align-items:center;justify-content:space-between}
+.dm-user{display:flex;align-items:center;gap:.5rem}
+.dm-user-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--violet),#9B59B6);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:#fff;flex-shrink:0}
+.dm-user-name{font-size:.68rem;font-weight:600}
+.dm-user-warn{font-size:.6rem;color:#F59E0B;cursor:pointer}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);padding:.85rem 0;position:relative;z-index:1}
+.marquee{display:flex;white-space:nowrap;animation:mq 28s linear infinite}
+.marquee span{font-size:.7rem;letter-spacing:.2em;color:var(--muted)}
+.marquee span em{color:var(--violet);font-style:normal}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTION BASE */
+.section{position:relative;z-index:1;padding:7rem 5rem;border-bottom:1px solid var(--border2)}
+.sec-max{max-width:1300px;margin:0 auto}
+.sec-tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);font-weight:600;margin-bottom:1.5rem}
+.sec-h{font-family:var(--sans);font-weight:700;font-size:clamp(2.2rem,4vw,3.6rem);letter-spacing:-.04em;line-height:1.0;margin-bottom:.75rem}
+.sec-h em{font-family:var(--serif);font-style:italic;font-weight:600;color:var(--violet)}
+
+/* STORY */
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center}
+.story-text{font-size:.975rem;line-height:2.1;color:rgba(238,238,245,.2)}
+.story-text .word{transition:color .07s}
+.story-text .word.lit{color:var(--text)}
+
+/* PROFILE SETTINGS MOCKUP */
+.profile-mockup{border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#0D0D18}
+.pm-topbar{background:#0D0D18;border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;font-size:.72rem}
+.pm-title-row{padding:1.2rem 1.5rem .8rem}
+.pm-title{font-size:1.1rem;font-weight:700;letter-spacing:-.02em}
+.pm-title span{color:var(--violet)}
+.pm-body{display:flex;padding:0 1.5rem 1.2rem;gap:1rem}
+.pm-left{font-size:.72rem;min-width:120px}
+.pm-left-label{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.pm-left-desc{color:var(--muted);font-size:.68rem;line-height:1.6}
+.pm-right{flex:1;display:flex;flex-direction:column;gap:.6rem}
+.pm-field{background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:8px;padding:.7rem .9rem}
+.pm-field-label{font-size:.62rem;color:var(--muted);margin-bottom:.2rem;display:flex;align-items:center;gap:.3rem}
+.pm-req{color:#EF4444;font-size:.8rem}
+.pm-field-val{font-size:.78rem;font-weight:500;color:var(--text)}
+.pm-field-placeholder{font-size:.78rem;color:rgba(255,255,255,.2)}
+.pm-field.focused{border-color:var(--violet)}
+.pm-actions{display:flex;justify-content:flex-end;gap:.5rem;padding:.7rem 1.5rem;border-top:1px solid var(--border);background:rgba(255,255,255,.01)}
+.pm-cancel{font-size:.72rem;color:var(--muted);padding:.4rem .8rem;cursor:pointer}
+.pm-save{font-size:.72rem;background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:.4rem .9rem;cursor:pointer}
+.pm-save-next{font-size:.72rem;background:var(--violet);color:#fff;border:none;border-radius:6px;padding:.4rem 1rem;cursor:pointer;font-weight:600}
+
+/* TEMPLATES STRIP */
+.tpl-outer{overflow:hidden;margin:2.5rem -5rem 0}
+.tpl-inner{display:flex;gap:1rem;padding:0 5rem;animation:tplRoll 32s linear infinite}
+.tpl-inner:hover{animation-play-state:paused}
+@keyframes tplRoll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tc{flex-shrink:0;width:210px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--s1);transition:border-color .3s,transform .3s}
+.tc:hover{border-color:rgba(107,111,245,.4);transform:translateY(-5px)}
+.tc-bar{background:var(--s2);padding:.5rem .7rem;display:flex;gap:.3rem}
+.tc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1)}
+.tc-body{padding:.75rem}
+.tc-preview{height:70px;border-radius:7px;margin-bottom:.6rem;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.3);position:relative}
+.tc-preview--a{background:linear-gradient(135deg,#1A1A2E,#2D2D50)}
+.tc-preview--b{background:linear-gradient(135deg,#0F1B2D,#1B3A5F)}
+.tc-preview--c{background:linear-gradient(135deg,#1A0E0E,#3B1515)}
+.tc-preview--d{background:linear-gradient(135deg,#0E1A0F,#1A3B1C)}
+.tc-preview-icon{font-size:1.2rem;opacity:.4}
+.tc-active-badge{position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff}
+.tc-name{font-size:.72rem;font-weight:600;margin-bottom:.2rem}
+.tc-desc{font-size:.62rem;color:var(--muted);line-height:1.5;margin-bottom:.5rem}
+.tc-btns{display:flex;gap:.3rem}
+.tc-demo{font-size:.62rem;padding:.2rem .6rem;background:rgba(255,255,255,.08);border:none;color:var(--muted);border-radius:4px;cursor:pointer}
+.tc-activate{font-size:.62rem;padding:.2rem .7rem;background:var(--violet);border:none;color:#fff;border-radius:4px;cursor:pointer;font-weight:600}
+.tc-unlocked{font-size:.58rem;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-top:.3rem}
+.tc-label{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)}
+
+/* FEATURES BENTO */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:1px;background:var(--border2);margin-top:1rem;border:1px solid var(--border2);border-radius:16px;overflow:hidden}
+.bento-cell{background:var(--s1);padding:2rem;transition:background .3s}
+.bento-cell:hover{background:var(--s2)}
+.bento-cell--wide{grid-column:span 2}
+.bento-cell--tall{grid-row:span 2}
+.bc-num{font-family:var(--sans);font-weight:700;font-size:2.5rem;letter-spacing:-.06em;color:rgba(107,111,245,.15);line-height:1;margin-bottom:.8rem}
+.bc-title{font-weight:600;font-size:1rem;letter-spacing:-.01em;margin-bottom:.5rem}
+.bc-text{font-size:.875rem;color:var(--muted);line-height:1.75}
+.bc-stat-n{font-family:var(--sans);font-weight:700;font-size:3rem;letter-spacing:-.05em;color:var(--violet);line-height:1;margin-bottom:.3rem}
+.bc-stat-l{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:1rem}
+.testi-c{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:1.8rem;transition:border-color .3s,transform .3s}
+.testi-c:hover{border-color:rgba(107,111,245,.35);transform:translateY(-3px)}
+.testi-c--purple{border-left:3px solid var(--violet)}
+.testi-stars{color:#FCD34D;font-size:.8rem;letter-spacing:.1em;margin-bottom:.8rem}
+.testi-text{font-family:var(--serif);font-style:italic;font-size:.95rem;line-height:1.8;color:var(--text);margin-bottom:1.2rem}
+.testi-person{display:flex;align-items:center;gap:.65rem}
+.testi-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff;flex-shrink:0}
+.testi-name{font-weight:600;font-size:.85rem}
+.testi-role{font-size:.72rem;color:var(--muted)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:680px;margin-top:1rem}
+/* Matching your real pricing cards */
+.pc{border:1px solid var(--border);border-radius:20px;padding:2.5rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.pc:hover{border-color:rgba(107,111,245,.4);transform:translateY(-4px)}
+.pc--feat{background:var(--s1);border-color:rgba(107,111,245,.3)}
+.pc-badge-active{background:var(--green);color:#fff;font-size:.58rem;letter-spacing:.1em;font-weight:700;padding:.2rem .6rem;border-radius:4px;position:absolute;top:1.5rem;right:1.5rem}
+.pc-badge-rec{background:var(--violet);color:#fff;font-size:.58rem;letter-spacing:.1em;font-weight:700;padding:.2rem .6rem;border-radius:4px;position:absolute;top:1.5rem;right:1.5rem}
+.pc-icon{font-size:1.2rem;margin-bottom:.5rem}
+.pc-tier{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:.6rem}
+.pc-name{font-weight:700;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:.5rem}
+.pc-price{font-family:var(--sans);font-weight:700;font-size:2.4rem;letter-spacing:-.05em;line-height:1;margin-bottom:.3rem}
+.pc-price sub{font-size:.9rem;font-weight:400;letter-spacing:0}
+.pc-tagline{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
+.pc-features{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:.5rem}
+.pc-features li{font-size:.83rem;color:var(--muted);display:flex;gap:.5rem;align-items:center}
+.pc-features li::before{content:'●';color:var(--violet);font-size:.5rem;flex-shrink:0}
+.pc-features li.dim{opacity:.35}
+.pc-active-btn{width:100%;padding:.7rem;background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:8px;color:var(--muted);font-size:.78rem;font-weight:500;cursor:pointer;letter-spacing:.04em;text-align:center}
+.pc-upgrade-btn{width:100%;padding:.7rem;background:var(--violet);border:none;border-radius:8px;color:#fff;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.04em}
+.pc-upgrade-btn:hover{background:var(--violet2);box-shadow:0 0 30px rgba(107,111,245,.4)}
+
+/* HOW */
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+.how-step{padding:2rem;border:1px solid var(--border);border-radius:14px;background:var(--s1);transition:border-color .3s,transform .3s}
+.how-step:hover{border-color:rgba(107,111,245,.3);transform:translateY(-3px)}
+.how-step--cta{border-color:rgba(107,111,245,.3);background:var(--violet3)}
+.how-n{font-family:var(--sans);font-weight:700;font-size:2rem;letter-spacing:-.06em;color:rgba(107,111,245,.2);line-height:1;margin-bottom:.8rem}
+.how-step h3{font-weight:600;font-size:.975rem;margin-bottom:.5rem;letter-spacing:-.01em}
+.how-step p{font-size:.875rem;color:var(--muted);line-height:1.75}
+
+/* FAQ */
+.faq-list{max-width:700px;margin-top:1rem}
+.faq-item{border-bottom:1px solid var(--border2)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);font-family:var(--sans);font-size:.9rem;font-weight:400;cursor:pointer;text-align:left;gap:2rem;transition:color .2s}
+.faq-q:hover{color:var(--violet)}
+.faq-q span{font-size:1.2rem;color:var(--violet);transition:transform .4s var(--ease);flex-shrink:0}
+.faq-q[aria-expanded="true"] span{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;font-size:.875rem;color:var(--muted);line-height:1.8;transition:max-height .5s var(--ease),padding .4s}
+.faq-a.open{max-height:150px;padding-bottom:1.2rem}
+
+/* CTA */
+.cta-sec{padding:10rem 5rem;text-align:center;position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--border2)}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(107,111,245,.1),transparent 65%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-title{font-family:var(--sans);font-weight:700;font-size:clamp(3rem,6.5vw,5.5rem);letter-spacing:-.05em;line-height:1.0;margin-bottom:1.5rem}
+.cta-title .violet{color:var(--violet)}
+.cta-sub{color:var(--muted);font-size:.95rem;max-width:440px;margin:0 auto 3rem;line-height:1.8}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border2);padding:2.5rem 5rem}
+.f-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.f-brand{font-weight:700;font-size:.95rem;letter-spacing:-.02em}
+.f-brand span{color:var(--violet)}
+.f-links{display:flex;gap:2rem}
+.f-links a{font-size:.78rem;color:var(--muted);transition:color .2s}
+.f-links a:hover{color:var(--text)}
+.f-copy{font-size:.72rem;color:rgba(238,238,245,.2)}
+
+@media(max-width:1100px){
+  .hero__inner{grid-template-columns:1fr;max-width:600px}
+  .dashboard-mockup{display:none}
+  .story-grid{grid-template-columns:1fr;gap:3rem}
+  .bento{grid-template-columns:1fr}
+  .bento-cell--wide{grid-column:span 1}
+  .testi-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr;max-width:380px}
+  .how-steps{grid-template-columns:1fr;gap:1rem}
+}
+@media(max-width:768px){
+  .nav{padding:1rem 2rem}
+  .section{padding:5rem 2rem}
+  .hero{padding:8rem 2rem 4rem}
+  .tpl-outer{margin:2.5rem -2rem 0}
+  .tpl-inner{padding:0 2rem}
+  .cta-sec{padding:7rem 2rem}
+  footer{padding:2rem}
+  .f-inner{flex-direction:column;align-items:flex-start}
+  .nav__links a:not(.nav__cta){display:none}
+}
+  </style>
+</head>
+<body>
+  <div class="glow-bg"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__brand"><span>Build</span>MyFolio</div>
+    <div class="nav__links">
+      <a href="#features">Features</a>
+      <a href="#templates">Templates</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://buildmyfolio.in/login" class="nav__cta">Get Started →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__left">
+        <div class="hero__badge load" style="--d:.1s">✦ Portfolio Builder · Zero Code</div>
+        <h1 class="hero__title">
+          <span class="line load" style="--d:.2s">Hello,</span>
+          <span class="line violet load" style="--d:.3s">Your Portfolio.</span>
+          <span class="line serif-it load" style="--d:.42s">Live in Minutes.</span>
+        </h1>
+        <p class="hero__sub load" style="--d:.54s">The dashboard you see on the right? That's all you need. Fill in your details, click Publish — your professional portfolio is live at your own URL.</p>
+        <div class="hero__btns load" style="--d:.66s">
+          <a href="https://buildmyfolio.in/login" class="btn btn--violet">Start for Free →</a>
+          <a href="#features" class="btn btn--ghost">Explore Features</a>
+        </div>
+        <div class="hero__stats load" style="--d:.78s">
+          <div><div class="h-stat-n" data-target="5">0</div><div class="h-stat-l">min to live</div></div>
+          <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+          <div><div class="h-stat-n">0</div><div class="h-stat-l">lines of code</div></div>
+          <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+          <div><div class="h-stat-n" data-target="1">0</div><div class="h-stat-l">click publish</div></div>
+        </div>
+      </div>
+
+      <!-- REAL DASHBOARD MOCKUP -->
+      <div class="dashboard-mockup load" style="--d:.5s">
+        <div class="dm-topbar">
+          <div class="dm-brand"><span>Build</span>MyFolio</div>
+          <div class="dm-topbar-right">
+            <div class="dm-notif">🔔<div class="dm-notif-dot">1</div></div>
+            <div class="dm-view-btn">👁 View Portfolio</div>
+          </div>
+        </div>
+        <div class="dm-body">
+          <div class="dm-sidebar">
+            <div class="dm-sb-item active"><div class="dm-sb-dot"></div>Dashboard</div>
+            <div class="dm-sb-item">Basic Profile</div>
+            <div class="dm-sb-item">About Me</div>
+            <div class="dm-sb-item">My Education</div>
+            <div class="dm-sb-item">My Experience</div>
+            <div class="dm-sb-item">My Projects</div>
+            <div class="dm-sb-item">Skill Section</div>
+            <div class="dm-sb-item">Interest Section</div>
+            <div class="dm-sb-item">Known Languages</div>
+            <div class="dm-sb-browse">⊞ Browse Templates</div>
+          </div>
+          <div class="dm-main">
+            <div class="dm-greeting">Hello, <span>Priyanshu Dave!</span> Discover Your Dashboard 👋</div>
+            <div class="dm-section-title">Portfolio Template</div>
+            <div class="dm-section-sub">Choose your portfolio design. Click "Demo" to preview or "Activate" to apply.</div>
+            <div class="dm-templates-row">
+              <div class="dm-tpl-card">
+                <div class="dm-tpl-preview tc-preview--a" style="height:45px">
+                  <div class="dm-live-badge">Live Demo</div>
+                </div>
+                <div class="dm-tpl-info">
+                  <div class="dm-tpl-name">Modern Pr...</div>
+                  <div style="font-size:.5rem;color:#F59E0B;letter-spacing:.06em">MEMBERSHIP REQ.</div>
+                </div>
+              </div>
+              <div class="dm-tpl-card">
+                <div class="dm-tpl-preview" style="height:45px;background:#0F1B2D"><div class="dm-tpl-preview-icon">🖼</div></div>
+                <div class="dm-tpl-info">
+                  <div class="dm-tpl-name">Basic Clean</div>
+                  <div class="dm-tpl-btns"><div class="dm-demo-btn">Demo</div><div class="dm-activate-btn">Activate</div></div>
+                  <div class="dm-unlocked">UNLOCKED</div>
+                </div>
+              </div>
+              <div class="dm-tpl-card">
+                <div class="dm-tpl-preview" style="height:45px;background:#0A1520"><div class="dm-tpl-preview-icon">🖼</div></div>
+                <div class="dm-tpl-info">
+                  <div class="dm-tpl-name">Modern Dark Sidebar</div>
+                  <div class="dm-tpl-btns"><div class="dm-demo-btn">Demo</div><div class="dm-activate-btn">Activate</div></div>
+                  <div class="dm-unlocked">UNLOCKED</div>
+                </div>
+              </div>
+              <div class="dm-tpl-card active-card">
+                <div class="dm-tpl-preview" style="height:45px;background:#12121F"><div class="dm-tpl-preview-icon">🖼</div><div class="dm-tpl-check">✓</div></div>
+                <div class="dm-tpl-info">
+                  <div class="dm-tpl-name">Classic Portfolio</div>
+                  <div class="dm-current-btn">✓ Current Design</div>
+                  <div style="font-size:.5rem;color:var(--violet);letter-spacing:.06em;margin-top:.15rem">ACTIVE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dm-live-bar">
+          <div class="dm-live-label"><div class="dm-live-dot"></div>🔗 YOUR LIVE PORTFOLIO</div>
+          <button class="dm-view-portfolio-btn">👁 View Portfolio</button>
+        </div>
+        <div class="dm-userbar">
+          <div class="dm-user">
+            <div class="dm-user-av">PD</div>
+            <div>
+              <div class="dm-user-name">Priyanshu Dave</div>
+              <div class="dm-user-warn">13 MISSING DETAILS →</div>
+            </div>
+          </div>
+          <div style="font-size:.6rem;background:var(--violet);color:#fff;padding:.2rem .5rem;border-radius:10px">0%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>ZERO CODE &nbsp;·&nbsp; <em>INSTANT PUBLISH</em> &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; <em>DASHBOARD CONTROL</em> &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp; ZERO CODE &nbsp;·&nbsp; <em>INSTANT PUBLISH</em> &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; <em>DASHBOARD CONTROL</em> &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp;</span>
+      <span aria-hidden="true">ZERO CODE &nbsp;·&nbsp; <em>INSTANT PUBLISH</em> &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; <em>DASHBOARD CONTROL</em> &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp; ZERO CODE &nbsp;·&nbsp; <em>INSTANT PUBLISH</em> &nbsp;·&nbsp; YOUR URL &nbsp;·&nbsp; <em>DASHBOARD CONTROL</em> &nbsp;·&nbsp; MOBILE READY &nbsp;·&nbsp; NO PDF &nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="section">
+    <div class="sec-max">
+      <div class="story-grid">
+        <div>
+          <div class="sec-tag rise">01 / Origin</div>
+          <h2 class="sec-h rise" style="--d:.05s">Built from<br/><em>Real Frustration.</em></h2>
+          <p class="rise" style="font-size:.8rem;color:var(--muted);letter-spacing:.04em;margin-top:.5rem;--d:.1s">— Priyanshu Dave, Creator</p>
+        </div>
+        <div>
+          <p class="story-text rise" id="manifesto" style="--d:.08s">
+            I needed a portfolio. Fast. Every builder I touched felt like assembling IKEA furniture with pages missing from the manual — drag, drop, break, repeat. So I built my own system. Clean. Fast. Live in five minutes. Then it hit me — I wasn't alone. Thousands of busy, talented people need a sharp professional portfolio without burning their evenings or emptying their wallets. BuildMyFolio is the definitive answer to "Ugh, not another PDF."
+          </p>
+          <blockquote class="rise" style="font-family:var(--serif);font-style:italic;font-size:1.25rem;border-left:2px solid var(--violet);padding-left:1.2rem;margin-top:2rem;line-height:1.5;--d:.18s">"The answer to <em style="color:var(--violet)">not another PDF."</em></blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE SETTINGS MOCKUP SECTION -->
+  <section class="section" style="background:var(--s1)">
+    <div class="sec-max">
+      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center">
+        <div>
+          <div class="sec-tag rise">02 / Fill In</div>
+          <h2 class="sec-h rise" style="--d:.05s">Your Info.<br/><em>Your Way.</em></h2>
+          <p class="rise" style="font-size:.925rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;--d:.1s">Every section of your portfolio — Basic Profile, Skills, Projects, Experience — is editable from one clean dashboard. No code. No confusion. Just fill in the fields.</p>
+          <ul class="rise" style="list-style:none;display:flex;flex-direction:column;gap:.5rem;--d:.15s">
+            <li style="font-size:.85rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--violet)">✓</span>Basic Profile &amp; Contact</li>
+            <li style="font-size:.85rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--violet)">✓</span>About Me, Education, Experience</li>
+            <li style="font-size:.85rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--violet)">✓</span>Projects with Case Study support</li>
+            <li style="font-size:.85rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--violet)">✓</span>Skills, Interests, Languages</li>
+          </ul>
+        </div>
+        <div class="rise" style="--d:.12s">
+          <!-- Profile Settings mockup based on screenshot 2 -->
+          <div class="profile-mockup">
+            <div class="pm-topbar">
+              <span style="font-weight:700;font-size:.85rem"><span style="color:var(--violet)">Build</span>MyFolio</span>
+              <div style="display:flex;gap:1rem;font-size:.7rem;color:var(--muted)"><span>🔔</span><span>👁 View Portfolio</span></div>
+            </div>
+            <div class="pm-title-row">
+              <div class="pm-title">Profile <span>Settings</span></div>
+            </div>
+            <div class="pm-body">
+              <div class="pm-left">
+                <div class="pm-left-label">Basic Information</div>
+                <div class="pm-left-desc">This information will be displayed on your portfolio's main introduction.</div>
+              </div>
+              <div class="pm-right">
+                <div class="pm-field focused">
+                  <div class="pm-field-label">Full Name <span class="pm-req">*</span></div>
+                  <div class="pm-field-val">Priyanshu Dave</div>
+                </div>
+                <div class="pm-field">
+                  <div class="pm-field-label">Professional Title</div>
+                  <div class="pm-field-placeholder">Software Engineer</div>
+                </div>
+              </div>
+            </div>
+            <div class="pm-actions">
+              <span class="pm-cancel">Cancel</span>
+              <button class="pm-save">Save Changes</button>
+              <button class="pm-save-next">Save &amp; Next →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE GALLERY SECTION -->
+  <section class="section" id="templates">
+    <div class="sec-max">
+      <div class="sec-tag rise">03 / Templates</div>
+      <h2 class="sec-h rise" style="--d:.05s">Multiple Designs.<br/><em>One Click to Switch.</em></h2>
+      <p class="rise" style="font-size:.9rem;color:var(--muted);max-width:480px;margin-bottom:.5rem;line-height:1.7;--d:.1s">Browse the Template Gallery from your dashboard and switch your portfolio's look instantly.</p>
+    </div>
+    <div class="tpl-outer">
+      <div class="tpl-inner">
+        <div class="tc"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--a"><div class="tc-preview-icon">🖼</div><div class="tc-active-badge">✓</div></div><div class="tc-name">Classic Portfolio</div><div class="tc-desc">A timeless design focusing on elegance and readability.</div><div class="tc-btns"><div class="tc-demo">Demo</div></div><div class="tc-label" style="color:var(--violet)">ACTIVE</div></div></div>
+        <div class="tc"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--b"><div class="tc-preview-icon">🖼</div></div><div class="tc-name">Basic Clean</div><div class="tc-desc">A structured, easy-to-read layout focusing on content.</div><div class="tc-btns"><div class="tc-demo">Demo</div><div class="tc-activate">Activate</div></div><div class="tc-unlocked">UNLOCKED</div><div class="tc-label">Light</div></div></div>
+        <div class="tc"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--c"><div class="tc-preview-icon">🖼</div></div><div class="tc-name">Modern Dark Sidebar</div><div class="tc-desc">Contemporary two-column with dark sidebar and clean content.</div><div class="tc-btns"><div class="tc-demo">Demo</div><div class="tc-activate">Activate</div></div><div class="tc-unlocked">UNLOCKED</div><div class="tc-label">Dark</div></div></div>
+        <div class="tc"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--d"><div class="tc-preview-icon">🖼</div></div><div class="tc-name">Vibrant Blue Prof...</div><div class="tc-desc">A vibrant modern design with bold blue gradient hero.</div><div class="tc-btns"><div class="tc-demo">Demo</div><div class="tc-activate">Activate</div></div><div class="tc-unlocked">UNLOCKED</div><div class="tc-label">Modern</div></div></div>
+        <div class="tc"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview" style="height:70px;background:#1A1A2E;position:relative"><div class="tc-preview-icon">🖼</div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5)"><div style="font-size:.55rem;text-align:center"><div style="font-size:.9rem">🔒</div>MEMBERSHIP REQ.</div></div></div><div class="tc-name">Executive Suite</div><div class="tc-desc">Professional and corporate-focused for serious careers.</div><div style="margin-top:.3rem"><div class="tc-demo">Live Demo</div></div></div></div>
+        <!-- dupes -->
+        <div class="tc" aria-hidden="true"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--a"><div class="tc-preview-icon">🖼</div><div class="tc-active-badge">✓</div></div><div class="tc-name">Classic Portfolio</div><div class="tc-desc">A timeless design focusing on elegance and readability.</div><div class="tc-btns"><div class="tc-demo">Demo</div></div><div class="tc-label" style="color:var(--violet)">ACTIVE</div></div></div>
+        <div class="tc" aria-hidden="true"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--b"><div class="tc-preview-icon">🖼</div></div><div class="tc-name">Basic Clean</div><div class="tc-desc">A structured, easy-to-read layout focusing on content.</div><div class="tc-btns"><div class="tc-demo">Demo</div><div class="tc-activate">Activate</div></div><div class="tc-unlocked">UNLOCKED</div><div class="tc-label">Light</div></div></div>
+        <div class="tc" aria-hidden="true"><div class="tc-bar"><div class="tc-dot"></div><div class="tc-dot"></div><div class="tc-dot"></div></div><div class="tc-body"><div class="tc-preview tc-preview--c"><div class="tc-preview-icon">🖼</div></div><div class="tc-name">Modern Dark Sidebar</div><div class="tc-desc">Contemporary two-column with dark sidebar and clean content.</div><div class="tc-btns"><div class="tc-demo">Demo</div><div class="tc-activate">Activate</div></div><div class="tc-unlocked">UNLOCKED</div><div class="tc-label">Dark</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES BENTO -->
+  <section class="section" id="features">
+    <div class="sec-max">
+      <div class="sec-tag rise">04 / Features</div>
+      <h2 class="sec-h rise" style="--d:.05s">Everything Built In.<br/><em>Nothing Missing.</em></h2>
+      <div class="bento rise" style="--d:.1s">
+        <div class="bento-cell bento-cell--wide"><div class="bc-num">01</div><div class="bc-title">Zero Code. Complete Control.</div><div class="bc-text">Add, edit, reorder sections from your personal dashboard. No CSS, no JavaScript, no developer — ever. Just fill in and publish.</div></div>
+        <div class="bento-cell"><div class="bc-stat-n cnt" data-target="5">0</div><div class="bc-stat-l">Min avg. setup time</div></div>
+        <div class="bento-cell"><div class="bc-num">02</div><div class="bc-title">One-Click Publish</div><div class="bc-text">Live at your URL in seconds. No waiting, no deployment pipelines.</div></div>
+        <div class="bento-cell"><div class="bc-num">03</div><div class="bc-title">Personal URL</div><div class="bc-text">buildmyfolio.in/yourname — clean, shareable, professional.</div></div>
+        <div class="bento-cell"><div class="bc-stat-n">100%</div><div class="bc-stat-l">Mobile responsive</div></div>
+        <div class="bento-cell"><div class="bc-num">04</div><div class="bc-title">Multiple Templates</div><div class="bc-text">Switch between portfolio designs from the gallery — one click, instant update.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" style="background:var(--s1)" id="how">
+    <div class="sec-max">
+      <div class="sec-tag rise">05 / Process</div>
+      <h2 class="sec-h rise" style="--d:.05s">Three Steps.<br/><em>That's it.</em></h2>
+      <div class="how-steps">
+        <div class="how-step rise" style="--d:.05s"><div class="how-n">01</div><h3>Login &amp; Fill In</h3><p>Sign up and fill in your name, skills, projects, experience using our guided dashboard form.</p></div>
+        <div class="how-step rise" style="--d:.12s"><div class="how-n">02</div><h3>Customise Freely</h3><p>Reorder sections, update content, choose a template — all from your personal BuildMyFolio dashboard.</p></div>
+        <div class="how-step how-step--cta rise" style="--d:.19s"><div class="how-n" style="color:rgba(107,111,245,.4)">03</div><h3>Publish &amp; Share</h3><p>Hit Publish. Instantly live at buildmyfolio.in/yourname. Drop the link everywhere you matter.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="testimonials">
+    <div class="sec-max">
+      <div class="sec-tag rise">06 / Testimonials</div>
+      <h2 class="sec-h rise" style="--d:.05s">People Who<br/><em>Already Tried It.</em></h2>
+      <div class="testi-grid">
+        <div class="testi-c testi-c--purple rise" style="--d:.05s"><div class="testi-stars">★★★★★</div><div class="testi-text">"Finally a portfolio builder that doesn't make me want to quit. 5 minutes flat and my recruiter loved the link."</div><div class="testi-person"><div class="testi-av" style="background:linear-gradient(135deg,#6B6FF5,#9B59B6)">RK</div><div><div class="testi-name">Rahul Kapoor</div><div class="testi-role">Software Engineer · Bangalore</div></div></div></div>
+        <div class="testi-c rise" style="--d:.12s"><div class="testi-stars">★★★★★</div><div class="testi-text">"Sent my portfolio link in a job application and got a callback the same day. The design looks genuinely professional."</div><div class="testi-person"><div class="testi-av" style="background:linear-gradient(135deg,#22C55E,#0EA5E9)">SP</div><div><div class="testi-name">Sneha Patel</div><div class="testi-role">UI/UX Designer · Mumbai</div></div></div></div>
+        <div class="testi-c rise" style="--d:.19s"><div class="testi-stars">★★★★★</div><div class="testi-text">"From 'I need a portfolio' to 'here's my URL' in under 10 minutes. BuildMyFolio is one of those rare things that just works."</div><div class="testi-person"><div class="testi-av" style="background:linear-gradient(135deg,#F97316,#EF4444)">AV</div><div><div class="testi-name">Arjun Verma</div><div class="testi-role">Product Manager · Delhi</div></div></div></div>
+        <div class="testi-c testi-c--purple rise" style="--d:.26s"><div class="testi-stars">★★★★★</div><div class="testi-text">"My old portfolio was a mess of broken Wix blocks. This is clean, fast, and actually looks like someone designed it properly."</div><div class="testi-person"><div class="testi-av" style="background:linear-gradient(135deg,#8B5CF6,#6B6FF5)">DM</div><div><div class="testi-name">Divya Menon</div><div class="testi-role">Full Stack Developer · Pune</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING — Matching your real UI -->
+  <section class="section" id="pricing" style="background:var(--s1)">
+    <div class="sec-max">
+      <div class="sec-tag rise">07 / Pricing</div>
+      <h2 class="sec-h rise" style="--d:.05s">Active Plan.<br/><em>Your Choice.</em></h2>
+      <p class="rise" style="font-size:.9rem;color:var(--muted);max-width:460px;margin-bottom:2.5rem;line-height:1.7;--d:.1s">Flexible options for every stage of your career. Save up to 12% with yearly billing.</p>
+      <div class="pricing-grid">
+        <div class="pc rise" style="--d:.08s">
+          <div class="pc-badge-active">ACTIVE</div>
+          <div class="pc-icon">⚡</div>
+          <div class="pc-tier">● BASE ENTRY</div>
+          <div class="pc-name">Portfolio Preview</div>
+          <div class="pc-price">Free</div>
+          <div class="pc-tagline">Essential features to get you started</div>
+          <ul class="pc-features">
+            <li>14-day full access</li>
+            <li class="dim">Standard Templates</li>
+          </ul>
+          <div class="pc-active-btn">PLAN ACTIVE</div>
+        </div>
+        <div class="pc pc--feat rise" style="--d:.18s">
+          <div class="pc-badge-rec">RECOMMENDED</div>
+          <div class="pc-icon">🚀</div>
+          <div class="pc-tier" style="color:#22C55E">● GROWTH TIER</div>
+          <div class="pc-name">Portfolio Starter</div>
+          <div class="pc-price">₹69<sub>/mo</sub></div>
+          <div class="pc-tagline" style="color:#6B6FF5;font-weight:600;font-size:.72rem">UNLIMITED CREATIVITY</div>
+          <ul class="pc-features">
+            <li>Unlimited Sections</li>
+            <li>Advanced Customization</li>
+            <li>Custom Domain Link</li>
+            <li>Priority Support</li>
+            <li>All Templates Unlocked</li>
+          </ul>
+          <button class="pc-upgrade-btn">UPGRADE EXPERIENCE</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="sec-max">
+      <div class="sec-tag rise">08 / FAQ</div>
+      <h2 class="sec-h rise" style="--d:.05s">Questions,<br/><em>Answered.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item rise" style="--d:.05s"><button class="faq-q" aria-expanded="false">Do I get a personal domain?<span>+</span></button><div class="faq-a">You get buildmyfolio.in/yourname — clean, shareable, and professional. Works perfectly for most use cases.</div></div>
+        <div class="faq-item rise" style="--d:.1s"><button class="faq-q" aria-expanded="false">Is payment secure?<span>+</span></button><div class="faq-a">All payments processed via Razorpay with bank-grade encryption. We never store your card details.</div></div>
+        <div class="faq-item rise" style="--d:.15s"><button class="faq-q" aria-expanded="false">What if I delete my account?<span>+</span></button><div class="faq-a">Your data is permanently removed within 24 hours. Search engine caches clear naturally.</div></div>
+        <div class="faq-item rise" style="--d:.2s"><button class="faq-q" aria-expanded="false">Can my account be suspended?<span>+</span></button><div class="faq-a">Only for ToS violations — illegal content, fraud, or platform abuse. We protect every user on the platform.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-sec">
+    <div class="cta-glow"></div>
+    <div class="cta-inner">
+      <div class="sec-tag rise" style="text-align:center">Ready to Go Live?</div>
+      <h2 class="cta-title rise" style="--d:.1s">Your Portfolio.<br/><span class="violet">Live. Now.</span></h2>
+      <p class="cta-sub rise" style="--d:.2s">Five minutes. Zero code. Built by Priyanshu Dave for everyone tired of PDF attachments.</p>
+      <a href="https://buildmyfolio.in/login" class="btn btn--violet btn--lg rise" style="--d:.3s">Create Your Portfolio — Free →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-inner">
+      <div class="f-brand"><span>Build</span>MyFolio</div>
+      <div class="f-links"><a href="https://buildmyfolio.in/about-me">Contact</a><a href="https://buildmyfolio.in/subscription">Pricing</a><a href="https://buildmyfolio.in/terms">Terms</a><a href="https://buildmyfolio.in/privacy">Privacy</a></div>
+      <span class="f-copy">© 2025 Priyanshu Dave</span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+$(function(){
+  $(window).on('scroll',()=>$('#nav').toggleClass('stuck',$(window).scrollTop()>50));
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.1});
+  document.querySelectorAll('.rise').forEach(el=>obs.observe(el));
+  const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=parseInt(el.dataset.target)||0;cObs.unobserve(el);if(!t)return;let f=0,fr=50;(function tick(){f++;el.textContent=Math.round((1-Math.pow(1-f/fr,3))*t);if(f<fr)requestAnimationFrame(tick);else el.textContent=t;})();});},{threshold:.5});
+  document.querySelectorAll('[data-target]').forEach(el=>cObs.observe(el));
+  const $p=$('#manifesto');
+  if($p.length){$p.html($p.html().replace(/(<[^>]+>)|([^\s<]+)/g,(m,t,w)=>t?t:`<span class="word">${w}</span>`));function upd(){const top=$p.offset().top,h=$p.outerHeight(),s=$(window).scrollTop(),wh=$(window).height();const prog=Math.min(1,Math.max(0,(s-(top-wh*.85))/(h+wh*.55)));const words=$p.find('.word'),lit=Math.floor(prog*words.length);words.each((i,w)=>i<lit?$(w).addClass('lit'):$(w).removeClass('lit'));}$(window).on('scroll',upd);upd();}
+  $('.faq-q').on('click',function(){const open=$(this).attr('aria-expanded')==='true';$('.faq-q').attr('aria-expanded','false');$('.faq-a').removeClass('open');if(!open){$(this).attr('aria-expanded','true');$(this).next('.faq-a').addClass('open');}});
+  // Tab click on sidebar items (for demo)
+  $('.dm-sb-item').on('click',function(){$('.dm-sb-item').removeClass('active');$(this).addClass('active');});
+});
+  </script>
+</body>
+</html>

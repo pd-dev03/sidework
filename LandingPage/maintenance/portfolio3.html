@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet/48/rocket.png">
+    <title>My Portfolio | BuildMyFolio</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --primary-bg: #1E1E1F;
+            --accent-gradient: linear-gradient(135deg, #8AA5FF, #854DFF);
+            --accent-gradient-reverse: linear-gradient(135deg, #854DFF, #8AA5FF);
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --emerald: #10b981;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        .light-mode {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-bg: #f0f2f5;
+            --accent-gradient: linear-gradient(135deg, #5a7dff, #6c3aff);
+            --accent-gradient-reverse: linear-gradient(135deg, #6c3aff, #5a7dff);
+            --text-main: #1a1a1a;
+            --text-dim: #5a5a5a;
+            --emerald: #0d966c;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --glass-bg: rgba(0, 0, 0, 0.02);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, .clash {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            box-shadow: 0 4px 20px var(--shadow-color);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Background Elements */
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(133, 77, 255, 0.08), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        .light-mode .glow-overlay {
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(138, 165, 255, 0.05), transparent 60%);
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            align-items: center;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .profile-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 24px;
+            background: var(--accent-gradient);
+            padding: 8px;
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+            margin: 0 auto;
+            display: block;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .profile-img-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: var(--card-bg);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--text-dim);
+            aspect-ratio: 1/1;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 8rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gradient);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 20px rgba(138, 165, 255, 0.2);
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* REVOLUTIONIZED EDUCATION SECTION - 2026 Design */
+        .education-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 1;
+            grid-row: 1;
+            text-align: right;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-year {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            grid-column: 3;
+            padding-left: 3rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-year {
+            grid-column: 2;
+        }
+
+        .timeline-year {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 20px rgba(138, 165, 255, 0.3);
+            z-index: 2;
+            position: relative;
+        }
+
+        .timeline-year::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid rgba(138, 165, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: rgba(133, 77, 255, 0.3);
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .degree-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .institution {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .institution i {
+            color: #8AA5FF;
+        }
+
+        .gpa-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 99px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* REVOLUTIONIZED EXPERIENCE SECTION */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px -15px var(--shadow-color);
+            border-color: rgba(133, 77, 255, 0.3);
+        }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .company-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .company-info .role {
+            color: var(--text-dim);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .duration {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(133, 77, 255, 0.1);
+            color: #8AA5FF;
+            border-radius: 99px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+
+        .achievements {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .achievements li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-dim);
+        }
+
+        .achievements li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #8AA5FF;
+            font-weight: bold;
+        }
+
+        /* REVOLUTIONIZED PROJECTS SECTION - 2026 Design */
+        .projects-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px -15px var(--shadow-color);
+            border-color: rgba(133, 77, 255, 0.3);
+        }
+
+        .project-image {
+            height: 200px;
+            background: var(--accent-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .badge {
+            padding: 0.4rem 1rem;
+            background: rgba(133, 77, 255, 0.1);
+            color: #8AA5FF;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #8AA5FF;
+        }
+
+        /* REVOLUTIONIZED SKILLS SECTION - Categorized with Levels */
+        .skills-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: rgba(133, 77, 255, 0.3);
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .category-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .skill-level {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(133, 77, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+            transition: width 1.5s ease-out;
+        }
+
+        .expert .progress-fill { width: 95%; }
+        .advanced .progress-fill { width: 85%; }
+        .intermediate .progress-fill { width: 70%; }
+        .beginner .progress-fill { width: 50%; }
+
+        /* Interests Section */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .interest-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: rgba(133, 77, 255, 0.3);
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+        }
+
+        .interest-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Languages Section */
+        .languages-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .language-tag {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .language-tag:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(138, 165, 255, 0.3);
+        }
+
+        .language-tag:hover::before {
+            left: 100%;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-input, .form-textarea {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #8AA5FF;
+            box-shadow: 0 0 0 3px rgba(138, 165, 255, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            grid-column: 1 / -1;
+            justify-self: start;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(138, 165, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 8rem;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--accent-gradient);
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+            border-color: transparent;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .education-timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                grid-template-columns: 80px 1fr;
+                margin-bottom: 2rem;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                grid-column: 2;
+                text-align: left;
+                padding: 1.5rem;
+                margin-left: 1rem;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-year,
+            .timeline-item:nth-child(odd) .timeline-year {
+                grid-column: 1;
+            }
+            
+            .timeline-content::before {
+                left: -10px !important;
+                border-right: none !important;
+                border-top: none !important;
+                border-left: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-overlay"></div>
+    <div class="grid-pattern"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <span class="clash">Portfolio</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero/Profile Section -->
+        <section id="profile" class="hero">
+            <div class="hero-content">
+                <h1>Hello, I'm <span class="gradient-text">Alex Morgan</span></h1>
+                <p>A visionary Software Developer crafting immersive digital experiences with 5+ years of expertise in modern web technologies and AI-driven solutions.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#contact" class="submit-btn" style="text-decoration: none; display: inline-block;">Get In Touch</a>
+                </div>
+            </div>
+            <div class="profile-img">
+                <div class="profile-img-inner">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>About Me</h2>
+            </div>
+            <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 3rem; backdrop-filter: blur(10px);">
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem;">
+                    I'm a forward-thinking software architect who bridges the gap between innovative ideas and practical implementation. My expertise lies in creating scalable, AI-enhanced solutions that transform how businesses interact with technology.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h4 style="margin-bottom: 1rem; color: var(--text-main);">My Philosophy</h4>
+                        <p style="color: var(--text-dim);">Building technology that's not just functional, but emotionally resonant and intuitively accessible.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 1rem; color: var(--text-main);">Current Focus</h4>
+                        <p style="color: var(--text-dim);">Quantum computing applications and neuro-adaptive user interfaces.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVOLUTIONIZED EDUCATION SECTION -->
+        <section id="education">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Education</h2>
+            </div>
+            <div class="education-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="degree-title">MSc. Quantum Computing & AI</h3>
+                        <div class="institution">
+                            <i class="fas fa-university"></i>
+                            <span>Stanford University</span>
+                        </div>
+                        <p style="color: var(--text-dim); line-height: 1.6;">
+                            Specialized in quantum algorithms and neural architecture search. Published research on quantum neural networks in Nature AI Journal.
+                        </p>
+                        <span class="gpa-badge">GPA: 3.9/4.0</span>
+                    </div>
+                    <div class="timeline-year">2026</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h3 class="degree-title">BSc. Computer Science</h3>
+                        <div class="institution">
+                            <i class="fas fa-university"></i>
+                            <span>MIT</span>
+                        </div>
+                        <p style="color: var(--text-dim); line-height: 1.6;">
+                            Focused on distributed systems and machine learning. Led the Quantum Computing Student Research Group.
+                        </p>
+                        <span class="gpa-badge">Summa Cum Laude</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVOLUTIONIZED EXPERIENCE SECTION -->
+        <section id="experience">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2>Experience</h2>
+            </div>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="company-header">
+                        <div class="company-logo">AI</div>
+                        <div class="company-info">
+                            <h3>NeuroTech AI</h3>
+                            <div class="role">Lead Quantum Developer</div>
+                        </div>
+                    </div>
+                    <div class="duration">2024 - Present</div>
+                    <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem;">
+                        Leading a team of 12 engineers in developing quantum machine learning algorithms for drug discovery.
+                    </p>
+                    <ul class="achievements">
+                        <li>Increased algorithm efficiency by 400% using quantum annealing</li>
+                        <li>Developed proprietary QNN framework now used by 50+ research institutions</li>
+                        <li>Reduced computational costs by 60% through quantum optimization</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <div class="company-header">
+                        <div class="company-logo">QS</div>
+                        <div class="company-info">
+                            <h3>Quantum Solutions</h3>
+                            <div class="role">Senior AI Engineer</div>
+                        </div>
+                    </div>
+                    <div class="duration">2022 - 2024</div>
+                    <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem;">
+                        Built neural-symbolic AI systems for autonomous decision-making in complex environments.
+                    </p>
+                    <ul class="achievements">
+                        <li>Architected AI system processing 1M+ decisions/sec with 99.9% accuracy</li>
+                        <li>Patented novel neural architecture search algorithm</li>
+                        <li>Mentored 8 junior engineers who now lead their own teams</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVOLUTIONIZED PROJECTS SECTION -->
+        <section id="projects">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <h2>Projects</h2>
+            </div>
+            <div class="projects-showcase">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-title">
+                            <span>Quantum Neural Interface</span>
+                            <span style="color: #8AA5FF; font-size: 1.2rem;"><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem;">
+                            A quantum-enhanced brain-computer interface enabling thought-controlled applications with unprecedented accuracy.
+                        </p>
+                        <div class="project-badges">
+                            <span class="badge">Qiskit</span>
+                            <span class="badge">PyTorch</span>
+                            <span class="badge">Quantum ML</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Live Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-title">
+                            <span>Autonomous AI Agent</span>
+                            <span style="color: #8AA5FF; font-size: 1.2rem;"><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem;">
+                            Self-evolving AI system that learns from interactions and adapts to new environments without human intervention.
+                        </p>
+                        <div class="project-badges">
+                            <span class="badge">Reinforcement Learning</span>
+                            <span class="badge">TensorFlow</span>
+                            <span class="badge">AWS SageMaker</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Research Paper</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVOLUTIONIZED SKILLS SECTION -->
+        <section id="skills">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h2>Skills</h2>
+            </div>
+            <div class="skills-categories">
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h3>AI & Machine Learning</h3>
+                    </div>
+                    <div class="skill-item expert">
+                        <div class="skill-info">
+                            <span class="skill-name">Deep Learning</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item advanced">
+                        <div class="skill-info">
+                            <span class="skill-name">Computer Vision</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item expert">
+                        <div class="skill-info">
+                            <span class="skill-name">Neural Networks</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-quantum-computer"></i>
+                        </div>
+                        <h3>Quantum Computing</h3>
+                    </div>
+                    <div class="skill-item advanced">
+                        <div class="skill-info">
+                            <span class="skill-name">Quantum Algorithms</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item intermediate">
+                        <div class="skill-info">
+                            <span class="skill-name">Qiskit Development</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item beginner">
+                        <div class="skill-info">
+                            <span class="skill-name">Quantum Cryptography</span>
+                            <span class="skill-level">Beginner</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Development</h3>
+                    </div>
+                    <div class="skill-item expert">
+                        <div class="skill-info">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item advanced">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript/TypeScript</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item intermediate">
+                        <div class="skill-info">
+                            <span class="skill-name">Rust</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2>Interests</h2>
+            </div>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4>Space Tech</h4>
+                    <p style="color: var(--text-dim);">Following developments in private space exploration and satellite technology</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h4>Synthetic Biology</h4>
+                    <p style="color: var(--text-dim);">Exploring the intersection of biology and computation</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h4>Generative Art</h4>
+                    <p style="color: var(--text-dim);">Creating AI-generated art and digital installations</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages Section -->
+        <section id="languages">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h2>Languages</h2>
+            </div>
+            <div class="languages-grid">
+                <div class="language-tag">English (Native)</div>
+                <div class="language-tag">Spanish (Fluent)</div>
+                <div class="language-tag">Japanese (Intermediate)</div>
+                <div class="language-tag">Python (Native 😉)</div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2>Contact Me</h2>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Your email">
+                </div>
+                <div class="form-group full-width">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" class="form-input" placeholder="What would you like to discuss?">
+                </div>
+                <div class="form-group full-width">
+                    <label for="message">Message</label>
+                    <textarea id="message" class="form-textarea" rows="5" placeholder="Your message"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Quantum Message</button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-socials">
+                <a href="https://github.com" class="social-link" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com" class="social-link" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com" class="social-link" target="_blank" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://arxiv.org" class="social-link" target="_blank" title="Research">
+                    <i class="fas fa-graduation-cap"></i>
+                </a>
+            </div>
+            <p class="footer-text" style="color: var(--text-dim); font-size: 1.1rem;">Building the future, one quantum bit at a time</p>
+            <p class="copyright">&copy; 2026 Alex Morgan. All thoughts are my own quantum superpositions.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme or prefer-color-scheme
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'light' || (!currentTheme && !prefersDarkScheme.matches)) {
+            document.body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mouse tracking for background glow
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+        });
+
+        // Form submission handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Create a futuristic notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--accent-gradient);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 10px 30px rgba(138, 165, 255, 0.3);
+            `;
+            notification.textContent = 'Message sent through quantum entanglement!';
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Add animation for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Animate progress bars on scroll
+        const animateProgressBars = () => {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    bar.style.transition = 'width 1.5s ease-out';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateProgressBalls);
+        window.addEventListener('load', animateProgressBalls);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

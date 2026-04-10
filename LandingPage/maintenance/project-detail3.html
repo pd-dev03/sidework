@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet/48/rocket.png">
+    <title>Project Details | BuildMyFolio</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --primary-bg: #1E1E1F;
+            --accent-gradient: linear-gradient(135deg, #8AA5FF, #854DFF);
+            --accent-gradient-reverse: linear-gradient(135deg, #854DFF, #8AA5FF);
+            --accent-light: #A8B9FF;
+            --accent-dark: #6B3AFF;
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        .light-mode {
+            --bg-color: #f5f7ff;
+            --card-bg: #ffffff;
+            --primary-bg: #eef1ff;
+            --accent-gradient: linear-gradient(135deg, #6B7FD9, #5a3aff);
+            --accent-gradient-reverse: linear-gradient(135deg, #5a3aff, #6B7FD9);
+            --text-main: #1a1a2e;
+            --text-dim: #555555;
+            --border-color: rgba(107, 127, 217, 0.15);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --glass-bg: rgba(107, 127, 217, 0.02);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .clash {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            box-shadow: 0 8px 32px var(--shadow-color);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Background */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(138, 165, 255, 0.1), transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #8AA5FF;
+            transform: translateX(-5px);
+        }
+
+        .nav-header {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-header a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-header a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-header a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-header a:hover::before {
+            width: 100%;
+        }
+
+        /* Hero - Full Width Immersive */
+        .hero-wrapper {
+            position: relative;
+            margin: 0 -2rem 6rem -2rem;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(138, 165, 255, 0.1) 0%, rgba(133, 77, 255, 0.05) 100%);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .hero-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(138, 165, 255, 0.15) 0%, transparent 70%);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-30px) translateX(-30px); }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-text h1 .grad {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .meta-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-visual {
+            height: 450px;
+            background: var(--accent-gradient);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -15px var(--shadow-color);
+            border: 1px solid rgba(138, 165, 255, 0.2);
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Highlight Stats Cards */
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+
+        .highlight-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-gradient);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+            border-color: rgba(138, 165, 255, 0.3);
+        }
+
+        .highlight-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-text {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* Section Headers - Bold */
+        .section-header {
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: flex-end;
+            gap: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            max-width: 60%;
+        }
+
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        /* Features Grid - 3 columns */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 6rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--accent-gradient);
+            opacity: 0.05;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px -15px var(--shadow-color);
+            border-color: rgba(138, 165, 255, 0.3);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent-gradient);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-description {
+            color: var(--text-dim);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+            font-size: 0.95rem;
+        }
+
+        /* Showcase Section - Full width alternating */
+        .showcase {
+            margin-bottom: 6rem;
+        }
+
+        .showcase-item {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .showcase-item.reverse {
+            direction: rtl;
+        }
+
+        .showcase-item.reverse > * {
+            direction: ltr;
+        }
+
+        .showcase-image {
+            height: 450px;
+            background: var(--accent-gradient);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px -15px var(--shadow-color);
+            border: 1px solid rgba(138, 165, 255, 0.2);
+        }
+
+        .showcase-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        .showcase-content h3 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .showcase-content p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .showcase-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .showcase-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(138, 165, 255, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid #8AA5FF;
+        }
+
+        .showcase-list i {
+            color: #8AA5FF;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .showcase-list span {
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* Metrics Section */
+        .metrics {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 4rem;
+            margin-bottom: 6rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metrics::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 70%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(138, 165, 255, 0.08) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .metrics-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-dim);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .metric-description {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            margin-bottom: 6rem;
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-category {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-category h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tech-category i {
+            color: #8AA5FF;
+            font-size: 1.5rem;
+        }
+
+        .tech-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tech-item {
+            background: rgba(138, 165, 255, 0.1);
+            color: #8AA5FF;
+            padding: 0.5rem 1.2rem;
+            border-radius: 99px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(138, 165, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: #8AA5FF;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        .gallery-item {
+            height: 280px;
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(138, 165, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+        }
+
+        .gallery-item-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            margin-bottom: 6rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(138, 165, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #8AA5FF;
+            border: 2px solid #8AA5FF;
+        }
+
+        .btn-secondary:hover {
+            background: #8AA5FF;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-visual {
+                height: 350px;
+                font-size: 6rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .showcase-item,
+            .showcase-item.reverse {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-image {
+                height: 350px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-header h2 {
+                max-width: 100%;
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-wrapper {
+                padding: 3rem 1.5rem;
+                margin: 0 -1.5rem 4rem -1.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-visual {
+                height: 280px;
+                font-size: 4rem;
+            }
+
+            .hero-meta {
+                gap: 1.5rem;
+            }
+
+            .highlights {
+                margin-bottom: 4rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .showcase-image {
+                height: 280px;
+                font-size: 3rem;
+            }
+
+            .showcase-content h3 {
+                font-size: 2rem;
+            }
+
+            .metrics {
+                padding: 2.5rem;
+            }
+
+            .metric-number {
+                font-size: 2.5rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item {
+                height: 220px;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-header {
+                display: none;
+            }
+
+            .hero-wrapper {
+                padding: 2rem 1rem;
+                margin: 0 -1rem 3rem -1rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-visual {
+                height: 220px;
+                font-size: 3rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-header p {
+                display: none;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .showcase-image {
+                height: 220px;
+            }
+
+            .showcase-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .metrics-grid {
+                gap: 2rem;
+            }
+
+            .metric-number {
+                font-size: 2rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 180px;
+            }
+
+            .cta-section {
+                padding: 2rem;
+            }
+
+            .cta-title {
+                font-size: 1.5rem;
+            }
+
+            .cta-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem 0;
+            }
+
+            .back-btn {
+                font-size: 0.9rem;
+            }
+
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+
+            .hero-text h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .hero-visual {
+                height: 180px;
+                font-size: 2.5rem;
+            }
+
+            .meta-item {
+                gap: 0.25rem;
+            }
+
+            .meta-label {
+                font-size: 0.75rem;
+            }
+
+            .meta-value {
+                font-size: 1.2rem;
+            }
+
+            .highlight-card {
+                padding: 1.5rem;
+            }
+
+            .highlight-number {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .feature-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .showcase-list li {
+                padding: 0.75rem;
+            }
+
+            .metric-number {
+                font-size: 1.8rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            .tech-item {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .gallery-item {
+                height: 150px;
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 1.3rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <a href="#" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+            </a>
+            <nav class="nav-header">
+                <a href="#features">Features</a>
+                <a href="#showcase">Showcase</a>
+                <a href="#tech">Technology</a>
+                <a href="#results">Results</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-wrapper">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>Next-Gen <span class="grad">Platform</span></h1>
+                    <p class="hero-subtitle">
+                        A revolutionary project that transforms the industry. Built with cutting-edge technology and designed for scale, delivering exceptional results to thousands of users worldwide.
+                    </p>
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Timeline</span>
+                            <span class="meta-value">8 Months</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Team Size</span>
+                            <span class="meta-value">25+ People</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Budget</span>
+                            <span class="meta-value">$500K+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <i class="fas fa-rocket"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlights -->
+        <section class="highlights">
+            <div class="highlight-card">
+                <div class="highlight-number">400%</div>
+                <div class="highlight-text">Performance Improvement</div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-number">50K+</div>
+                <div class="highlight-text">Active Users</div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-number">99.9%</div>
+                <div class="highlight-text">Uptime SLA</div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-number">$2.5M</div>
+                <div class="highlight-text">Cost Savings</div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <div class="section-header">
+                <h2>Core Features</h2>
+                <p>Packed with powerful capabilities designed to solve complex business challenges and drive measurable growth.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">
+                        Optimized performance delivering sub-100ms response times with advanced caching and CDN integration.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield"></i>
+                    </div>
+                    <h3 class="feature-title">Enterprise Security</h3>
+                    <p class="feature-description">
+                        Bank-grade encryption and compliance with GDPR, HIPAA, and SOC 2 standards for maximum protection.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h3 class="feature-title">Infinitely Scalable</h3>
+                    <p class="feature-description">
+                        Cloud-native architecture handles millions of requests with automatic scaling and zero downtime.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Showcase Section 1 -->
+        <section id="showcase" class="showcase">
+            <div class="showcase-item">
+                <div class="showcase-image">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="showcase-content">
+                    <h3>Intuitive Interface</h3>
+                    <p>
+                        Designed with users in mind. Our clean and intuitive interface makes complex tasks feel effortless, requiring minimal training while maximizing productivity.
+                    </p>
+                    <ul class="showcase-list">
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>User-friendly dashboard with real-time analytics</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>Customizable workflows matching your business needs</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>Multi-language support for global teams</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="showcase-item reverse">
+                <div class="showcase-image">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="showcase-content">
+                    <h3>AI-Powered Intelligence</h3>
+                    <p>
+                        Leveraging advanced machine learning algorithms, our platform provides predictive insights and automated decision-making capabilities that drive better business outcomes.
+                    </p>
+                    <ul class="showcase-list">
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>Machine learning models with 99.2% accuracy</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>Automated pattern recognition and anomaly detection</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>Natural language processing for intelligent insights</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results/Metrics -->
+        <section id="results" class="metrics">
+            <div class="metrics-content">
+                <div class="section-header">
+                    <h2>Results That Speak</h2>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-number">10x</div>
+                        <div class="metric-label">Faster Processing</div>
+                        <p class="metric-description">Data processing time reduced from hours to minutes</p>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">60%</div>
+                        <div class="metric-label">Cost Reduction</div>
+                        <p class="metric-description">Operational expenses cut through automation</p>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">95%</div>
+                        <div class="metric-label">User Satisfaction</div>
+                        <p class="metric-description">Industry-leading customer approval ratings</p>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">250%</div>
+                        <div class="metric-label">ROI Growth</div>
+                        <p class="metric-description">Average return on investment for clients</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="tech" class="tech-stack">
+            <div class="section-header">
+                <h2>Technology Stack</h2>
+                <p>Built with industry-leading tools and frameworks for reliability, performance, and scalability.</p>
+            </div>
+
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4><i class="fas fa-server"></i> Backend</h4>
+                    <ul class="tech-list">
+                        <li class="tech-item">Python</li>
+                        <li class="tech-item">Go</li>
+                        <li class="tech-item">Node.js</li>
+                        <li class="tech-item">Java</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4><i class="fas fa-brain"></i> AI/ML</h4>
+                    <ul class="tech-list">
+                        <li class="tech-item">TensorFlow</li>
+                        <li class="tech-item">PyTorch</li>
+                        <li class="tech-item">Keras</li>
+                        <li class="tech-item">Scikit-learn</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4><i class="fas fa-cloud"></i> Cloud</h4>
+                    <ul class="tech-list">
+                        <li class="tech-item">AWS</li>
+                        <li class="tech-item">Kubernetes</li>
+                        <li class="tech-item">Docker</li>
+                        <li class="tech-item">Terraform</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4><i class="fas fa-database"></i> Data</h4>
+                    <ul class="tech-list">
+                        <li class="tech-item">PostgreSQL</li>
+                        <li class="tech-item">Redis</li>
+                        <li class="tech-item">MongoDB</li>
+                        <li class="tech-item">Elasticsearch</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4><i class="fas fa-desktop"></i> Frontend</h4>
+                    <ul class="tech-list">
+                        <li class="tech-item">React</li>
+                        <li class="tech-item">Vue.js</li>
+                        <li class="tech-item">TypeScript</li>
+                        <li class="tech-item">Tailwind CSS</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4><i class="fas fa-lock"></i> Security</h4>
+                    <ul class="tech-list">
+                        <li class="tech-item">OAuth 2.0</li>
+                        <li class="tech-item">SSL/TLS</li>
+                        <li class="tech-item">2FA</li>
+                        <li class="tech-item">Encryption</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section>
+            <div class="section-header">
+                <h2>Project Gallery</h2>
+            </div>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <i class="fas fa-dashboard"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <i class="fas fa-database"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Ready to Get Started?</h2>
+            <p class="cta-text">
+                Join thousands of companies transforming their business with our platform. Experience the difference today.
+            </p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Start Free Trial</button>
+                <button class="btn btn-secondary">Schedule Demo</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-socials">
+                <a href="#" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p>&copy; 2026 BuildMyFolio. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'light' || (!currentTheme && !prefersDark.matches)) {
+            document.body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mouse tracking
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

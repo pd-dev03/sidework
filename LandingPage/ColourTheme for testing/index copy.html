@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Builder · White & Red</title>
+    <!-- Font & Icons (clean, premium) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Sign-In (platform library) -->
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <style>
+        /* ---------- PREMIUM WHITE + RED SYSTEM ---------- */
+        :root {
+            --bg-main: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --color-primary: #DC2626;
+            --color-primary-hover: #B91C1C;
+            --color-primary-light: #FEE2E2;
+            --text-main: #111827;
+            --text-secondary: #4B5563;
+            --border-color: #E5E7EB;
+            --success: #16A34A;
+            --warning: #F59E0B;
+            --info: #2563EB;
+            --radius: 10px;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+        }
+
+        /* typography premium */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* ----- GRADIENT RED accent (premium) ----- */
+        .gradient-red {
+            background: linear-gradient(90deg, #DC2626, #B91C1C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        /* ----- BUTTON SYSTEM (red primary, gray secondary, outline) ----- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(220,38,38,0.2);
+        }
+
+        .btn-secondary {
+            background: #E5E7EB;
+            color: var(--text-main);
+            border: 1px solid transparent;
+        }
+        .btn-secondary:hover {
+            background: #D1D5DB;
+        }
+
+        .btn-outline-red {
+            background: transparent;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+        .btn-outline-red:hover {
+            background: var(--color-primary-light);
+            border-color: var(--color-primary-hover);
+        }
+
+        .btn-light-red {
+            background: #FEE2E2;
+            color: #B91C1C;
+            border: none;
+        }
+        .btn-light-red:hover {
+            background: #FECACA;
+        }
+
+        /* cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.8rem 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.25s;
+        }
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        /* inputs */
+        input, select, textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: white;
+            transition: all 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(220,38,38,0.08);
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        /* toggle switch (red accent) */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 26px;
+            margin-left: 0.5rem;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #E5E7EB;
+            transition: 0.2s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.2s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input:checked + .slider {
+            background-color: var(--color-primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17,24,39,0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem 2rem 1.8rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            border: 1px solid #F3F4F6;
+            animation: modalFade 0.25s;
+        }
+        @keyframes modalFade {
+            from { opacity: 0.7; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+        .modal-header h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .close-modal {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #9CA3AF;
+            transition: color 0.2s;
+        }
+        .close-modal:hover {
+            color: var(--color-primary);
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .inline-group > div {
+            flex: 1 1 180px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-primary);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1.8rem 0;
+        }
+
+        .testimonial-card {
+            background: #F9FAFB;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 6px solid var(--color-primary);
+        }
+
+        /* login & subscription cards */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .g-signin2 {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .abcRioButton {
+            border-radius: 8px !important;
+        }
+
+        .subscription-plan {
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: border 0.2s;
+        }
+        .subscription-plan:hover {
+            border-color: var(--color-primary);
+        }
+        .subscription-plan.selected {
+            border: 2px solid var(--color-primary);
+            background: var(--color-primary-light);
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* template selection demo */
+        .template-badge {
+            background: var(--color-primary-light);
+            color: var(--color-primary-hover);
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--color-primary);
+        }
+
+        /* responsive */
+        @media (max-width: 900px) {
+            .split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- header area: premium red/white theme -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+            <div>
+                <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">
+                    <span class="gradient-red">Portfolio</span> Builder
+                </h1>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">Where <span class="gradient-red" style="font-weight: 600;">your career</span> shines ✦</p>
+            </div>
+            <div class="template-badge">
+                <i class="fas fa-pen-ruler" style="margin-right: 6px;"></i> premium red accent
+            </div>
+        </div>
+
+        <!-- BUTTON TRIGGERS: modals & sections -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem;">
+            <!-- 1. open RICH FORM modal -->
+            <button class="btn btn-primary" id="openFormModalBtn">
+                <i class="fas fa-plus-circle"></i> New project (rich form)
+            </button>
+            <!-- 2. open TESTIMONIAL modal -->
+            <button class="btn btn-outline-red" id="openTestimonialModalBtn">
+                <i class="fas fa-star"></i> Add testimonial
+            </button>
+            <!-- 3. login/reg section anchor -->
+            <a href="#loginSection" class="btn btn-light-red">
+                <i class="fas fa-sign-in-alt"></i> Login / Register
+            </a>
+            <!-- 4. subscription anchor -->
+            <a href="#subscriptionSection" class="btn btn-secondary">
+                <i class="fas fa-crown"></i> Subscription
+            </a>
+        </div>
+
+        <!-- ========== LANDING PAGE PREVIEW ========== -->
+        <!-- mini showcase to demonstrate UI elegance -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; margin-bottom: 3.5rem;">
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <span style="background: var(--color-primary-light); padding: 8px; border-radius: 12px;">
+                        <i class="fas fa-file-alt" style="color: var(--color-primary);"></i>
+                    </span>
+                    <h3 style="font-weight: 600;">Template selection</h3>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Selected: <strong>Minimal Portfolio</strong></p>
+                <div style="border: 2px solid var(--color-primary); background: var(--color-primary-light); padding: 1rem; border-radius: 12px; display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--color-primary);"></i>
+                    <span style="font-weight: 500;">Template “Berlin” – active (red border)</span>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem;"><span style="background: var(--color-primary-light); padding: 0.2rem 0.8rem; border-radius: 20px;">#FEE2E2</span> light red selection feedback</p>
+            </div>
+            <div class="card" style="display: flex; flex-direction: column; justify-content: center;">
+                <div style="display: flex; gap: 1.2rem; align-items: center;">
+                    <i class="fas fa-check" style="background: var(--color-primary); padding: 0.5rem; border-radius: 50%; color: white;"></i>
+                    <span><strong style="color: var(--color-primary);">Red</strong> = primary CTA</span>
+                    <i class="fas fa-times" style="background: #E5E7EB; padding: 0.5rem; border-radius: 50%; color: var(--text-main);"></i>
+                    <span><strong>Gray</strong> = secondary</span>
+                </div>
+                <hr>
+                <button class="btn btn-primary" style="width: fit-content;"><i class="fas fa-save"></i> Save & next</button>
+                <span style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-secondary)">All main actions: red</span>
+            </div>
+        </div>
+
+        <!-- ========== LOGIN / REGISTRATION SECTION (Embedded page) ========== -->
+        <section id="loginSection" style="margin-bottom: 4rem; scroll-margin-top: 2rem;">
+            <div class="card" style="padding: 2rem;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">✧ Sign in to continue</h2>
+                <div class="split-layout">
+                    <!-- login card -->
+                    <div>
+                        <h3 style="font-weight: 600; margin-bottom: 1.2rem;">Login</h3>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="hello@design.dev" value="demo@portfolio.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="••••••••">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;"><i class="fas fa-arrow-right-to-bracket"></i> Log in</button>
+                        <div style="margin-top: 1.5rem;">
+                            <div style="position: relative; text-align: center; margin-bottom: 1rem;">
+                                <span style="background: white; padding: 0 0.8rem; color: var(--text-secondary); font-size: 0.8rem;">OR</span>
+                                <hr style="margin: 0.8rem 0;">
+                            </div>
+                            <!-- GOOGLE LOGIN INIT (styled) -->
+                            <div id="googleSignIn" style="display: flex; justify-content: center;">
+                                <div class="g-signin2" data-width="250" data-height="45" data-longtitle="true" data-theme="light" data-onsuccess="onGoogleSignIn"></div>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.8rem;">Google login initialized — client ID required</p>
+                        </div>
+                    </div>
+                    <!-- registration card -->
+                    <div>
+                        <h3 style="font-weight: 600; margin-bottom: 1.2rem;">Register</h3>
+                        <div class="form-group">
+                            <label>Full name</label>
+                            <input type="text" placeholder="Alex Morgan">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="alex@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="min. 8 characters">
+                        </div>
+                        <button class="btn btn-outline-red" style="width: 100%;">Create account</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SUBSCRIPTION PAGE ========== -->
+        <section id="subscriptionSection" style="margin-bottom: 4rem; scroll-margin-top: 2rem;">
+            <div class="card">
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem;">
+                    <h2 style="font-size: 1.8rem;">Subscription</h2>
+                    <span class="template-badge" style="background: #E5E7EB; color: var(--text-main);">flexible plans</span>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Choose the best for your portfolio journey.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem;">
+                    <!-- free plan -->
+                    <div class="subscription-plan">
+                        <h3 style="font-size: 1.3rem;">Basic</h3>
+                        <div class="price">$0</div>
+                        <p style="margin: 0.8rem 0; color: var(--text-secondary);">Essential templates</p>
+                        <ul style="list-style: none; margin: 1.5rem 0; color: var(--text-secondary);">
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--color-primary); margin-right: 0.5rem;"></i> 1 portfolio</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--color-primary);"></i> Red accent UI</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--color-primary);"></i> Basic forms</li>
+                        </ul>
+                        <button class="btn btn-outline-red" style="width: 100%;">Current plan</button>
+                    </div>
+                    <!-- pro plan (selected with red border) -->
+                    <div class="subscription-plan selected" style="border-width: 2px;">
+                        <h3 style="font-size: 1.3rem; color: var(--color-primary);">Pro <span style="background: var(--color-primary-light); padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.75rem;">popular</span></h3>
+                        <div class="price">$12</div>
+                        <span style="font-size: 0.9rem;">/ month</span>
+                        <ul style="list-style: none; margin: 1.5rem 0; color: var(--text-main);">
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--color-primary);"></i> Everything in Basic</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--color-primary);"></i> Advanced modals</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--color-primary);"></i> Google login integration</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--color-primary);"></i> Priority support</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%;">Subscribe now</button>
+                    </div>
+                    <!-- enterprise hint -->
+                    <div class="subscription-plan">
+                        <h3 style="font-size: 1.3rem;">Studio</h3>
+                        <div class="price">$32</div>
+                        <span style="font-size: 0.9rem;">/ month</span>
+                        <p style="margin: 1rem 0;">For teams & agencies</p>
+                        <button class="btn btn-secondary" style="width: 100%;">Contact sales</button>
+                    </div>
+                </div>
+                <hr style="margin: 2rem 0 0.5rem;">
+                <p style="font-size: 0.8rem; color: var(--text-secondary);"><i class="fas fa-circle" style="color: var(--color-primary); font-size: 0.4rem;"></i> Subscription page with red selected border & primary red CTA</p>
+            </div>
+        </section>
+
+        <!-- footer note: premium system -->
+        <div style="text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <span style="color: var(--text-secondary);">✦ White · Red · Black — premium, clean, modern ✦</span>
+        </div>
+    </div>
+
+    <!-- ========== MODAL 1 : RICH FORM (text, number, email, checkbox, toggle, start/end date) ========== -->
+    <div id="richFormModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span style="color: var(--color-primary);">●</span> New project</h2>
+                <span class="close-modal" id="closeFormModalBtn">&times;</span>
+            </div>
+            <form id="demoRichForm">
+                <div class="form-group">
+                    <label>Project title</label>
+                    <input type="text" placeholder="e.g. UX portfolio case study" value="Red & white design system">
+                </div>
+                <div class="inline-group">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="client@example.com" value="hello@portfolio.dev">
+                    </div>
+                    <div class="form-group">
+                        <label>Number of pages</label>
+                        <input type="number" value="8" min="1" max="50">
+                    </div>
+                </div>
+                <div class="inline-group">
+                    <div class="form-group">
+                        <label>Start date</label>
+                        <input type="date" value="2025-05-01">
+                    </div>
+                    <div class="form-group">
+                        <label>End date</label>
+                        <input type="date" value="2025-06-15">
+                    </div>
+                </div>
+                <!-- checkbox group -->
+                <div class="form-group">
+                    <label style="margin-bottom: 0.6rem;">Features</label>
+                    <div class="checkbox-group" style="margin-bottom: 0.4rem;">
+                        <input type="checkbox" id="seo" checked>
+                        <label for="seo" style="text-transform: none; font-weight: 400;">SEO optimization</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="analytics">
+                        <label for="analytics" style="text-transform: none; font-weight: 400;">Analytics</label>
+                    </div>
+                </div>
+                <!-- toggle switch (red) -->
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-weight: 500; color: var(--text-main);">Dark mode support</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <hr>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" class="btn btn-secondary close-trigger" data-close>Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-cloud-upload-alt"></i> Save project</button>
+                    <button type="button" class="btn btn-primary" style="background: #B91C1C;">Save & next <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 1rem;">* All primary actions red · focus ring red · toggle red checked</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== MODAL 2 : TESTIMONIAL FORM ========== -->
+    <div id="testimonialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span style="color: var(--color-primary);">“</span> Add testimonial</h2>
+                <span class="close-modal" id="closeTestimonialModalBtn">&times;</span>
+            </div>
+            <div style="background: var(--color-primary-light); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                <i class="fas fa-quote-left" style="color: var(--color-primary);"></i> Share a client or colleague feedback.
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Full name</label>
+                    <input type="text" placeholder="Jane Cooper">
+                </div>
+                <div class="form-group">
+                    <label>Role & company</label>
+                    <input type="text" placeholder="Product Director, Stellar">
+                </div>
+                <div class="form-group">
+                    <label>Testimonial</label>
+                    <textarea rows="3" placeholder="“Their portfolio redesign increased our conversion by 30%...”"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Rating (1-5)</label>
+                    <select>
+                        <option>5 — Excellent</option>
+                        <option>4</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <!-- toggle for approval -->
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <span style="color: var(--text-main);">Display publicly</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" class="btn btn-secondary close-trigger" data-close>Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save testimonial</button>
+                </div>
+            </form>
+            <!-- example testimonial card -->
+            <hr style="margin: 1.8rem 0 1rem;">
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left" style="color: var(--color-primary); opacity: 0.5;"></i>
+                <p style="font-style: italic; margin-top: 0.3rem;">"The white & red interface feels incredibly premium."</p>
+                <p style="font-weight: 600; margin-top: 0.5rem;">— R. Ramirez, <span style="color: var(--text-secondary);">Design lead</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS: modals, google sign in callback, interactivity -->
+    <script>
+        // Google Sign-In callback initializer (dummy function, library requires)
+        function onGoogleSignIn(googleUser) {
+            console.log("Google login initiated – premium red/white theme");
+            // In real implementation, profile data available.
+        }
+
+        // MODAL SYSTEM
+        const formModal = document.getElementById('richFormModal');
+        const testimonialModal = document.getElementById('testimonialModal');
+
+        // open form modal
+        document.getElementById('openFormModalBtn').addEventListener('click', () => {
+            formModal.style.display = 'flex';
+        });
+        // open testimonial modal
+        document.getElementById('openTestimonialModalBtn').addEventListener('click', () => {
+            testimonialModal.style.display = 'flex';
+        });
+
+        // close buttons
+        function closeModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        document.getElementById('closeFormModalBtn').addEventListener('click', () => closeModal(formModal));
+        document.getElementById('closeTestimonialModalBtn').addEventListener('click', () => closeModal(testimonialModal));
+
+        // global close triggers (for cancel buttons inside modals)
+        const closeTriggers = document.querySelectorAll('.close-trigger');
+        closeTriggers.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // find parent modal and close
+                const modal = this.closest('.modal');
+                if (modal) modal.style.display = 'none';
+            });
+        });
+
+        // click outside modal to close (optional)
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // prevent form submission reload for demo
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('✨ Form saved (red premium action)');
+                // close any open modal
+                const openModal = form.closest('.modal');
+                if (openModal) openModal.style.display = 'none';
+            });
+        });
+
+        // subscription plan interactive hint: if click "Subscribe now" or etc (just alert)
+        document.querySelectorAll('.subscription-plan .btn-primary, .subscription-plan .btn-outline-red').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if(btn.classList.contains('btn-primary')) alert('Pro plan selected – premium red subscription');
+                else alert('Plan updated');
+            });
+        });
+
+        // Additional: google sign in width styling (g-signin2 renders inside)
+        // manual style for google button wrapper (already loaded)
+    </script>
+
+    <!-- Google API fallback: init gapi automatically -->
+    <script>
+        window.onGoogleSignIn = function(googleUser) {
+            console.log("Google Sign-In successful: " + googleUser.getBasicProfile().getName());
+        };
+        // simulate google sign in init (library will load)
+    </script>
+    <!-- ensure google button does not break if not fully configured -->
+    <div style="display: none;">Google Sign-In SDK ready</div>
+</body>
+</html>

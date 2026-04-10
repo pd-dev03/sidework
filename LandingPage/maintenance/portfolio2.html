@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet/48/rocket.png">
+    <title>My Portfolio | BuildMyFolio</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            /* Dark Mode Default */
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --primary-bg: #1E1E1F;
+            --accent-gradient: linear-gradient(135deg, #8AA5FF, #854DFF);
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --emerald: #10b981;
+            --warning-gradient: linear-gradient(135deg, #FFAA5E, #FF6B6B);
+            --game-gradient-1: linear-gradient(135deg, #FF6B6B, #FFAA5E);
+            --game-gradient-2: linear-gradient(135deg, #4ECDC4, #44A08D);
+            --game-gradient-3: linear-gradient(135deg, #FFD166, #FF9E6D);
+            --game-gradient-4: linear-gradient(135deg, #06D6A0, #118AB2);
+            --game-gradient-5: linear-gradient(135deg, #EF476F, #FF9A76);
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-bg: #f0f2f5;
+            --accent-gradient: linear-gradient(135deg, #3a6ff8, #8c52ff);
+            --text-main: #1a1a1a;
+            --text-dim: #4b5563;
+            --emerald: #059669;
+            --warning-gradient: linear-gradient(135deg, #ff7e29, #ff3d3d);
+            --game-gradient-1: linear-gradient(135deg, #ff3d3d, #ff7e29);
+            --game-gradient-2: linear-gradient(135deg, #2db2a5, #2a8c7c);
+            --game-gradient-3: linear-gradient(135deg, #ffc145, #ff8a5c);
+            --game-gradient-4: linear-gradient(135deg, #00b894, #0a74da);
+            --game-gradient-5: linear-gradient(135deg, #e91e63, #ff7b54);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, .clash {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--shadow-color);
+        }
+
+        .theme-toggle i {
+            font-size: 1.25rem;
+            background: var(--warning-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.5s ease;
+        }
+
+        [data-theme="light"] .fa-moon {
+            display: none;
+        }
+
+        [data-theme="light"] .fa-sun {
+            display: block;
+        }
+
+        .fa-sun {
+            display: none;
+        }
+
+        /* Abstract Background Elements */
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(255, 107, 107, 0.08), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        [data-theme="light"] .glow-overlay {
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(255, 107, 107, 0.05), transparent 60%);
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--warning-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero/Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            align-items: center;
+        }
+
+        .profile-img-container {
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 20px;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px var(--shadow-color);
+            background: var(--card-bg);
+        }
+
+        .profile-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--warning-gradient);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .profile-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -1.5px;
+        }
+
+        .gradient-text {
+            background: var(--warning-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .profile-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Clash Display', sans-serif;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--warning-gradient);
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 6rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            background: var(--warning-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-subtitle {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-date {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .card-desc {
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: transparent;
+            background: var(--warning-gradient);
+            color: white;
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+        }
+
+        /* Languages */
+        .languages-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .language-tag {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 99px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .language-tag:hover {
+            background: var(--warning-gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #FFAA5E;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 8rem;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            color: #FFAA5E;
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .copyright {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .profile-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .profile-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Animation for sections */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </div>
+    
+    <div class="glow-overlay"></div>
+    <div class="grid-pattern"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="clash" style="font-size: 1.8rem;">MyPortfolio</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#profile" class="nav-link">Profile</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Profile Section -->
+        <section id="profile" class="profile-section">
+            <div class="profile-img-container">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Profile Picture" class="profile-img">
+                <div class="profile-badge">
+                    <i class="fas fa-rocket"></i> Available for work
+                </div>
+            </div>
+            <div class="profile-content">
+                <h1>Alex <span class="gradient-text">Johnson</span></h1>
+                <div class="profile-subtitle">Full Stack Developer & UI/UX Designer</div>
+                <p class="profile-desc">
+                    Passionate developer with 5+ years of experience creating web applications and digital experiences. 
+                    Specializing in React, Node.js, and cloud technologies. I transform complex problems into simple, 
+                    beautiful, and intuitive designs.
+                </p>
+                <div class="contact-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i> Contact Me
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+            </div>
+            <div class="card">
+                <p class="card-desc">
+                    I'm a passionate full-stack developer with a keen eye for design and user experience. 
+                    My journey in tech started 8 years ago, and I've been fortunate to work with startups 
+                    and Fortune 500 companies alike. I believe in writing clean, maintainable code and 
+                    creating products that make a difference.
+                </p>
+                <p class="card-desc" style="margin-top: 1rem;">
+                    When I'm not coding, you can find me hiking in the mountains, experimenting with new 
+                    recipes in the kitchen, or contributing to open-source projects. I'm always eager to 
+                    learn new technologies and collaborate on exciting projects.
+                </p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="section-title">Education</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-university"></i> Stanford University
+                    </h3>
+                    <div class="card-subtitle">Master of Science in Computer Science</div>
+                    <div class="card-date">2018 - 2020</div>
+                    <p class="card-desc">
+                        Specialized in Human-Computer Interaction and Machine Learning. 
+                        Graduated with honors (GPA: 3.8/4.0).
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-university"></i> MIT
+                    </h3>
+                    <div class="card-subtitle">Bachelor of Science in Software Engineering</div>
+                    <div class="card-date">2014 - 2018</div>
+                    <p class="card-desc">
+                        Focused on web technologies and software architecture. 
+                        President of the Computer Science Club.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-building"></i> TechCorp Inc.
+                    </h3>
+                    <div class="card-subtitle">Senior Full Stack Developer</div>
+                    <div class="card-date">2022 - Present</div>
+                    <p class="card-desc">
+                        Lead developer for customer-facing web applications. 
+                        Implemented microservices architecture that improved performance by 40%.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-building"></i> StartupXYZ
+                    </h3>
+                    <div class="card-subtitle">Frontend Developer</div>
+                    <div class="card-date">2020 - 2022</div>
+                    <p class="card-desc">
+                        Built responsive web applications using React and TypeScript. 
+                        Collaborated with design team to implement pixel-perfect UIs.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-building"></i> DigitalSolutions
+                    </h3>
+                    <div class="card-subtitle">Junior Developer</div>
+                    <div class="card-date">2018 - 2020</div>
+                    <p class="card-desc">
+                        Developed and maintained client websites. 
+                        Gained experience in full-stack development with Node.js and React.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-shopping-cart"></i> E-Commerce Platform
+                    </h3>
+                    <p class="card-desc">
+                        Full-featured e-commerce solution with React frontend, Node.js backend, 
+                        and PostgreSQL database. Integrated payment processing and inventory management.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-line"></i> Analytics Dashboard
+                    </h3>
+                    <p class="card-desc">
+                        Real-time data visualization dashboard built with D3.js and React. 
+                        Processes millions of data points to provide actionable insights.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-mobile-alt"></i> Fitness Tracking App
+                    </h3>
+                    <p class="card-desc">
+                        Mobile application for tracking workouts and nutrition. Built with React Native 
+                        and integrated with wearable device APIs.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h2 class="section-title">Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="skill-name">React</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                    <div class="skill-name">Node.js</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <div class="skill-name">JavaScript</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="skill-name">MongoDB</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <div class="skill-name">AWS</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <div class="skill-name">Docker</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="skill-name">TypeScript</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="section-title">Interests</h2>
+            </div>
+            <div class="languages-list">
+                <span class="language-tag">Hiking</span>
+                <span class="language-tag">Photography</span>
+                <span class="language-tag">Open Source</span>
+                <span class="language-tag">Cooking</span>
+                <span class="language-tag">Reading</span>
+                <span class="language-tag">Traveling</span>
+                <span class="language-tag">Board Games</span>
+                <span class="language-tag">Music Production</span>
+            </div>
+        </section>
+
+        <!-- Known Languages Section -->
+        <section id="languages">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h2 class="section-title">Languages</h2>
+            </div>
+            <div class="languages-list">
+                <span class="language-tag">English (Native)</span>
+                <span class="language-tag">Spanish (Fluent)</span>
+                <span class="language-tag">French (Intermediate)</span>
+                <span class="language-tag">Japanese (Beginner)</span>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2 class="section-title">Contact <span class="gradient-text">Me</span></h2>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Name</label>
+                        <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-input" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-input" placeholder="How can I help you?" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message</label>
+                        <textarea id="message" class="form-textarea" placeholder="Your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-socials">
+                <a href="https://github.com" class="social-link" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com" class="social-link" target="_blank" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com" class="social-link" target="_blank" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://dribbble.com" class="social-link" target="_blank" title="Dribbble">
+                    <i class="fab fa-dribbble"></i>
+                </a>
+            </div>
+            <p class="footer-text">Let's create something amazing together!</p>
+            <p class="copyright">&copy; 2024 My Portfolio. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Add animation to the icon
+            themeToggle.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                themeToggle.style.transform = 'scale(1)';
+            }, 150);
+        });
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // In a real application, you would send this data to a server
+            // For this example, we'll just show an alert
+            alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon at ${email}.`);
+            
+            // Reset form
+            this.reset();
+            
+            // Add visual feedback
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #3b82f6)';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.background = '';
+            }, 3000);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mouse tracking for background glow
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+        });
+
+        // Add scroll animation to sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

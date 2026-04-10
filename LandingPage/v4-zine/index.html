@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildMyFolio — Zine Edition</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__logo">BMF<span>.</span></div>
+    <div class="nav__links">
+      <a href="#story">Story</a>
+      <a href="#why">Why</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://buildmyfolio.in/login" class="nav__cta">Start →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <!-- Diagonal stripe bg -->
+    <div class="hero__stripe-bg"></div>
+
+    <div class="hero__eyebrow appear" style="--d:.1s">— The Portfolio Builder That Doesn't Suck</div>
+
+    <div class="hero__title-wrap">
+      <h1 class="hero__title">
+        <span class="hero__t-line appear" style="--d:.2s">Built in</span>
+        <span class="hero__t-line hero__t-line--stamp appear" style="--d:.32s">Minutes,</span>
+        <span class="hero__t-line appear" style="--d:.44s">Not Months<span class="hero__dot">.</span></span>
+      </h1>
+    </div>
+
+    <div class="hero__bottom appear" style="--d:.58s">
+      <p class="hero__sub">No drag-and-drop hell. No CSS nightmares.<br/>Fill in your details. Click Publish. You're live.</p>
+      <div class="hero__btns">
+        <a href="https://buildmyfolio.in/login" class="btn btn--dark mag-btn">Create Your Portfolio →</a>
+        <a href="#story" class="btn btn--outline mag-btn">Read the Story</a>
+      </div>
+    </div>
+
+    <!-- Floating badges -->
+    <div class="hero__badge-1 appear" style="--d:.72s">
+      <span class="badge-inner">5 min to live ✦</span>
+    </div>
+    <div class="hero__badge-2 appear" style="--d:.85s">
+      <span class="badge-inner">0 lines of code</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span>BUILD · PUBLISH · SHARE · NO CODE · YOUR URL · FIVE MINUTES · NO PDF · BUILD · PUBLISH · SHARE · NO CODE · YOUR URL · FIVE MINUTES · NO PDF ·&nbsp;</span>
+      <span aria-hidden="true">BUILD · PUBLISH · SHARE · NO CODE · YOUR URL · FIVE MINUTES · NO PDF · BUILD · PUBLISH · SHARE · NO CODE · YOUR URL · FIVE MINUTES · NO PDF ·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- STORY (RANT STYLE) -->
+  <section class="section story" id="story">
+    <div class="story__tag">01 / Origin Story</div>
+    <div class="story__layout">
+      <div class="story__left">
+        <h2 class="story__rant scroll-reveal">
+          <span class="sr-word">"Ugh,</span>
+          <span class="sr-word">not</span>
+          <span class="sr-word">another</span>
+          <span class="sr-word sr-word--rose">PDF!"</span>
+        </h2>
+        <p class="story__byline scroll-reveal" style="--d:.1s">— The last thing anyone wants to receive</p>
+      </div>
+      <div class="story__right">
+        <p class="highlight-para scroll-reveal" id="manifesto" style="--d:.05s">
+          It started as a personal fix. Every portfolio builder I tried 
+          felt like assembling IKEA furniture with pages missing from the manual. 
+          Drag, drop, break, cry, repeat. So I built my own. Clean. 
+          Fast. Done in five minutes. Then it hit me — I'm not alone. 
+          Thousands of busy, talented people need a sharp professional portfolio 
+          without burning their evenings or emptying their wallets. 
+          And that's how BuildMyFolio was born.
+        </p>
+        <div class="story__author scroll-reveal" style="--d:.15s">
+          <div class="story__author-avatar">P</div>
+          <div>
+            <strong>Priyanshu Dave</strong>
+            <span>Creator, BuildMyFolio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY — scatter words -->
+  <section class="section why" id="why">
+    <div class="why__tag">02 / Why Us</div>
+    <h2 class="why__heading scroll-reveal">Why <em>BuildMyFolio?</em></h2>
+
+    <div class="why__features">
+      <div class="why__feat scroll-reveal" style="--d:.05s">
+        <div class="why__feat-mark">✦</div>
+        <div class="why__feat-body">
+          <h3 class="fast-chars" data-text="ZERO CODING, FULL CONTROL">ZERO CODING, FULL CONTROL</h3>
+          <p>Add, edit, reorder, delete — directly from your dashboard. No CSS. No JS. No developer.</p>
+        </div>
+      </div>
+      <div class="why__feat scroll-reveal" style="--d:.12s">
+        <div class="why__feat-mark why__feat-mark--navy">✦</div>
+        <div class="why__feat-body">
+          <h3 class="fast-chars" data-text="INSTANT MOBILE READY">INSTANT MOBILE READY</h3>
+          <p>Your portfolio looks stunning on every device — desktop, tablet, mobile — automatically.</p>
+        </div>
+      </div>
+      <div class="why__feat scroll-reveal" style="--d:.19s">
+        <div class="why__feat-mark why__feat-mark--mustard">✦</div>
+        <div class="why__feat-body">
+          <h3 class="fast-chars" data-text="ONE URL, SHARE EVERYWHERE">ONE URL, SHARE EVERYWHERE</h3>
+          <p>buildmyfolio.in/yourname — drop it on LinkedIn, in emails, on your business card.</p>
+        </div>
+      </div>
+      <div class="why__feat scroll-reveal" style="--d:.26s">
+        <div class="why__feat-mark">✦</div>
+        <div class="why__feat-body">
+          <h3 class="fast-chars" data-text="TRANSPARENT PRICING">TRANSPARENT PRICING</h3>
+          <p>Flat one-time fee or a low monthly — everything included. No hidden upgrade walls. Ever.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Big text behind -->
+    <div class="why__bg-text" aria-hidden="true">WHY?</div>
+  </section>
+
+  <!-- HOW -->
+  <section class="section how" id="how">
+    <div class="how__tag">03 / The Process</div>
+    <div class="how__layout">
+      <h2 class="how__heading scroll-reveal">Three<br/><em>Steps.</em></h2>
+      <div class="how__steps">
+        <div class="how__step scroll-reveal" style="--d:.08s">
+          <div class="how__step-n">01</div>
+          <h3>Login &amp; Fill In</h3>
+          <p>Enter your details. Our guided form handles the structure.</p>
+        </div>
+        <div class="how__step scroll-reveal" style="--d:.18s">
+          <div class="how__step-n">02</div>
+          <h3>Customise</h3>
+          <p>Reorder sections, update content, add your projects — all from your dashboard.</p>
+        </div>
+        <div class="how__step how__step--highlight scroll-reveal" style="--d:.28s">
+          <div class="how__step-n">03</div>
+          <h3>Publish &amp; Share</h3>
+          <p>Hit Publish. You're live at buildmyfolio.in/yourname instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG QUOTE -->
+  <section class="bigquote">
+    <div class="bigquote__inner">
+      <p class="bigquote__text scroll-reveal">"The world moved on from PDFs.<br/>Your career shouldn't be trapped in one."</p>
+      <a href="https://buildmyfolio.in/login" class="btn btn--dark mag-btn scroll-reveal" style="--d:.15s">Escape the PDF →</a>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section pricing" id="pricing">
+    <div class="pricing__tag">04 / Pricing</div>
+    <h2 class="pricing__heading scroll-reveal">Honest.<br/><em>Simple. Done.</em></h2>
+    <p class="pricing__sub scroll-reveal" style="--d:.1s">No hidden fees. No "upgrade to unlock basics." Just one tiny investment.</p>
+    <div class="pricing__cards">
+      <div class="pricing__card scroll-reveal" style="--d:.1s">
+        <div class="pricing__card-type">One-Time</div>
+        <div class="pricing__card-price">Flat Fee</div>
+        <p>Pay once, your portfolio lives forever.</p>
+        <ul>
+          <li>Full dashboard</li>
+          <li>All sections</li>
+          <li>Personal URL</li>
+          <li>Mobile responsive</li>
+          <li>Instant publish</li>
+        </ul>
+        <a href="https://buildmyfolio.in/subscription" class="btn btn--outline">See Pricing</a>
+      </div>
+      <div class="pricing__card pricing__card--pop scroll-reveal" style="--d:.2s">
+        <div class="pricing__card-label">POPULAR</div>
+        <div class="pricing__card-type">Monthly</div>
+        <div class="pricing__card-price">Low Monthly</div>
+        <p>Flexible. Cancel anytime you like.</p>
+        <ul>
+          <li>Everything in One-Time</li>
+          <li>Priority support</li>
+          <li>Future features</li>
+          <li>Razorpay secured</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="https://buildmyfolio.in/subscription" class="btn btn--dark">Get Started →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq" id="faq">
+    <div class="faq__tag">05 / FAQ</div>
+    <h2 class="faq__heading scroll-reveal">Questions?</h2>
+    <div class="faq__list">
+      <div class="faq__item scroll-reveal" style="--d:.05s">
+        <button class="faq__q" aria-expanded="false">Do I get a personal domain? <span>+</span></button>
+        <div class="faq__a">You get buildmyfolio.in/yourname — clean, shareable, professional.</div>
+      </div>
+      <div class="faq__item scroll-reveal" style="--d:.1s">
+        <button class="faq__q" aria-expanded="false">Is payment secure? <span>+</span></button>
+        <div class="faq__a">All payments via Razorpay with bank-grade encryption. We never store card details.</div>
+      </div>
+      <div class="faq__item scroll-reveal" style="--d:.15s">
+        <button class="faq__q" aria-expanded="false">What if I delete my account? <span>+</span></button>
+        <div class="faq__a">Data removed permanently within 24 hours. Search engine caches clear over time.</div>
+      </div>
+      <div class="faq__item scroll-reveal" style="--d:.2s">
+        <button class="faq__q" aria-expanded="false">Can my account be suspended? <span>+</span></button>
+        <div class="faq__a">Only for ToS violations — illegal content, fraud, platform abuse. We protect the community.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta">
+    <div class="finalcta__tape finalcta__tape-1">YOUR PORTFOLIO IS WAITING · YOUR PORTFOLIO IS WAITING · YOUR PORTFOLIO IS WAITING ·</div>
+    <div class="finalcta__inner">
+      <h2 class="finalcta__h scroll-reveal">Stop Waiting.<br/><em>Go Live Today.</em></h2>
+      <p class="finalcta__p scroll-reveal" style="--d:.1s">Five minutes. Zero lines of code. Your portfolio live at your own URL.</p>
+      <a href="https://buildmyfolio.in/login" class="btn btn--dark btn--big mag-btn scroll-reveal" style="--d:.2s">Create Your Portfolio — Free</a>
+      <p class="finalcta__sig scroll-reveal" style="--d:.3s">Built by <a href="https://buildmyfolio.in/priyanshudave">Priyanshu Dave</a> · support@buildmyfolio.in</p>
+    </div>
+    <div class="finalcta__tape finalcta__tape-2">ZERO CODE · INSTANT PUBLISH · YOUR URL · NO PDF · ZERO CODE · INSTANT PUBLISH · YOUR URL · NO PDF ·</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">BMF<span>.</span></div>
+      <div class="footer__links">
+        <a href="https://buildmyfolio.in/about-me">Contact</a>
+        <a href="https://buildmyfolio.in/subscription">Pricing</a>
+        <a href="https://buildmyfolio.in/terms">Terms</a>
+        <a href="https://buildmyfolio.in/privacy">Privacy</a>
+      </div>
+      <p>© 2025 Priyanshu Dave</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

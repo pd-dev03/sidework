@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildMyFolio · REDEFINE</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">B<span>M</span>F</div>
+            <div class="nav-menu">
+                <a href="#features">[ features ]</a>
+                <a href="#why">[ why ]</a>
+                <a href="#samples">[ works ]</a>
+                <a href="#testimonials">[ voices ]</a>
+                <a href="#faq">[ ? ]</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="btn-outline">LOGIN</a>
+                <a href="#" class="btn-primary">START</a>
+            </div>
+            <button class="menu-toggle">≡</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO: 3D Rotating Cube -->
+        <section class="hero">
+            <div class="hero-cube">
+                <div class="cube-face front"></div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="line">PORTFOLIO</span>
+                    <span class="line red">IN MINUTES</span>
+                    <span class="line">NOT MONTHS</span>
+                </h1>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-bar" style="--p:80"></div>
+                        <span>2k+</span>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-bar" style="--p:98"></div>
+                        <span>4.9★</span>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-bar" style="--p:30"></div>
+                        <span>15min</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-scroll">↓</div>
+        </section>
+
+        <!-- QUOTE: Ripped paper effect -->
+        <section class="quote">
+            <div class="quote-container">
+                <div class="quote-tear"></div>
+                <blockquote>“UGH, NOT ANOTHER PDF!”</blockquote>
+                <cite>— PRIYANSHU DAVE, FOUNDER</cite>
+                <div class="quote-tear bottom"></div>
+            </div>
+        </section>
+
+        <!-- FEATURES: 3D Flipping Cards -->
+        <section id="features" class="features">
+            <h2 class="section-title"><span>⎯</span> WHAT YOU GET <span>⎯</span></h2>
+            <div class="features-grid">
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front" style="background:#FF3B3B;">🎛️</div>
+                        <div class="flip-back">
+                            <h3>DASHBOARD</h3>
+                            <p>Drag, drop, done.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front" style="background:#000; color:white;">⚡</div>
+                        <div class="flip-back">
+                            <h3>INSTANT</h3>
+                            <p>One click live.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front" style="background:#FF3B3B;">💎</div>
+                        <div class="flip-back">
+                            <h3>FLAT FEE</h3>
+                            <p>No surprises.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY: Before/After Slider (no‑code vs code) -->
+        <section id="why" class="why">
+            <div class="why-container">
+                <div class="before-after">
+                    <div class="before">
+                        <pre>&lt;div&gt;...&lt;/div&gt;</pre>
+                    </div>
+                    <div class="after">
+                        <span>✨ YOUR PORTFOLIO</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="compareSlider">
+                </div>
+                <div class="why-text">
+                    <h2>ZERO <span class="red">CODE</span><br>ALL CONTROL</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- SAMPLES: Polaroid tilt cards -->
+        <section id="samples" class="samples">
+            <h2 class="section-title"><span>⎯</span> SECTIONS <span>⎯</span></h2>
+            <div class="samples-grid">
+                <div class="polaroid" data-tilt>
+                    <div class="polaroid-img" style="background:#FF3B3B;"></div>
+                    <div class="polaroid-caption">HERO</div>
+                </div>
+                <div class="polaroid" data-tilt>
+                    <div class="polaroid-img" style="background:#000;"></div>
+                    <div class="polaroid-caption">SKILLS</div>
+                </div>
+                <div class="polaroid" data-tilt>
+                    <div class="polaroid-img" style="background:#FF3B3B;"></div>
+                    <div class="polaroid-caption">PROJECTS</div>
+                </div>
+                <div class="polaroid" data-tilt>
+                    <div class="polaroid-img" style="background:#000;"></div>
+                    <div class="polaroid-caption">CONTACT</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS: Animated speech bubbles -->
+        <section id="testimonials" class="testimonials">
+            <h2 class="section-title"><span>⎯</span> VOICES <span>⎯</span></h2>
+            <div class="bubbles">
+                <div class="bubble" style="--x:10%; --y:20%; --delay:0s;">
+                    <div class="bubble-content">“15 min”</div>
+                </div>
+                <div class="bubble" style="--x:60%; --y:40%; --delay:2s;">
+                    <div class="bubble-content">“no code”</div>
+                </div>
+                <div class="bubble" style="--x:30%; --y:70%; --delay:4s;">
+                    <div class="bubble-content">“love it”</div>
+                </div>
+                <div class="bubble" style="--x:80%; --y:15%; --delay:1s;">
+                    <div class="bubble-content">“PDF sucks”</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ: Expanding circles -->
+        <section id="faq" class="faq">
+            <h2 class="section-title"><span>⎯</span> ? <span>⎯</span></h2>
+            <div class="faq-circles">
+                <div class="faq-circle">
+                    <div class="circle-front">DOMAIN?</div>
+                    <div class="circle-back">buildmyfolio.in/yourname</div>
+                </div>
+                <div class="faq-circle">
+                    <div class="circle-front">SECURE?</div>
+                    <div class="circle-back">Razorpay 🔒</div>
+                </div>
+                <div class="faq-circle">
+                    <div class="circle-front">DATA?</div>
+                    <div class="circle-back">Deleted in 24h</div>
+                </div>
+                <div class="faq-circle">
+                    <div class="circle-front">SUSPEND?</div>
+                    <div class="circle-back">Only for violations</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA: Full‑red strip -->
+        <section class="cta">
+            <div class="cta-strip">
+                <h2>JOIN 2000+</h2>
+                <a href="#" class="btn-primary">→ START FREE ←</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">B<span>M</span>F</div>
+            <div class="footer-links">
+                <a href="#">TERMS</a>
+                <a href="#">PRIVACY</a>
+                <a href="mailto:support@buildmyfolio.in">CONTACT</a>
+            </div>
+            <div class="footer-copy">© 2025 · BUILDMYFOLIO</div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

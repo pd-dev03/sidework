@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildMyFolio — Official Dark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;--s1:#111111;--s2:#1A1A1A;--s3:#222222;--border:#2A2A2A;
+  --purple:#6B2BFF;--purple2:#5A1FE8;--purple-soft:rgba(107,43,255,.15);
+  --purple-glow:rgba(107,43,255,.25);--text:#FFFFFF;--muted:#888888;
+  --muted2:#555555;--green:#22C55E;--ease:cubic-bezier(.16,1,.3,1);
+  --sans:'Inter',sans-serif;--display:'Manrope',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* AMBIENT GLOW */
+.glow-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.glow-bg::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(107,43,255,.07),transparent 65%);top:-200px;left:50%;transform:translateX(-50%)}
+.glow-bg::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(107,43,255,.05),transparent 65%);bottom:10%;right:-100px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:8px;font-family:var(--sans);font-weight:600;font-size:.85rem;letter-spacing:.01em;transition:all .25s var(--ease);cursor:pointer;border:1px solid transparent}
+.btn--purple{background:var(--purple);color:#fff}
+.btn--purple:hover{background:var(--purple2);box-shadow:0 0 40px var(--purple-glow);transform:translateY(-2px)}
+.btn--outline{background:transparent;color:var(--text);border-color:var(--border)}
+.btn--outline:hover{border-color:rgba(107,43,255,.5);background:var(--purple-soft);transform:translateY(-2px)}
+.btn--lg{padding:.9rem 2.2rem;font-size:.9rem;border-radius:10px}
+
+/* ANIMS */
+.fin{opacity:0;transform:translateY(22px);animation:finIn .75s var(--ease) forwards;animation-delay:var(--d,0s)}
+@keyframes finIn{to{opacity:1;transform:translateY(0)}}
+.up{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.up.in{opacity:1;transform:translateY(0)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1rem 5rem;transition:all .35s}
+.nav.stuck{background:rgba(10,10,10,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-brand{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem}
+.nav-brand-logo{font-weight:800;color:var(--purple)}
+.nav-links{display:flex;align-items:center;gap:2rem;font-size:.83rem;color:var(--muted)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-links .cta{color:#fff;background:var(--purple);padding:.45rem 1.1rem;border-radius:6px;font-weight:600}
+.nav-links .cta:hover{background:var(--purple2);box-shadow:0 0 20px var(--purple-glow)}
+
+/* HERO */
+.hero{min-height:100vh;padding:9rem 5rem 5rem;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .9rem;border-radius:20px;background:var(--purple-soft);border:1px solid rgba(107,43,255,.3);font-size:.7rem;letter-spacing:.08em;color:rgba(167,139,250,.9);margin-bottom:1.8rem;font-weight:500}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1.hero-h{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,4.5vw,4.2rem);line-height:1.05;letter-spacing:-.04em;margin-bottom:1.5rem}
+h1.hero-h .pur{color:var(--purple)}
+h1.hero-h .dim{opacity:.45}
+.hero-sub{font-size:.95rem;color:var(--muted);max-width:440px;margin-bottom:2.5rem;line-height:1.8}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero-stats{display:flex;gap:2.5rem}
+.hs{display:flex;flex-direction:column;gap:.25rem}
+.hs-n{font-family:var(--display);font-weight:800;font-size:1.8rem;letter-spacing:-.04em;color:var(--purple)}
+.hs-l{font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+
+/* ========================
+   DASHBOARD MOCK — HERO
+   Faithful to actual UI from screenshots
+   ======================== */
+.dash-mock{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 80px rgba(0,0,0,.7);background:var(--s1);position:relative}
+.dm-topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#0D0D0D}
+.dm-logo{font-family:var(--display);font-weight:700;font-size:.9rem}
+.dm-logo span{color:var(--purple)}
+.dm-topbar-right{display:flex;align-items:center;gap:1rem;font-size:.75rem;color:var(--muted)}
+.dm-notif{width:26px;height:26px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.dm-notif-badge{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:#EF4444;font-size:.5rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #0D0D0D}
+.dm-view-port{display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--muted);cursor:pointer}
+.dm-body{display:flex}
+.dm-sidebar{width:180px;border-right:1px solid var(--border);background:#0D0D0D;flex-shrink:0}
+.dm-sb-item{padding:.6rem 1.2rem;font-size:.72rem;cursor:pointer;display:flex;align-items:center;gap:.6rem;transition:background .2s;color:var(--muted);border-left:2px solid transparent}
+.dm-sb-item.active{background:var(--purple-soft);color:#fff;font-weight:600;border-left-color:var(--purple)}
+.dm-sb-item:hover:not(.active){background:var(--s2)}
+.dm-sb-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.6}
+.dm-sb-section{padding:.5rem 1.2rem .3rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-top:.3rem}
+.dm-sb-footer{margin-top:auto;padding:.8rem 1rem;border-top:1px solid var(--border)}
+.dm-sb-user{display:flex;align-items:center;gap:.5rem;font-size:.68rem}
+.dm-sb-av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#9333EA);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:#fff;flex-shrink:0}
+.dm-sb-username{font-weight:600;color:var(--text)}
+.dm-sb-status{font-size:.58rem;color:#EF4444}
+.dm-sb-status-badge{display:inline-flex;gap:.3rem;align-items:center;font-size:.55rem;color:#EF4444}
+.dm-main{flex:1;padding:1.2rem;max-height:340px;overflow:hidden}
+.dm-main-title{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:1rem}
+.dm-main-title span{color:var(--purple)}
+/* Template cards strip (from mock1 / mock3 screenshots) */
+.dm-tpl-label{font-size:.7rem;font-weight:600;margin-bottom:.5rem;letter-spacing:.04em}
+.dm-tpl-sub{font-size:.65rem;color:var(--muted);margin-bottom:.8rem}
+.dm-tpl-strip{display:flex;gap:.6rem;overflow:hidden}
+.dm-tpl-card{width:100px;flex-shrink:0;border-radius:7px;border:1px solid var(--border);overflow:hidden;background:var(--s2);transition:border-color .2s}
+.dm-tpl-card.active-card{border-color:var(--purple);box-shadow:0 0 12px var(--purple-glow)}
+.dm-tpl-card-img{height:55px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--muted2);position:relative}
+.dm-lock{position:absolute;bottom:6px;left:50%;transform:translateX(-50%)}
+.dm-lock-icon{background:rgba(107,43,255,.7);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.55rem}
+.dm-live-badge{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);background:var(--purple);font-size:.5rem;font-weight:700;color:#fff;padding:.1rem .35rem;border-radius:3px;white-space:nowrap}
+.dm-checkmark{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:.5rem}
+.dm-tpl-info{padding:.4rem .5rem}
+.dm-tpl-name{font-size:.6rem;font-weight:600;margin-bottom:.15rem}
+.dm-tpl-desc{font-size:.55rem;color:var(--muted);line-height:1.3}
+.dm-tpl-btns{display:flex;gap:.3rem;padding:.4rem .5rem}
+.dm-tpl-btn{flex:1;padding:.2rem;font-size:.55rem;border-radius:3px;background:var(--s3);border:1px solid var(--border);color:var(--text);cursor:pointer;text-align:center}
+.dm-tpl-btn.primary{background:var(--purple);border-color:var(--purple)}
+.dm-tpl-unlocked{font-size:.5rem;color:var(--green);text-align:center;padding:.2rem}
+.dm-tpl-current{font-size:.55rem;color:var(--purple);display:flex;align-items:center;justify-content:center;gap:.2rem;padding:.3rem .5rem;background:var(--purple-soft);border-radius:4px;margin:.3rem .4rem}
+.dm-tpl-active-label{font-size:.5rem;color:var(--muted);text-align:center;padding:.1rem}
+/* Bottom strip - live portfolio */
+.dm-live-strip{border-top:1px solid var(--border);padding:.7rem 1.2rem;display:flex;align-items:center;justify-content:space-between;background:#0D0D0D}
+.dm-live-label{display:flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:600;color:var(--purple)}
+.dm-live-icon{font-size:.7rem}
+.dm-view-btn{background:var(--purple);color:#fff;padding:.3rem .8rem;border-radius:5px;font-size:.65rem;font-weight:600;display:flex;align-items:center;gap:.3rem;cursor:pointer;border:none}
+
+/* MARQUEE */
+.marquee-outer{position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.75rem 0}
+.marquee-inner{display:flex;white-space:nowrap;animation:mq 30s linear infinite}
+.marquee-inner span{font-size:.65rem;letter-spacing:.2em;color:var(--muted2)}
+.marquee-inner em{color:var(--purple);font-style:normal}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.sec{padding:8rem 5rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
+.sec-tag{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);margin-bottom:1.5rem;font-weight:600}
+.sec-h{font-family:var(--display);font-weight:800;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.08;letter-spacing:-.04em;margin-bottom:.75rem}
+.sec-sub{font-size:.9rem;color:var(--muted);max-width:480px;margin-bottom:3rem;line-height:1.75}
+
+/* STORY */
+.story-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:8rem;align-items:start}
+.story-h{font-family:var(--display);font-weight:800;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-.04em;line-height:1.05;margin-bottom:1.5rem}
+.by{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);font-weight:600}
+.hl-text{font-size:.95rem;line-height:2.1;color:rgba(255,255,255,.18);margin-bottom:2rem}
+.hl-text .word.lit{color:var(--text)}
+.story-q{font-size:1.2rem;font-style:italic;border-left:2px solid var(--purple);padding-left:1.2rem;line-height:1.5;color:rgba(255,255,255,.8)}
+.story-q em{color:var(--purple)}
+
+/* TEMPLATE GALLERY MOCK */
+.tpl-gallery-wrap{margin-top:3rem}
+.tpl-gallery-mock{background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.tgm-top{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.tgm-title{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.tgm-title span{color:var(--purple)}
+.tgm-filters{display:flex;gap:.4rem;flex-wrap:wrap}
+.tgm-filter{padding:.3rem .8rem;border-radius:20px;font-size:.68rem;background:var(--s2);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:.3rem}
+.tgm-filter.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+.tgm-body{padding:1.2rem;display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}
+.tgm-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--s2);transition:border-color .25s,transform .25s}
+.tgm-card:hover{border-color:rgba(107,43,255,.5);transform:translateY(-3px)}
+.tgm-card.selected{border-color:var(--purple);box-shadow:0 0 16px var(--purple-glow)}
+.tgm-img{height:70px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--muted2);position:relative}
+.tgm-lock-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem}
+.tgm-lock-circle{width:22px;height:22px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:.65rem}
+.tgm-mem-txt{font-size:.5rem;letter-spacing:.06em;color:rgba(255,255,255,.8);font-weight:600}
+.tgm-check-badge{position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:.55rem}
+.tgm-soon{position:absolute;inset:0;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.tgm-soon-txt{font-family:var(--display);font-weight:700;font-size:.7rem;letter-spacing:.05em}
+.tgm-info{padding:.5rem}
+.tgm-name{font-size:.65rem;font-weight:600;margin-bottom:.15rem}
+.tgm-desc{font-size:.55rem;color:var(--muted);line-height:1.3;margin-bottom:.4rem}
+.tgm-btns{display:flex;gap:.3rem}
+.tgm-btn{flex:1;padding:.22rem;font-size:.55rem;border-radius:4px;background:var(--s3);border:1px solid var(--border);color:var(--text);cursor:pointer;text-align:center}
+.tgm-btn.p{background:var(--purple);border-color:var(--purple)}
+.tgm-unlocked{font-size:.5rem;color:var(--green);text-align:center;padding:.2rem;font-weight:600}
+.tgm-current-btn{background:var(--purple-soft);border:1px solid rgba(107,43,255,.3);color:var(--purple);font-size:.6rem;width:100%;padding:.3rem;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:.25rem;cursor:pointer;font-weight:600}
+.tgm-active-lbl{font-size:.5rem;color:var(--purple);text-align:center;padding:.15rem;font-weight:600}
+
+/* PROFILE FORM MOCK */
+.profile-mock{background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
+.pm-top{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#0D0D0D}
+.pm-title{font-family:var(--display);font-weight:700;font-size:1.1rem}
+.pm-title span{color:var(--purple)}
+.pm-topright{display:flex;align-items:center;gap:.8rem;font-size:.7rem;color:var(--muted)}
+.pm-body{display:flex}
+.pm-sidebar{width:175px;border-right:1px solid var(--border);background:#0D0D0D;padding:.5rem 0}
+.pm-sb-item{padding:.55rem 1rem;font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;cursor:pointer;border-left:2px solid transparent}
+.pm-sb-item.active{color:var(--purple);font-weight:600;border-left-color:var(--purple)}
+.pm-sb-dot{width:18px;height:18px;border-radius:50%;background:var(--s3);border:2px solid var(--s3);display:flex;align-items:center;justify-content:center;font-size:.45rem;flex-shrink:0}
+.pm-sb-item.active .pm-sb-dot{background:var(--purple);border-color:var(--purple);color:#fff}
+.pm-sb-item.done .pm-sb-dot{background:#22C55E;border-color:#22C55E;color:#fff}
+.pm-content{flex:1;padding:1.5rem}
+.pm-section{font-size:.82rem;font-weight:700;margin-bottom:.3rem}
+.pm-section-sub{font-size:.72rem;color:var(--muted);margin-bottom:1rem}
+.pm-form-group{margin-bottom:.9rem}
+.pm-label{font-size:.68rem;font-weight:600;margin-bottom:.3rem;display:flex;align-items:center;gap:.3rem}
+.pm-req{color:#EF4444;font-size:.65rem}
+.pm-input{width:100%;background:var(--s2);border:1px solid var(--s3);border-radius:7px;padding:.5rem .8rem;font-size:.72rem;color:var(--text);outline:none;font-family:var(--sans)}
+.pm-input.focused{border-color:var(--purple);box-shadow:0 0 0 3px rgba(107,43,255,.15)}
+.pm-input.ph{color:var(--muted2)}
+.pm-footer{border-top:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:flex-end;gap:.6rem;background:#0D0D0D}
+.pm-btn{padding:.45rem 1.1rem;border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--text)}
+.pm-btn.p{background:var(--purple);border-color:var(--purple);color:#fff}
+.pm-btn.pp{background:linear-gradient(135deg,var(--purple),#9333EA);border-color:transparent;color:#fff}
+
+/* PRICING MOCK */
+.pricing-mock{background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem;max-width:900px}
+.pricm-top{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);background:#0D0D0D}
+.pricm-title{font-family:var(--display);font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem}
+.pricm-sub{font-size:.72rem;color:var(--muted)}
+.pricm-body{padding:1.5rem;display:grid;grid-template-columns:1fr 1.4fr 1.4fr;gap:1rem;align-items:start}
+.pricm-left h4{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.pricm-left p{font-size:.7rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem}
+.pricm-toggle{display:flex;gap:.3rem;background:var(--s2);padding:.25rem;border-radius:7px;margin-bottom:.6rem;width:fit-content}
+.pricm-toggle-btn{padding:.3rem .8rem;border-radius:5px;font-size:.65rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--muted);border:none;background:transparent}
+.pricm-toggle-btn.active{background:var(--purple);color:#fff}
+.pricm-loyalty{font-size:.62rem;color:var(--muted);line-height:1.5;background:var(--s2);padding:.5rem;border-radius:6px;border:1px solid var(--border)}
+.pricm-card{border-radius:12px;padding:1.2rem;border:1px solid var(--border);background:var(--s2);position:relative}
+.pricm-card.active-plan{border-color:var(--green);background:rgba(34,197,94,.04)}
+.pricm-card.rec-plan{border-color:var(--purple);background:var(--purple-soft)}
+.pricm-badge{position:absolute;top:-10px;right:1rem;font-size:.58rem;font-weight:700;letter-spacing:.1em;padding:.2rem .6rem;border-radius:3px}
+.pricm-badge.active{background:var(--green);color:#000}
+.pricm-badge.rec{background:linear-gradient(135deg,var(--purple),#9333EA);color:#fff}
+.pricm-plan-name{font-family:var(--display);font-weight:700;font-size:.85rem;margin-bottom:.3rem}
+.pricm-tier{display:inline-flex;align-items:center;gap:.25rem;padding:.15rem .5rem;border-radius:20px;font-size:.58rem;font-weight:600;margin-bottom:.8rem}
+.pricm-tier.base{background:rgba(34,197,94,.12);color:var(--green)}
+.pricm-tier.growth{background:var(--purple-soft);color:#A78BFA}
+.pricm-price{font-family:var(--display);font-weight:800;font-size:2rem;letter-spacing:-.04em;margin-bottom:.25rem}
+.pricm-price sup{font-size:.9rem;vertical-align:super;font-weight:600}
+.pricm-price sub{font-size:.7rem;font-weight:400;color:var(--muted);vertical-align:baseline}
+.pricm-price-tag{font-size:.7rem;color:var(--green);font-weight:500;margin-bottom:.8rem}
+.pricm-features{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.pricm-feat{display:flex;align-items:center;gap:.4rem;font-size:.68rem}
+.pricm-feat-icon{width:14px;height:14px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.45rem;flex-shrink:0}
+.pricm-feat-icon.dim{background:var(--s3)}
+.pricm-cta{width:100%;padding:.5rem;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;border:none;font-family:var(--sans)}
+.pricm-cta.active{background:var(--s3);color:var(--muted)}
+.pricm-cta.rec{background:linear-gradient(135deg,var(--purple),#9333EA);color:#fff}
+.pricm-unlock{font-size:.62rem;font-weight:600;margin-bottom:.3rem}
+
+/* HOW IT WORKS */
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+.how-step{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:2rem;transition:border-color .3s,transform .3s}
+.how-step:hover{border-color:rgba(107,43,255,.4);transform:translateY(-4px)}
+.how-n{font-family:var(--display);font-weight:800;font-size:2.8rem;letter-spacing:-.06em;color:rgba(107,43,255,.15);line-height:1;margin-bottom:1rem}
+.how-step h3{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:.6rem}
+.how-step p{font-size:.85rem;color:var(--muted);line-height:1.75}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem}
+.tc{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:border-color .3s,transform .3s;border-left:3px solid var(--purple)}
+.tc:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.tc-stars{font-size:.78rem;color:#FBBF24;margin-bottom:.8rem}
+.tc-text{font-size:.88rem;line-height:1.8;color:rgba(255,255,255,.8);font-style:italic;margin-bottom:1.2rem}
+.tc-person{display:flex;align-items:center;gap:.7rem}
+.tc-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#9333EA);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0}
+.tc-name{font-weight:600;font-size:.85rem}
+.tc-role{font-size:.72rem;color:var(--muted)}
+
+/* PRICING SECTION */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:680px;margin-top:1rem}
+.pc{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:2.5rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.pc:hover{border-color:rgba(107,43,255,.4);transform:translateY(-3px)}
+.pc--feat{border-color:rgba(107,43,255,.35);background:rgba(107,43,255,.05)}
+.pc-glow{position:absolute;top:-80px;right:-80px;width:200px;height:200px;background:radial-gradient(circle,rgba(107,43,255,.2),transparent 65%);pointer-events:none}
+.pc-popular{position:absolute;top:1.5rem;right:1.5rem;background:var(--purple);color:#fff;font-size:.58rem;letter-spacing:.15em;font-weight:700;padding:.22rem .6rem;border-radius:20px}
+.pc-type{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);font-weight:600;margin-bottom:.6rem}
+.pc-price{font-family:var(--display);font-weight:800;font-size:1.8rem;letter-spacing:-.04em;margin-bottom:.8rem}
+.pc p{font-size:.85rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.7}
+.pc ul{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:.45rem}
+.pc li{font-size:.82rem;color:var(--muted);display:flex;gap:.4rem}
+.pc li::before{content:'✓';color:var(--purple);font-weight:700;flex-shrink:0}
+
+/* FAQ */
+.faq-list{max-width:700px;margin-top:1rem}
+.fi{border-bottom:1px solid var(--border)}
+.fq{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);font-family:var(--sans);font-size:.88rem;cursor:pointer;text-align:left;gap:2rem;transition:color .2s}
+.fq:hover{color:var(--purple)}
+.fq span{font-size:1.2rem;color:var(--purple);transition:transform .4s var(--ease);line-height:1;flex-shrink:0}
+.fq[aria-expanded="true"] span{transform:rotate(45deg)}
+.fa{max-height:0;overflow:hidden;font-size:.85rem;color:var(--muted);line-height:1.8;transition:max-height .5s var(--ease),padding .4s}
+.fa.open{max-height:200px;padding-bottom:1.2rem}
+
+/* FINAL CTA */
+.fcta{padding:12rem 5rem;text-align:center;position:relative;z-index:1;overflow:hidden}
+.fcta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(107,43,255,.1),transparent 60%);pointer-events:none}
+.fcta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.fcta-tag{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);margin-bottom:1.5rem;font-weight:600}
+.fcta h2{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.0;letter-spacing:-.05em;margin-bottom:1.5rem}
+.fcta h2 .pur{color:var(--purple)}
+.fcta p{color:var(--muted);font-size:.92rem;margin:0 auto 3rem;line-height:1.8}
+
+/* TPL SCROLL STRIP */
+.tpl-scroll{overflow:hidden;margin:3rem -5rem 0}
+.tpl-track{display:flex;gap:1rem;padding:0 5rem;animation:tplS 32s linear infinite}
+.tpl-track:hover{animation-play-state:paused}
+@keyframes tplS{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tpc{flex-shrink:0;width:200px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--s1);transition:border-color .3s,transform .3s}
+.tpc:hover{border-color:rgba(107,43,255,.4);transform:translateY(-5px)}
+.tpc-chrome{background:var(--s2);padding:.4rem .6rem;display:flex;gap:.3rem;border-bottom:1px solid var(--border)}
+.tpc-dot{width:7px;height:7px;border-radius:50%;background:var(--s3)}
+.tpc-body{padding:.75rem}
+.tpc-ah{height:35px;background:linear-gradient(135deg,#1A1A2E,#16213E);border-radius:5px;margin-bottom:.5rem;display:flex;align-items:center;padding:0 .4rem;gap:.3rem}
+.tpc-av{width:18px;height:18px;border-radius:50%;background:var(--purple);font-size:.45rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tpc-nm{font-size:.58rem;font-weight:600}
+.tpc-bh{height:45px;background:linear-gradient(135deg,var(--purple),#9333EA);border-radius:5px;margin-bottom:.6rem;position:relative}
+.tpc-bav{position:absolute;bottom:-7px;left:.4rem;width:20px;height:20px;border-radius:50%;background:var(--s1);border:2px solid var(--purple);font-size:.48rem;color:var(--purple);font-weight:700;display:flex;align-items:center;justify-content:center}
+.tpc-lines{display:flex;flex-direction:column;gap:.22rem;margin-top:.15rem}
+.tpc-line{height:3px;border-radius:2px;background:var(--s3)}
+.tpc-line.l{width:100%}
+.tpc-line.m{width:70%}
+.tpc-line.s{width:45%}
+.tpc-label{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)}
+.tpc-ch{height:55px;background:var(--s2);border-radius:5px;margin-bottom:.4rem;display:flex;align-items:flex-end;padding:.3rem .4rem;border-bottom:2px solid var(--purple)}
+.tpc-bn{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:-.04em;line-height:1}
+.tpc-cen{display:flex;flex-direction:column;align-items:center;padding:.3rem 0;margin-bottom:.3rem}
+.tpc-lg-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#9333EA);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2.5rem 5rem;background:var(--s1)}
+.f-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.f-brand{font-family:var(--display);font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:.4rem}
+.f-brand span{color:var(--purple)}
+.f-links{display:flex;gap:2rem}
+.f-links a{font-size:.75rem;color:var(--muted);transition:color .2s}
+.f-links a:hover{color:var(--text)}
+.f-copy{font-size:.7rem;color:var(--muted2)}
+
+@media(max-width:1000px){
+  .nav{padding:1rem 1.5rem}
+  .hero{grid-template-columns:1fr;padding:8rem 1.5rem 4rem}
+  .sec{padding:5rem 1.5rem}
+  .story-grid{grid-template-columns:1fr;gap:3rem}
+  .how-steps{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr;max-width:380px}
+  .tgm-body{grid-template-columns:repeat(3,1fr)}
+  .pricm-body{grid-template-columns:1fr}
+  .fcta{padding:7rem 1.5rem}
+  footer{padding:2rem 1.5rem}
+}
+@media(max-width:600px){
+  .nav-links a:not(.cta){display:none}
+  .h1.hero-h{font-size:2.4rem}
+}
+  </style>
+</head>
+<body>
+  <div class="glow-bg"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-brand"><span class="nav-brand-logo">BuildMy</span>Folio</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#templates">Templates</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://buildmyfolio.in/login" class="cta">Get Started →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div>
+      <div class="hero-tag fin" style="--d:.1s"><span class="hero-tag-dot"></span>Zero Code Portfolio Builder</div>
+      <h1 class="hero-h fin" style="--d:.2s">Your Portfolio.<br/><span class="pur">Live in Minutes.</span><br/><span class="dim">Not Months.</span></h1>
+      <p class="hero-sub fin" style="--d:.35s">No drag-and-drop nightmares. No coding required. Fill in your details in your dashboard, click Publish — your professional portfolio is live.</p>
+      <div class="hero-btns fin" style="--d:.5s">
+        <a href="https://buildmyfolio.in/login" class="btn btn--purple btn--lg">Create My Portfolio →</a>
+        <a href="#features" class="btn btn--outline">Explore Features</a>
+      </div>
+      <div class="hero-stats fin" style="--d:.65s">
+        <div class="hs"><span class="hs-n cnt" data-target="5">0</span><span class="hs-l">Minutes to Live</span></div>
+        <div class="hs"><span class="hs-n">0</span><span class="hs-l">Lines of Code</span></div>
+        <div class="hs"><span class="hs-n cnt" data-target="1">0</span><span class="hs-l">Click to Publish</span></div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD MOCK — faithful recreation of your actual UI -->
+    <div class="dash-mock fin" style="--d:.4s">
+      <div class="dm-topbar">
+        <div class="dm-logo"><span>BuildMy</span>Folio</div>
+        <div class="dm-topbar-right">
+          <div class="dm-notif">🔔<span class="dm-notif-badge">1</span></div>
+          <div class="dm-view-port">👁 View Portfolio</div>
+        </div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-sidebar" style="display:flex;flex-direction:column">
+          <div class="dm-sb-item active" style="margin-top:.3rem">Dashboard</div>
+          <div class="dm-sb-item">Basic Profile</div>
+          <div class="dm-sb-item">About Me</div>
+          <div class="dm-sb-item">My Education</div>
+          <div class="dm-sb-item">My Experience</div>
+          <div class="dm-sb-item">My Projects</div>
+          <div class="dm-sb-item">Skill Section</div>
+          <div style="border-top:1px solid var(--border);margin:.5rem 0"></div>
+          <div class="dm-sb-item" style="font-size:.68rem;display:flex;align-items:center;gap:.4rem;padding:.5rem 1.2rem">
+            <span style="font-size:.8rem">⊞</span>Browse Templates
+          </div>
+          <div style="margin-top:auto;border-top:1px solid var(--border);padding:.7rem 1rem">
+            <div style="display:flex;align-items:center;gap:.4rem">
+              <div class="dm-sb-av">P</div>
+              <div>
+                <div style="font-size:.65rem;font-weight:600">Priyanshu Dave</div>
+                <div style="font-size:.55rem;color:#EF4444">13 MISSING DETAILS →</div>
+              </div>
+              <span style="margin-left:auto;font-size:.7rem;color:var(--muted)">^</span>
+            </div>
+          </div>
+        </div>
+        <div class="dm-main">
+          <div class="dm-main-title">Hello, <span>Priyanshu Dave!</span> Discover Your Dashboard 💡</div>
+          <div class="dm-tpl-label">Portfolio Template</div>
+          <div class="dm-tpl-sub">Choose your portfolio design. Click "Demo" to preview or "Activate" to apply.</div>
+          <div class="dm-tpl-strip">
+            <div class="dm-tpl-card">
+              <div class="dm-tpl-card-img">🖼️<div class="dm-lock"><div class="dm-lock-icon">🔒</div></div><div class="dm-live-badge">Live Demo</div></div>
+              <div class="dm-tpl-info"><div class="dm-tpl-name">Modern Pro</div><div class="dm-tpl-desc">Premium gradient design</div></div>
+            </div>
+            <div class="dm-tpl-card">
+              <div class="dm-tpl-card-img">🖼️</div>
+              <div class="dm-tpl-info"><div class="dm-tpl-name">Basic Clean</div><div class="dm-tpl-desc">Structured, easy-to-read layout</div></div>
+              <div class="dm-tpl-btns"><div class="dm-tpl-btn">Demo</div><div class="dm-tpl-btn primary">Activate</div></div>
+              <div class="dm-tpl-unlocked">UNLOCKED</div>
+            </div>
+            <div class="dm-tpl-card">
+              <div class="dm-tpl-card-img">🖼️</div>
+              <div class="dm-tpl-info"><div class="dm-tpl-name">Modern Dark</div><div class="dm-tpl-desc">Contemporary dark sidebar</div></div>
+              <div class="dm-tpl-btns"><div class="dm-tpl-btn">Demo</div><div class="dm-tpl-btn primary">Activate</div></div>
+              <div class="dm-tpl-unlocked">UNLOCKED</div>
+            </div>
+            <div class="dm-tpl-card active-card">
+              <div class="dm-tpl-card-img">🖼️<div class="dm-checkmark">✓</div></div>
+              <div class="dm-tpl-info"><div class="dm-tpl-name">Classic Portfolio</div><div class="dm-tpl-desc">Timeless elegance</div></div>
+              <div class="dm-tpl-current">✓ Current Design</div>
+              <div class="dm-tpl-active-label">ACTIVE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dm-live-strip">
+        <div class="dm-live-label"><span class="dm-live-icon">🔗</span> YOUR LIVE PORTFOLIO</div>
+        <button class="dm-view-btn">👁 View Portfolio</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-outer">
+    <div class="marquee-inner">
+      <span>ZERO CODE &nbsp;<em>·</em>&nbsp; INSTANT PUBLISH &nbsp;<em>·</em>&nbsp; YOUR URL &nbsp;<em>·</em>&nbsp; DASHBOARD CONTROL &nbsp;<em>·</em>&nbsp; MOBILE READY &nbsp;<em>·</em>&nbsp; NO PDF &nbsp;<em>·</em>&nbsp; ZERO CODE &nbsp;<em>·</em>&nbsp; INSTANT PUBLISH &nbsp;<em>·</em>&nbsp; YOUR URL &nbsp;<em>·</em>&nbsp; DASHBOARD CONTROL &nbsp;<em>·</em>&nbsp; MOBILE READY &nbsp;<em>·</em>&nbsp; NO PDF &nbsp;<em>·</em>&nbsp;</span>
+      <span aria-hidden="true">ZERO CODE &nbsp;<em>·</em>&nbsp; INSTANT PUBLISH &nbsp;<em>·</em>&nbsp; YOUR URL &nbsp;<em>·</em>&nbsp; DASHBOARD CONTROL &nbsp;<em>·</em>&nbsp; MOBILE READY &nbsp;<em>·</em>&nbsp; NO PDF &nbsp;<em>·</em>&nbsp; ZERO CODE &nbsp;<em>·</em>&nbsp; INSTANT PUBLISH &nbsp;<em>·</em>&nbsp; YOUR URL &nbsp;<em>·</em>&nbsp; DASHBOARD CONTROL &nbsp;<em>·</em>&nbsp; MOBILE READY &nbsp;<em>·</em>&nbsp; NO PDF &nbsp;<em>·</em>&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="sec" id="story">
+    <div class="sec-tag up">01 / Origin Story</div>
+    <div class="story-grid">
+      <div>
+        <h2 class="story-h up" style="--d:.05s">Built from<br/><span style="color:var(--purple)">Real Frustration.</span></h2>
+        <p class="by up" style="--d:.1s">— Priyanshu Dave, Creator</p>
+      </div>
+      <div>
+        <p class="hl-text up" id="manifesto" style="--d:.08s">I needed a portfolio. Fast. Every builder I touched felt like assembling IKEA furniture with pages missing from the manual — drag, drop, break, cry, repeat. So I built my own system. Clean. Fast. Live in five minutes. Then it hit me — I wasn't alone. Thousands of busy, talented people need a sharp professional portfolio without burning their evenings or emptying their wallets. That's how BuildMyFolio became the definitive answer to "Ugh, not another PDF."</p>
+        <blockquote class="story-q up" style="--d:.18s">"The answer to <em>not another PDF."</em></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE GALLERY SECTION -->
+  <section class="sec" id="templates">
+    <div class="sec-tag up">02 / Portfolio Styles</div>
+    <h2 class="sec-h up" style="--d:.05s">Choose Your Style.<br/><span style="color:var(--purple)">Make It Yours.</span></h2>
+    <p class="sec-sub up" style="--d:.1s">Browse portfolio templates from inside your dashboard. Click Demo to preview, Activate to apply instantly.</p>
+
+    <!-- Template Gallery Mock — from screenshot 3 -->
+    <div class="tpl-gallery-wrap up" style="--d:.12s">
+      <div class="tpl-gallery-mock">
+        <div class="tgm-top">
+          <div>
+            <div class="tgm-title">Template <span>Gallery</span></div>
+          </div>
+          <div class="tgm-filters">
+            <div class="tgm-filter active">⊞ All</div>
+            <div class="tgm-filter">✏️ Creative</div>
+            <div class="tgm-filter">📋 Basic</div>
+            <div class="tgm-filter">⚡ Modern</div>
+            <div class="tgm-filter">🌟 Professional</div>
+          </div>
+        </div>
+        <div class="tgm-body">
+          <div class="tgm-card">
+            <div class="tgm-img">🖼️<div class="tgm-lock-overlay"><div class="tgm-lock-circle">🔒</div><div class="tgm-mem-txt">MEMBERSHIP REQUIRED</div></div></div>
+            <div class="tgm-info"><div class="tgm-name">Modern Pro</div><div class="tgm-desc">Bold gradient hero design</div><div class="tgm-btns"><div class="tgm-btn p">Live Demo</div></div></div>
+          </div>
+          <div class="tgm-card">
+            <div class="tgm-img">🖼️</div>
+            <div class="tgm-info"><div class="tgm-name">Basic Clean</div><div class="tgm-desc">Structured, easy-to-read layout</div><div class="tgm-btns"><div class="tgm-btn">Demo</div><div class="tgm-btn p">Activate</div></div><div class="tgm-unlocked">UNLOCKED</div></div>
+          </div>
+          <div class="tgm-card">
+            <div class="tgm-img">🖼️</div>
+            <div class="tgm-info"><div class="tgm-name">Modern Dark</div><div class="tgm-desc">Contemporary dark sidebar</div><div class="tgm-btns"><div class="tgm-btn">Demo</div><div class="tgm-btn p">Activate</div></div><div class="tgm-unlocked">UNLOCKED</div></div>
+          </div>
+          <div class="tgm-card selected">
+            <div class="tgm-img">🖼️<div class="tgm-check-badge">✓</div></div>
+            <div class="tgm-info"><div class="tgm-name">Classic Portfolio</div><div class="tgm-desc">Timeless elegance</div><div class="tgm-current-btn">✓ Current Design</div><div class="tgm-active-lbl">ACTIVE</div></div>
+          </div>
+          <div class="tgm-card">
+            <div class="tgm-img"><div class="tgm-soon"><div class="tgm-soon-txt">🚀 COMING SOON</div></div></div>
+            <div class="tgm-info"><div class="tgm-name">New Design</div><div class="tgm-desc">Stay tuned</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrolling mini portfolio cards -->
+    <div class="tpl-scroll up" style="--d:.2s">
+      <div class="tpl-track">
+        <div class="tpc"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div class="tpc-ah"><div class="tpc-av">PD</div><div class="tpc-nm">Priyanshu Dave</div></div><div class="tpc-lines"><div class="tpc-line l"></div><div class="tpc-line m"></div><div class="tpc-line s"></div></div><div class="tpc-label">Dark Minimal</div></div></div>
+        <div class="tpc"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div class="tpc-bh"><div class="tpc-bav">SJ</div></div><div style="margin-top:.6rem;font-size:.62rem;font-weight:600">Sarah Johnson</div><div class="tpc-lines" style="margin-top:.3rem"><div class="tpc-line m"></div><div class="tpc-line s"></div></div><div class="tpc-label">Creative Gradient</div></div></div>
+        <div class="tpc"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div style="display:flex;gap:.4rem;height:55px;margin-bottom:.4rem"><div style="width:38%;background:var(--purple);border-radius:5px;opacity:.7"></div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:.22rem"><div class="tpc-line m"></div><div class="tpc-line s"></div></div></div><div class="tpc-label">Bold Split</div></div></div>
+        <div class="tpc"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div class="tpc-cen"><div class="tpc-lg-av">MK</div><div style="font-size:.6rem;font-weight:600">Maya Kapoor</div></div><div class="tpc-lines"><div class="tpc-line l"></div><div class="tpc-line m"></div></div><div class="tpc-label">Centered Clean</div></div></div>
+        <div class="tpc"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div class="tpc-ch"><div class="tpc-bn">RAVI<br/>VERMA</div></div><div class="tpc-lines"><div class="tpc-line m"></div><div class="tpc-line s"></div></div><div class="tpc-label">Editorial Bold</div></div></div>
+        <!-- dupes -->
+        <div class="tpc" aria-hidden="true"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div class="tpc-ah"><div class="tpc-av">PD</div><div class="tpc-nm">Priyanshu Dave</div></div><div class="tpc-lines"><div class="tpc-line l"></div><div class="tpc-line m"></div><div class="tpc-line s"></div></div><div class="tpc-label">Dark Minimal</div></div></div>
+        <div class="tpc" aria-hidden="true"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div class="tpc-bh"><div class="tpc-bav">SJ</div></div><div style="margin-top:.6rem;font-size:.62rem;font-weight:600">Sarah Johnson</div><div class="tpc-lines" style="margin-top:.3rem"><div class="tpc-line m"></div><div class="tpc-line s"></div></div><div class="tpc-label">Creative Gradient</div></div></div>
+        <div class="tpc" aria-hidden="true"><div class="tpc-chrome"><div class="tpc-dot"></div><div class="tpc-dot"></div><div class="tpc-dot"></div></div><div class="tpc-body"><div style="display:flex;gap:.4rem;height:55px;margin-bottom:.4rem"><div style="width:38%;background:var(--purple);border-radius:5px;opacity:.7"></div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:.22rem"><div class="tpc-line m"></div><div class="tpc-line s"></div></div></div><div class="tpc-label">Bold Split</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE FORM SECTION -->
+  <section class="sec" id="features">
+    <div class="sec-tag up">03 / How It Works</div>
+    <h2 class="sec-h up" style="--d:.05s">Fill In Your Details.<br/><span style="color:var(--purple)">Dashboard Does The Rest.</span></h2>
+    <p class="sec-sub up" style="--d:.1s">A clean, guided form across all sections. Profile, education, experience, projects — all structured and ready to display.</p>
+
+    <!-- Profile Settings Mock — from screenshot 2 -->
+    <div class="profile-mock up" style="--d:.12s">
+      <div class="pm-top">
+        <div class="pm-title">Profile <span>Settings</span></div>
+        <div class="pm-topright">
+          <div class="dm-notif">🔔<span class="dm-notif-badge">1</span></div>
+          <span>👁 View Portfolio</span>
+        </div>
+      </div>
+      <div class="pm-body">
+        <div class="pm-sidebar">
+          <div class="pm-sb-item active"><div class="pm-sb-dot" style="background:var(--purple);color:#fff;border-color:var(--purple)">●</div>Basic Profile</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>About Me</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>My Education</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>My Experience</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>My Projects</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>Skill Section</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>Interest Section</div>
+          <div class="pm-sb-item"><div class="pm-sb-dot"></div>Known Languages</div>
+          <div style="margin-top:auto;border-top:1px solid var(--border);padding:.7rem 1rem;display:flex;align-items:center;gap:.4rem">
+            <div class="dm-sb-av" style="width:20px;height:20px;font-size:.48rem">P</div>
+            <div style="font-size:.62rem"><div style="font-weight:600">Priyanshu Dave</div><div style="color:#EF4444;font-size:.55rem">13 MISSING DETAILS →</div></div>
+          </div>
+        </div>
+        <div class="pm-content">
+          <div class="pm-section">Basic Information</div>
+          <div class="pm-section-sub">This information will be displayed on your portfolio's main introduction and across various sections.</div>
+          <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:1rem">
+            <div class="pm-form-group">
+              <div class="pm-label">Full Name <span class="pm-req">*</span></div>
+              <div class="pm-input focused">Priyanshu Dave</div>
+            </div>
+            <div class="pm-form-group" style="margin-bottom:0">
+              <div class="pm-label">Professional Title <span style="font-size:.6rem;color:var(--muted)">ⓘ</span></div>
+              <div class="pm-input ph">Software Engineer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-footer">
+        <button class="pm-btn">Cancel</button>
+        <button class="pm-btn">Save Changes</button>
+        <button class="pm-btn pp">Save &amp; Next</button>
+      </div>
+    </div>
+
+    <!-- How steps below mock -->
+    <div class="how-steps" style="margin-top:3rem">
+      <div class="how-step up" style="--d:.05s"><div class="how-n">01</div><h3>Fill Your Dashboard</h3><p>Enter your profile, education, skills, and projects. Our guided dashboard organizes everything for you.</p></div>
+      <div class="how-step up" style="--d:.12s"><div class="how-n">02</div><h3>Pick Your Template</h3><p>Browse 10+ portfolio templates from the gallery. Preview in real-time, activate with one click.</p></div>
+      <div class="how-step up" style="--d:.19s"><div class="how-n">03</div><h3>Publish &amp; Share</h3><p>Hit Publish. Live at buildmyfolio.in/yourname in seconds. Share it everywhere — no PDF attachments.</p></div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION with Mock -->
+  <section class="sec" id="pricing">
+    <div class="sec-tag up">04 / Pricing</div>
+    <h2 class="sec-h up" style="--d:.05s">Simple &amp; Honest.<br/><span style="color:var(--purple)">No Hidden Fees.</span></h2>
+    <p class="sec-sub up" style="--d:.1s">Flexible plans for every stage of your career. Start free, upgrade when you're ready.</p>
+
+    <!-- Pricing Mock — from screenshot 4 -->
+    <div class="pricing-mock up" style="--d:.12s">
+      <div class="pricm-top">
+        <div class="pricm-title">⚡ Active Plan</div>
+        <div class="pricm-sub">View your current subscription status and explore premium features to boost your portfolio visibility.</div>
+      </div>
+      <div class="pricm-body">
+        <div class="pricm-left">
+          <h4>⊞ PLAN MANAGEMENT</h4>
+          <p>Flexible options for every stage of your career. Save up to 12% with yearly billing.</p>
+          <div class="pricm-toggle">
+            <button class="pricm-toggle-btn active">MONTHLY</button>
+            <button class="pricm-toggle-btn">YEARLY</button>
+          </div>
+          <div class="pricm-loyalty">Purchase a membership to unlock recurring 12% <strong>Loyalty Discounts</strong> on future renewals.</div>
+        </div>
+        <div class="pricm-card active-plan">
+          <div class="pricm-badge active">ACTIVE</div>
+          <div class="pricm-plan-name">Portfolio Preview</div>
+          <div class="pricm-tier base"><span style="width:6px;height:6px;border-radius:50%;background:currentColor"></span>BASE ENTRY</div>
+          <div class="pricm-price">Free</div>
+          <div class="pricm-price-tag">Essential features to get you started</div>
+          <div class="pricm-features">
+            <div class="pricm-feat"><div class="pricm-feat-icon">✓</div><span>14-day full access</span></div>
+            <div class="pricm-feat"><div class="pricm-feat-icon dim"></div><span style="opacity:.4">Standard Templates</span></div>
+          </div>
+          <button class="pricm-cta active">PLAN ACTIVE</button>
+        </div>
+        <div class="pricm-card rec-plan">
+          <div class="pricm-badge rec">RECOMMENDED</div>
+          <div class="pricm-plan-name">Portfolio Starter</div>
+          <div class="pricm-tier growth"><span style="width:6px;height:6px;border-radius:50%;background:currentColor"></span>GROWTH TIER</div>
+          <div class="pricm-price"><sup>₹</sup>69<sub>/mo</sub></div>
+          <div class="pricm-unlock" style="color:#A78BFA">UNLIMITED CREATIVITY</div>
+          <div class="pricm-features">
+            <div class="pricm-feat"><div class="pricm-feat-icon">✓</div><span>Unlimited Sections</span></div>
+            <div class="pricm-feat"><div class="pricm-feat-icon">✓</div><span>Advanced Customization</span></div>
+            <div class="pricm-feat"><div class="pricm-feat-icon">✓</div><span>Custom Domain Link</span></div>
+          </div>
+          <button class="pricm-cta rec">UPGRADE EXPERIENCE</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="sec" id="testimonials">
+    <div class="sec-tag up">05 / Testimonials</div>
+    <h2 class="sec-h up" style="--d:.05s">What People<br/><span style="color:var(--purple)">Are Saying.</span></h2>
+    <div class="testi-grid">
+      <div class="tc up" style="--d:.05s"><div class="tc-stars">★★★★★</div><div class="tc-text">"Finally a portfolio builder that doesn't make me want to quit. Setup was 5 minutes flat. My recruiter loved the link."</div><div class="tc-person"><div class="tc-av">RK</div><div><div class="tc-name">Rahul Kapoor</div><div class="tc-role">Software Engineer · Bangalore</div></div></div></div>
+      <div class="tc up" style="--d:.12s"><div class="tc-stars">★★★★★</div><div class="tc-text">"Sent my portfolio link in an application and got a callback the same day. The design looks genuinely professional."</div><div class="tc-person"><div class="tc-av" style="background:linear-gradient(135deg,#0EA5E9,#6366F1)">SP</div><div><div class="tc-name">Sneha Patel</div><div class="tc-role">UI/UX Designer · Mumbai</div></div></div></div>
+      <div class="tc up" style="--d:.19s"><div class="tc-stars">★★★★★</div><div class="tc-text">"From 'I need a portfolio' to 'here's my URL' in 8 minutes. BuildMyFolio is one of those things that just works."</div><div class="tc-person"><div class="tc-av" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">AV</div><div><div class="tc-name">Arjun Verma</div><div class="tc-role">Product Manager · Delhi</div></div></div></div>
+      <div class="tc up" style="--d:.26s"><div class="tc-stars">★★★★★</div><div class="tc-text">"My old Wix portfolio was a mess. This is clean, fast, and looks like a real designer built it. Absolutely love it."</div><div class="tc-person"><div class="tc-av" style="background:linear-gradient(135deg,#10B981,#059669)">DM</div><div><div class="tc-name">Divya Menon</div><div class="tc-role">Full Stack Developer · Pune</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec" id="faq">
+    <div class="sec-tag up">06 / FAQ</div>
+    <h2 class="sec-h up" style="--d:.05s">Questions<br/><span style="color:var(--purple)">Answered.</span></h2>
+    <div class="faq-list">
+      <div class="fi up" style="--d:.05s"><button class="fq" aria-expanded="false">Do I get a personal domain?<span>+</span></button><div class="fa">You get buildmyfolio.in/yourname — clean, shareable, professional. Perfect for most use cases including job applications and LinkedIn.</div></div>
+      <div class="fi up" style="--d:.1s"><button class="fq" aria-expanded="false">Is payment secure?<span>+</span></button><div class="fa">All payments processed via Razorpay with bank-grade encryption. We never store your card details.</div></div>
+      <div class="fi up" style="--d:.15s"><button class="fq" aria-expanded="false">What if I delete my account?<span>+</span></button><div class="fa">Your data is permanently removed within 24 hours. Search engine caches clear naturally over time.</div></div>
+      <div class="fi up" style="--d:.2s"><button class="fq" aria-expanded="false">Can my account be suspended?<span>+</span></button><div class="fa">Only for ToS violations — illegal content, fraud, or platform abuse. We protect every user.</div></div>
+      <div class="fi up" style="--d:.25s"><button class="fq" aria-expanded="false">What templates are included?<span>+</span></button><div class="fa">Free plan includes Basic Clean, Modern Dark Sidebar, and Classic Portfolio. Premium unlocks all templates including exclusive designs.</div></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="fcta">
+    <div class="fcta-in">
+      <p class="fcta-tag up">Ready to Start?</p>
+      <h2 class="up" style="--d:.1s">Your Portfolio.<br/><span class="pur">Live. Now.</span></h2>
+      <p class="up" style="--d:.2s">Five minutes. Zero code. Built by Priyanshu Dave for everyone tired of PDF attachments.</p>
+      <a href="https://buildmyfolio.in/login" class="btn btn--purple btn--lg up" style="--d:.3s">Create Your Portfolio — Free →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-in">
+      <div class="f-brand"><span>BuildMy</span>Folio</div>
+      <div class="f-links"><a href="https://buildmyfolio.in/about-me">Contact</a><a href="https://buildmyfolio.in/subscription">Pricing</a><a href="https://buildmyfolio.in/terms">Terms</a><a href="https://buildmyfolio.in/privacy">Privacy</a></div>
+      <span class="f-copy">© 2025 Priyanshu Dave</span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+$(function(){
+  $(window).on('scroll',()=>$('#nav').toggleClass('stuck',$(window).scrollTop()>50));
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.1});
+  document.querySelectorAll('.up').forEach(el=>obs.observe(el));
+  // Counters
+  const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=parseInt(el.dataset.target)||0;cObs.unobserve(el);if(!t)return;let f=0,fr=50;(function tick(){f++;el.textContent=Math.round((1-Math.pow(1-f/fr,3))*t);if(f<fr)requestAnimationFrame(tick);else el.textContent=t;})();});},{threshold:.5});
+  document.querySelectorAll('.cnt[data-target]').forEach(el=>cObs.observe(el));
+  // Manifesto
+  const $p=$('#manifesto');
+  if($p.length){$p.html($p.text().split(/\s+/).map(w=>`<span class="word">${w}</span>`).join(' '));function upd(){const top=$p.offset().top,h=$p.outerHeight(),s=$(window).scrollTop(),wh=$(window).height();const prog=Math.min(1,Math.max(0,(s-(top-wh*.85))/(h+wh*.5)));const words=$p.find('.word'),lit=Math.floor(prog*words.length);words.each((i,w)=>i<lit?$(w).addClass('lit'):$(w).removeClass('lit'));}$(window).on('scroll',upd);upd();}
+  // FAQ
+  $('.fq').on('click',function(){const open=$(this).attr('aria-expanded')==='true';$('.fq').attr('aria-expanded','false');$('.fa').removeClass('open');if(!open){$(this).attr('aria-expanded','true');$(this).next('.fa').addClass('open');}});
+  // Pricing toggle
+  $('.pricm-toggle-btn').on('click',function(){$('.pricm-toggle-btn').removeClass('active');$(this).addClass('active');});
+  // Template filter tabs
+  $('.tgm-filter').on('click',function(){$('.tgm-filter').removeClass('active');$(this).addClass('active');});
+});
+  </script>
+</body>
+</html>
