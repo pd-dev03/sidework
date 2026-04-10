@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkBoard — Theo Lansdale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --surface2: #1C1C1C;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.12);
+    --text: #F0F0F0;
+    --muted: #888;
+    --white: #FFFFFF;
+    --blob1: #5B4AE8;
+    --blob2: #2ABFAA;
+    --blob3: #7AC441;
+    --blob4: #C44191;
+    --font: 'Geist', 'Inter', sans-serif;
+    --mono: 'Geist Mono', monospace;
+    --serif: 'Instrument Serif', Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── BACKGROUND BLOBS ── */
+  .blobs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    animation: blobDrift 18s ease-in-out infinite;
+  }
+
+  .blob-1 {
+    width: 400px; height: 400px;
+    background: var(--blob1);
+    top: -120px; left: -80px;
+    animation-delay: 0s;
+  }
+
+  .blob-2 {
+    width: 320px; height: 320px;
+    background: var(--blob2);
+    top: 30%; right: -80px;
+    animation-delay: -6s;
+  }
+
+  .blob-3 {
+    width: 280px; height: 280px;
+    background: var(--blob3);
+    bottom: 20%; left: -60px;
+    animation-delay: -12s;
+  }
+
+  .blob-4 {
+    width: 260px; height: 260px;
+    background: var(--blob4);
+    bottom: -100px; right: 20%;
+    animation-delay: -4s;
+  }
+
+  @keyframes blobDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 30px) scale(0.97); }
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 56px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .topbar-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  .topbar-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .topbar-cta:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 80px 20px 80px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sec-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: var(--muted);
+  }
+
+  /* ── PROFILE HEADER ── */
+  .profile-header {
+    text-align: center;
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .profile-name-big {
+    font-family: var(--serif);
+    font-size: clamp(48px, 12vw, 80px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  .profile-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 10px 20px 10px 10px;
+    margin-bottom: 24px;
+  }
+
+  .profile-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .profile-info { text-align: left; }
+
+  .profile-handle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .profile-role {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .profile-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .profile-bio {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+    text-align: center;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .profile-credit {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 16px;
+  }
+
+  .profile-credit a { color: rgba(255,255,255,0.4); text-decoration: none; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── LINK CARDS ── */
+  .links-section { margin-bottom: 48px; }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .link-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border2);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+
+  .link-card:hover::before { opacity: 1; }
+  .link-card:hover .link-arrow { transform: translate(2px, -2px); opacity: 1; }
+
+  .link-thumb {
+    width: 64px; height: 64px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+
+  .link-text { flex: 1; }
+
+  .link-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .link-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .link-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .link-arrow {
+    font-size: 18px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.3s;
+    opacity: 0.5;
+  }
+
+  /* ── SERVICES LIST ── */
+  .services-section { margin-bottom: 48px; }
+
+  .services-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .service-tag-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .service-tag-row:last-child { border-bottom: none; }
+  .service-tag-row:hover { background: var(--surface2); }
+
+  .service-tag-row::after {
+    content: '→';
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* ── CAROUSEL ── */
+  .carousel-section { margin-bottom: 48px; }
+
+  .carousel-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .carousel-track::-webkit-scrollbar { display: none; }
+
+  .carousel-img {
+    width: 200px;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    transition: transform 0.3s;
+  }
+
+  .carousel-img:hover { transform: scale(1.03); }
+
+  .carousel-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+
+  .carousel-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .carousel-btn:hover {
+    background: var(--surface2);
+    border-color: var(--border2);
+    transform: scale(1.08);
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { margin-bottom: 48px; }
+
+  .testi-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .testi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testi-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border2);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.4);
+  }
+
+  .testi-brand {
+    width: 100%;
+    height: 32px;
+    object-fit: contain;
+    object-position: left;
+    margin-bottom: 16px;
+    opacity: 0.6;
+    filter: invert(1);
+  }
+
+  .testi-reviewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .testi-reviewer-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .testi-reviewer-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .testi-reviewer-org {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .testi-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .testi-receipt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .testi-card:hover .testi-receipt {
+    border-color: var(--border2);
+    color: var(--text);
+  }
+
+  /* ── CONTACT FORM ── */
+  .contact-section { margin-bottom: 48px; }
+
+  .contact-intro {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+
+  .contact-intro a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .form-field {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: rgba(255,255,255,0.25);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+
+  .form-textarea {
+    height: 140px;
+    resize: vertical;
+  }
+
+  .form-required {
+    color: rgba(255,85,85,0.8);
+    margin-left: 2px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--white);
+    color: var(--bg);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .submit-btn:hover {
+    background: rgba(255,255,255,0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255,255,255,0.15);
+  }
+
+  .submit-btn:active { transform: scale(0.98); }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    text-align: center;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text); }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+  .reveal-d3 { transition-delay: 0.24s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 68px 14px 60px; }
+    .profile-name-big { font-size: clamp(40px, 14vw, 64px); }
+    .carousel-img { width: 160px; height: 130px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BLOBS -->
+<div class="blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+</div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="#" class="topbar-logo">LinkBoard</a>
+  <a href="https://framer.com" class="topbar-cta">Start with Framer ↗</a>
+</header>
+
+<!-- PAGE -->
+<main class="page">
+
+  <!-- PROFILE HEADER -->
+  <section class="profile-header">
+    <h1 class="profile-name-big">Theo Lansdale</h1>
+    <div class="profile-card">
+      <img src="https://picsum.photos/seed/theo/200/200" alt="Theo Lansdale" class="profile-avatar">
+      <div class="profile-info">
+        <div class="profile-handle">Theo Lansdale</div>
+        <div class="profile-role">
+          Designer + Photographer
+          <span class="profile-year">2025</span>
+        </div>
+      </div>
+    </div>
+    <p class="profile-bio">Independent Designer & Photographer. Crafting unique brand identities, websites and imagery that help businesses stand out in a crowded digital landscape.</p>
+    <p class="profile-credit">Profile design by <a href="#">mike kus</a></p>
+  </section>
+
+  <!-- LINKS -->
+  <section class="links-section">
+    <div class="sec-label">Link:</div>
+    <a href="#" class="link-card reveal">
+      <img src="https://picsum.photos/seed/portfolio/200/200" alt="" class="link-thumb">
+      <div class="link-text">
+        <div class="link-meta">Link:</div>
+        <div class="link-title">Design Portfolio</div>
+        <div class="link-desc">My design portfolio showcasing work for clients worldwide.</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a href="#" class="link-card reveal reveal-d1">
+      <img src="https://picsum.photos/seed/artprints/200/200" alt="" class="link-thumb">
+      <div class="link-text">
+        <div class="link-meta">Link:</div>
+        <div class="link-title">Art Prints</div>
+        <div class="link-desc">A selection of hand-crafted art prints available for sale.</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a href="#" class="link-card reveal reveal-d2">
+      <img src="https://picsum.photos/seed/portraits/200/200" alt="" class="link-thumb">
+      <div class="link-text">
+        <div class="link-meta">Link:</div>
+        <div class="link-title">Portraits</div>
+        <div class="link-desc">Portrait photography including work for well known brands.</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a href="#" class="link-card reveal reveal-d3">
+      <img src="https://picsum.photos/seed/framerlogo/200/200" alt="" class="link-thumb">
+      <div class="link-text">
+        <div class="link-meta">Link:</div>
+        <div class="link-title">Start with Framer</div>
+        <div class="link-desc">Create a website with the world's best website builder.</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section reveal">
+    <div class="sec-label">Services:</div>
+    <div class="services-tags">
+      <div class="service-tag-row">Brand + Identity</div>
+      <div class="service-tag-row">Graphic / Web Design</div>
+      <div class="service-tag-row">Illustration</div>
+      <div class="service-tag-row">Photography</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CAROUSEL 1 -->
+  <section class="carousel-section reveal">
+    <div class="sec-label">Portfolio:</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carousel1">
+        <img src="https://picsum.photos/seed/c1a/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/c1b/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/c1c/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/c1d/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/c1e/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/c1f/600/400" alt="" class="carousel-img">
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="scrollCarousel('carousel1', -1)" aria-label="Previous">←</button>
+      <button class="carousel-btn" onclick="scrollCarousel('carousel1', 1)" aria-label="Next">→</button>
+    </div>
+  </section>
+
+  <!-- CAROUSEL 2 -->
+  <section class="carousel-section reveal reveal-d1">
+    <div class="sec-label">Photography:</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carousel2">
+        <img src="https://picsum.photos/seed/ph1/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/ph2/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/ph3/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/ph4/600/400" alt="" class="carousel-img">
+        <img src="https://picsum.photos/seed/ph5/600/400" alt="" class="carousel-img">
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="scrollCarousel('carousel2', -1)" aria-label="Previous">←</button>
+      <button class="carousel-btn" onclick="scrollCarousel('carousel2', 1)" aria-label="Next">→</button>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="sec-label">Testimonials:</div>
+    <h2 style="font-family: var(--serif); font-style: italic; font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 8px;" class="reveal">I got the receipts</h2>
+    <p style="font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px;" class="reveal reveal-d1">I offer frictionless collaboration so that your project unfolds in the way you expect without the stress. Don't take my word for it, listen to my customers.</p>
+    <div class="testi-grid">
+      <a href="#" class="testi-card reveal">
+        <div class="testi-reviewer">
+          <img src="https://picsum.photos/seed/orla/100/100" alt="" class="testi-reviewer-avatar">
+          <div>
+            <div class="testi-reviewer-name">Orla Brown</div>
+            <div class="testi-reviewer-org">Lomo Tech</div>
+          </div>
+        </div>
+        <p class="testi-text">Working with Theo was a dream. He just got what we needed and delivered beyond expectations—stylish, smart, and seamless. Theo was thoughtful, collaborative, and incredibly skilled.</p>
+        <span class="testi-receipt">✓ Testimonial · We got the receipts</span>
+      </a>
+      <a href="#" class="testi-card reveal reveal-d1">
+        <div class="testi-reviewer">
+          <img src="https://picsum.photos/seed/ada/100/100" alt="" class="testi-reviewer-avatar">
+          <div>
+            <div class="testi-reviewer-name">Ada Sohail</div>
+            <div class="testi-reviewer-org">Kovi Systems</div>
+          </div>
+        </div>
+        <p class="testi-text">Theo completely transformed our brand. His design instincts are spot on, and the website he built is both beautiful and functional.</p>
+        <span class="testi-receipt">✓ Testimonial · We got the receipts</span>
+      </a>
+      <a href="#" class="testi-card reveal reveal-d2">
+        <div class="testi-reviewer">
+          <img src="https://picsum.photos/seed/lyla/100/100" alt="" class="testi-reviewer-avatar">
+          <div>
+            <div class="testi-reviewer-name">Lyla Morandi</div>
+            <div class="testi-reviewer-org">Hey You</div>
+          </div>
+        </div>
+        <p class="testi-text">Theo was instrumental in reshaping our brand from the ground up. He brought fresh ideas, a sharp eye for design, and a deep understanding of how to translate our story visually.</p>
+        <span class="testi-receipt">✓ Testimonial · We got the receipts</span>
+      </a>
+      <a href="#" class="testi-card reveal reveal-d3">
+        <div class="testi-reviewer">
+          <img src="https://picsum.photos/seed/paul/100/100" alt="" class="testi-reviewer-avatar">
+          <div>
+            <div class="testi-reviewer-name">Paul Adams</div>
+            <div class="testi-reviewer-org">We are Designers</div>
+          </div>
+        </div>
+        <p class="testi-text">Working with Theo has been an amazing experience. Theo has been super easy to work with and has brought an abundance of life and creativity to our brand.</p>
+        <span class="testi-receipt">✓ Testimonial · We got the receipts</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="sec-label">Contact:</div>
+    <h2 style="font-family: var(--serif); font-style: italic; font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 12px;" class="reveal">Drop me a line</h2>
+    <p class="contact-intro reveal reveal-d1">Want to work together? If you think I can help with your project drop me an email at <a href="mailto:theo@lansdale.com">theo@lansdale.com</a> or leave a message below and I'll get right back to you.</p>
+    <form onsubmit="handleSubmit(event)" class="reveal reveal-d1">
+      <div class="form-field">
+        <label class="form-label" for="name">Name<span class="form-required">*</span></label>
+        <input class="form-input" type="text" id="name" name="name" placeholder="Your full name" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="email">Email<span class="form-required">*</span></label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="message">Message<span class="form-required">*</span></label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">Submit →</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-links">
+      <a href="#">Twitter / X</a>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+    </div>
+    <div class="footer-copy">Template design by Mike Kus · Start with Framer</div>
+  </footer>
+
+</main>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Carousel
+  function scrollCarousel(id, dir) {
+    const track = document.getElementById(id);
+    const itemW = track.querySelector('.carousel-img').offsetWidth + 12;
+    track.scrollBy({ left: dir * itemW * 2, behavior: 'smooth' });
+  }
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sent! ✓';
+    btn.style.background = 'rgba(34,197,94,0.15)';
+    btn.style.color = '#22c55e';
+    btn.style.border = '1px solid rgba(34,197,94,0.3)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Submit →';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.border = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Profile header stagger
+  ['.profile-name-big', '.profile-card', '.profile-bio', '.profile-credit'].forEach((sel, i) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.7s ease ${i * 0.1}s, transform 0.7s ease ${i * 0.1}s`;
+    requestAnimationFrame(() => setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 80));
+  });
+
+  // Blob subtle mouse parallax
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    document.querySelectorAll('.blob').forEach((blob, i) => {
+      const factor = (i + 1) * 0.4;
+      blob.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+    });
+  });
+</script>
+</body>
+</html>

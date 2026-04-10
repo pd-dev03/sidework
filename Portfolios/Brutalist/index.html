@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MORGAN | DESIGNER</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --easing: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        
+        /* BRUTALIST TYPOGRAPHY */
+        h1, h2, h3, h4, .brutalist-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        /* SECTIONS */
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            opacity: 0;
+            transform: translateY(100vh);
+            transition: transform 0.8s linear, opacity 0.8s linear;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+            z-index: 10;
+        }
+        
+        .section.next {
+            transform: translateY(100vh);
+            opacity: 0;
+        }
+        
+        .section.prev {
+            transform: translateY(-100vh);
+            opacity: 0;
+        }
+        
+        /* BACKGROUND TEXT */
+        .bg-text {
+            position: absolute;
+            font-size: 40vw;
+            font-weight: 900;
+            opacity: 0.02;
+            color: #000000;
+            line-height: 0.8;
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            transition: transform 1s linear;
+        }
+        
+        /* NAVIGATION DOTS */
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .nav-dot {
+            width: 16px;
+            height: 16px;
+            background-color: #000000;
+            cursor: pointer;
+            transition: background-color 0.3s linear;
+            position: relative;
+        }
+        
+        .nav-dot.active {
+            background-color: #ffffff;
+            border: 2px solid #000000;
+        }
+        
+        .nav-dot.active::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 1px solid #000000;
+        }
+        
+        /* SCROLL INDICATOR */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 0.5s linear;
+        }
+        
+        .scroll-indicator.hidden {
+            opacity: 0;
+        }
+        
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background-color: #000000;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: #000000;
+            animation: scrollLine 2s linear infinite;
+        }
+        
+        /* SECTION INDICATOR */
+        .section-number {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            z-index: 100;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* CONTENT CONTAINERS */
+        .content-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* BRUTALIST DIVIDERS */
+        .divider {
+            width: 100%;
+            height: 2px;
+            background-color: #000000;
+            margin: 40px 0;
+        }
+        
+        .thin-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #000000;
+            margin: 20px 0;
+        }
+        
+        /* PROJECT CARDS */
+        .project-card {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #000000;
+        }
+        
+        .project-card:last-child {
+            border-bottom: none;
+        }
+        
+        /* EXPERIENCE ITEMS */
+        .experience-item {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .year-column {
+            width: 120px;
+            flex-shrink: 0;
+            font-weight: 600;
+        }
+        
+        .info-column {
+            flex-grow: 1;
+        }
+        
+        /* CONTACT LINKS */
+        .contact-link {
+            display: inline-block;
+            margin-right: 40px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s linear;
+        }
+        
+        .contact-link:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* ANIMATIONS */
+        @keyframes scrollLine {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(60px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s linear forwards;
+        }
+        
+        /* UTILITY CLASSES */
+        .text-xxl {
+            font-size: 6rem;
+            line-height: 0.9;
+        }
+        
+        .text-xl {
+            font-size: 4rem;
+            line-height: 1;
+        }
+        
+        .text-lg {
+            font-size: 2.5rem;
+            line-height: 1.1;
+        }
+        
+        .text-md {
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .text-sm {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+        
+        .text-xs {
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+        
+        .opacity-30 {
+            opacity: 0.3;
+        }
+        
+        .opacity-60 {
+            opacity: 0.6;
+        }
+        
+        .letter-tight {
+            letter-spacing: -0.03em;
+        }
+        
+        .letter-normal {
+            letter-spacing: -0.01em;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .section {
+                padding: 0 5%;
+            }
+            
+            .text-xxl {
+                font-size: 4rem;
+            }
+            
+            .text-xl {
+                font-size: 3rem;
+            }
+            
+            .text-lg {
+                font-size: 2rem;
+            }
+            
+            .bg-text {
+                font-size: 50vw;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 0 20px;
+            }
+            
+            .text-xxl {
+                font-size: 3rem;
+            }
+            
+            .text-xl {
+                font-size: 2.5rem;
+            }
+            
+            .text-lg {
+                font-size: 1.75rem;
+            }
+            
+            .nav-dots {
+                right: 20px;
+            }
+            
+            .section-number {
+                left: 20px;
+                top: 20px;
+            }
+            
+            .scroll-indicator {
+                bottom: 20px;
+            }
+            
+            .experience-item {
+                flex-direction: column;
+            }
+            
+            .year-column {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .text-xxl {
+                font-size: 2.5rem;
+            }
+            
+            .text-xl {
+                font-size: 2rem;
+            }
+            
+            .contact-link {
+                display: block;
+                margin-right: 0;
+            }
+        }
+        
+        /* REDUCED MOTION */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SECTION NUMBER INDICATOR -->
+    <div class="section-number">
+        <span id="current-section">01</span>/05
+    </div>
+    
+    <!-- NAVIGATION DOTS -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="0"></div>
+        <div class="nav-dot" data-section="1"></div>
+        <div class="nav-dot" data-section="2"></div>
+        <div class="nav-dot" data-section="3"></div>
+        <div class="nav-dot" data-section="4"></div>
+    </div>
+    
+    <!-- SCROLL INDICATOR -->
+    <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+    </div>
+    
+    <!-- SECTION 1: HERO -->
+    <section id="section-1" class="section active" data-bg-text="BRUTAL">
+        <div class="bg-text">BRUTAL</div>
+        <div class="content-container">
+            <div class="mb-10 fade-in-up">
+                <h1 class="text-xxl brutalist-heading letter-tight">ALEX<br>MORGAN</h1>
+            </div>
+            <div class="divider fade-in-up" style="animation-delay: 0.2s;"></div>
+            <div class="fade-in-up" style="animation-delay: 0.4s;">
+                <h2 class="text-lg brutalist-heading mb-4">DESIGNER & ARCHITECT</h2>
+                <p class="text-md opacity-60 letter-normal max-w-xl">Creating uncompromising digital experiences through intentional design and systematic thinking. Based in Berlin.</p>
+            </div>
+            <div class="mt-20 fade-in-up" style="animation-delay: 0.6s;">
+                <div class="thin-divider"></div>
+                <p class="text-xs opacity-30 mt-4">SCROLL TO CONTINUE</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SECTION 2: PHILOSOPHY -->
+    <section id="section-2" class="section next" data-bg-text="TRUTH">
+        <div class="bg-text">TRUTH</div>
+        <div class="content-container">
+            <div class="mb-16 fade-in-up">
+                <h2 class="text-xl brutalist-heading letter-tight">PHILOSOPHY</h2>
+            </div>
+            <div class="max-w-3xl">
+                <div class="mb-12 fade-in-up" style="animation-delay: 0.2s;">
+                    <h3 class="text-lg brutalist-heading mb-6">CLARITY THROUGH<br>REDUCTION</h3>
+                    <p class="text-md opacity-60 letter-normal">Remove everything unnecessary. What remains must be essential. Each element serves a purpose. Nothing is decoration.</p>
+                </div>
+                <div class="divider fade-in-up" style="animation-delay: 0.4s;"></div>
+                <div class="mb-12 fade-in-up" style="animation-delay: 0.6s;">
+                    <h3 class="text-lg brutalist-heading mb-6">MATERIAL<br>HONESTY</h3>
+                    <p class="text-md opacity-60 letter-normal">Digital materials behave according to their nature. Code is structure. Type is communication. Color is emphasis. Nothing pretends to be something else.</p>
+                </div>
+                <div class="divider fade-in-up" style="animation-delay: 0.8s;"></div>
+                <div class="fade-in-up" style="animation-delay: 1s;">
+                    <h3 class="text-lg brutalist-heading mb-6">SYSTEMATIC<br>THINKING</h3>
+                    <p class="text-md opacity-60 letter-normal">Every decision creates precedent. Consistency builds understanding. Systems enable scale. Patterns create rhythm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SECTION 3: WORK -->
+    <section id="section-3" class="section next" data-bg-text="WORK">
+        <div class="bg-text">WORK</div>
+        <div class="content-container">
+            <div class="mb-16 fade-in-up">
+                <h2 class="text-xl brutalist-heading letter-tight">SELECTED WORK</h2>
+            </div>
+            <div class="max-w-4xl">
+                <!-- PROJECT 1 -->
+                <div class="project-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg brutalist-heading">ATLAS DESIGN SYSTEM</h3>
+                        <span class="text-sm opacity-60">2023</span>
+                    </div>
+                    <p class="text-md opacity-60 mb-4 letter-normal">A comprehensive design system for financial technology applications. Built for scale and maintainability.</p>
+                    <div class="flex flex-wrap">
+                        <span class="text-xs opacity-30 mr-4 mb-2">SYSTEM DESIGN</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">DOCUMENTATION</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">IMPLEMENTATION</span>
+                    </div>
+                </div>
+                
+                <!-- PROJECT 2 -->
+                <div class="project-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg brutalist-heading">NOVA BANKING PLATFORM</h3>
+                        <span class="text-sm opacity-60">2022</span>
+                    </div>
+                    <p class="text-md opacity-60 mb-4 letter-normal">Complete redesign of mobile banking experience. Focused on clarity and task completion.</p>
+                    <div class="flex flex-wrap">
+                        <span class="text-xs opacity-30 mr-4 mb-2">UX DESIGN</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">INTERACTION</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">TESTING</span>
+                    </div>
+                </div>
+                
+                <!-- PROJECT 3 -->
+                <div class="project-card fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg brutalist-heading">VERTICAL ARCHIVE</h3>
+                        <span class="text-sm opacity-60">2021</span>
+                    </div>
+                    <p class="text-md opacity-60 mb-4 letter-normal">Digital archive interface for architectural drawings and documents. Emphasizes navigation and discovery.</p>
+                    <div class="flex flex-wrap">
+                        <span class="text-xs opacity-30 mr-4 mb-2">INFORMATION ARCHITECTURE</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">VISUAL DESIGN</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">PROTOTYPING</span>
+                    </div>
+                </div>
+                
+                <!-- PROJECT 4 -->
+                <div class="project-card fade-in-up" style="animation-delay: 0.8s;">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg brutalist-heading">MONOCHROME PUBLISHING</h3>
+                        <span class="text-sm opacity-60">2020</span>
+                    </div>
+                    <p class="text-md opacity-60 mb-4 letter-normal">Content management system for independent publishers. Focus on typography and reading experience.</p>
+                    <div class="flex flex-wrap">
+                        <span class="text-xs opacity-30 mr-4 mb-2">TYPOGRAPHY</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">CONTENT STRATEGY</span>
+                        <span class="text-xs opacity-30 mr-4 mb-2">SYSTEM DESIGN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SECTION 4: EXPERIENCE -->
+    <section id="section-4" class="section next" data-bg-text="TIME">
+        <div class="bg-text">TIME</div>
+        <div class="content-container">
+            <div class="mb-16 fade-in-up">
+                <h2 class="text-xl brutalist-heading letter-tight">EXPERIENCE</h2>
+            </div>
+            <div class="max-w-4xl">
+                <!-- EXPERIENCE 1 -->
+                <div class="experience-item fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="year-column">
+                        <div class="text-sm brutalist-heading">2020—PRESENT</div>
+                    </div>
+                    <div class="info-column">
+                        <h3 class="text-lg brutalist-heading mb-2">LEAD DESIGNER</h3>
+                        <p class="text-md opacity-60 mb-2 letter-normal">HORIZON TECHNOLOGIES, BERLIN</p>
+                        <p class="text-sm opacity-60 letter-normal">Leading design for enterprise software products. Building and maintaining design systems. Managing a team of 4 designers.</p>
+                    </div>
+                </div>
+                
+                <!-- EXPERIENCE 2 -->
+                <div class="experience-item fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="year-column">
+                        <div class="text-sm brutalist-heading">2018—2020</div>
+                    </div>
+                    <div class="info-column">
+                        <h3 class="text-lg brutalist-heading mb-2">SENIOR PRODUCT DESIGNER</h3>
+                        <p class="text-md opacity-60 mb-2 letter-normal">NEXUS CREATIVE, LONDON</p>
+                        <p class="text-sm opacity-60 letter-normal">Designed digital products for clients in finance, healthcare, and publishing. Focused on complex data interfaces.</p>
+                    </div>
+                </div>
+                
+                <!-- EXPERIENCE 3 -->
+                <div class="experience-item fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="year-column">
+                        <div class="text-sm brutalist-heading">2016—2018</div>
+                    </div>
+                    <div class="info-column">
+                        <h3 class="text-lg brutalist-heading mb-2">PRODUCT DESIGNER</h3>
+                        <p class="text-md opacity-60 mb-2 letter-normal">APERTURE LABS, AMSTERDAM</p>
+                        <p class="text-sm opacity-60 letter-normal">Worked on early-stage product development. Designed and launched 3 successful mobile applications.</p>
+                    </div>
+                </div>
+                
+                <!-- EXPERIENCE 4 -->
+                <div class="experience-item fade-in-up" style="animation-delay: 0.8s;">
+                    <div class="year-column">
+                        <div class="text-sm brutalist-heading">2014—2016</div>
+                    </div>
+                    <div class="info-column">
+                        <h3 class="text-lg brutalist-heading mb-2">DESIGNER</h3>
+                        <p class="text-md opacity-60 mb-2 letter-normal">FREELANCE, VARIOUS</p>
+                        <p class="text-sm opacity-60 letter-normal">Branding, print design, and early web projects. Developed foundational design principles and methodology.</p>
+                    </div>
+                </div>
+                
+                <!-- SKILLS -->
+                <div class="mt-20 fade-in-up" style="animation-delay: 1s;">
+                    <div class="thin-divider"></div>
+                    <div class="mt-6">
+                        <h3 class="text-lg brutalist-heading mb-6">CAPABILITIES</h3>
+                        <div class="flex flex-wrap">
+                            <div class="w-1/2 mb-4">
+                                <p class="text-sm brutalist-heading mb-1">SYSTEM DESIGN</p>
+                                <p class="text-xs opacity-60">Design systems, component libraries, documentation</p>
+                            </div>
+                            <div class="w-1/2 mb-4">
+                                <p class="text-sm brutalist-heading mb-1">INTERACTION DESIGN</p>
+                                <p class="text-xs opacity-60">User flows, prototyping, usability testing</p>
+                            </div>
+                            <div class="w-1/2 mb-4">
+                                <p class="text-sm brutalist-heading mb-1">VISUAL DESIGN</p>
+                                <p class="text-xs opacity-60">Typography, layout, information hierarchy</p>
+                            </div>
+                            <div class="w-1/2 mb-4">
+                                <p class="text-sm brutalist-heading mb-1">STRATEGY</p>
+                                <p class="text-xs opacity-60">Product vision, roadmap planning, team leadership</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SECTION 5: CONTACT -->
+    <section id="section-5" class="section next" data-bg-text="CONTACT">
+        <div class="bg-text">CONTACT</div>
+        <div class="content-container">
+            <div class="mb-16 fade-in-up">
+                <h2 class="text-xl brutalist-heading letter-tight">CONTACT</h2>
+            </div>
+            <div class="max-w-4xl">
+                <div class="mb-20 fade-in-up" style="animation-delay: 0.2s;">
+                    <h3 class="text-lg brutalist-heading mb-10">AVAILABLE FOR SELECT PROJECTS AND COLLABORATIONS</h3>
+                    <p class="text-md opacity-60 letter-normal max-w-xl">I work with organizations that value clarity, intentionality, and systematic thinking. Currently accepting one new project per quarter.</p>
+                </div>
+                
+                <div class="fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="thin-divider mb-10"></div>
+                    
+                    <div class="mb-10">
+                        <a href="mailto:alex@example.com" class="contact-link text-lg brutalist-heading">ALEX@EXAMPLE.COM</a>
+                        <a href="tel:+493012345678" class="contact-link text-lg brutalist-heading">+49 30 12345678</a>
+                    </div>
+                    
+                    <div class="mb-10">
+                        <a href="#" class="contact-link text-md opacity-60">LINKEDIN</a>
+                        <a href="#" class="contact-link text-md opacity-60">GITHUB</a>
+                        <a href="#" class="contact-link text-md opacity-60">TWITTER</a>
+                    </div>
+                    
+                    <div class="thin-divider mb-10"></div>
+                    
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-xs opacity-30">BASED IN BERLIN</p>
+                            <p class="text-xs opacity-30 mt-1">WORKING GLOBALLY</p>
+                        </div>
+                        <div>
+                            <p class="text-xs opacity-30">© 2023 ALEX MORGAN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            let currentSection = 0;
+            const sections = $('.section');
+            const totalSections = sections.length;
+            let isScrolling = false;
+            const scrollDelay = 800;
+            
+            // Initialize background text positions
+            sections.each(function(index) {
+                const bgText = $(this).data('bg-text');
+                $(this).find('.bg-text').text(bgText);
+                
+                // Alternate between left and right positioning
+                const isLeft = index % 2 === 0;
+                const posX = isLeft ? -20 : 80;
+                const posY = 10 + (index * 15) % 70;
+                
+                $(this).find('.bg-text').css({
+                    left: `${posX}%`,
+                    top: `${posY}%`,
+                    transform: `translate(-${posX}%, -${posY}%)`
+                });
+                
+                // Store original position data
+                $(this).find('.bg-text').data('originalX', posX);
+                $(this).find('.bg-text').data('originalY', posY);
+                $(this).find('.bg-text').data('isLeft', isLeft);
+            });
+            
+            // Update section number
+            function updateSectionNumber() {
+                $('#current-section').text(String(currentSection + 1).padStart(2, '0'));
+            }
+            
+            // Navigation dots click handler
+            $('.nav-dot').click(function() {
+                const targetSection = $(this).data('section');
+                navigateToSection(targetSection);
+            });
+            
+            // Keyboard navigation
+            $(document).on('keydown', function(e) {
+                if (isScrolling) return;
+                
+                if (e.key === 'ArrowDown' || e.key === ' ') {
+                    e.preventDefault();
+                    navigateToSection(currentSection + 1);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    navigateToSection(currentSection - 1);
+                } else if (e.key >= '1' && e.key <= '5') {
+                    e.preventDefault();
+                    navigateToSection(parseInt(e.key) - 1);
+                }
+            });
+            
+            // Mouse wheel navigation
+            let wheelTimeout;
+            $(document).on('wheel', function(e) {
+                if (isScrolling) return;
+                
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(function() {
+                    if (e.originalEvent.deltaY > 0) {
+                        navigateToSection(currentSection + 1);
+                    } else if (e.originalEvent.deltaY < 0) {
+                        navigateToSection(currentSection - 1);
+                    }
+                }, 100);
+            });
+            
+            // Touch swipe navigation for mobile
+            let touchStartY = 0;
+            $(document).on('touchstart', function(e) {
+                touchStartY = e.originalEvent.touches[0].clientY;
+            });
+            
+            $(document).on('touchend', function(e) {
+                if (isScrolling) return;
+                
+                const touchEndY = e.originalEvent.changedTouches[0].clientY;
+                const diff = touchStartY - touchEndY;
+                
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        navigateToSection(currentSection + 1);
+                    } else {
+                        navigateToSection(currentSection - 1);
+                    }
+                }
+            });
+            
+            // Navigation function
+            function navigateToSection(targetIndex) {
+                if (targetIndex < 0 || targetIndex >= totalSections || isScrolling) {
+                    return;
+                }
+                
+                isScrolling = true;
+                
+                // Determine scroll direction
+                const direction = targetIndex > currentSection ? 'down' : 'up';
+                
+                // Update current section
+                const prevSection = currentSection;
+                currentSection = targetIndex;
+                
+                // Update navigation dots
+                $('.nav-dot').removeClass('active');
+                $(`.nav-dot[data-section="${currentSection}"]`).addClass('active');
+                
+                // Update section number
+                updateSectionNumber();
+                
+                // Hide scroll indicator on last section
+                if (currentSection === totalSections - 1) {
+                    $('.scroll-indicator').addClass('hidden');
+                } else {
+                    $('.scroll-indicator').removeClass('hidden');
+                }
+                
+                // Update section classes
+                sections.each(function(index) {
+                    $(this).removeClass('active prev next');
+                    
+                    if (index === currentSection) {
+                        $(this).addClass('active');
+                        animateSectionElements($(this));
+                    } else if (index === prevSection) {
+                        if (direction === 'down') {
+                            $(this).addClass('prev');
+                        } else {
+                            $(this).addClass('next');
+                        }
+                    } else if (index < currentSection) {
+                        $(this).addClass('prev');
+                    } else {
+                        $(this).addClass('next');
+                    }
+                });
+                
+                // Animate background text
+                animateBackgroundText(prevSection, currentSection, direction);
+                
+                // Reset scrolling flag
+                setTimeout(function() {
+                    isScrolling = false;
+                }, scrollDelay);
+            }
+            
+            // Animate elements within a section
+            function animateSectionElements(section) {
+                // Reset animations
+                section.find('.fade-in-up').css({
+                    animation: 'none',
+                    opacity: 0,
+                    transform: 'translateY(20px)'
+                });
+                
+                // Trigger reflow to restart animations
+                setTimeout(() => {
+                    section.find('.fade-in-up').each(function(index) {
+                        const delay = $(this).css('animation-delay') || '0s';
+                        $(this).css({
+                            animation: 'fadeInUp 0.8s linear forwards',
+                            animationDelay: delay
+                        });
+                    });
+                }, 100);
+            }
+            
+            // Animate background text with mechanical movement
+            function animateBackgroundText(fromIndex, toIndex, direction) {
+                // Animate leaving section's background text
+                const leavingSection = sections.eq(fromIndex);
+                const leavingBgText = leavingSection.find('.bg-text');
+                const leavingOriginalX = leavingBgText.data('originalX');
+                const leavingOriginalY = leavingBgText.data('originalY');
+                const leavingIsLeft = leavingBgText.data('isLeft');
+                
+                // Move leaving text horizontally based on direction
+                let leavingMoveX = 0;
+                if (direction === 'down') {
+                    leavingMoveX = leavingIsLeft ? -10 : 10;
+                } else {
+                    leavingMoveX = leavingIsLeft ? 10 : -10;
+                }
+                
+                leavingBgText.css('transform', `translate(${-leavingOriginalX + leavingMoveX}%, ${-leavingOriginalY}%)`);
+                
+                // Animate entering section's background text
+                const enteringSection = sections.eq(toIndex);
+                const enteringBgText = enteringSection.find('.bg-text');
+                const enteringOriginalX = enteringBgText.data('originalX');
+                const enteringOriginalY = enteringBgText.data('originalY');
+                const enteringIsLeft = enteringBgText.data('isLeft');
+                
+                // Set initial position for entering text (opposite side)
+                let enteringStartX = 0;
+                if (direction === 'down') {
+                    enteringStartX = enteringIsLeft ? 10 : -10;
+                } else {
+                    enteringStartX = enteringIsLeft ? -10 : 10;
+                }
+                
+                // Set initial position
+                enteringBgText.css('transform', `translate(${-enteringOriginalX + enteringStartX}%, ${-enteringOriginalY}%)`);
+                
+                // Animate to original position
+                setTimeout(() => {
+                    enteringBgText.css('transform', `translate(${-enteringOriginalX}%, ${-enteringOriginalY}%)`);
+                }, 50);
+            }
+            
+            // Initialize
+            updateSectionNumber();
+            animateSectionElements($('#section-1'));
+            
+            // Check for URL hash
+            function checkInitialHash() {
+                const hash = window.location.hash;
+                if (hash) {
+                    const sectionMap = {
+                        '#hero': 0,
+                        '#philosophy': 1,
+                        '#work': 2,
+                        '#experience': 3,
+                        '#contact': 4
+                    };
+                    const targetIndex = sectionMap[hash];
+                    if (targetIndex !== undefined) {
+                        navigateToSection(targetIndex);
+                    }
+                }
+            }
+            
+            checkInitialHash();
+        });
+    </script>
+</body>
+</html>

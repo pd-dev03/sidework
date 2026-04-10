@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Creative Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-bg: #0f1419;
+            --light-bg: #ffffff;
+            --card-bg: #1a202c;
+            --text-light: #e2e8f0;
+            --text-muted: #a0aec0;
+            --border-color: #2d3748;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f35 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 20, 25, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 999;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gradient);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 150px;
+            padding-bottom: 80px;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 50px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            gap: 12px;
+        }
+
+        /* Hero Section */
+        .project-hero {
+            margin-bottom: 80px;
+        }
+
+        .hero-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .short-description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* Meta Grid */
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .meta-card {
+            background: rgba(26, 32, 44, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .meta-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .meta-card:hover::before {
+            opacity: 1;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        /* Hero Image Placeholder */
+        .hero-image {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(240, 147, 251, 0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-image i {
+            font-size: 80px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: 1;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(26, 32, 44, 0.4);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--primary-gradient);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 50px;
+            height: 4px;
+            background: var(--secondary-gradient);
+            border-radius: 2px;
+        }
+
+        /* Case Study Content */
+        .case-study-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .case-study-content h3 {
+            font-size: 1.3rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        /* Challenges Grid */
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .challenge-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 12px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .challenge-card:hover {
+            border-color: #667eea;
+            transform: translateY(-10px);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+        }
+
+        .challenge-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .challenge-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+
+        .challenge-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(79, 172, 254, 0.1));
+            border: 1px solid var(--border-color);
+            padding: 40px 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .result-card:hover {
+            transform: translateY(-10px);
+            border-color: #4facfe;
+        }
+
+        .result-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Banner Section */
+        .banner-section {
+            margin: 60px 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .banner-placeholder {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(240, 147, 251, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: bannerShine 3s infinite;
+        }
+
+        @keyframes bannerShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .banner-placeholder i {
+            font-size: 60px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .banner-placeholder p {
+            color: var(--text-muted);
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        /* Media Links */
+        .media-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .media-link-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .media-link-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .media-label {
+            font-size: 0.75rem;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .media-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            word-break: break-all;
+        }
+
+        .media-link:hover {
+            gap: 15px;
+            color: #667eea;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            border-color: #667eea;
+        }
+
+        .gallery-placeholder {
+            aspect-ratio: 4 / 3;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            color: var(--text-muted);
+        }
+
+        .gallery-placeholder i {
+            font-size: 40px;
+            opacity: 0.5;
+        }
+
+        /* Tech Stack */
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .tech-category {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .tech-category:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .tech-category-title {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-category-title i {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tag {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: var(--transition);
+        }
+
+        .tech-tag:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Related Projects */
+        .related-projects {
+            margin-top: 80px;
+            padding-top: 60px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .related-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+        }
+
+        .related-card-header {
+            height: 140px;
+            background: var(--primary-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .related-card-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .related-card-body {
+            padding: 25px;
+        }
+
+        .related-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .related-card-category {
+            color: #667eea;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero-top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .project-meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-section {
+                padding: 40px;
+            }
+
+            .challenges-grid,
+            .results-grid,
+            .tech-categories,
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding-top: 100px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .project-meta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 25px;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .result-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <a href="index2.html" class="logo">
+                    <i class="fas fa-code"></i>Portfolio
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index2.html#home">Home</a></li>
+                        <li><a href="index2.html#about">About</a></li>
+                        <li><a href="index2.html#projects">Projects</a></li>
+                        <li><a href="index2.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Back Button -->
+            <a href="index2.html#projects" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+
+            <!-- Hero Section -->
+            <section class="project-hero">
+                <div class="hero-top">
+                    <div class="hero-content">
+                        <h1>Mobile App UI Redesign</h1>
+                        <p class="short-description">
+                            A comprehensive redesign of a popular mobile banking application, focusing on user experience improvements, modern design patterns, and accessibility. The project resulted in increased user engagement and positive app store reviews.
+                        </p>
+                        <div class="project-meta-grid">
+                            <div class="meta-card">
+                                <span class="meta-label">Category</span>
+                                <span class="meta-value">Mobile App</span>
+                            </div>
+                            <div class="meta-card">
+                                <span class="meta-label">Type</span>
+                                <span class="meta-value">Freelance</span>
+                            </div>
+                            <div class="meta-card">
+                                <span class="meta-label">Status</span>
+                                <span class="meta-value"><span class="status-badge">Completed</span></span>
+                            </div>
+                            <div class="meta-card">
+                                <span class="meta-label">Client</span>
+                                <span class="meta-value">FinTech Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="project-meta-grid">
+                    <div class="meta-card">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">Apr 2023 — Oct 2023</span>
+                    </div>
+                    <div class="meta-card">
+                        <span class="meta-label">Team Size</span>
+                        <span class="meta-value">6 Members</span>
+                    </div>
+                    <div class="meta-card">
+                        <span class="meta-label">Associated Company</span>
+                        <span class="meta-value">Design Studio XYZ</span>
+                    </div>
+                    <div class="meta-card">
+                        <span class="meta-label">Status</span>
+                        <span class="meta-value" style="color: #4facfe;">✓ Completed</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Banner Image -->
+            <div class="banner-section">
+                <div class="banner-placeholder">
+                    <i class="fas fa-image"></i>
+                    <p>Project Banner (1920x1080px)</p>
+                </div>
+            </div>
+
+            <!-- My Role & Contribution -->
+            <section class="content-section">
+                <h2 class="section-title">My Role & Contribution</h2>
+                <div class="case-study-content">
+                    <p>
+                        As Lead UI/UX Designer, I spearheaded the complete redesign of the mobile banking application. My responsibilities encompassed conducting user research, creating wireframes and prototypes, defining the design system, and overseeing implementation with the development team.
+                    </p>
+                    <p>
+                        I conducted extensive user interviews with both existing and potential users to understand pain points in the current interface. Based on these insights, I created a design system that emphasized simplicity, accessibility, and security—critical factors in banking applications. I also led design workshops with stakeholders to align on vision and priorities, and mentored a junior designer throughout the project lifecycle.
+                    </p>
+                    <p>
+                        My contributions included visual design, interaction design, user research, usability testing, design documentation, and quality assurance. I ensured that the redesigned interface maintained the brand identity while introducing modern design patterns that improved user engagement and satisfaction.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Challenges Faced -->
+            <section class="content-section">
+                <h2 class="section-title">Challenges Faced</h2>
+                <div class="challenges-grid">
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Security vs. Usability</h4>
+                        <p>
+                            Balancing stringent security requirements with user convenience was challenging. We implemented security measures without making the interface cumbersome, requiring innovative solutions for authentication flows.
+                        </p>
+                    </div>
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Diverse User Base</h4>
+                        <p>
+                            The app serves users of varying ages and technical proficiency. Designing for both tech-savvy users and older customers required careful consideration of accessibility and intuitive navigation.
+                        </p>
+                    </div>
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>Legacy System Integration</h4>
+                        <p>
+                            The new design had to integrate with existing backend systems and legacy APIs. Working within technical constraints required creative problem-solving and collaboration with engineering teams.
+                        </p>
+                    </div>
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Performance Optimization</h4>
+                        <p>
+                            Ensuring smooth performance on various devices and network conditions was critical. We optimized animations and implemented progressive loading to maintain responsiveness.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Solution -->
+            <section class="content-section">
+                <h2 class="section-title">The Solution</h2>
+                <div class="case-study-content">
+                    <h3>Design Philosophy</h3>
+                    <p>
+                        The redesign was built on three core principles: Clarity, Security, and Delight. Clarity meant ensuring every action and piece of information was immediately understandable. Security meant building visual patterns that reassured users their data was protected. Delight meant creating moments of joy through thoughtful interactions.
+                    </p>
+
+                    <h3>Information Architecture</h3>
+                    <p>
+                        We restructured the app's navigation based on user behavior analytics and interviews. Instead of a complex menu system, we implemented a tab-based interface with smart shortcuts tailored to each user's most-used features. The new structure reduced the average clicks to complete tasks by 40%, significantly improving user satisfaction.
+                    </p>
+                    <p>
+                        Each tab was organized around user goals rather than banking products, making it intuitive even for first-time users. The Dashboard tab shows personalized financial insights, the Transactions tab provides powerful filtering and search, and the Services tab aggregates all available banking products.
+                    </p>
+
+                    <h3>Visual Design System</h3>
+                    <p>
+                        We created a comprehensive design system with clearly defined components, typography, and spacing rules. The system featured a modern color palette that conveyed trust and security while remaining contemporary. We selected a sans-serif typeface for optimal readability on small screens and implemented a robust icon system for visual clarity.
+                    </p>
+                    <p>
+                        The color palette consists of a primary brand color, secondary accents for different transaction types, and carefully chosen neutrals. All colors were tested for accessibility, with minimum WCAG AA contrast ratios across the interface.
+                    </p>
+
+                    <h3>Interactions & Animations</h3>
+                    <p>
+                        While maintaining performance, we introduced subtle animations that provided feedback and guided users through complex flows. Microinteractions like button states, loading indicators, and gesture feedback made the interface feel responsive and polished. These animations enhanced usability rather than creating distractions.
+                    </p>
+
+                    <h3>Security-First Design</h3>
+                    <p>
+                        Security features were integrated seamlessly into the design. Biometric authentication was presented as the default login method with the password option available but de-emphasized. Transaction confirmations were redesigned to make it clear what action was being authorized.
+                    </p>
+                    <p>
+                        We implemented visual indicators for secure connections, clearly marked sensitive operations with security icons, and provided contextual help text without being overwhelming. The design reassured users about data protection while maintaining a clean, modern appearance.
+                    </p>
+
+                    <h3>Implementation & Handoff</h3>
+                    <p>
+                        We created detailed design specifications and interactive prototypes in Figma, with component libraries that developers could reference directly. We maintained close collaboration with development teams throughout implementation, conducting regular design reviews and providing feedback on implementation details. Comprehensive design documentation was delivered to ensure consistency and allow future modifications.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section class="content-section">
+                <h2 class="section-title">Results & Impact</h2>
+                <div class="case-study-content">
+                    <p>
+                        The redesigned app launched to immediate positive reception. Within the first month, the app rating improved from 3.8 to 4.6 stars, with users praising the improved interface and ease of use. Download numbers increased 35% in the first three months post-launch.
+                    </p>
+                    <p>
+                        User engagement metrics showed significant improvements: average session duration increased by 28%, feature discovery improved by 45%, and support ticket volume related to UI confusion decreased by 52%. The app was featured on the App Store as "Editor's Choice," significantly boosting visibility.
+                    </p>
+                    <p>
+                        From a business perspective, the app gained 250,000 new users in the first year, and customer retention improved by 18%. The successful redesign positioned the company as a leader in FinTech and led to expanded partnership opportunities.
+                    </p>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-number">4.6★</div>
+                        <div class="result-label">App Store Rating</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">35%</div>
+                        <div class="result-label">Download Growth</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">28%</div>
+                        <div class="result-label">Session Duration</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">250K</div>
+                        <div class="result-label">New Users</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Media & Links -->
+            <section class="content-section">
+                <h2 class="section-title">Media & Links</h2>
+                <div class="media-links">
+                    <div class="media-link-card">
+                        <span class="media-label">Live App</span>
+                        <a href="https://apps.apple.com" target="_blank" class="media-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Download on App Store
+                        </a>
+                    </div>
+                    <div class="media-link-card">
+                        <span class="media-label">Design Files</span>
+                        <a href="https://figma.com" target="_blank" class="media-link">
+                            <i class="fas fa-arrow-right"></i>
+                            View on Figma
+                        </a>
+                    </div>
+                </div>
+
+                <h3 class="section-title" style="margin-top: 50px;">Project Gallery</h3>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>Screenshot 1</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>Screenshot 2</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>Screenshot 3</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>Screenshot 4</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technology Stack -->
+            <section class="content-section">
+                <h2 class="section-title">Technology Stack</h2>
+                <div class="tech-categories">
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-palette"></i>
+                            Design Tools
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Figma</span>
+                            <span class="tech-tag">Adobe XD</span>
+                            <span class="tech-tag">Sketch</span>
+                            <span class="tech-tag">Protopie</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-mobile-alt"></i>
+                            Mobile Dev
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">Kotlin</span>
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-code"></i>
+                            Backend
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">AWS</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <div class="tech-category-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Skills
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">UI/UX Design</span>
+                            <span class="tech-tag">User Research</span>
+                            <span class="tech-tag">Prototyping</span>
+                            <span class="tech-tag">Design Systems</span>
+                            <span class="tech-tag">Mobile Design</span>
+                            <span class="tech-tag">Accessibility</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Projects -->
+            <section class="related-projects">
+                <h2 class="section-title">Related Projects</h2>
+                <div class="related-grid">
+                    <div class="related-card">
+                        <div class="related-card-header"></div>
+                        <div class="related-card-body">
+                            <div class="related-card-category">Mobile App</div>
+                            <h3>E-Commerce App Design</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">2023</p>
+                        </div>
+                    </div>
+                    <div class="related-card">
+                        <div class="related-card-header"></div>
+                        <div class="related-card-body">
+                            <div class="related-card-category">Web App</div>
+                            <h3>Dashboard Interface</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">2023</p>
+                        </div>
+                    </div>
+                    <div class="related-card">
+                        <div class="related-card-header"></div>
+                        <div class="related-card-body">
+                            <div class="related-card-category">SaaS Platform</div>
+                            <h3>Project Management Tool</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">2023</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            // Smooth scroll for internal links
+            $('a[href*="#"]').on('click', function(e) {
+                const href = $(this).attr('href');
+                if (href !== '#' && !href.includes('index2.html')) {
+                    e.preventDefault();
+                    const target = $(href).offset().top;
+                    $('html, body').animate({ scrollTop: target }, 500);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

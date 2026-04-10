@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Warm Brutalism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="spotlight" id="spotlight"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">JR_DEV</div>
+  <div class="nav-right">
+    <a href="#about">About</a>
+    <a href="#projects">Work</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<!-- HERO — Outlined text with cursor spotlight reveal -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-label">
+      <span class="dot-anim"></span>
+      <span>Open to Work</span>
+    </div>
+
+    <div class="hero-text-wrap" id="heroTextWrap">
+      <!-- Outlined (dimmed) layer -->
+      <h1 class="hero-title outlined">
+        <span>JORDAN</span>
+        <span>RILEY</span>
+      </h1>
+      <!-- Filled (revealed) layer — clip follows cursor -->
+      <h1 class="hero-title filled" id="heroFilled">
+        <span>JORDAN</span>
+        <span>RILEY</span>
+      </h1>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-role">
+        <div class="role-label">Role</div>
+        <div class="role-typing" id="roleTyping"></div>
+      </div>
+      <div class="hero-img-block">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&q=80" alt="Profile">
+        <div class="img-overlay-tag">Based in NYC</div>
+      </div>
+      <div class="hero-meta">
+        <div>
+          <div class="meta-num">7+</div>
+          <div class="meta-label">Years</div>
+        </div>
+        <div>
+          <div class="meta-num">60+</div>
+          <div class="meta-label">Projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="section-tag">[ ABOUT ]</div>
+  <div class="about-layout">
+    <div class="about-big-quote">
+      "I build products that <em>scale</em> and interfaces that <em>feel</em>."
+    </div>
+    <div class="about-text">
+      <p>Full-stack engineer obsessed with the space between engineering and design. I've shipped products used by millions, mentored teams of 10+, and still write every line of code like it matters.</p>
+      <p>I operate with radical transparency, ruthless prioritization, and an eye for details most people skip. If you're building something ambitious — let's talk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section edu-section dark-bg" id="education">
+  <div class="section-tag light">[ EDUCATION ]</div>
+  <div class="edu-blocks">
+    <div class="edu-block">
+      <div class="edu-school">Carnegie Mellon University</div>
+      <div class="edu-degree">B.Sc. Computer Science</div>
+      <div class="edu-year">2017</div>
+      <div class="edu-detail">Specialized in Human-Computer Interaction. Graduated with Honors.</div>
+    </div>
+    <div class="edu-block">
+      <div class="edu-school">Georgia Tech</div>
+      <div class="edu-degree">M.Sc. Machine Learning</div>
+      <div class="edu-year">2019</div>
+      <div class="edu-detail">Online Masters program. Thesis on Reinforcement Learning for UI optimization.</div>
+    </div>
+    <div class="edu-block">
+      <div class="edu-school">Y Combinator</div>
+      <div class="edu-degree">Startup School</div>
+      <div class="edu-year">2022</div>
+      <div class="edu-detail">Selected as one of 300 founders from 30K+ applicants.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section exp-section" id="experience">
+  <div class="section-tag">[ EXPERIENCE ]</div>
+  <div class="exp-accordion">
+    <div class="acc-item active">
+      <div class="acc-header">
+        <div class="acc-left">
+          <span class="acc-year">2023–NOW</span>
+          <span class="acc-title">Staff Engineer</span>
+        </div>
+        <div class="acc-company">Stripe</div>
+        <span class="acc-toggle">+</span>
+      </div>
+      <div class="acc-body">
+        <p>Leading the developer experience team. Rebuilt the API documentation system used by 4M+ developers. Reduced integration time by 60% through tooling improvements.</p>
+        <div class="acc-tags"><span>TypeScript</span><span>Go</span><span>React</span><span>AWS</span></div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-header">
+        <div class="acc-left">
+          <span class="acc-year">2021–2023</span>
+          <span class="acc-title">Senior Engineer</span>
+        </div>
+        <div class="acc-company">Figma</div>
+        <span class="acc-toggle">+</span>
+      </div>
+      <div class="acc-body">
+        <p>Built the Variables system from ground up. Collaborated daily with design team to ship product features used by 4M designers worldwide.</p>
+        <div class="acc-tags"><span>C++</span><span>WebAssembly</span><span>TypeScript</span></div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-header">
+        <div class="acc-left">
+          <span class="acc-year">2019–2021</span>
+          <span class="acc-title">Frontend Engineer</span>
+        </div>
+        <div class="acc-company">Notion</div>
+        <span class="acc-toggle">+</span>
+      </div>
+      <div class="acc-body">
+        <p>Core team member during the hypergrowth phase (100K→10M users). Owned the block editor performance — reduced render time by 4x.</p>
+        <div class="acc-tags"><span>React</span><span>MobX</span><span>Node.js</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS — Diagonal grid -->
+<section class="section projects-section dark-bg" id="projects">
+  <div class="section-tag light">[ SELECTED WORK ]</div>
+  <div class="projects-diagonal">
+    <div class="proj-diagonal-item left">
+      <div class="proj-d-num">01</div>
+      <div class="proj-d-content">
+        <div class="proj-d-img" style="background:linear-gradient(145deg,#e8d5b0,#c49a8a)"></div>
+        <div class="proj-d-info">
+          <h3>PulseHQ</h3>
+          <p>Real-time team analytics platform. 50K MAU, Series A funded.</p>
+          <div class="proj-d-tags"><span>Next.js</span><span>Supabase</span><span>D3.js</span></div>
+          <a href="#" class="proj-link">View Case Study →</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-diagonal-item right">
+      <div class="proj-d-num">02</div>
+      <div class="proj-d-content">
+        <div class="proj-d-img" style="background:linear-gradient(145deg,#2d4a3e,#1a2e26)"></div>
+        <div class="proj-d-info">
+          <h3>Verdant OS</h3>
+          <p>Browser-based operating system with persistent cloud state.</p>
+          <div class="proj-d-tags"><span>React</span><span>IndexedDB</span><span>WebWorkers</span></div>
+          <a href="#" class="proj-link">View Case Study →</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-diagonal-item left">
+      <div class="proj-d-num">03</div>
+      <div class="proj-d-content">
+        <div class="proj-d-img" style="background:linear-gradient(145deg,#8a6a3a,#5a4220)"></div>
+        <div class="proj-d-info">
+          <h3>Chronos CLI</h3>
+          <p>AI-powered terminal that learns your workflow patterns.</p>
+          <div class="proj-d-tags"><span>Python</span><span>GPT-4</span><span>Rust</span></div>
+          <a href="#" class="proj-link">View Case Study →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS — Radial chart -->
+<section class="section skills-section" id="skills">
+  <div class="section-tag">[ SKILLS ]</div>
+  <div class="skills-layout">
+    <div class="skills-radar-wrap">
+      <canvas id="radarChart" width="400" height="400"></canvas>
+    </div>
+    <div class="skills-list-wrap">
+      <div class="skill-cat-group">
+        <div class="skill-cat-title">Core Stack</div>
+        <div class="skill-pills-wrap">
+          <div class="skill-pill" data-level="expert"><span class="pill-name">TypeScript</span><span class="pill-bar"><span style="width:95%"></span></span><span class="pill-lvl">Expert</span></div>
+          <div class="skill-pill" data-level="expert"><span class="pill-name">React</span><span class="pill-bar"><span style="width:92%"></span></span><span class="pill-lvl">Expert</span></div>
+          <div class="skill-pill" data-level="advanced"><span class="pill-name">Node.js</span><span class="pill-bar"><span style="width:85%"></span></span><span class="pill-lvl">Advanced</span></div>
+          <div class="skill-pill" data-level="advanced"><span class="pill-name">Go</span><span class="pill-bar"><span style="width:72%"></span></span><span class="pill-lvl">Advanced</span></div>
+          <div class="skill-pill" data-level="intermediate"><span class="pill-name">Rust</span><span class="pill-bar"><span style="width:45%"></span></span><span class="pill-lvl">Intermediate</span></div>
+          <div class="skill-pill" data-level="beginner"><span class="pill-name">Swift</span><span class="pill-bar"><span style="width:20%"></span></span><span class="pill-lvl">Beginner</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS & LANGUAGES -->
+<section class="section interests-section dark-bg" id="interests">
+  <div class="section-tag light">[ INTERESTS & LANGUAGES ]</div>
+  <div class="ticker-section">
+    <div class="ticker-label">INTERESTS</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker1">
+        <span>Open Source ◆ Rock Climbing ◆ Electronic Music Production ◆ Philosophy of Mind ◆ Game Theory ◆ Urban Cycling ◆ Film Photography ◆ Chess ◆</span>
+        <span>Open Source ◆ Rock Climbing ◆ Electronic Music Production ◆ Philosophy of Mind ◆ Game Theory ◆ Urban Cycling ◆ Film Photography ◆ Chess ◆</span>
+      </div>
+    </div>
+    <div class="ticker-wrap reverse">
+      <div class="ticker" id="ticker2">
+        <span>English (Native) ◆ Mandarin (Fluent) ◆ Spanish (Intermediate) ◆ Arabic (Beginner) ◆ German (Beginner) ◆</span>
+        <span>English (Native) ◆ Mandarin (Fluent) ◆ Spanish (Intermediate) ◆ Arabic (Beginner) ◆ German (Beginner) ◆</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="section-tag">[ LET'S TALK ]</div>
+  <div class="contact-layout">
+    <h2 class="contact-big">Got a project?<br><em>Let's go.</em></h2>
+    <form class="contact-form" id="contactForm">
+      <div class="form-row">
+        <div class="form-field"><input type="text" placeholder="NAME" required></div>
+        <div class="form-field"><input type="email" placeholder="EMAIL" required></div>
+      </div>
+      <div class="form-field full"><input type="text" placeholder="PROJECT TYPE"></div>
+      <div class="form-field full"><textarea placeholder="TELL ME EVERYTHING..." rows="5" required></textarea></div>
+      <button type="submit" class="submit-btn">
+        <span>SEND IT</span>
+        <div class="btn-bg"></div>
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer dark-bg">
+  <span class="footer-logo">JR_DEV</span>
+  <span>Jordan Riley © 2024</span>
+  <span>Warm Brutalism Template</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

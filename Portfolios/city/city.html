@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isometric City Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --day-sky: #87CEEB;
+            --night-sky: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 1s ease;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Hide scrollbar but allow scrolling */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Loading Screen Animations */
+        @keyframes loadingDots {
+
+            0%,
+            20% {
+                content: '.';
+            }
+
+            40% {
+                content: '..';
+            }
+
+            60%,
+            100% {
+                content: '...';
+            }
+        }
+
+        .loading-dots {
+            animation: loadingDots 1.5s infinite;
+        }
+
+        @keyframes blockBuild {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #block1 {
+            animation: blockBuild 0.5s ease forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        #block2 {
+            animation: blockBuild 0.5s ease forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        #block3 {
+            animation: blockBuild 0.5s ease forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+        }
+
+        /* Hamburger Menu Animations */
+        #hamburgerBtn.menu-open .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translateY(8px);
+        }
+
+        #hamburgerBtn.menu-open .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        #hamburgerBtn.menu-open .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+
+        .mobile-building-link {
+            transition: all 0.3s ease;
+        }
+
+        .mobile-building-link:hover {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body class="bg-sky-300 transition-all duration-1000" id="body">
+    <!-- Loading Screen -->
+    <div id="loadingScreen"
+        class="fixed inset-0 z-[9999] bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+        <div class="text-center">
+            <!-- Construction Animation -->
+            <div class="mb-8 relative">
+                <div class="w-32 h-32 mx-auto relative">
+                    <!-- Crane -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+                        <div class="w-2 h-24 bg-yellow-400 mx-auto"></div>
+                        <div class="w-16 h-1 bg-yellow-400 absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+                        <div
+                            class="w-8 h-8 bg-orange-500 absolute top-8 left-1/2 transform -translate-x-1/2 rounded animate-bounce">
+                        </div>
+                    </div>
+                    <!-- Building blocks being constructed -->
+                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex gap-1">
+                        <div class="w-6 h-8 bg-white/20 rounded" id="block1"></div>
+                        <div class="w-6 h-8 bg-white/20 rounded" id="block2"></div>
+                        <div class="w-6 h-8 bg-white/20 rounded" id="block3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-5xl font-bold text-white mb-4 font-orbitron">
+                Building DevCity<span class="loading-dots">...</span>
+            </h1>
+            <p class="text-white/90 text-xl mb-8">Constructing your interactive portfolio</p>
+
+            <!-- Progress Bar -->
+            <div class="w-80 mx-auto">
+                <div class="h-3 bg-white/20 rounded-full overflow-hidden">
+                    <div id="loadingProgress"
+                        class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-300"
+                        style="width: 0%"></div>
+                </div>
+                <p class="text-white/80 text-sm mt-3"><span id="loadingPercent">0</span>% Complete</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation & Controls -->
+    <div class="fixed top-0 left-0 right-0 z-50 p-6">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-2xl">
+                    <i class="fas fa-city text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white font-orbitron">DevCity</h1>
+            </div>
+
+            <!-- Controls Container -->
+            <div class="flex flex-wrap gap-4">
+                <!-- Sound Toggle -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-2xl border border-white/20">
+                    <button id="soundToggle"
+                        class="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg">
+                        <i class="fas fa-volume-up text-white text-xl" id="soundOnIcon"></i>
+                        <i class="fas fa-volume-mute text-white text-xl hidden" id="soundOffIcon"></i>
+                    </button>
+                </div>
+
+                <!-- Weather Controls -->
+                <div
+                    class="bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-2xl border border-white/20 hidden md:block">
+                    <div class="flex gap-2">
+                        <button
+                            class="weather-btn w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-300 flex items-center justify-center hover:scale-110 transition-transform"
+                            data-weather="sunny" title="Sunny">
+                            <i class="fas fa-sun text-white"></i>
+                        </button>
+                        <button
+                            class="weather-btn w-10 h-10 rounded-full bg-gradient-to-br from-gray-400 to-gray-300 flex items-center justify-center hover:scale-110 transition-transform"
+                            data-weather="rainy" title="Rainy">
+                            <i class="fas fa-cloud-rain text-white"></i>
+                        </button>
+                        <button
+                            class="weather-btn w-10 h-10 rounded-full bg-gradient-to-br from-white to-gray-200 flex items-center justify-center hover:scale-110 transition-transform"
+                            data-weather="snowy" title="Snowy">
+                            <i class="fas fa-snowflake text-blue-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Day/Night Toggle -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-2xl border border-white/20">
+                    <button id="dayNightToggle"
+                        class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 flex items-center justify-center transition-all duration-500 hover:scale-110 shadow-lg">
+                        <i class="fas fa-sun text-white text-xl" id="sunIcon"></i>
+                        <i class="fas fa-moon text-white text-xl hidden" id="moonIcon"></i>
+                    </button>
+                </div>
+
+                <!-- Hamburger Menu (Mobile Only) -->
+                <div class="md:hidden bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-2xl border border-white/20">
+                    <button id="hamburgerBtn"
+                        class="w-12 h-12 rounded-full  bg-gradient-to-r from-purple-400 to-blue-500 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:scale-110 shadow-lg">
+                        <span class="hamburger-line w-6 h-0.5 bg-white transition-all duration-300"></span>
+                        <span class="hamburger-line w-6 h-0.5 bg-white transition-all duration-300"></span>
+                        <span class="hamburger-line w-6 h-0.5 bg-white transition-all duration-300"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu"
+        class="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm hidden transform transition-all duration-300">
+        <div class="fixed right-0 top-0 bottom-0 w-80 bg-gradient-to-br from-blue-500 to-purple-600 shadow-2xl transform translate-x-full transition-transform duration-300"
+            id="mobileMenuPanel">
+            <!-- Menu Header -->
+            <div class="p-6 border-b border-white/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-white font-orbitron">DevCity Menu</h2>
+                    <button id="closeMobileMenu" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                <p class="text-white/80 text-sm">Navigate your portfolio city</p>
+            </div>
+
+            <!-- Buildings Quick Access -->
+            <div class="p-6">
+                <h3 class="text-white font-bold mb-3 text-sm uppercase tracking-wider">Buildings</h3>
+                <div class="space-y-2" id="mobileBuil dingLinks">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="p-6 border-t border-white/20">
+                <h3 class="text-white font-bold mb-3 text-sm uppercase tracking-wider">Controls</h3>
+                <div class="space-y-3">
+                    <button id="mobileDayNight"
+                        class="w-full px-4 py-3 bg-white/20 rounded-lg text-white font-medium hover:bg-white/30 transition-colors flex items-center justify-between">
+                        <span>Toggle Day/Night</span>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button id="mobileSoundToggle"
+                        class="w-full px-4 py-3 bg-white/20 rounded-lg text-white font-medium hover:bg-white/30 transition-colors flex items-center justify-between">
+                        <span>Sound Effects</span>
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Touch Controls Guide -->
+            <div class="p-6 border-t border-white/20">
+                <h3 class="text-white font-bold mb-3 text-sm uppercase tracking-wider">Touch Controls</h3>
+                <div class="text-white/80 text-sm space-y-2">
+                    <p>• Tap buildings to explore</p>
+                    <p>• Swipe to move avatar</p>
+                    <p>• Press numbers 1-7 for quick access</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="relative min-h-screen">
+        <!-- Sky Area -->
+        <div class="absolute inset-0 overflow-hidden" id="sky">
+            <!-- Sun/Moon -->
+            <div id="sunMoon"
+                class="absolute top-10 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-yellow-300 to-orange-400 shadow-2xl">
+            </div>
+
+            <!-- Clouds -->
+            <div class="cloud cloud-1 absolute top-20 left-10 w-40 h-20"></div>
+            <div class="cloud cloud-2 absolute top-32 right-20 w-48 h-24"></div>
+            <div class="cloud cloud-3 absolute top-10 right-1/3 w-32 h-16"></div>
+
+            <!-- Stars (hidden by default) -->
+            <div id="stars" class="absolute inset-0 hidden"></div>
+        </div>
+
+        <!-- City Container -->
+        <div class="relative z-10 pt-32 pb-20 px-4 max-w-7xl mx-auto">
+            <!-- City Name / Portfolio Title -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-2xl font-orbitron">DevCity
+                    Portfolio</h1>
+                <p class="text-xl text-white/90 font-medium max-w-2xl mx-auto">Welcome to my interactive portfolio city!
+                    Click buildings to explore my professional journey</p>
+
+                <!-- Stats Bar -->
+                <div class="mt-8 flex flex-wrap justify-center gap-6">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3 px-5 border border-white/30">
+                        <p class="text-white font-bold text-lg">7 <span class="text-sm font-normal">Buildings</span></p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3 px-5 border border-white/30">
+                        <p class="text-white font-bold text-lg" id="visitedCount">0 <span
+                                class="text-sm font-normal">Visited</span></p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3 px-5 border border-white/30">
+                        <p class="text-white font-bold text-lg" id="achievementCount">0 <span
+                                class="text-sm font-normal">Achievements</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Isometric City Grid -->
+            <div class="relative mx-auto"
+                style="width: 1600px; height: 1200px; transform: rotateX(60deg) rotateZ(45deg) scale(0.85); transform-style: preserve-3d; perspective: 2000px; transform-origin: center center;"
+                id="cityContainer">
+                <!-- Grass/Base with Details -->
+                <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-green-600 rounded-lg overflow-hidden"
+                    id="grass">
+                    <!-- Grass texture -->
+                    <div class="absolute inset-0"
+                        style="background-image: radial-gradient(circle at 10px 10px, rgba(34, 197, 94, 0.8) 1px, transparent 1px); background-size: 20px 20px;">
+                    </div>
+
+                    <!-- Pathways -->
+                    <div class="absolute w-8 h-8 bg-gradient-to-br from-yellow-600 to-yellow-700 rounded-full"
+                        style="left: 200px; top: 150px;"></div>
+                    <div class="absolute w-8 h-8 bg-gradient-to-br from-yellow-600 to-yellow-700 rounded-full"
+                        style="left: 500px; top: 300px;"></div>
+                    <div class="absolute w-8 h-8 bg-gradient-to-br from-yellow-600 to-yellow-700 rounded-full"
+                        style="left: 350px; top: 450px;"></div>
+                </div>
+
+                <!-- Roads with Markings -->
+                <div class="absolute w-full h-16 bg-gradient-to-r from-gray-600 to-gray-700 top-1/2 transform -translate-y-1/2"
+                    id="mainRoad">
+                    <!-- Road markings -->
+                    <div class="absolute inset-y-0 left-0 right-0 flex items-center">
+                        <div
+                            class="w-full h-1 bg-gradient-to-r from-yellow-400 via-yellow-400 to-transparent bg-[length:40px_100%] bg-repeat-x">
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute h-full w-16 bg-gradient-to-b from-gray-600 to-gray-700 left-1/2 transform -translate-x-1/2"
+                    id="crossRoad">
+                    <!-- Road markings -->
+                    <div class="absolute inset-x-0 top-0 bottom-0 flex justify-center">
+                        <div
+                            class="h-full w-1 bg-gradient-to-b from-yellow-400 via-yellow-400 to-transparent bg-[length:100%_40px] bg-repeat-y">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidewalks -->
+                <div
+                    class="absolute w-full h-6 bg-gradient-to-r from-gray-300 to-gray-400 top-1/2 transform -translate-y-1/2 -translate-y-11">
+                </div>
+                <div
+                    class="absolute w-full h-6 bg-gradient-to-r from-gray-300 to-gray-400 top-1/2 transform -translate-y-1/2 translate-y-5">
+                </div>
+                <div
+                    class="absolute h-full w-6 bg-gradient-to-b from-gray-300 to-gray-400 left-1/2 transform -translate-x-1/2 -translate-x-11">
+                </div>
+                <div
+                    class="absolute h-full w-6 bg-gradient-to-b from-gray-300 to-gray-400 left-1/2 transform -translate-x-1/2 translate-x-5">
+                </div>
+
+                <!-- Lamp Posts -->
+                <div class="lamp-post absolute" style="left: 300px; top: 350px;">
+                    <div class="w-5 h-24 bg-gradient-to-b from-gray-700 via-gray-800 to-gray-900 relative">
+                        <!-- Lamp shadow -->
+                        <div
+                            class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-8 h-3 bg-black/30 rounded-full blur-sm">
+                        </div>
+                        <!-- Lamp light -->
+                        <div
+                            class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full blur-md shadow-lg shadow-yellow-400/50">
+                        </div>
+                        <!-- Lamp glow effect -->
+                        <div
+                            class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-yellow-300/20 rounded-full blur-xl">
+                        </div>
+                    </div>
+                </div>
+                <div class="lamp-post absolute" style="left: 700px; top: 300px;">
+                    <div class="w-5 h-24 bg-gradient-to-b from-gray-700 via-gray-800 to-gray-900 relative">
+                        <!-- Lamp shadow -->
+                        <div
+                            class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-8 h-3 bg-black/30 rounded-full blur-sm">
+                        </div>
+                        <!-- Lamp light -->
+                        <div
+                            class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full blur-md shadow-lg shadow-yellow-400/50">
+                        </div>
+                        <!-- Lamp glow effect -->
+                        <div
+                            class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-yellow-300/20 rounded-full blur-xl">
+                        </div>
+                    </div>
+                </div>
+                <div class="lamp-post absolute" style="left: 1100px; top: 400px;">
+                    <div class="w-5 h-24 bg-gradient-to-b from-gray-700 via-gray-800 to-gray-900 relative">
+                        <!-- Lamp shadow -->
+                        <div
+                            class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-8 h-3 bg-black/30 rounded-full blur-sm">
+                        </div>
+                        <!-- Lamp light -->
+                        <div
+                            class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full blur-md shadow-lg shadow-yellow-400/50">
+                        </div>
+                        <!-- Lamp glow effect -->
+                        <div
+                            class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-yellow-300/20 rounded-full blur-xl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trees -->
+                <div class="tree absolute" style="left: 250px; top: 800px;">
+                    <div class="relative">
+                        <!-- Tree trunk -->
+                        <div
+                            class="w-10 h-16 bg-gradient-to-b from-brown-700 via-brown-800 to-brown-900 rounded-sm mx-auto relative">
+                            <!-- Trunk shadow -->
+                            <div
+                                class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-4 bg-black/25 rounded-full blur-sm">
+                            </div>
+                        </div>
+                        <!-- Tree foliage with 3D effect -->
+                        <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-28 h-28 bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-full shadow-2xl"
+                            style="box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset -5px -5px 10px rgba(0,0,0,0.2);">
+                        </div>
+                        <!-- Additional foliage layer for depth -->
+                        <div
+                            class="absolute -top-10 left-1/2 transform -translate-x-1/2 translate-x-4 w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-full opacity-80">
+                        </div>
+                    </div>
+                </div>
+                <div class="tree absolute" style="left: 1300px; top: 900px;">
+                    <div class="relative">
+                        <!-- Tree trunk -->
+                        <div
+                            class="w-10 h-16 bg-gradient-to-b from-brown-700 via-brown-800 to-brown-900 rounded-sm mx-auto relative">
+                            <!-- Trunk shadow -->
+                            <div
+                                class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-4 bg-black/25 rounded-full blur-sm">
+                            </div>
+                        </div>
+                        <!-- Tree foliage with 3D effect -->
+                        <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-28 h-28 bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-full shadow-2xl"
+                            style="box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset -5px -5px 10px rgba(0,0,0,0.2);">
+                        </div>
+                        <!-- Additional foliage layer for depth -->
+                        <div
+                            class="absolute -top-10 left-1/2 transform -translate-x-1/2 translate-x-4 w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-full opacity-80">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buildings Container -->
+                <div id="buildingsContainer" class="absolute inset-0">
+                    <!-- Buildings will be dynamically placed with more details -->
+                </div>
+
+                <!-- Walking Avatar -->
+                <div id="avatar" class="absolute w-10 h-14 transition-all duration-700 z-50"
+                    style="left: 800px; top: 600px;">
+                    <div class="relative w-full h-full" style="transform-style: preserve-3d;">
+                        <!-- Enhanced shadow with 3D effect -->
+                        <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-black/30 rounded-full blur-md"
+                            style="transform: scaleX(1.2) scaleY(0.5);"></div>
+                        <!-- Body with depth -->
+                        <div class="absolute bottom-0 w-8 h-10 bg-gradient-to-b from-blue-600 via-blue-700 to-blue-800 rounded-sm mx-auto left-1/2 transform -translate-x-1/2"
+                            style="box-shadow: inset -2px 0 4px rgba(0,0,0,0.3), inset 2px 0 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3);">
+                        </div>
+                        <!-- Head with depth -->
+                        <div class="absolute bottom-10 w-6 h-6 bg-gradient-to-b from-yellow-200 via-yellow-250 to-yellow-300 rounded-full mx-auto left-1/2 transform -translate-x-1/2"
+                            style="box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.2);"></div>
+                    </div>
+                </div>
+
+                <!-- Mini Cars -->
+                <div class="car absolute w-12 h-7 bg-gradient-to-br from-red-500 to-red-700 rounded-sm"
+                    style="top: 400px; left: 300px;">
+                    <div class="absolute -bottom-1 w-3 h-2 bg-black rounded-full left-1"></div>
+                    <div class="absolute -bottom-1 w-3 h-2 bg-black rounded-full right-1"></div>
+                    <!-- Car shadow for 3D effect -->
+                    <div
+                        class="absolute -bottom-2 left-0 right-0 h-2 bg-black/20 rounded-full blur-sm transform skew-x-45deg">
+                    </div>
+                </div>
+                <div class="car absolute w-12 h-7 bg-gradient-to-br from-blue-500 to-blue-700 rounded-sm"
+                    style="top: 300px; left: 900px;">
+                    <div class="absolute -bottom-1 w-3 h-2 bg-black rounded-full left-1"></div>
+                    <div class="absolute -bottom-1 w-3 h-2 bg-black rounded-full right-1"></div>
+                    <!-- Car shadow for 3D effect -->
+                    <div
+                        class="absolute -bottom-2 left-0 right-0 h-2 bg-black/20 rounded-full blur-sm transform skew-x-45deg">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Building Labels -->
+            <div id="buildingLabels" class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <!-- Labels will be dynamically added -->
+            </div>
+
+            <!-- Transport System (Coming Soon) -->
+            <div class="mt-12 text-center">
+                <div
+                    class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30">
+                    <i class="fas fa-train text-white text-2xl"></i>
+                    <p class="text-white font-medium">Transport System Coming Soon: Trains between buildings!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Building Detail Modal -->
+        <div id="buildingModal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4">
+            <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="modalOverlay"></div>
+            <div class="relative bg-gradient-to-br from-white to-gray-100 rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+                id="modalContent">
+                <!-- Modal content will be dynamically loaded -->
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div
+            class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30 hidden md:block">
+            <p class="text-white font-medium text-center">🏗️ Click buildings to explore • ⬆⬇⬅➡ / WASD to walk •
+                Press
+                1–7 to jump to sections • Press Enter near a building to enter • 🌙 Day/Night toggle • 🔊 Sound
+                effects
+                • 🌧️ Change weather</p>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Loading Screen Handler - Wait for DOM to be ready
+        window.addEventListener('load', function () {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const progressBar = document.getElementById('loadingProgress');
+            const percentText = document.getElementById('loadingPercent');
+
+            if (!loadingScreen || !progressBar || !percentText) {
+                console.error('Loading screen elements not found');
+                return;
+            }
+
+            let progress = 0;
+
+            // Simulate loading progress
+            const loadingInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+
+                    // Fade out loading screen after completion
+                    setTimeout(() => {
+                        loadingScreen.style.transition = 'opacity 0.8s ease';
+                        loadingScreen.style.opacity = '0';
+
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 800);
+                    }, 500);
+                }
+
+                progressBar.style.width = progress + '%';
+                percentText.textContent = Math.floor(progress);
+            }, 200);
+        });
+
+        // Initialize state
+        let isDay = true;
+        let isSoundOn = true;
+        let currentWeather = 'sunny';
+        let visitedBuildings = new Set();
+        let achievements = new Set();
+        // Avatar movement state (within 1400x1000 city container)
+        let avatarX = 800; // starting X (center)
+        let avatarY = 600; // starting Y (center)
+        const avatarSpeed = 25;
+        const cityWidth = 1600;
+        const cityHeight = 1200;
+
+        // Building data with complete content
+        const buildings = [
+            {
+                id: 'profile',
+                name: 'Profile Plaza',
+                type: 'plaza',
+                color: 'from-blue-400 to-blue-600',
+                icon: 'fas fa-user',
+                x: 200, y: 200, width: 120, height: 160,
+                description: 'Welcome to my professional home! Learn about who I am and what I do.',
+                content: {
+                    title: "Profile Plaza",
+                    subtitle: "Full Stack Developer & Creative Technologist",
+                    about: "Hello! I'm Alex, a passionate full-stack developer with 5+ years of experience building digital solutions. I specialize in creating immersive web experiences that blend technical excellence with creative design.",
+                    details: {
+                        "📍 Location": "San Francisco, CA",
+                        "🎓 Degree": "B.S. Computer Science",
+                        "💼 Status": "Open to Opportunities",
+                        "🎯 Focus": "Web Development, UX Design, Creative Coding"
+                    },
+                    bio: "I believe in creating technology that doesn't just function but delights. When I'm not coding, you can find me exploring new frameworks, contributing to open-source projects, or experimenting with creative coding concepts.",
+                    funFact: "I once built a fully functional web app in 48 hours during a hackathon!"
+                }
+            },
+            {
+                id: 'education',
+                name: 'Education Library',
+                type: 'library',
+                color: 'from-emerald-400 to-emerald-600',
+                icon: 'fas fa-graduation-cap',
+                x: 450, y: 200, width: 100, height: 140,
+                description: 'My academic journey and certifications.',
+                content: {
+                    title: "Education Library",
+                    subtitle: "Academic Journey & Continuous Learning",
+                    items: [
+                        {
+                            degree: "Master of Science in Computer Science",
+                            institution: "Stanford University",
+                            year: "2020-2022",
+                            gpa: "3.9/4.0",
+                            highlights: ["Specialized in Human-Computer Interaction", "Thesis on Interactive Data Visualization"]
+                        },
+                        {
+                            degree: "Bachelor of Engineering in Software Engineering",
+                            institution: "MIT",
+                            year: "2016-2020",
+                            gpa: "3.8/4.0",
+                            highlights: ["Graduated Summa Cum Laude", "President of Coding Club"]
+                        }
+                    ],
+                    certifications: [
+                        "AWS Certified Solutions Architect",
+                        "Google UX Design Professional Certificate",
+                        "React Advanced Certification",
+                        "Node.js Services Development"
+                    ]
+                }
+            },
+            {
+                id: 'experience',
+                name: 'Experience Tower',
+                type: 'tower',
+                color: 'from-purple-400 to-purple-600',
+                icon: 'fas fa-briefcase',
+                x: 1050, y: 200, width: 130, height: 200,
+                description: 'My professional work experience and career path.',
+                content: {
+                    title: "Experience Tower",
+                    subtitle: "Professional Journey & Career Growth",
+                    timeline: [
+                        {
+                            role: "Senior Full Stack Developer",
+                            company: "TechInnovate Inc.",
+                            period: "2022 - Present",
+                            responsibilities: [
+                                "Lead development of customer-facing web applications",
+                                "Mentor junior developers and conduct code reviews",
+                                "Implement CI/CD pipelines reducing deployment time by 40%"
+                            ]
+                        },
+                        {
+                            role: "Frontend Developer",
+                            company: "CreativeDigital Agency",
+                            period: "2020 - 2022",
+                            responsibilities: [
+                                "Built responsive web applications for Fortune 500 clients",
+                                "Collaborated with design teams to implement pixel-perfect UIs",
+                                "Optimized web performance achieving 95+ Lighthouse scores"
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'projects',
+                name: 'Project Factory',
+                type: 'factory',
+                color: 'from-orange-400 to-orange-600',
+                icon: 'fas fa-industry',
+                x: 200, y: 750, width: 140, height: 120,
+                description: 'Creative projects and development work.',
+                content: {
+                    title: "Project Factory",
+                    subtitle: "Innovative Creations & Solutions",
+                    projects: [
+                        {
+                            name: "EcoTrack Carbon Calculator",
+                            description: "Real-time carbon footprint tracking dashboard",
+                            tech: ["React", "Node.js", "D3.js", "MongoDB"],
+                            status: "Active",
+                            link: "#"
+                        },
+                        {
+                            name: "ArtGen AI",
+                            description: "AI-powered digital art generation platform",
+                            tech: ["Python", "TensorFlow", "FastAPI", "Three.js"],
+                            status: "Completed",
+                            link: "#"
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'skills',
+                name: 'Skills Power Plant',
+                type: 'powerplant',
+                color: 'from-red-400 to-red-600',
+                icon: 'fas fa-bolt',
+                x: 700, y: 750, width: 120, height: 150,
+                description: 'Technical skills and competencies.',
+                content: {
+                    title: "Skills Power Plant",
+                    subtitle: "Technical Expertise & Capabilities",
+                    categories: {
+                        "Frontend": ["React", "Vue.js", "TypeScript", "Tailwind CSS"],
+                        "Backend": ["Node.js", "Python", "Express", "Django"],
+                        "Database": ["MongoDB", "PostgreSQL", "Redis", "Firebase"],
+                        "Tools": ["Git", "Docker", "AWS", "Figma"]
+                    }
+                }
+            },
+            {
+                id: 'interests',
+                name: 'Interests Park',
+                type: 'park',
+                color: 'from-green-400 to-green-600',
+                icon: 'fas fa-tree',
+                x: 1300, y: 200, width: 90, height: 90,
+                description: 'My hobbies and personal interests.',
+                content: {
+                    title: "Interests Park",
+                    subtitle: "Beyond Code: Passion & Hobbies",
+                    hobbies: [
+                        {
+                            name: "Creative Coding",
+                            icon: "fas fa-code",
+                            description: "Experimenting with generative art and interactive installations"
+                        },
+                        {
+                            name: "Photography",
+                            icon: "fas fa-camera",
+                            description: "Capturing urban landscapes and architectural details"
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'contact',
+                name: 'Contact Cottage',
+                type: 'cottage',
+                color: 'from-pink-400 to-pink-600',
+                icon: 'fas fa-envelope',
+                x: 1150, y: 750, width: 100, height: 110,
+                description: 'Get in touch with me!',
+                content: {
+                    title: "Contact Cottage",
+                    subtitle: "Let's Connect & Create Together",
+                    methods: [
+                        {
+                            type: "Email",
+                            value: "hello@devcityportfolio.com",
+                            icon: "fas fa-envelope"
+                        },
+                        {
+                            type: "LinkedIn",
+                            value: "linkedin.com/in/alexdev",
+                            icon: "fab fa-linkedin"
+                        },
+                        {
+                            type: "GitHub",
+                            value: "github.com/alexdev",
+                            icon: "fab fa-github"
+                        }
+                    ]
+                }
+            }
+        ];
+
+        // Initialize the city when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeCity();
+            setupEventListeners();
+            createStars();
+            setupCarAnimation();
+            // Ensure avatar starts at numeric coordinates
+            updateAvatarPosition();
+
+            // Add initial achievement
+            addAchievement("Welcome to DevCity!", "fas fa-map");
+
+            // Setup mobile menu
+            setupMobileMenu();
+        });
+
+        function setupMobileMenu() {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            const mobileBuildingLinksContainer = document.querySelector('#mobileMenu .space-y-2');
+
+            // Populate building links
+            buildings.forEach((building, index) => {
+                const link = document.createElement('button');
+                link.className = 'mobile-building-link w-full px-4 py-3 bg-white/10 rounded-lg text-white font-medium hover:bg-white/20 transition-colors flex items-center justify-between';
+                link.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br ${building.color} flex items-center justify-center mr-3">
+                            <i class="${building.icon} text-white text-sm"></i>
+                        </div>
+                        <span>${building.name}</span>
+                    </div>
+                    <span class="text-white/60 text-sm">${index + 1}</span>
+                `;
+
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                    openBuildingModal(building.id);
+                    markBuildingVisited(building.id);
+                });
+
+                mobileBuildingLinksContainer.appendChild(link);
+            });
+
+            // Toggle menu
+            function toggleMobileMenu() {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+
+                if (isOpen) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            }
+
+            function openMobileMenu() {
+                mobileMenu.classList.remove('hidden');
+                hamburgerBtn.classList.add('menu-open');
+                setTimeout(() => {
+                    mobileMenuPanel.style.transform = 'translateX(0)';
+                }, 10);
+                playSound('click');
+            }
+
+            function closeMobileMenu() {
+                mobileMenuPanel.style.transform = 'translateX(100%)';
+                hamburgerBtn.classList.remove('menu-open');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+                playSound('click');
+            }
+
+            // Event listeners
+            hamburgerBtn.addEventListener('click', toggleMobileMenu);
+            closeMobileMenu.addEventListener('click', closeMobileMenu);
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Mobile controls
+            document.getElementById('mobileDayNight').addEventListener('click', () => {
+                toggleDayNight();
+                closeMobileMenu();
+            });
+
+            document.getElementById('mobileSoundToggle').addEventListener('click', () => {
+                toggleSound();
+                closeMobileMenu();
+            });
+        }
+
+        function initializeCity() {
+            const container = document.getElementById('buildingsContainer');
+            const labelsContainer = document.getElementById('buildingLabels');
+
+            buildings.forEach(building => {
+                // Create building element with enhanced 3D details
+                const buildingEl = document.createElement('div');
+                buildingEl.className = `absolute bg-gradient-to-b ${building.color} border-2 border-white/30 rounded-md cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 hover:shadow-2xl building group`;
+                buildingEl.style.width = `${building.width}px`;
+                buildingEl.style.height = `${building.height}px`;
+                buildingEl.style.left = `${building.x}px`;
+                buildingEl.style.top = `${building.y}px`;
+                buildingEl.dataset.id = building.id;
+                // Add 3D shadow and depth
+                buildingEl.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3), inset 0 -5px 10px rgba(0,0,0,0.2), inset 5px 0 10px rgba(255,255,255,0.1)';
+                buildingEl.style.transformStyle = 'preserve-3d';
+
+                // Add building windows with 3D depth
+                const windowCount = Math.floor(building.width / 20);
+                const windowSpacing = building.width / (windowCount + 1);
+                for (let i = 0; i < windowCount; i++) {
+                    const window = document.createElement('div');
+                    window.className = `absolute w-4 h-5 bg-gradient-to-br from-yellow-200 via-yellow-300 to-yellow-400 rounded-sm ${building.type === 'tower' ? 'border border-yellow-500/40' : ''}`;
+                    window.style.left = `${windowSpacing * (i + 1) - 8}px`;
+                    window.style.top = '25px';
+                    window.style.boxShadow = 'inset 0 2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)';
+                    buildingEl.appendChild(window);
+
+                    // Add second row for taller buildings
+                    if (building.height > 120) {
+                        const window2 = document.createElement('div');
+                        window2.className = `absolute w-4 h-5 bg-gradient-to-br from-yellow-200 via-yellow-300 to-yellow-400 rounded-sm ${building.type === 'tower' ? 'border border-yellow-500/40' : ''}`;
+                        window2.style.left = `${windowSpacing * (i + 1) - 8}px`;
+                        window2.style.top = '55px';
+                        window2.style.boxShadow = 'inset 0 2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)';
+                        buildingEl.appendChild(window2);
+                    }
+                    // Add third row for very tall buildings
+                    if (building.height > 180) {
+                        const window3 = document.createElement('div');
+                        window3.className = `absolute w-4 h-5 bg-gradient-to-br from-yellow-200 via-yellow-300 to-yellow-400 rounded-sm ${building.type === 'tower' ? 'border border-yellow-500/40' : ''}`;
+                        window3.style.left = `${windowSpacing * (i + 1) - 8}px`;
+                        window3.style.top = '85px';
+                        window3.style.boxShadow = 'inset 0 2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)';
+                        buildingEl.appendChild(window3);
+                    }
+                }
+
+                // Add building door with 3D depth
+                const door = document.createElement('div');
+                const colorBase = building.color.split('to-')[1].split('-')[1];
+                door.className = `absolute bottom-0 w-12 h-14 bg-gradient-to-b from-${colorBase}-800 via-${colorBase}-850 to-${colorBase}-900 rounded-t-md left-1/2 transform -translate-x-1/2`;
+                door.style.boxShadow = 'inset 0 3px 6px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3)';
+                // Add door handle
+                const handle = document.createElement('div');
+                handle.className = 'absolute right-2 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-yellow-600 rounded-full';
+                handle.style.boxShadow = '0 1px 2px rgba(0,0,0,0.3)';
+                door.appendChild(handle);
+                buildingEl.appendChild(door);
+
+                // Add building icon
+                const icon = document.createElement('i');
+                icon.className = `${building.icon} absolute top-4 left-1/2 transform -translate-x-1/2 text-white/90 text-xl group-hover:scale-125 transition-transform`;
+                buildingEl.appendChild(icon);
+
+                // Add building name
+                const name = document.createElement('div');
+                name.className = 'absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center text-white text-xs font-bold truncate px-2 py-1 bg-black/40 rounded-lg backdrop-blur-sm whitespace-nowrap';
+                name.textContent = building.name.split(' ')[0];
+                buildingEl.appendChild(name);
+
+                // Add construction elements to factory
+                if (building.type === 'factory') {
+                    // Add crane
+                    const crane = document.createElement('div');
+                    crane.className = 'absolute -top-16 left-1/2 transform -translate-x-1/2';
+                    crane.innerHTML = `
+                        <div class="w-1 h-16 bg-gradient-to-b from-gray-800 to-gray-900 relative">
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-800"></div>
+                            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                        </div>
+                    `;
+                    buildingEl.appendChild(crane);
+
+                    // Add smoke stacks
+                    const smokeStack1 = document.createElement('div');
+                    smokeStack1.className = 'absolute top-2 left-6 w-3 h-6 bg-gradient-to-b from-gray-700 to-gray-900 rounded-t-sm';
+                    buildingEl.appendChild(smokeStack1);
+
+                    const smokeStack2 = document.createElement('div');
+                    smokeStack2.className = 'absolute top-2 right-6 w-3 h-6 bg-gradient-to-b from-gray-700 to-gray-900 rounded-t-sm';
+                    buildingEl.appendChild(smokeStack2);
+
+                    // Add animated smoke
+                    const smoke1 = document.createElement('div');
+                    smoke1.className = 'absolute top-0 left-7 w-4 h-4 bg-white/20 rounded-full animate-pulse';
+                    smoke1.style.animation = 'smokeRise 3s infinite ease-in-out';
+                    buildingEl.appendChild(smoke1);
+
+                    const smoke2 = document.createElement('div');
+                    smoke2.className = 'absolute top-0 right-7 w-5 h-5 bg-white/15 rounded-full animate-pulse';
+                    smoke2.style.animation = 'smokeRise 4s infinite ease-in-out 0.5s';
+                    buildingEl.appendChild(smoke2);
+
+                    // Add conveyor belt
+                    const conveyor = document.createElement('div');
+                    conveyor.className = 'absolute -bottom-4 left-0 right-0 h-4 bg-gradient-to-r from-gray-600 to-gray-700';
+                    buildingEl.appendChild(conveyor);
+
+                    // Add conveyor wheels
+                    for (let i = 0; i < 3; i++) {
+                        const wheel = document.createElement('div');
+                        wheel.className = 'absolute -bottom-6 w-4 h-4 bg-gray-800 rounded-full';
+                        wheel.style.left = `${20 + i * 30}%`;
+                        buildingEl.appendChild(wheel);
+                    }
+                }
+
+                // Add trees to park
+                if (building.type === 'park') {
+                    const tree = document.createElement('div');
+                    tree.className = 'absolute bottom-2 left-1/2 transform -translate-x-1/2';
+                    tree.innerHTML = `
+                        <div class="w-2 h-3 bg-brown-800 rounded-sm mx-auto"></div>
+                        <div class="w-6 h-6 bg-gradient-to-b from-green-500 to-green-700 rounded-full -top-2 relative"></div>
+                    `;
+                    buildingEl.appendChild(tree);
+                }
+
+                container.appendChild(buildingEl);
+
+                // Create label for building
+                const label = document.createElement('div');
+                label.className = 'bg-white/90 backdrop-blur-sm rounded-xl p-4 text-center cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg border border-white/50';
+                label.dataset.id = building.id;
+
+                label.innerHTML = `
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br ${building.color} flex items-center justify-center mx-auto mb-3">
+                        <i class="${building.icon} text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">${building.name}</h3>
+                    <p class="text-gray-600 text-sm mt-1">${building.description.substring(0, 50)}...</p>
+                    <div class="mt-3">
+                        <span class="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700">
+                            Click to explore
+                        </span>
+                    </div>
+                `;
+
+                labelsContainer.appendChild(label);
+            });
+        }
+
+        function setupEventListeners() {
+            // Day/Night toggle
+            document.getElementById('dayNightToggle').addEventListener('click', toggleDayNight);
+
+            // Sound toggle
+            document.getElementById('soundToggle').addEventListener('click', toggleSound);
+
+            // Weather buttons
+            document.querySelectorAll('.weather-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    setWeather(this.dataset.weather);
+                    playSound('click');
+                });
+            });
+
+            // Building clicks
+            document.addEventListener('click', function (e) {
+                // Check if a building or label was clicked
+                if (e.target.closest('.building') || e.target.closest('#buildingLabels > div')) {
+                    const buildingId = e.target.closest('.building')?.dataset.id ||
+                        e.target.closest('#buildingLabels > div')?.dataset.id;
+
+                    if (buildingId) {
+                        playSound('buildingClick');
+                        openBuildingModal(buildingId);
+                        markBuildingVisited(buildingId);
+                    }
+                }
+
+                // Close modal when overlay is clicked
+                if (e.target.id === 'modalOverlay') {
+                    closeModal();
+                    playSound('click');
+                }
+            });
+
+            // Keyboard controls: movement and quick access
+            document.addEventListener('keydown', handleKeyDown);
+        }
+
+        function toggleDayNight() {
+            isDay = !isDay;
+            const body = document.getElementById('body');
+            const sunMoon = document.getElementById('sunMoon');
+            const grass = document.getElementById('grass');
+            const mainRoad = document.getElementById('mainRoad');
+            const crossRoad = document.getElementById('crossRoad');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            const stars = document.getElementById('stars');
+
+            playSound('toggle');
+
+            if (isDay) {
+                // Switch to day
+                body.classList.remove('bg-slate-900');
+                body.classList.add('bg-sky-300');
+                sunMoon.className = 'absolute top-10 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-yellow-300 to-orange-400 shadow-2xl';
+                grass.classList.remove('bg-gradient-to-br', 'from-green-800', 'to-green-900');
+                grass.classList.add('bg-gradient-to-br', 'from-green-500', 'to-green-600');
+                mainRoad.classList.remove('bg-gradient-to-r', 'from-gray-800', 'to-gray-900');
+                mainRoad.classList.add('bg-gradient-to-r', 'from-gray-600', 'to-gray-700');
+                crossRoad.classList.remove('bg-gradient-to-b', 'from-gray-800', 'to-gray-900');
+                crossRoad.classList.add('bg-gradient-to-b', 'from-gray-600', 'to-gray-700');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                stars.classList.add('hidden');
+
+                // Lamp lights off
+                document.querySelectorAll('#cityContainer > div').forEach(el => {
+                    if (el.classList.contains('lamp-light')) {
+                        el.classList.add('hidden');
+                    }
+                });
+            } else {
+                // Switch to night
+                body.classList.remove('bg-sky-300');
+                body.classList.add('bg-slate-900');
+                sunMoon.className = 'absolute top-10 right-1/4 w-20 h-20 rounded-full bg-gradient-to-br from-gray-300 to-gray-100 shadow-2xl';
+                grass.classList.remove('bg-gradient-to-br', 'from-green-500', 'to-green-600');
+                grass.classList.add('bg-gradient-to-br', 'from-green-800', 'to-green-900');
+                mainRoad.classList.remove('bg-gradient-to-r', 'from-gray-600', 'to-gray-700');
+                mainRoad.classList.add('bg-gradient-to-r', 'from-gray-800', 'to-gray-900');
+                crossRoad.classList.remove('bg-gradient-to-b', 'from-gray-600', 'to-gray-700');
+                crossRoad.classList.add('bg-gradient-to-b', 'from-gray-800', 'to-gray-900');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                stars.classList.remove('hidden');
+
+                // Lamp lights on
+                document.querySelectorAll('#cityContainer > div').forEach(el => {
+                    if (el.classList.contains('lamp-light')) {
+                        el.classList.remove('hidden');
+                    }
+                });
+            }
+        }
+
+        function toggleSound() {
+            isSoundOn = !isSoundOn;
+            const soundOnIcon = document.getElementById('soundOnIcon');
+            const soundOffIcon = document.getElementById('soundOffIcon');
+
+            if (isSoundOn) {
+                soundOnIcon.classList.remove('hidden');
+                soundOffIcon.classList.add('hidden');
+            } else {
+                soundOnIcon.classList.add('hidden');
+                soundOffIcon.classList.remove('hidden');
+            }
+
+            // Play toggle sound
+            if (isSoundOn) {
+                playSound('click');
+            }
+        }
+
+        function playSound(type) {
+            if (!isSoundOn) return;
+
+            // Simple sound effects using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+            if (type === 'click') {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } else if (type === 'buildingClick') {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = 600;
+                oscillator.type = 'triangle';
+
+                gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } else if (type === 'toggle') {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+                oscillator.type = 'sine';
+
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.2);
+            }
+        }
+
+        function setWeather(weather) {
+            currentWeather = weather;
+            const sky = document.getElementById('sky');
+            const clouds = document.querySelectorAll('.cloud');
+
+            // Remove previous weather effects
+            sky.classList.remove('rainy', 'snowy');
+
+            // Clear existing particles
+            const existingParticles = document.querySelectorAll('.weather-particle');
+            existingParticles.forEach(p => p.remove());
+
+            if (weather === 'rainy') {
+                sky.classList.add('rainy');
+                createRain();
+                playSound('click');
+            } else if (weather === 'snowy') {
+                sky.classList.add('snowy');
+                createSnow();
+                playSound('click');
+            } else {
+                // Sunny - show clouds
+                clouds.forEach(cloud => cloud.classList.remove('hidden'));
+                playSound('click');
+            }
+        }
+
+        // Handle keyboard input for avatar movement and building access
+        function handleKeyDown(e) {
+            // Avoid moving when typing inside inputs/textareas
+            const activeEl = document.activeElement;
+            if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) return;
+
+            let moved = false;
+            const key = e.key;
+
+            // Movement: Arrow keys or WASD
+            if (key === 'ArrowUp' || key === 'w' || key === 'W') {
+                avatarY = Math.max(0, avatarY - avatarSpeed);
+                moved = true;
+            } else if (key === 'ArrowDown' || key === 's' || key === 'S') {
+                avatarY = Math.min(cityHeight - 60, avatarY + avatarSpeed);
+                moved = true;
+            } else if (key === 'ArrowLeft' || key === 'a' || key === 'A') {
+                avatarX = Math.max(0, avatarX - avatarSpeed);
+                moved = true;
+            } else if (key === 'ArrowRight' || key === 'd' || key === 'D') {
+                avatarX = Math.min(cityWidth - 40, avatarX + avatarSpeed);
+                moved = true;
+            }
+
+            if (moved) {
+                updateAvatarPosition();
+                playSound('click');
+            }
+
+            // Quick jump to buildings by number keys (1–7)
+            if (key >= '1' && key <= '7') {
+                const index = parseInt(key, 10) - 1;
+                if (buildings[index]) {
+                    moveAvatarToBuilding(buildings[index]);
+                    openBuildingModal(buildings[index].id);
+                }
+            }
+
+            // Open nearest building when pressing Enter or Space
+            if (key === 'Enter' || key === ' ') {
+                const nearest = getNearestBuilding();
+                if (nearest && nearest.distance < 120) {
+                    openBuildingModal(nearest.building.id);
+                    markBuildingVisited(nearest.building.id);
+                }
+            }
+        }
+
+        // Apply avatarX / avatarY to DOM element
+        function updateAvatarPosition() {
+            const avatar = document.getElementById('avatar');
+            if (!avatar) return;
+            avatar.style.left = `${avatarX}px`;
+            avatar.style.top = `${avatarY}px`;
+        }
+
+        // Find the nearest building to the avatar
+        function getNearestBuilding() {
+            const avatarCenterX = avatarX + 16; // half avatar width
+            const avatarCenterY = avatarY + 24; // approx center
+            let nearest = null;
+            let minDist = Infinity;
+
+            buildings.forEach(b => {
+                const centerX = b.x + b.width / 2;
+                const centerY = b.y + b.height / 2;
+                const dx = centerX - avatarCenterX;
+                const dy = centerY - avatarCenterY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < minDist) {
+                    minDist = dist;
+                    nearest = b;
+                }
+            });
+
+            return nearest ? { building: nearest, distance: minDist } : null;
+        }
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'absolute bg-white rounded-full';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.opacity = `${Math.random() * 0.7 + 0.3}`;
+
+                // Add twinkle animation
+                star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite alternate`;
+                starsContainer.appendChild(star);
+            }
+
+            // Add twinkle animation to CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes twinkle {
+                    0% { opacity: 0.3; }
+                    100% { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function createRain() {
+            const sky = document.getElementById('sky');
+            for (let i = 0; i < 60; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.className = 'weather-particle absolute bg-blue-400';
+                raindrop.style.width = '1px';
+                raindrop.style.height = `${Math.random() * 20 + 10}px`;
+                raindrop.style.left = `${Math.random() * 100}%`;
+                raindrop.style.top = '-20px';
+                raindrop.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+
+                // Rain animation
+                raindrop.style.animation = `rainFall linear infinite`;
+                raindrop.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
+                raindrop.style.animationDelay = `${Math.random() * 2}s`;
+
+                sky.appendChild(raindrop);
+            }
+
+            // Add rain animation to CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes rainFall {
+                    0% { transform: translateY(-20px); }
+                    100% { transform: translateY(100vh); }
+                }
+                .rainy .cloud { opacity: 0.8; }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function createSnow() {
+            const sky = document.getElementById('sky');
+            for (let i = 0; i < 40; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'weather-particle absolute bg-white rounded-full';
+                snowflake.style.width = `${Math.random() * 6 + 3}px`;
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.top = '-20px';
+                snowflake.style.opacity = `${Math.random() * 0.7 + 0.3}`;
+
+                // Snow animation with sway
+                snowflake.style.animation = `snowFall linear infinite`;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 5}s`;
+                snowflake.style.animationDelay = `${Math.random() * 2}s`;
+
+                sky.appendChild(snowflake);
+            }
+
+            // Add snow animation to CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes snowFall {
+                    0% { 
+                        transform: translateY(-20px) translateX(0); 
+                    }
+                    100% { 
+                        transform: translateY(100vh) translateX(${Math.random() > 0.5 ? '' : '-'}${Math.random() * 100 + 50}px); 
+                    }
+                }
+                .snowy .cloud { opacity: 0.9; }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function setupCarAnimation() {
+            const cars = document.querySelectorAll('.car');
+            cars.forEach((car, index) => {
+                // Random animation for each car - keeping within city bounds (1400x1000)
+                const duration = Math.random() * 25 + 20;
+                const delay = Math.random() * 5;
+
+                // Different paths for each car, staying within bounds
+                if (index === 0) {
+                    // First car: horizontal path along bottom road
+                    car.style.animation = `carMove1 ${duration}s linear infinite`;
+                } else {
+                    // Second car: vertical path along side road
+                    car.style.animation = `carMove2 ${duration}s linear infinite`;
+                }
+                car.style.animationDelay = `${delay}s`;
+            });
+
+            // Add car animations to CSS - staying within 1400x1000 bounds
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes carMove1 {
+                    0% { transform: translateX(50px) translateY(0) rotate(0deg); }
+                    25% { transform: translateX(350px) translateY(0) rotate(0deg); }
+                    50% { transform: translateX(650px) translateY(0) rotate(0deg); }
+                    75% { transform: translateX(950px) translateY(0) rotate(0deg); }
+                    100% { transform: translateX(50px) translateY(0) rotate(0deg); }
+                }
+                @keyframes carMove2 {
+                    0% { transform: translateX(0) translateY(100px) rotate(90deg); }
+                    25% { transform: translateX(0) translateY(300px) rotate(90deg); }
+                    50% { transform: translateX(0) translateY(500px) rotate(90deg); }
+                    75% { transform: translateX(0) translateY(700px) rotate(90deg); }
+                    100% { transform: translateX(0) translateY(100px) rotate(90deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function openBuildingModal(buildingId) {
+            const building = buildings.find(b => b.id === buildingId);
+            if (!building) return;
+
+            // Move avatar to building
+            moveAvatarToBuilding(building);
+
+            // Show modal with building info
+            const modal = document.getElementById('buildingModal');
+            const content = document.getElementById('modalContent');
+
+            // Generate building-specific content
+            let modalHTML = '';
+
+            if (building.id === 'profile') {
+                modalHTML = generateProfileContent(building);
+            } else if (building.id === 'education') {
+                modalHTML = generateEducationContent(building);
+            } else if (building.id === 'experience') {
+                modalHTML = generateExperienceContent(building);
+            } else if (building.id === 'projects') {
+                modalHTML = generateProjectsContent(building);
+            } else if (building.id === 'skills') {
+                modalHTML = generateSkillsContent(building);
+            } else if (building.id === 'interests') {
+                modalHTML = generateInterestsContent(building);
+            } else if (building.id === 'contact') {
+                modalHTML = generateContactContent(building);
+            }
+
+            content.innerHTML = modalHTML;
+
+            // Show modal with animation
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Close modal button
+            document.getElementById('closeModal').addEventListener('click', function () {
+                closeModal();
+                playSound('click');
+            });
+
+            // Next/Prev navigation
+            const currentIndex = buildings.findIndex(b => b.id === buildingId);
+            const prevBuilding = buildings[currentIndex > 0 ? currentIndex - 1 : buildings.length - 1];
+            const nextBuilding = buildings[currentIndex < buildings.length - 1 ? currentIndex + 1 : 0];
+
+            document.getElementById('prevBuilding').addEventListener('click', function () {
+                closeModal();
+                setTimeout(() => {
+                    openBuildingModal(prevBuilding.id);
+                }, 350);
+            });
+
+            document.getElementById('nextBuilding').addEventListener('click', function () {
+                closeModal();
+                setTimeout(() => {
+                    openBuildingModal(nextBuilding.id);
+                }, 350);
+            });
+        }
+
+        function generateProfileContent(building) {
+            return `
+                <div class="p-8 overflow-y-auto max-h-[85vh]">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-800">${building.content.title}</h2>
+                            <p class="text-gray-600 mt-2">${building.content.subtitle}</p>
+                        </div>
+                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Left Column -->
+                        <div>
+                            <div class="bg-gradient-to-br ${building.color} rounded-2xl p-8 mb-6 relative overflow-hidden">
+                                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                                <div class="relative z-10">
+                                    <i class="${building.icon} text-white text-5xl mb-4"></i>
+                                    <h3 class="text-2xl font-bold text-white">About Me</h3>
+                                    <p class="text-white/90 mt-3">${building.content.about}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-2xl p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-4">Quick Details</h4>
+                                <div class="space-y-3">
+                                    ${Object.entries(building.content.details).map(([key, value]) => `
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br ${building.color} flex items-center justify-center mr-3">
+                                                <i class="fas fa-${key.includes('Location') ? 'map-marker-alt' : key.includes('Degree') ? 'graduation-cap' : key.includes('Status') ? 'check-circle' : 'target'} text-white text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-gray-700">${key}</p>
+                                                <p class="text-gray-600">${value}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column -->
+                        <div>
+                            <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-4">Personal Bio</h4>
+                                <p class="text-gray-700 leading-relaxed">${building.content.bio}</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-2xl p-6">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mr-3">
+                                        <i class="fas fa-lightbulb text-white"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-gray-800">Fun Fact</h4>
+                                </div>
+                                <p class="text-gray-700">${building.content.funFact}</p>
+                            </div>
+                            
+                            <!-- Avatar Preview -->
+                            <div class="mt-6 p-4 bg-gray-100 rounded-2xl">
+                                <p class="text-gray-600 text-sm mb-2">Your avatar is currently here:</p>
+                                <div class="flex items-center">
+                                    <div id="avatarPreview" class="w-12 h-16 mr-3">
+                                        <div class="relative w-full h-full">
+                                            <div class="absolute bottom-0 w-8 h-10 bg-gradient-to-b from-blue-600 to-blue-800 rounded-sm mx-auto left-1/2 transform -translate-x-1/2"></div>
+                                            <div class="absolute bottom-10 w-6 h-6 bg-gradient-to-b from-yellow-200 to-yellow-300 rounded-full mx-auto left-1/2 transform -translate-x-1/2"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">${building.name}</p>
+                                        <p class="text-gray-600 text-sm">Exploring the city</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex justify-between items-center">
+                        <button id="prevBuilding" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous Building
+                        </button>
+                        
+                        <div class="text-center">
+                            <p class="text-gray-600 text-sm">Building ${buildings.findIndex(b => b.id === building.id) + 1} of ${buildings.length}</p>
+                        </div>
+                        
+                        <button id="nextBuilding" class="px-6 py-3 bg-gradient-to-r ${building.color} text-white rounded-xl font-medium hover:shadow-lg transition-all flex items-center">
+                            Next Building <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateEducationContent(building) {
+            // Simplified version - we'll complete others in next steps
+            return `
+                <div class="p-8 overflow-y-auto max-h-[85vh]">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-800">${building.content.title}</h2>
+                            <p class="text-gray-600 mt-2">${building.content.subtitle}</p>
+                        </div>
+                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br ${building.color} rounded-2xl p-8 mb-8 relative overflow-hidden">
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                        <div class="relative z-10 text-center">
+                            <i class="${building.icon} text-white text-5xl mb-4"></i>
+                            <h3 class="text-2xl font-bold text-white">Education & Learning</h3>
+                            <p class="text-white/90 mt-3">My journey through formal education and continuous learning</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+                        <p class="text-gray-700 text-center">Complete education content coming in next update...</p>
+                    </div>
+                    
+                    <div class="mt-8 flex justify-between items-center">
+                        <button id="prevBuilding" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous Building
+                        </button>
+                        
+                        <div class="text-center">
+                            <p class="text-gray-600 text-sm">Building ${buildings.findIndex(b => b.id === building.id) + 1} of ${buildings.length}</p>
+                        </div>
+                        
+                        <button id="nextBuilding" class="px-6 py-3 bg-gradient-to-r ${building.color} text-white rounded-xl font-medium hover:shadow-lg transition-all flex items-center">
+                            Next Building <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateExperienceContent(building) {
+            return generatePlaceholderContent(building, "Work experience and career timeline");
+        }
+
+        // Replace the generateProjectsContent function with this complete version:
+
+        function generateProjectsContent(building) {
+            const projects = building.content.projects;
+
+            // Add more sample projects for better demonstration
+            const allProjects = [
+                ...projects,
+                {
+                    name: "DevCity Portfolio",
+                    description: "Interactive isometric city portfolio website",
+                    tech: ["HTML", "CSS", "JavaScript", "Three.js"],
+                    status: "Active",
+                    link: "#",
+                    year: "2024",
+                    category: "Web Development"
+                },
+                {
+                    name: "HealthTrack Pro",
+                    description: "Health monitoring app with real-time analytics",
+                    tech: ["React Native", "Node.js", "Firebase", "Chart.js"],
+                    status: "Completed",
+                    link: "#",
+                    year: "2023",
+                    category: "Mobile"
+                },
+                {
+                    name: "CodeCollab IDE",
+                    description: "Real-time collaborative code editor",
+                    tech: ["Vue.js", "Socket.io", "Express", "MongoDB"],
+                    status: "In Progress",
+                    link: "#",
+                    year: "2024",
+                    category: "Web Development"
+                },
+                {
+                    name: "EcoMarketplace",
+                    description: "Sustainable e-commerce platform",
+                    tech: ["Next.js", "Stripe", "PostgreSQL", "Tailwind"],
+                    status: "Completed",
+                    link: "#",
+                    year: "2023",
+                    category: "E-commerce"
+                }
+            ];
+
+            // Get unique categories
+            const categories = ["All", ...new Set(allProjects.map(p => p.category))];
+
+            return `
+        <div class="p-8 overflow-y-auto max-h-[85vh]">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">${building.content.title}</h2>
+                    <p class="text-gray-600 mt-2">${building.content.subtitle}</p>
+                </div>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Factory Header -->
+            <div class="bg-gradient-to-br ${building.color} rounded-2xl p-8 mb-8 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-white/5 rounded-full"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <i class="${building.icon} text-white text-5xl mb-4"></i>
+                            <h3 class="text-2xl font-bold text-white">Project Factory</h3>
+                            <p class="text-white/90 mt-2">Where ideas become reality. Explore my creations below.</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="inline-flex items-center bg-white/20 rounded-xl px-4 py-2">
+                                <i class="fas fa-cogs text-white mr-2"></i>
+                                <span class="text-white font-bold">${allProjects.length} Projects</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Construction Animation -->
+                    <div class="flex items-center justify-center space-x-4 mt-4">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                            <div class="ml-2 text-white text-sm">Active Projects</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <div class="ml-2 text-white text-sm">Completed</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                            <div class="ml-2 text-white text-sm">In Progress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Filters -->
+            <div class="mb-8">
+                <h4 class="text-lg font-bold text-gray-800 mb-4">Filter by Category</h4>
+                <div class="flex flex-wrap gap-2" id="projectFilters">
+                    ${categories.map(category => `
+                        <button class="project-filter px-4 py-2 rounded-lg transition-all duration-300 ${category === 'All' ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}" 
+                                data-category="${category}">
+                            ${category}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8" id="projectsGrid">
+                ${allProjects.map((project, index) => `
+                    <div class="project-card bg-white border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] cursor-pointer"
+                         data-category="${project.category}" 
+                         data-status="${project.status.toLowerCase()}">
+                        <!-- Project Header -->
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br ${building.color} flex items-center justify-center mr-3">
+                                        <i class="fas fa-project-diagram text-white"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-gray-800">${project.name}</h4>
+                                </div>
+                                <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(project.status)}">
+                                    ${project.status}
+                                </span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm text-gray-500">${project.year}</span>
+                                <div class="mt-2 text-orange-500">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Description -->
+                        <p class="text-gray-600 mb-4">${project.description}</p>
+                        
+                        <!-- Tech Stack -->
+                        <div class="mb-4">
+                            <div class="flex flex-wrap gap-2">
+                                ${project.tech.map(tech => `
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
+                                        ${tech}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <!-- Project Footer -->
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+                            <div class="flex items-center">
+                                <i class="fas fa-tag text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm text-gray-600">${project.category}</span>
+                            </div>
+                            <button class="view-project-details px-4 py-2 bg-gradient-to-r ${building.color} text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300"
+                                    data-project-index="${index}">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <!-- Project Details Modal (Hidden) -->
+            <div id="projectDetailsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+                <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden transform transition-all duration-300 scale-95 opacity-0">
+                    <!-- Content will be dynamically loaded -->
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Factory Stats</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center p-4 bg-white rounded-xl">
+                        <div class="text-2xl font-bold text-gray-800">${allProjects.length}</div>
+                        <div class="text-gray-600 text-sm">Total Projects</div>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl">
+                        <div class="text-2xl font-bold text-green-600">${allProjects.filter(p => p.status === 'Completed').length}</div>
+                        <div class="text-gray-600 text-sm">Completed</div>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl">
+                        <div class="text-2xl font-bold text-blue-600">${allProjects.filter(p => p.status === 'Active').length}</div>
+                        <div class="text-gray-600 text-sm">Active</div>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl">
+                        <div class="text-2xl font-bold text-orange-600">${allProjects.filter(p => p.status === 'In Progress').length}</div>
+                        <div class="text-gray-600 text-sm">In Progress</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="mt-8 flex justify-between items-center">
+                <button id="prevBuilding" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Previous Building
+                </button>
+                
+                <div class="text-center">
+                    <p class="text-gray-600 text-sm">Building ${buildings.findIndex(b => b.id === building.id) + 1} of ${buildings.length}</p>
+                </div>
+                
+                <button id="nextBuilding" class="px-6 py-3 bg-gradient-to-r ${building.color} text-white rounded-xl font-medium hover:shadow-lg transition-all flex items-center">
+                    Next Building <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    `;
+        }
+
+        // Add this helper function after the generateProjectsContent function:
+        function getStatusColor(status) {
+            switch (status.toLowerCase()) {
+                case 'active': return 'bg-green-100 text-green-800';
+                case 'completed': return 'bg-blue-100 text-blue-800';
+                case 'in progress': return 'bg-yellow-100 text-yellow-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        // Then update the openBuildingModal function to add project filtering functionality
+        // Add this inside the openBuildingModal function after setting up event listeners:
+
+        // Add this after the existing event listeners in openBuildingModal function:
+        setTimeout(() => {
+            if (building.id === 'projects') {
+                setupProjectFilters();
+                setupProjectDetails();
+            }
+        }, 100);
+
+        // Add these new functions after the showAchievementNotification function:
+
+        function setupProjectFilters() {
+            const filters = document.querySelectorAll('.project-filter');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filters.forEach(filter => {
+                filter.addEventListener('click', function () {
+                    // Update active filter
+                    filters.forEach(f => {
+                        f.classList.remove('bg-gradient-to-r', 'from-orange-500', 'to-orange-600', 'text-white');
+                        f.classList.add('bg-gray-100', 'text-gray-700');
+                    });
+
+                    this.classList.remove('bg-gray-100', 'text-gray-700');
+                    this.classList.add('bg-gradient-to-r', 'from-orange-500', 'to-orange-600', 'text-white');
+
+                    const category = this.dataset.category;
+
+                    // Filter projects
+                    projectCards.forEach(card => {
+                        if (category === 'All' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+
+                    playSound('click');
+                });
+            });
+        }
+
+        function setupProjectDetails() {
+            const projectButtons = document.querySelectorAll('.view-project-details');
+            const allProjects = [
+                ...buildings.find(b => b.id === 'projects').content.projects,
+                {
+                    name: "DevCity Portfolio",
+                    description: "Interactive isometric city portfolio website",
+                    tech: ["HTML", "CSS", "JavaScript", "Three.js"],
+                    status: "Active",
+                    link: "#",
+                    year: "2024",
+                    category: "Web Development",
+                    longDescription: "This portfolio represents the pinnacle of creative web development. Built from the ground up with custom isometric graphics, interactive animations, and a complete city-building metaphor. Features include day/night cycles, weather effects, and an achievement system.",
+                    features: [
+                        "Interactive isometric city navigation",
+                        "Dynamic day/night system",
+                        "Real-time weather effects",
+                        "Achievement tracking system",
+                        "Responsive design for all devices",
+                        "Custom avatar with movement animation"
+                    ],
+                    challenges: "Creating smooth 3D effects with CSS transforms while maintaining performance across all devices.",
+                    github: "https://github.com/alexdev/devcity",
+                    liveDemo: "https://devcityportfolio.com"
+                },
+                {
+                    name: "HealthTrack Pro",
+                    description: "Health monitoring app with real-time analytics",
+                    tech: ["React Native", "Node.js", "Firebase", "Chart.js"],
+                    status: "Completed",
+                    link: "#",
+                    year: "2023",
+                    category: "Mobile",
+                    longDescription: "A comprehensive health monitoring application that tracks vital signs, medication schedules, and provides AI-powered health insights. Used by over 10,000 active users.",
+                    features: [
+                        "Real-time health data tracking",
+                        "AI-powered health insights",
+                        "Medication reminder system",
+                        "Doctor appointment scheduling",
+                        "Health report generation",
+                        "Emergency contact integration"
+                    ],
+                    challenges: "Handling real-time data synchronization across multiple devices while maintaining HIPAA compliance.",
+                    github: "https://github.com/alexdev/healthtrack",
+                    liveDemo: "https://healthtrackdemo.com"
+                },
+                {
+                    name: "CodeCollab IDE",
+                    description: "Real-time collaborative code editor",
+                    tech: ["Vue.js", "Socket.io", "Express", "MongoDB"],
+                    status: "In Progress",
+                    link: "#",
+                    year: "2024",
+                    category: "Web Development",
+                    longDescription: "A real-time collaborative development environment that allows multiple developers to code together simultaneously with features like live cursors, chat, and version control integration.",
+                    features: [
+                        "Real-time code collaboration",
+                        "Live cursor tracking",
+                        "Integrated chat system",
+                        "Syntax highlighting for 50+ languages",
+                        "Git integration",
+                        "Code execution environment"
+                    ],
+                    challenges: "Implementing conflict resolution for simultaneous edits and maintaining low latency for real-time updates.",
+                    github: "https://github.com/alexdev/codecollab",
+                    liveDemo: "https://codecollab.dev"
+                },
+                {
+                    name: "EcoMarketplace",
+                    description: "Sustainable e-commerce platform",
+                    tech: ["Next.js", "Stripe", "PostgreSQL", "Tailwind"],
+                    status: "Completed",
+                    link: "#",
+                    year: "2023",
+                    category: "E-commerce",
+                    longDescription: "An eco-friendly e-commerce platform connecting sustainable brands with conscious consumers. Features carbon footprint tracking for each purchase and promotes circular economy principles.",
+                    features: [
+                        "Carbon footprint calculator",
+                        "Sustainable product verification",
+                        "Circular economy marketplace",
+                        "Green shipping options",
+                        "Vendor sustainability scoring",
+                        "Community impact tracking"
+                    ],
+                    challenges: "Building accurate carbon calculation algorithms and integrating with multiple shipping APIs.",
+                    github: "https://github.com/alexdev/ecomarket",
+                    liveDemo: "https://ecomarket.shop"
+                }
+            ];
+
+            projectButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const projectIndex = parseInt(this.dataset.projectIndex);
+                    const project = allProjects[projectIndex];
+
+                    if (project) {
+                        showProjectDetails(project);
+                        playSound('buildingClick');
+                    }
+                });
+            });
+        }
+
+        function showProjectDetails(project) {
+            const modal = document.getElementById('projectDetailsModal');
+            const content = modal.querySelector('div');
+
+            content.innerHTML = `
+        <div class="p-8 overflow-y-auto max-h-[80vh]">
+            <!-- Project Header -->
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800">${project.name}</h3>
+                    <p class="text-gray-600 mt-2">${project.description}</p>
+                </div>
+                <button id="closeProjectModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Project Status & Info -->
+            <div class="flex flex-wrap gap-4 mb-6">
+                <div class="flex items-center">
+                    <span class="inline-block px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(project.status)}">
+                        ${project.status}
+                    </span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>${project.year}</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                    <i class="fas fa-tag mr-2"></i>
+                    <span>${project.category}</span>
+                </div>
+            </div>
+            
+            <!-- Long Description -->
+            <div class="mb-6">
+                <h4 class="text-lg font-bold text-gray-800 mb-3">Project Overview</h4>
+                <p class="text-gray-700 leading-relaxed">${project.longDescription}</p>
+            </div>
+            
+            <!-- Tech Stack -->
+            <div class="mb-6">
+                <h4 class="text-lg font-bold text-gray-800 mb-3">Technology Stack</h4>
+                <div class="flex flex-wrap gap-2">
+                    ${project.tech.map(tech => `
+                        <span class="px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-50 text-orange-700 font-medium rounded-lg border border-orange-200">
+                            ${tech}
+                        </span>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="mb-6">
+                <h4 class="text-lg font-bold text-gray-800 mb-3">Key Features</h4>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    ${project.features.map(feature => `
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">${feature}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+            
+            <!-- Challenges -->
+            <div class="mb-6">
+                <h4 class="text-lg font-bold text-gray-800 mb-3">Technical Challenges</h4>
+                <p class="text-gray-700 leading-relaxed">${project.challenges}</p>
+            </div>
+            
+            <!-- Links -->
+            <div class="flex flex-wrap gap-4 mb-6">
+                ${project.github ? `
+                    <a href="${project.github}" target="_blank" class="px-6 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-900 transition-colors flex items-center">
+                        <i class="fab fa-github mr-2"></i> View Code
+                    </a>
+                ` : ''}
+                ${project.liveDemo ? `
+                    <a href="${project.liveDemo}" target="_blank" class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition-all flex items-center">
+                        <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+                    </a>
+                ` : ''}
+            </div>
+            
+            <!-- Back to Projects -->
+            <div class="text-center">
+                <button id="backToProjects" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Projects
+                </button>
+            </div>
+        </div>
+    `;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Close button
+            document.getElementById('closeProjectModal').addEventListener('click', closeProjectDetails);
+            document.getElementById('backToProjects').addEventListener('click', closeProjectDetails);
+
+            // Close when clicking outside
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeProjectDetails();
+                }
+            });
+        }
+
+        function closeProjectDetails() {
+            const modal = document.getElementById('projectDetailsModal');
+            const content = modal.querySelector('div');
+
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+
+            playSound('click');
+        }
+
+        function generateSkillsContent(building) {
+            return generatePlaceholderContent(building, "Technical skills and expertise");
+        }
+
+        function generateInterestsContent(building) {
+            return generatePlaceholderContent(building, "Hobbies and personal interests");
+        }
+
+        function generateContactContent(building) {
+            return generatePlaceholderContent(building, "Contact information and social links");
+        }
+
+        function generatePlaceholderContent(building, description) {
+            return `
+                <div class="p-8 overflow-y-auto max-h-[85vh]">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-800">${building.content.title}</h2>
+                            <p class="text-gray-600 mt-2">${description}</p>
+                        </div>
+                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br ${building.color} rounded-2xl p-8 mb-8 relative overflow-hidden">
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                        <div class="relative z-10 text-center">
+                            <i class="${building.icon} text-white text-5xl mb-4"></i>
+                            <h3 class="text-2xl font-bold text-white">${building.name}</h3>
+                            <p class="text-white/90 mt-3">Complete content for this section coming soon!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-gradient-to-br ${building.color} rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="${building.icon} text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Under Construction</h4>
+                            <p class="text-gray-600">We're building out this section with detailed content. Check back soon!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex justify-between items-center">
+                        <button id="prevBuilding" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous Building
+                        </button>
+                        
+                        <div class="text-center">
+                            <p class="text-gray-600 text-sm">Building ${buildings.findIndex(b => b.id === building.id) + 1} of ${buildings.length}</p>
+                        </div>
+                        
+                        <button id="nextBuilding" class="px-6 py-3 bg-gradient-to-r ${building.color} text-white rounded-xl font-medium hover:shadow-lg transition-all flex items-center">
+                            Next Building <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function moveAvatarToBuilding(building) {
+            const avatar = document.getElementById('avatar');
+
+            // Calculate position relative to container
+            const targetX = building.x + (building.width / 2) - 16; // Center avatar
+            const targetY = building.y + building.height - 48; // Place at building entrance
+
+            // Update avatar state and move avatar
+            avatarX = targetX;
+            avatarY = targetY;
+            updateAvatarPosition();
+
+            // Add walking animation
+            avatar.style.animation = 'walk 0.7s steps(2) infinite';
+
+            // Remove animation after arrival
+            setTimeout(() => {
+                avatar.style.animation = '';
+            }, 700);
+
+            // Add walking animation to CSS if not exists
+            if (!document.querySelector('#walkAnimation')) {
+                const style = document.createElement('style');
+                style.id = 'walkAnimation';
+                style.textContent = `
+                    @keyframes walk {
+                        0% { transform: translateY(0px); }
+                        50% { transform: translateY(-5px); }
+                        100% { transform: translateY(0px); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        function markBuildingVisited(buildingId) {
+            if (!visitedBuildings.has(buildingId)) {
+                visitedBuildings.add(buildingId);
+                document.getElementById('visitedCount').textContent = visitedBuildings.size;
+
+                // Check for achievement
+                if (visitedBuildings.size === 1) {
+                    addAchievement("First Exploration", "fas fa-search");
+                }
+                if (visitedBuildings.size === buildings.length) {
+                    addAchievement("City Explorer", "fas fa-map-marked-alt");
+                }
+            }
+        }
+
+        function addAchievement(title, icon) {
+            if (!achievements.has(title)) {
+                achievements.add(title);
+                document.getElementById('achievementCount').textContent = achievements.size;
+
+                // Show achievement notification
+                showAchievementNotification(title, icon);
+            }
+        }
+
+        function showAchievementNotification(title, icon) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-24 right-6 z-50 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-2xl p-4 shadow-2xl transform translate-x-full transition-transform duration-500';
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mr-3">
+                        <i class="${icon} text-white"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">Achievement Unlocked!</p>
+                        <p class="text-sm">${title}</p>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 10);
+
+            // Remove after delay
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('buildingModal');
+            const content = document.getElementById('modalContent');
+
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        /* Cloud styling */
+        .cloud {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            filter: blur(10px);
+            box-shadow:
+                inset 0 -10px 20px rgba(255, 255, 255, 0.5),
+                0 10px 30px rgba(255, 255, 255, 0.3);
+            animation: cloudFloat 40s infinite linear;
+        }
+
+        .cloud-1 {
+            animation-duration: 50s;
+            animation-delay: 0s;
+        }
+
+        .cloud-2 {
+            animation-duration: 60s;
+            animation-delay: 15s;
+        }
+
+        .cloud-3 {
+            animation-duration: 45s;
+            animation-delay: 8s;
+        }
+
+        @keyframes cloudFloat {
+            0% {
+                transform: translateX(-150px);
+            }
+
+            100% {
+                transform: translateX(calc(100vw + 250px));
+            }
+        }
+
+        /* Building 3D depth effects */
+        .building {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .building::before {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 10px;
+            right: 10px;
+            height: 18px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+            border-radius: 0 0 8px 8px;
+            transform: skewX(45deg) translateZ(-10px);
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        .building::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 10px;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+            transform: skewY(45deg) translateZ(-10px);
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        /* Enhanced building shadows */
+        .building {
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4)) drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Enhanced 3D effects for city elements */
+        #cityContainer {
+            transform-style: preserve-3d;
+            perspective: 2000px;
+        }
+
+        /* Grass with depth */
+        #grass {
+            box-shadow: inset 0 -20px 40px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Roads with 3D depth */
+        #mainRoad,
+        #crossRoad {
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sidewalks with depth */
+        .absolute.w-full.h-6,
+        .absolute.h-full.w-6 {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Avatar with better 3D shadow */
+        #avatar {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Car 3D styling */
+        .car {
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
+
+        /* Lamp post 3D effect */
+        .lamp-post {
+            transform-style: preserve-3d;
+        }
+
+        /* Tree 3D effect */
+        .tree {
+            transform-style: preserve-3d;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            #cityContainer {
+                transform: rotateX(60deg) rotateZ(45deg) scale(0.7);
+                width: 1200px;
+                height: 850px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            #cityContainer {
+                transform: rotateX(60deg) rotateZ(45deg) scale(0.6);
+                width: 1000px;
+                height: 700px;
+                margin-left: -50px;
+            }
+
+            .controls-container {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #cityContainer {
+                transform: rotateX(60deg) rotateZ(45deg) scale(0.5);
+                width: 800px;
+                height: 600px;
+                margin-left: -100px;
+            }
+
+            #buildingLabels {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1.text-5xl {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Modal animations */
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        #modalContent {
+            animation: modalAppear 0.3s ease-out;
+        }
+
+        /* Smoke animation for factory */
+        @keyframes smokeRise {
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateY(-15px) scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-30px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Project card animations */
+        .project-card {
+            transition: all 0.3s ease;
+            animation: cardAppear 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger project card animations */
+        .project-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .project-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .project-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</body>
+
+</html>

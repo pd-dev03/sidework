@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Morgan | Product Designer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --easing: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            color: #1d1d1f;
+            background-color: #f5f5f7;
+        }
+        
+        /* Add grain texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s var(--easing), opacity 1.2s var(--easing);
+            will-change: transform, opacity;
+            overflow: hidden;
+        }
+        
+        /* Section background gradients */
+        #section-1 { background: linear-gradient(135deg, #f5f5f7 0%, #fafafa 100%); }
+        #section-2 { background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%); }
+        #section-3 { background: linear-gradient(135deg, #f0f0f0 0%, #f5f5f7 100%); }
+        #section-4 { background: linear-gradient(135deg, #f5f5f7 0%, #fafafa 100%); }
+        #section-5 { background: linear-gradient(135deg, #fafafa 0%, #f5f5f7 100%); }
+        
+        .section.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        .section.next {
+            transform: translateY(100vh) scale(1.02);
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        .section.prev {
+            transform: translateY(-100vh) scale(0.98);
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        /* For reverse scrolling */
+        .section.reverse-next {
+            transform: translateY(-100vh) scale(1.02);
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        .section.reverse-prev {
+            transform: translateY(100vh) scale(0.98);
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        .bg-text {
+            position: absolute;
+            font-size: 35vw;
+            font-weight: 300;
+            opacity: 0.03;
+            color: #1d1d1f;
+            line-height: 0.8;
+            white-space: nowrap;
+            z-index: 0;
+            transition: transform 2s var(--easing);
+            pointer-events: none;
+            user-select: none;
+            will-change: transform;
+        }
+        
+        /* Alternating font weights for background text */
+        #section-2 .bg-text { font-weight: 400; }
+        #section-4 .bg-text { font-weight: 400; }
+        
+        /* Geometric shapes for visual interest */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.02;
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #1d1d1f 0%, transparent 100%);
+            top: -300px;
+            right: -300px;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, transparent 0%, #1d1d1f 100%);
+            bottom: -200px;
+            left: -200px;
+        }
+        
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #1d1d1f 0%, transparent 100%);
+            top: 50%;
+            left: 10%;
+        }
+        
+        .shape-4 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, transparent 0%, #1d1d1f 100%);
+            bottom: 30%;
+            right: 15%;
+        }
+        
+        .scroll-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            opacity: 0.7;
+            transition: opacity 0.5s, transform 0.5s;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .scroll-hint.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+        
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        
+        /* Vertical line connecting dots */
+        .nav-dots::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0.5px;
+            background-color: rgba(29, 29, 31, 0.1);
+            z-index: -1;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(29, 29, 31, 0.2);
+            cursor: pointer;
+            transition: all 0.4s var(--easing);
+            position: relative;
+        }
+        
+        .nav-dot:hover {
+            transform: scale(1.4);
+            background-color: rgba(29, 29, 31, 0.4);
+        }
+        
+        .nav-dot.active {
+            background-color: rgba(29, 29, 31, 0.9);
+            transform: scale(1.3);
+        }
+        
+        /* Section numbers */
+        .section-number {
+            position: absolute;
+            right: 24px;
+            font-size: 12px;
+            color: rgba(29, 29, 31, 0);
+            transition: color 0.5s var(--easing);
+            font-weight: 500;
+        }
+        
+        .nav-dot.active .section-number {
+            color: rgba(29, 29, 31, 0.7);
+        }
+        
+        .project-card {
+            transition: all 0.5s var(--easing);
+            opacity: 0.7;
+            transform: translateY(20px);
+            position: relative;
+        }
+        
+        .project-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Project card hover effects */
+        .project-card .card-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s var(--easing);
+        }
+        
+        .project-card .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            transition: background-color 0.3s var(--easing);
+            z-index: 1;
+        }
+        
+        .project-card:hover .card-image::before {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .project-card:hover .card-image {
+            transform: translateY(-5px);
+        }
+        
+        .project-card:hover {
+            opacity: 1;
+        }
+        
+        .project-card:hover .card-title {
+            letter-spacing: -0.01em;
+        }
+        
+        .contact-link {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+        
+        /* Underline animation from center */
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #1d1d1f;
+            transform: translateX(-50%);
+            transition: width 0.6s var(--easing);
+        }
+        
+        .contact-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            width: 24px;
+            height: 24px;
+            z-index: 100;
+        }
+        
+        .progress-circle {
+            fill: none;
+            stroke: rgba(29, 29, 31, 0.1);
+            stroke-width: 1;
+        }
+        
+        .progress-fill {
+            fill: none;
+            stroke: rgba(29, 29, 31, 0.8);
+            stroke-width: 1;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            transition: stroke-dashoffset 1s var(--easing);
+        }
+        
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s var(--easing), visibility 0.8s var(--easing);
+        }
+        
+        .loading.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-dots {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(29, 29, 31, 0.3);
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+        
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        /* Touch swipe hint for mobile */
+        .touch-hint {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+        
+        .touch-hint.visible {
+            opacity: 0.6;
+        }
+        
+        .swipe-arrows {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .swipe-arrow {
+            font-size: 24px;
+            color: rgba(29, 29, 31, 0.5);
+            animation: swipeHint 2s ease-in-out infinite;
+        }
+        
+        .swipe-arrow:last-child {
+            animation-delay: 0.5s;
+        }
+        
+        /* Active section indicator */
+        .section-indicator {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            font-size: 14px;
+            color: rgba(29, 29, 31, 0.5);
+            z-index: 100;
+            transition: opacity 0.5s;
+            opacity: 0;
+        }
+        
+        .section-indicator.visible {
+            opacity: 1;
+        }
+        
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.03;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        .floating-element.large {
+            font-size: 120px;
+            font-weight: 700;
+        }
+        
+        .floating-element.medium {
+            font-size: 80px;
+            font-weight: 600;
+        }
+        
+        /* Icon container */
+        .icon-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(29, 29, 31, 0.03);
+            margin-bottom: 20px;
+        }
+        
+        .icon-container i {
+            font-size: 24px;
+            color: rgba(29, 29, 31, 0.7);
+        }
+        
+        /* Skill badge */
+        .skill-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: rgba(29, 29, 31, 0.05);
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 14px;
+            color: rgba(29, 29, 31, 0.8);
+        }
+        
+        /* Company logo */
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #3a3a3c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes loadingPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        
+        @keyframes swipeHint {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(10px); opacity: 1; }
+        }
+        
+        @keyframes letterSpacing {
+            from { letter-spacing: -0.02em; }
+            to { letter-spacing: -0.01em; }
+        }
+        
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-10px) translateX(5px); }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 1s var(--easing) forwards;
+        }
+        
+        .letter-spacing-anim {
+            animation: letterSpacing 1s var(--easing) forwards;
+        }
+        
+        .subtle-float {
+            animation: subtleFloat 6s ease-in-out infinite;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+        .delay-4 { animation-delay: 0.8s; opacity: 0; }
+        .delay-5 { animation-delay: 1s; opacity: 0; }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .bg-text {
+                transition: none !important;
+            }
+            
+            .subtle-float {
+                animation: none !important;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bg-text {
+                font-size: 50vw;
+            }
+            
+            .nav-dots {
+                right: 20px;
+            }
+            
+            .scroll-hint {
+                bottom: 20px;
+            }
+            
+            .scroll-progress {
+                left: 20px;
+                bottom: 20px;
+            }
+            
+            .section-indicator {
+                left: 20px;
+                top: 20px;
+            }
+            
+            h1 {
+                font-size: 3.5rem !important;
+            }
+            
+            h2 {
+                font-size: 2.8rem !important;
+            }
+            
+            .touch-hint {
+                display: block;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading animation -->
+    <div class="loading" id="loading">
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    </div>
+    
+    <!-- Touch swipe hint (mobile) -->
+    <div class="touch-hint" id="touchHint">
+        <div class="swipe-arrows">
+            <i class="fas fa-chevron-up swipe-arrow"></i>
+            <i class="fas fa-chevron-down swipe-arrow"></i>
+        </div>
+    </div>
+    
+    <!-- Section indicator -->
+    <div class="section-indicator" id="sectionIndicator">
+        <span id="currentSection">1</span> / 5
+    </div>
+    
+    <!-- Navigation dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="0">
+            <span class="section-number">1</span>
+        </div>
+        <div class="nav-dot" data-section="1">
+            <span class="section-number">2</span>
+        </div>
+        <div class="nav-dot" data-section="2">
+            <span class="section-number">3</span>
+        </div>
+        <div class="nav-dot" data-section="3">
+            <span class="section-number">4</span>
+        </div>
+        <div class="nav-dot" data-section="4">
+            <span class="section-number">5</span>
+        </div>
+    </div>
+    
+    <!-- Scroll progress -->
+    <div class="scroll-progress">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+            <circle class="progress-circle" cx="12" cy="12" r="10" />
+            <circle class="progress-fill" cx="12" cy="12" r="10" />
+        </svg>
+    </div>
+    
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+        <div class="text-center">
+            <div class="text-gray-600 text-sm mb-1">Scroll</div>
+            <div class="w-4 h-8 border border-gray-600 rounded-full mx-auto relative">
+                <div class="w-1 h-2 bg-gray-600 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-pulse"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 1: Hero -->
+    <section id="section-1" class="section active" data-bg-text="DESIGN">
+        <div class="bg-text">DESIGN</div>
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element large" style="top: 15%; left: 5%;">DESIGN</div>
+        <div class="floating-element medium" style="bottom: 20%; right: 10%;">CREATE</div>
+        
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center">
+                <div class="mb-8 fade-in-up">
+                    <div class="icon-container mx-auto">
+                        <i class="fas fa-pen-nib"></i>
+                    </div>
+                </div>
+                <h1 class="text-7xl md:text-8xl font-bold mb-6 tracking-tight letter-spacing-anim">Alex Morgan</h1>
+                <p class="text-2xl md:text-3xl text-gray-600 font-light tracking-wide fade-in-up delay-1">Product Designer</p>
+                <p class="mt-12 text-lg text-gray-500 max-w-xl mx-auto fade-in-up delay-2">Crafting intuitive digital experiences at the intersection of technology and human needs. Based in San Francisco, working globally.</p>
+                <div class="mt-12 fade-in-up delay-3">
+                    <span class="skill-badge">UI/UX Design</span>
+                    <span class="skill-badge">Design Systems</span>
+                    <span class="skill-badge">Product Strategy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: Philosophy -->
+    <section id="section-2" class="section next" data-bg-text="CLARITY">
+        <div class="bg-text">CLARITY</div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element large" style="top: 10%; right: 5%;">THINK</div>
+        <div class="floating-element medium" style="bottom: 15%; left: 8%;">SIMPLIFY</div>
+        
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="mb-8 fade-in-up">
+                        <div class="icon-container">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                    </div>
+                    <h2 class="text-6xl md:text-7xl font-bold mb-8 tracking-tight letter-spacing-anim">Design with<br>Intention</h2>
+                </div>
+                <div>
+                    <p class="text-xl text-gray-600 mb-8 fade-in-up delay-1">I believe that great design is invisible. It doesn't shout for attention but quietly solves problems, removes friction, and anticipates needs.</p>
+                    <div class="space-y-8">
+                        <div class="fade-in-up delay-2">
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <i class="fas fa-user text-gray-400 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-2">Human-Centered</h3>
+                                    <p class="text-gray-500">Design that begins and ends with people, not pixels. Every decision is tested with real users.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="fade-in-up delay-3">
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <i class="fas fa-sitemap text-gray-400 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-2">Systematic Thinking</h3>
+                                    <p class="text-gray-500">Creating cohesive experiences through thoughtful systems that scale and adapt.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="fade-in-up delay-4">
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <i class="fas fa-bolt text-gray-400 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-2">Purposeful Simplicity</h3>
+                                    <p class="text-gray-500">Reducing complexity to reveal what truly matters. Less, but better.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: Selected Work -->
+    <section id="section-3" class="section next" data-bg-text="WORK">
+        <div class="bg-text">WORK</div>
+        <div class="shape shape-1"></div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element large" style="top: 20%; left: 10%;">BUILD</div>
+        <div class="floating-element medium" style="bottom: 25%; right: 12%; subtle-float">LAUNCH</div>
+        
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center mb-16">
+                <div class="mb-8 fade-in-up">
+                    <div class="icon-container mx-auto">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                </div>
+                <h2 class="text-6xl md:text-7xl font-bold mb-4 tracking-tight letter-spacing-anim">Selected Work</h2>
+                <p class="text-xl text-gray-600 fade-in-up delay-1">A curated collection of recent projects that define my approach</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="project-card" data-delay="0">
+                    <div class="mb-4">
+                        <div class="h-64 rounded-lg mb-4 card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-4xl text-white font-bold">ATLAS</div>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-2 card-title transition-all duration-300">Atlas Design System</h3>
+                        <p class="text-gray-600 mb-4">A comprehensive design system for enterprise applications used by 500+ designers.</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-badge text-xs">Figma</span>
+                            <span class="skill-badge text-xs">React</span>
+                            <span class="skill-badge text-xs">Storybook</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-delay="0.1">
+                    <div class="mb-4">
+                        <div class="h-64 rounded-lg mb-4 card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-4xl text-white font-bold">NOVA</div>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-2 card-title transition-all duration-300">Nova Banking App</h3>
+                        <p class="text-gray-600 mb-4">Redesigning personal finance for the next generation with AI-powered insights.</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-badge text-xs">iOS</span>
+                            <span class="skill-badge text-xs">Android</span>
+                            <span class="skill-badge text-xs">SwiftUI</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-delay="0.2">
+                    <div class="mb-4">
+                        <div class="h-64 rounded-lg mb-4 card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-4xl text-white font-bold">HEALTH</div>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-2 card-title transition-all duration-300">HealthSync Platform</h3>
+                        <p class="text-gray-600 mb-4">Connecting healthcare providers with patients seamlessly across 200+ clinics.</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-badge text-xs">Web App</span>
+                            <span class="skill-badge text-xs">UX Research</span>
+                            <span class="skill-badge text-xs">Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 fade-in-up delay-3">
+                <button class="text-lg font-medium text-gray-900 border border-gray-300 rounded-full px-8 py-3 hover:bg-gray-50 transition-colors duration-300">
+                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: Experience -->
+    <section id="section-4" class="section next" data-bg-text="IMPACT">
+        <div class="bg-text">IMPACT</div>
+        <div class="shape shape-2"></div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element large" style="top: 15%; right: 8%;">GROW</div>
+        <div class="floating-element medium" style="bottom: 20%; left: 5%; subtle-float">LEAD</div>
+        
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center mb-16">
+                <div class="mb-8 fade-in-up">
+                    <div class="icon-container mx-auto">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <h2 class="text-6xl md:text-7xl font-bold mb-4 tracking-tight letter-spacing-anim">Experience</h2>
+                <p class="text-xl text-gray-600 fade-in-up delay-1">Focus areas and professional journey</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-8 fade-in-up">Core Expertise</h3>
+                    <div class="space-y-8">
+                        <div class="fade-in-up delay-1">
+                            <div class="flex justify-between mb-2">
+                                <h4 class="text-lg font-medium">Product Design</h4>
+                                <span class="text-gray-500">9 years</span>
+                            </div>
+                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-900 w-11/12"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="fade-in-up delay-2">
+                            <div class="flex justify-between mb-2">
+                                <h4 class="text-lg font-medium">Design Systems</h4>
+                                <span class="text-gray-500">6 years</span>
+                            </div>
+                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-900 w-9/12"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="fade-in-up delay-3">
+                            <div class="flex justify-between mb-2">
+                                <h4 class="text-lg font-medium">UX Research</h4>
+                                <span class="text-gray-500">7 years</span>
+                            </div>
+                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-900 w-8/12"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 fade-in-up delay-4">
+                        <h3 class="text-2xl font-semibold mb-6">Tools & Technologies</h3>
+                        <div class="flex flex-wrap">
+                            <span class="skill-badge">Figma</span>
+                            <span class="skill-badge">Sketch</span>
+                            <span class="skill-badge">Adobe CC</span>
+                            <span class="skill-badge">Principle</span>
+                            <span class="skill-badge">Framer</span>
+                            <span class="skill-badge">HTML/CSS</span>
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">React</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-8 fade-in-up">Recent Roles</h3>
+                    <div class="space-y-8">
+                        <div class="fade-in-up delay-1">
+                            <div class="company-logo">HT</div>
+                            <h4 class="text-lg font-medium">Lead Product Designer</h4>
+                            <p class="text-gray-600">Horizon Technologies • 2020 - Present</p>
+                            <p class="text-gray-500 text-sm mt-2">Led design for flagship products, growing user base by 300%.</p>
+                        </div>
+                        
+                        <div class="fade-in-up delay-2">
+                            <div class="company-logo">NC</div>
+                            <h4 class="text-lg font-medium">Senior UI/UX Designer</h4>
+                            <p class="text-gray-600">Nexus Creative • 2017 - 2020</p>
+                            <p class="text-gray-500 text-sm mt-2">Designed digital products for Fortune 500 clients across multiple industries.</p>
+                        </div>
+                        
+                        <div class="fade-in-up delay-3">
+                            <div class="company-logo">AL</div>
+                            <h4 class="text-lg font-medium">Product Designer</h4>
+                            <p class="text-gray-600">Aperture Labs • 2015 - 2017</p>
+                            <p class="text-gray-500 text-sm mt-2">Designed and launched 3 successful mobile apps reaching 1M+ users.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: Contact -->
+    <section id="section-5" class="section next" data-bg-text="CONNECT">
+        <div class="bg-text">CONNECT</div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element large" style="top: 10%; left: 5%; subtle-float">HELLO</div>
+        <div class="floating-element medium" style="bottom: 15%; right: 8%;">TALK</div>
+        
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center">
+                <div class="mb-8 fade-in-up">
+                    <div class="icon-container mx-auto">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <h2 class="text-6xl md:text-7xl font-bold mb-8 tracking-tight letter-spacing-anim">Let's Connect</h2>
+                <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto fade-in-up delay-1">I'm always interested in new opportunities and collaborations. Feel free to reach out for project inquiries or just to say hello.</p>
+                
+                <div class="flex flex-wrap justify-center gap-8 mb-12">
+                    <a href="mailto:alex@example.com" class="contact-link text-2xl font-medium text-gray-900 fade-in-up delay-2">alex@example.com</a>
+                    <a href="tel:+11234567890" class="contact-link text-2xl font-medium text-gray-900 fade-in-up delay-3">+1 (123) 456-7890</a>
+                </div>
+                
+                <div class="mb-16 fade-in-up delay-3">
+                    <div class="max-w-md mx-auto">
+                        <form id="contactForm" class="space-y-4">
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 bg-white/50">
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 bg-white/50">
+                            <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 bg-white/50"></textarea>
+                            <button type="submit" class="w-full px-8 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-300">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center space-x-8 fade-in-up delay-4">
+                    <a href="#" class="contact-link text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-linkedin"></i> <span class="ml-2">LinkedIn</span>
+                    </a>
+                    <a href="#" class="contact-link text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-dribbble"></i> <span class="ml-2">Dribbble</span>
+                    </a>
+                    <a href="#" class="contact-link text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-twitter"></i> <span class="ml-2">Twitter</span>
+                    </a>
+                    <a href="#" class="contact-link text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-github"></i> <span class="ml-2">GitHub</span>
+                    </a>
+                </div>
+                
+                <div class="mt-20 pt-8 border-t border-gray-200 fade-in-up delay-5">
+                    <p class="text-gray-400">© 2023 Alex Morgan. All work is confidential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            let currentSection = 0;
+            const sections = $('.section');
+            const totalSections = sections.length;
+            let isScrolling = false;
+            const scrollDelay = 1200;
+            let hasShownTouchHint = localStorage.getItem('hasShownTouchHint');
+            let scrollDirection = 'down'; // Track scroll direction
+            
+            // Initialize loading animation
+            setTimeout(() => {
+                $('#loading').addClass('hidden');
+                if (window.innerWidth <= 768 && !hasShownTouchHint) {
+                    setTimeout(() => {
+                        $('#touchHint').addClass('visible');
+                        setTimeout(() => {
+                            $('#touchHint').removeClass('visible');
+                            localStorage.setItem('hasShownTouchHint', 'true');
+                        }, 3000);
+                    }, 1000);
+                }
+            }, 1500);
+            
+            // Show section indicator
+            $('#sectionIndicator').addClass('visible');
+            
+            // Initialize background text for each section
+            sections.each(function(index) {
+                const bgText = $(this).data('bg-text');
+                $(this).find('.bg-text').text(bgText);
+                
+                // Set initial position - alternate left/right
+                const isLeft = index % 2 === 0;
+                const posX = isLeft ? 20 : 80;
+                const posY = 20 + (index * 20) % 60;
+                
+                $(this).find('.bg-text').css({
+                    left: `${posX}%`,
+                    top: `${posY}%`,
+                    transform: `translate(-${posX}%, -${posY}%)`
+                });
+                
+                // Store original position
+                $(this).find('.bg-text').data('originalX', posX);
+                $(this).find('.bg-text').data('originalY', posY);
+                $(this).find('.bg-text').data('isLeft', isLeft);
+            });
+            
+            // Update progress indicator
+            function updateProgress() {
+                const progress = (currentSection / (totalSections - 1)) * 100;
+                $('.progress-fill').css('stroke-dashoffset', 100 - progress);
+            }
+            
+            // Update URL hash
+            function updateURL() {
+                const sectionNames = ['hero', 'philosophy', 'work', 'experience', 'contact'];
+                history.replaceState(null, null, `#${sectionNames[currentSection]}`);
+            }
+            
+            // Navigation dots click handler
+            $('.nav-dot').click(function() {
+                const targetSection = $(this).data('section');
+                navigateToSection(targetSection);
+            });
+            
+            // Keyboard navigation
+            $(document).on('keydown', function(e) {
+                if (isScrolling) return;
+                
+                if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+                    e.preventDefault();
+                    navigateToSection(currentSection + 1);
+                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    navigateToSection(currentSection - 1);
+                } else if (e.key >= '1' && e.key <= '5') {
+                    e.preventDefault();
+                    navigateToSection(parseInt(e.key) - 1);
+                }
+            });
+            
+            // Mouse wheel navigation
+            let wheelTimeout;
+            $(document).on('wheel', function(e) {
+                if (isScrolling) return;
+                
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(function() {
+                    if (e.originalEvent.deltaY > 0) {
+                        navigateToSection(currentSection + 1);
+                    } else if (e.originalEvent.deltaY < 0) {
+                        navigateToSection(currentSection - 1);
+                    }
+                }, 100);
+            });
+            
+            // Touch swipe navigation for mobile
+            let touchStartY = 0;
+            $(document).on('touchstart', function(e) {
+                touchStartY = e.originalEvent.touches[0].clientY;
+            });
+            
+            $(document).on('touchend', function(e) {
+                if (isScrolling) return;
+                
+                const touchEndY = e.originalEvent.changedTouches[0].clientY;
+                const diff = touchStartY - touchEndY;
+                
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        navigateToSection(currentSection + 1);
+                    } else {
+                        navigateToSection(currentSection - 1);
+                    }
+                }
+            });
+            
+            // Navigation function with reverse scroll support
+            function navigateToSection(targetIndex) {
+                if (targetIndex < 0 || targetIndex >= totalSections || isScrolling) {
+                    return;
+                }
+                
+                isScrolling = true;
+                
+                // Determine scroll direction
+                const direction = targetIndex > currentSection ? 'down' : 'up';
+                scrollDirection = direction;
+                
+                // Update current section
+                const prevSection = currentSection;
+                currentSection = targetIndex;
+                
+                // Update navigation dots
+                $('.nav-dot').removeClass('active');
+                $(`.nav-dot[data-section="${currentSection}"]`).addClass('active');
+                
+                // Update section indicator
+                $('#currentSection').text(currentSection + 1);
+                
+                // Update progress
+                updateProgress();
+                
+                // Update URL
+                updateURL();
+                
+                // Hide scroll hint on last section
+                if (currentSection === totalSections - 1) {
+                    $('.scroll-hint').addClass('hidden');
+                } else {
+                    $('.scroll-hint').removeClass('hidden');
+                }
+                
+                // Update section classes for transition WITH REVERSE SCROLL
+                sections.each(function(index) {
+                    $(this).removeClass('active prev next reverse-prev reverse-next');
+                    
+                    if (index === currentSection) {
+                        $(this).addClass('active');
+                        
+                        // Animate in elements for the active section
+                        animateSectionElements($(this));
+                    } else if (index === prevSection) {
+                        // The section we're leaving gets the appropriate class based on direction
+                        if (direction === 'down') {
+                            $(this).addClass('prev');
+                        } else {
+                            $(this).addClass('reverse-prev');
+                        }
+                    } else if (index < currentSection && index > prevSection) {
+                        // Sections between previous and current (when scrolling up)
+                        if (direction === 'up') {
+                            $(this).addClass('reverse-next');
+                        } else {
+                            $(this).addClass('next');
+                        }
+                    } else if (index > currentSection && index < prevSection) {
+                        // Sections between current and previous (when scrolling down)
+                        if (direction === 'down') {
+                            $(this).addClass('next');
+                        } else {
+                            $(this).addClass('reverse-next');
+                        }
+                    } else if (index < currentSection) {
+                        // Sections before current
+                        $(this).addClass('prev');
+                    } else {
+                        // Sections after current
+                        $(this).addClass('next');
+                    }
+                });
+                
+                // Animate background text with horizontal movement based on scroll direction
+                animateBackgroundText(prevSection, currentSection, direction);
+                
+                // Reset scrolling flag after transition
+                setTimeout(function() {
+                    isScrolling = false;
+                }, scrollDelay);
+            }
+            
+            // Animate elements within a section
+            function animateSectionElements(section) {
+                // Reset animations
+                section.find('.fade-in-up, .project-card, .letter-spacing-anim, .subtle-float').css({
+                    animation: 'none',
+                    opacity: 0,
+                    transform: 'translateY(30px)'
+                });
+                
+                // Trigger reflow to restart animations
+                setTimeout(() => {
+                    section.find('.letter-spacing-anim').each(function() {
+                        $(this).css({
+                            animation: 'letterSpacing 1s var(--easing) forwards'
+                        });
+                    });
+                    
+                    section.find('.fade-in-up').each(function(index) {
+                        let delay = 0;
+                        if ($(this).hasClass('delay-1')) delay = 0.2;
+                        if ($(this).hasClass('delay-2')) delay = 0.4;
+                        if ($(this).hasClass('delay-3')) delay = 0.6;
+                        if ($(this).hasClass('delay-4')) delay = 0.8;
+                        if ($(this).hasClass('delay-5')) delay = 1.0;
+                        
+                        $(this).css({
+                            animation: `fadeInUp 0.8s var(--easing) forwards ${delay}s`
+                        });
+                    });
+                    
+                    // Animate project cards with staggered delay
+                    section.find('.project-card').each(function(index) {
+                        const delay = $(this).data('delay') || 0;
+                        setTimeout(() => {
+                            $(this).css({
+                                animation: `fadeInUp 0.8s var(--easing) forwards`,
+                                opacity: 1,
+                                transform: 'translateY(0)'
+                            });
+                        }, delay * 1000);
+                    });
+                    
+                    // Restart subtle float animations
+                    section.find('.subtle-float').each(function() {
+                        $(this).css({
+                            animation: 'subtleFloat 6s ease-in-out infinite'
+                        });
+                    });
+                }, 100);
+            }
+            
+            // Animate background text with horizontal movement
+            function animateBackgroundText(fromIndex, toIndex, direction) {
+                // Animate the leaving section's background text
+                const leavingSection = sections.eq(fromIndex);
+                const leavingBgText = leavingSection.find('.bg-text');
+                const leavingOriginalX = leavingBgText.data('originalX');
+                const leavingOriginalY = leavingBgText.data('originalY');
+                const leavingIsLeft = leavingBgText.data('isLeft');
+                
+                // Move leaving text horizontally based on direction and original position
+                let leavingMoveX = 0;
+                if (direction === 'down') {
+                    leavingMoveX = leavingIsLeft ? -15 : 15; // Move left if originally left, right if originally right
+                } else {
+                    leavingMoveX = leavingIsLeft ? 15 : -15; // Reverse for upward scroll
+                }
+                
+                leavingBgText.css('transform', `translate(${-leavingOriginalX + leavingMoveX}%, ${-leavingOriginalY}%)`);
+                
+                // Animate the entering section's background text
+                const enteringSection = sections.eq(toIndex);
+                const enteringBgText = enteringSection.find('.bg-text');
+                const enteringOriginalX = enteringBgText.data('originalX');
+                const enteringOriginalY = enteringBgText.data('originalY');
+                const enteringIsLeft = enteringBgText.data('isLeft');
+                
+                // Set initial position for entering text (opposite side)
+                let enteringStartX = 0;
+                if (direction === 'down') {
+                    enteringStartX = enteringIsLeft ? 15 : -15; // Start from right if left, from left if right
+                } else {
+                    enteringStartX = enteringIsLeft ? -15 : 15; // Reverse for upward scroll
+                }
+                
+                // Set initial position
+                enteringBgText.css('transform', `translate(${-enteringOriginalX + enteringStartX}%, ${-enteringOriginalY}%)`);
+                
+                // Animate to original position
+                setTimeout(() => {
+                    enteringBgText.css('transform', `translate(${-enteringOriginalX}%, ${-enteringOriginalY}%)`);
+                }, 50);
+            }
+            
+            // Check for initial hash in URL
+            function checkInitialHash() {
+                const hash = window.location.hash;
+                if (hash) {
+                    const sectionMap = {
+                        '#hero': 0,
+                        '#philosophy': 1,
+                        '#work': 2,
+                        '#experience': 3,
+                        '#contact': 4
+                    };
+                    const targetIndex = sectionMap[hash];
+                    if (targetIndex !== undefined) {
+                        navigateToSection(targetIndex);
+                    }
+                }
+            }
+            
+            // Contact form submission
+            $('#contactForm').submit(function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! I\'ll get back to you soon.');
+                $(this).trigger('reset');
+            });
+            
+            // Initialize animations for first section
+            animateSectionElements($('#section-1'));
+            updateProgress();
+            updateURL();
+            checkInitialHash();
+            
+            // Smooth scroll for anchor links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                if (targetId === '#') return;
+                
+                const targetIndex = $(targetId).index('.section');
+                if (targetIndex >= 0) {
+                    navigateToSection(targetIndex);
+                }
+            });
+            
+            // Project card hover effects
+            $('.project-card').hover(
+                function() {
+                    $(this).find('.card-title').css('letter-spacing', '-0.01em');
+                },
+                function() {
+                    $(this).find('.card-title').css('letter-spacing', '');
+                }
+            );
+        });
+    </script>
+</body>
+</html>

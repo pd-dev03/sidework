@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warm Earth Portfolio</title>
+    <!-- Locomotive Scroll CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Climate Crisis for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap" rel="stylesheet">
+    <!-- Domaine Display for secondary headings (via CDN) -->
+    <style>
+        @font-face {
+            font-family: 'Domaine Display';
+            src: url('https://fonts.cdnfonts.com/s/14864/DomaineDisplay.woff') format('woff');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'Domaine Display';
+            src: url('https://fonts.cdnfonts.com/s/14864/DomaineDisplay-Bold.woff') format('woff');
+            font-weight: 700;
+        }
+        @font-face {
+            font-family: 'Neuething Sans';
+            src: url('https://fonts.cdnfonts.com/s/14855/NeuethingSans-Regular.woff') format('woff');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'Neuething Sans';
+            src: url('https://fonts.cdnfonts.com/s/14855/NeuethingSans-Bold.woff') format('woff');
+            font-weight: 700;
+        }
+    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+
+    <!-- Header with warm glassmorphism -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">P.</div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="#hero" class="nav-link" data-nav>Home</a></li>
+                    <li><a href="#about" class="nav-link" data-nav>About</a></li>
+                    <li><a href="#education" class="nav-link" data-nav>Education</a></li>
+                    <li><a href="#experience" class="nav-link" data-nav>Experience</a></li>
+                    <li><a href="#projects" class="nav-link" data-nav>Projects</a></li>
+                    <li><a href="#skills" class="nav-link" data-nav>Skills</a></li>
+                    <li><a href="#contact" class="nav-link" data-nav>Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main data-scroll-container>
+        <!-- Hero Section -->
+        <section id="hero" class="section hero" data-scroll-section>
+            <div class="hero-backdrop"></div>
+            <div class="hero-content">
+                <div class="hero-badge" data-scroll data-scroll-speed="1">Warm Creator</div>
+                <h1 class="hero-title">
+                    <span class="title-line" data-scroll data-scroll-speed="1">Crafting</span>
+                    <span class="title-line" data-scroll data-scroll-speed="1.5">Digital</span>
+                    <span class="title-line" data-scroll data-scroll-speed="2">Experiences</span>
+                </h1>
+                <div class="hero-subtitle">
+                    <span class="typing-text"></span>
+                </div>
+                <div class="hero-cta">
+                    <a href="#about" class="cta-button">Explore Work</a>
+                    <a href="#contact" class="cta-link">Get in touch →</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-progress"></div>
+            </div>
+        </section>
+
+        <!-- About Section - Left to right -->
+        <section id="about" class="section about" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+                <span class="section-tag">01 — About</span>
+                <h2 class="section-title">About</h2>
+                <div class="section-number">01</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="1.5" data-scroll-direction="horizontal">
+                <div class="card">
+                    <div class="card-icon">✦</div>
+                    <h3>Who I am</h3>
+                    <p>Creative developer crafting warm, human-centered digital experiences with attention to detail.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>What I do</h3>
+                    <p>Front-end development, UI/UX design, and interactive storytelling with modern web technologies.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>My philosophy</h3>
+                    <p>Simplicity, warmth, and clarity are at the core of everything I create.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Approach</h3>
+                    <p>Combining technical precision with creative exploration for unique solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section - Right to left -->
+        <section id="education" class="section education" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+                <span class="section-tag">02 — Education</span>
+                <h2 class="section-title">Education</h2>
+                <div class="section-number">02</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="-1.5" data-scroll-direction="horizontal">
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="card-year">2020</div>
+                    <h3>Master of Design</h3>
+                    <p class="card-place">University of Creative Arts</p>
+                    <p>Interactive Media & Digital Experiences</p>
+                </div>
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="card-year">2018</div>
+                    <h3>Bachelor of CS</h3>
+                    <p class="card-place">Technical University</p>
+                    <p>Web Technologies & HCI</p>
+                </div>
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="card-year">2016</div>
+                    <h3>High School Diploma</h3>
+                    <p class="card-place">Science High School</p>
+                    <p>Mathematics & Computer Science</p>
+                </div>
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="card-year">2014</div>
+                    <h3>Art Foundation</h3>
+                    <p class="card-place">Design Institute</p>
+                    <p>Visual Design & Typography</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section - Left to right -->
+        <section id="experience" class="section experience" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+                <span class="section-tag">03 — Experience</span>
+                <h2 class="section-title">Experience</h2>
+                <div class="section-number">03</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="1.5" data-scroll-direction="horizontal">
+                <div class="card experience-card">
+                    <div class="exp-year">2022 — Present</div>
+                    <h3>Senior Developer</h3>
+                    <p class="exp-company">Design Studio</p>
+                    <p>Leading frontend development and design systems.</p>
+                    <div class="exp-tags">
+                        <span>React</span>
+                        <span>GSAP</span>
+                        <span>Figma</span>
+                    </div>
+                </div>
+                <div class="card experience-card">
+                    <div class="exp-year">2020 — 2022</div>
+                    <h3>UI Developer</h3>
+                    <p class="exp-company">Tech Agency</p>
+                    <p>Built responsive interfaces for major clients.</p>
+                    <div class="exp-tags">
+                        <span>Vue</span>
+                        <span>SCSS</span>
+                        <span>Webflow</span>
+                    </div>
+                </div>
+                <div class="card experience-card">
+                    <div class="exp-year">2018 — 2020</div>
+                    <h3>Junior Designer</h3>
+                    <p class="exp-company">Creative Lab</p>
+                    <p>Assisted in brand and web design projects.</p>
+                    <div class="exp-tags">
+                        <span>Photoshop</span>
+                        <span>Illustrator</span>
+                        <span>XD</span>
+                    </div>
+                </div>
+                <div class="card experience-card">
+                    <div class="exp-year">2016 — 2018</div>
+                    <h3>Intern</h3>
+                    <p class="exp-company">Startup Hub</p>
+                    <p>Learned full-stack development fundamentals.</p>
+                    <div class="exp-tags">
+                        <span>Node.js</span>
+                        <span>MongoDB</span>
+                        <span>HTML/CSS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section - Right to left -->
+        <section id="projects" class="section projects" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+                <span class="section-tag">04 — Projects</span>
+                <h2 class="section-title">Projects</h2>
+                <div class="section-number">04</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="-1.5" data-scroll-direction="horizontal">
+                <div class="card project-card">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View Project →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Typographic System</h3>
+                        <p>Experimental web typography</p>
+                    </div>
+                </div>
+                <div class="card project-card">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View Project →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Motion Lab</h3>
+                        <p>Interactive animations</p>
+                    </div>
+                </div>
+                <div class="card project-card">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View Project →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Design Portfolio</h3>
+                        <p>Minimalist showcase</p>
+                    </div>
+                </div>
+                <div class="card project-card">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View Project →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>E-commerce Concept</h3>
+                        <p>Modern shopping experience</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section - Left to right -->
+        <section id="skills" class="section skills" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+                <span class="section-tag">05 — Skills</span>
+                <h2 class="section-title">Skills</h2>
+                <div class="section-number">05</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="1.5" data-scroll-direction="horizontal">
+                <div class="card skill-card">
+                    <div class="skill-circle" data-percent="95">
+                        <svg viewBox="0 0 36 36">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle-progress" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <span class="skill-percent">95%</span>
+                    </div>
+                    <h3>HTML/CSS</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-circle" data-percent="85">
+                        <svg viewBox="0 0 36 36">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle-progress" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <span class="skill-percent">85%</span>
+                    </div>
+                    <h3>JavaScript</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-circle" data-percent="70">
+                        <svg viewBox="0 0 36 36">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle-progress" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <span class="skill-percent">70%</span>
+                    </div>
+                    <h3>React</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-circle" data-percent="80">
+                        <svg viewBox="0 0 36 36">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle-progress" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <span class="skill-percent">80%</span>
+                    </div>
+                    <h3>UI/UX</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-circle" data-percent="65">
+                        <svg viewBox="0 0 36 36">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle-progress" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <span class="skill-percent">65%</span>
+                    </div>
+                    <h3>Node.js</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section - Right to left -->
+        <section id="contact" class="section contact" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+                <span class="section-tag">06 — Contact</span>
+                <h2 class="section-title">Contact</h2>
+                <div class="section-number">06</div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-panel" data-scroll data-scroll-speed="-1" data-scroll-direction="horizontal">
+                    <h3>Let's work together</h3>
+                    <p>I'm always interested in hearing about new projects and opportunities.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-label">Email</span>
+                            <a href="mailto:hello@portfolio.com">hello@portfolio.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Phone</span>
+                            <a href="tel:+1234567890">+1 234 567 890</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Location</span>
+                            <span>Available worldwide</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GH</a>
+                        <a href="#" class="social-link">LI</a>
+                        <a href="#" class="social-link">TW</a>
+                        <a href="#" class="social-link">IG</a>
+                    </div>
+                </div>
+                <div class="contact-form-panel" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
+                    <form class="premium-form">
+                        <div class="form-group">
+                            <input type="text" id="name" required>
+                            <label for="name">Your name</label>
+                            <span class="form-border"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" required>
+                            <label for="email">Email address</label>
+                            <span class="form-border"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" required></textarea>
+                            <label for="message">Message</label>
+                            <span class="form-border"></span>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4.16666 10H15.8333M15.8333 10L11.6667 5.83331M15.8333 10L11.6667 14.1667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

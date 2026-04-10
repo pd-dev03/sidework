@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Morgan — DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#f9f6f0; --bg2:#f2ede4; --bg3:#e8e1d6;
+  --black:#111; --black2:#222; --black3:#333;
+  --white:#fff;
+  --gray:#888; --gray2:#aaa;
+  --border:#ddd8ce; --border2:#c8c1b4;
+  --blue:#1d4ed8; --blue2:#2563eb; --blue-lt:#eff6ff; --blue-mid:#dbeafe;
+  --dark-bg:#0f0f0f; --dark-bg2:#1a1a1a;
+  --ff-head:'Syne',sans-serif;
+  --ff-body:'Inter',sans-serif;
+  --ff-mono:'JetBrains Mono',monospace;
+  --r:10px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--black);font-family:var(--ff-body);overflow-x:hidden}
+::selection{background:var(--blue);color:#fff}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--blue2);border-radius:2px}
+img{display:block;width:100%}
+
+/* ── PROGRESS ── */
+#prog{position:fixed;top:0;left:0;right:0;height:2px;background:var(--blue);z-index:9999;transform-origin:left;transform:scaleX(0)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;inset-inline:0;z-index:500;height:64px;background:rgba(249,246,240,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-in{max-width:1380px;margin:0 auto;padding:0 2.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{font-family:var(--ff-head);font-size:1.15rem;font-weight:800;text-decoration:none;color:var(--black);display:flex;align-items:center;gap:6px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.nav-links{display:flex;list-style:none;gap:0}
+.nav-links a{display:block;padding:0 .8rem;height:64px;line-height:64px;font-size:.75rem;font-weight:600;letter-spacing:.03em;color:var(--gray);text-decoration:none;transition:color .15s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--black)}
+.nav-cta{background:var(--black);color:#fff;font-family:var(--ff-head);font-size:.78rem;font-weight:700;padding:.5rem 1.4rem;border-radius:100px;text-decoration:none;border:none;cursor:pointer;transition:.2s}
+.nav-cta:hover{background:var(--blue);transform:translateY(-1px)}
+.ham{display:none;background:none;border:1px solid var(--border2);color:var(--black2);padding:6px 10px;cursor:pointer;border-radius:8px}
+.mob{display:none;position:fixed;top:64px;inset-inline:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:499;flex-direction:column;padding:1rem 2rem 1.5rem}
+.mob a{color:var(--gray);text-decoration:none;font-size:.88rem;font-weight:600;padding:.75rem 0;border-bottom:1px solid var(--border);display:block;transition:color .15s}
+.mob a:hover{color:var(--black)}
+.mob.open{display:flex}
+
+/* ── WRAP ── */
+.wrap{max-width:1380px;margin:0 auto;padding:0 2.5rem}
+
+/* ════════════════════════════
+   HERO — Agencee stacked title
+   ════════════════════════════ */
+.hero{padding-top:64px}
+
+/* top bar */
+.hero-topbar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.5rem}
+.htb-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;border:1px solid var(--border2);font-size:.7rem;font-weight:600;color:var(--gray);background:var(--white)}
+.htb-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:greenpulse 2s infinite}
+@keyframes greenpulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.htb-right{font-family:var(--ff-mono);font-size:.65rem;color:var(--gray);letter-spacing:.06em}
+
+/* STACKED TITLE — each word on its own line, massive */
+.hero-title-section{padding:2rem 0 0;display:grid;grid-template-columns:1fr 340px;gap:3rem;align-items:start}
+.hero-words{overflow:hidden}
+.hw{font-family:var(--ff-head);font-weight:800;line-height:.88;letter-spacing:-.04em;color:var(--black);display:block;overflow:hidden}
+.hw-1{font-size:clamp(5rem,12vw,13rem)}
+.hw-2{font-size:clamp(5rem,12vw,13rem);color:var(--blue)}
+.hw-3{font-size:clamp(5rem,12vw,13rem)}
+.hw-4{font-size:clamp(5rem,12vw,13rem);-webkit-text-stroke:2px var(--black);color:transparent}
+.hw-5{font-size:clamp(2.5rem,5.5vw,6rem);color:var(--gray)}
+
+/* floating side panel */
+.hero-side{padding-top:1rem;display:flex;flex-direction:column;gap:1.5rem}
+.hero-side-img{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,.1);aspect-ratio:4/3;object-fit:cover}
+.hero-side-img img{width:100%;height:100%;object-fit:cover}
+.hero-side-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.2rem}
+.hsc-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.hsc-stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.8rem .9rem;text-align:center}
+.hsc-num{font-family:var(--ff-head);font-size:1.6rem;font-weight:800;letter-spacing:-.03em;color:var(--black);line-height:1}
+.hsc-num.blue{color:var(--blue)}
+.hsc-lbl{font-size:.6rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-top:.2rem}
+
+/* hero desc row */
+.hero-desc-row{display:flex;align-items:flex-end;justify-content:space-between;padding:2rem 0 0;border-top:1px solid var(--border);margin-top:2rem;gap:3rem;flex-wrap:wrap}
+.hero-desc{font-size:1rem;line-height:1.75;color:var(--gray);max-width:520px}
+.hero-desc strong{color:var(--black);font-weight:700}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+.btn-blk{background:var(--black);color:#fff;font-family:var(--ff-head);font-size:.82rem;font-weight:700;padding:.8rem 1.8rem;border-radius:100px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;transition:.2s}
+.btn-blk:hover{background:var(--blue);transform:translateY(-2px)}
+.btn-ol{background:transparent;color:var(--black);font-family:var(--ff-body);font-size:.82rem;font-weight:600;padding:.8rem 1.6rem;border-radius:100px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--border2);transition:.2s}
+.btn-ol:hover{border-color:var(--black);transform:translateY(-2px)}
+
+/* ══════════════════════
+   CI/CD PIPELINE SECTION
+   ══════════════════════ */
+.pipeline-section{padding:3.5rem 0 5rem}
+.pipe-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.pipe-header-l h2{font-family:var(--ff-head);font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.2rem}
+.pipe-header-l p{font-family:var(--ff-mono);font-size:.65rem;color:var(--gray);letter-spacing:.04em}
+.pipe-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;background:var(--blue-lt);border:1px solid var(--blue-mid);font-family:var(--ff-mono);font-size:.65rem;font-weight:700;color:var(--blue);letter-spacing:.06em}
+.pipe-chip-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:greenpulse 1.8s infinite}
+
+/* pipeline card */
+.pipe-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.pipe-track{position:relative;padding:2.5rem 0 1rem;overflow:hidden}
+.pipe-track::before{content:'';position:absolute;left:0;right:0;top:50%;height:1.5px;background:var(--border);z-index:0;transform:translateY(-50%)}
+.pipe-fill{position:absolute;left:0;top:50%;height:2px;background:var(--blue);z-index:1;width:0;transform:translateY(-50%);box-shadow:0 0 8px rgba(37,99,235,.4)}
+.pipe-fill.run{transition:width 9s cubic-bezier(.4,0,.15,1)}
+
+.stgs{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.stg{display:flex;flex-direction:column;align-items:center;gap:9px;flex:1}
+
+/* node states */
+.sn{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;position:relative;background:var(--bg2);border:1.5px solid var(--border2);color:var(--gray);transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.sn.pending{background:var(--bg2);color:var(--gray2)}
+.sn.active{background:var(--blue-lt);border-color:var(--blue);color:var(--blue);transform:scale(1.14);box-shadow:0 0 0 4px rgba(37,99,235,.1);animation:blueGlow 1.3s ease-in-out infinite}
+@keyframes blueGlow{0%,100%{box-shadow:0 0 0 4px rgba(37,99,235,.08)}50%{box-shadow:0 0 0 8px rgba(37,99,235,.18),0 0 20px rgba(37,99,235,.1)}}
+.sn.done{background:#f0fdf4;border-color:#86efac;color:#16a34a}
+
+.sbadge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.55rem;border:2px solid var(--bg)}
+.sbadge.ok{background:#22c55e;color:#fff}
+.sbadge.spin{background:var(--blue);color:#fff}
+
+.s-lbl{font-family:var(--ff-mono);font-size:.6rem;font-weight:500;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;text-align:center;white-space:nowrap}
+.s-time{font-family:var(--ff-mono);font-size:.55rem;color:var(--blue);opacity:0;transition:opacity .3s}
+.sn.done~.s-time,.sn.active~.s-time{opacity:1}
+
+/* metrics row */
+.pipe-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-top:1.5rem;border:1px solid var(--border)}
+.pm{background:var(--bg2);padding:1rem 1.2rem;display:flex;align-items:center;gap:.75rem}
+.pm-ic{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
+.pmi-blue{background:var(--blue-lt);color:var(--blue)}
+.pmi-grn{background:#f0fdf4;color:#16a34a}
+.pm-val{font-family:var(--ff-head);font-size:1rem;font-weight:800;letter-spacing:-.02em;color:var(--black);line-height:1.2}
+.pm-lbl{font-size:.6rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
+
+/* ─── MARQUEE — Agencee ✦ style ─── */
+.mq-outer{background:var(--black);overflow:hidden;padding:.9rem 0}
+.mq-track{display:flex;width:max-content;animation:mqscroll 28s linear infinite}
+@keyframes mqscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-item{display:flex;align-items:center;gap:1rem;padding:0 1.5rem;font-family:var(--ff-head);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555;white-space:nowrap}
+.mq-star{color:var(--blue2);font-size:.65rem}
+
+/* ─── SECTIONS ─── */
+section.sec{padding:6rem 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--blue);border-radius:1px}
+.sec-h{font-family:var(--ff-head);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;letter-spacing:-.04em;line-height:.92;margin-bottom:1rem;color:var(--black)}
+.sec-h .hl{color:var(--blue)}
+.sec-h .dim{color:var(--gray)}
+.sec-desc{font-size:.95rem;color:var(--gray);line-height:1.75;max-width:460px;margin-bottom:3.5rem}
+
+/* ─── DARK STATS BAND ─── */
+.stats-band{background:var(--dark-bg);padding:3.5rem 0}
+.sb-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,.07);border-radius:var(--r);overflow:hidden}
+.sb-item{padding:2rem 1.5rem;border-right:1px solid rgba(255,255,255,.07);text-align:center}
+.sb-item:last-child{border-right:none}
+.sb-num{font-family:var(--ff-head);font-size:3rem;font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1}
+.sb-num.blue{color:var(--blue2)}
+.sb-lbl{font-size:.72rem;color:#666;font-weight:500;margin-top:.4rem;letter-spacing:.03em}
+
+/* ─── ABOUT ─── */
+.about-grid{display:grid;grid-template-columns:420px 1fr;gap:5rem;align-items:start}
+.about-img{border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,.1);position:relative}
+.about-img img{aspect-ratio:3/4;object-fit:cover}
+.about-img-tag{position:absolute;bottom:1.2rem;left:1.2rem;right:1.2rem;background:var(--white);color:var(--black);padding:.75rem 1rem;border-radius:100px;display:flex;align-items:center;justify-content:space-between;font-size:.72rem;font-weight:700;letter-spacing:.03em}
+.about-name{font-family:var(--ff-head);font-size:3.5rem;font-weight:800;letter-spacing:-.04em;line-height:.92;margin-bottom:.5rem}
+.about-name span{color:var(--blue)}
+.about-role{font-family:var(--ff-mono);font-size:.7rem;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+.about-role::after{content:'';flex:1;height:1px;background:var(--border)}
+.about-bio{font-size:.95rem;color:var(--gray);line-height:1.8;margin-bottom:1.2rem;padding-left:1.2rem;border-left:2.5px solid var(--blue)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem}
+.inf{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.9rem 1rem}
+.inf-k{font-family:var(--ff-mono);font-size:.6rem;color:var(--gray);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.inf-v{font-size:.84rem;font-weight:600;color:var(--black)}
+.inf-v.ok{color:#16a34a}
+
+/* ─── TIMELINE ─── */
+.tl{position:relative;padding-left:56px}
+.tl::before{content:'';position:absolute;left:22px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(180deg,var(--blue),var(--border),transparent)}
+.tl-item{position:relative;margin-bottom:2.5rem}
+.tl-dot{position:absolute;left:-56px;width:44px;height:44px;border-radius:12px;background:var(--bg2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--gray);z-index:1;transition:.2s}
+.tl-dot.curr{background:var(--blue-lt);border-color:var(--blue);color:var(--blue)}
+.tl-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:1.5rem;transition:.25s}
+.tl-card:hover{border-color:var(--blue);transform:translateX(4px);box-shadow:0 4px 20px rgba(29,78,216,.08)}
+.tl-date{font-family:var(--ff-mono);font-size:.62rem;font-weight:700;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.tl-title{font-family:var(--ff-head);font-size:1.25rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.25rem}
+.tl-org{font-size:.78rem;color:var(--gray);margin-bottom:.8rem;font-weight:500}
+.tl-desc{font-size:.83rem;color:var(--gray);line-height:1.72}
+
+/* ─── EXPERIENCE ─── */
+.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.3s}
+.exp-card:hover{border-color:var(--black);transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.1)}
+.ec-bar{height:3px;background:var(--blue)}
+.ec-head{padding:1.4rem 1.4rem 1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.ec-title{font-family:var(--ff-head);font-size:1.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.25rem}
+.ec-co{font-size:.72rem;font-weight:700;color:var(--blue);letter-spacing:.04em}
+.ec-badge{font-family:var(--ff-mono);font-size:.62rem;padding:4px 10px;border-radius:100px;background:var(--bg2);border:1px solid var(--border2);color:var(--gray);white-space:nowrap}
+.ec-body{padding:0 1.4rem 1.2rem;flex:1;display:flex;flex-direction:column;gap:.5rem}
+.ec-metric{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--gray);padding:.5rem .75rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.ec-metric i{color:var(--blue);font-size:.7rem;width:12px;flex-shrink:0}
+.ec-tags{padding:0 1.4rem 1.4rem;display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:6px;border:1px solid var(--border);color:var(--gray);background:var(--bg2);transition:.15s;cursor:default}
+.tag:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt)}
+
+/* ─── PROJECTS ─── */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.proj-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.3s}
+.proj-card:hover{border-color:var(--black);transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.1)}
+.proj-h{padding:1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem}
+.proj-ico{width:44px;height:44px;border-radius:12px;background:var(--blue-lt);border:1px solid var(--blue-mid);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--blue);flex-shrink:0}
+.proj-name{font-family:var(--ff-head);font-size:1.05rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.3rem}
+.proj-meta{display:flex;gap:.8rem;font-family:var(--ff-mono);font-size:.62rem;color:var(--gray)}
+.proj-meta span{display:flex;align-items:center;gap:3px}
+.proj-body{padding:1.2rem 1.4rem;font-size:.82rem;color:var(--gray);line-height:1.72;flex:1}
+.proj-stack{padding:0 1.4rem;display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.9rem}
+.proj-foot{padding:.9rem 1.4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.proj-commit{font-family:var(--ff-mono);font-size:.62rem;color:var(--gray)}
+.btn-sm{font-family:var(--ff-head);font-size:.75rem;font-weight:700;padding:5px 14px;border-radius:100px;cursor:pointer;border:none;background:var(--black);color:#fff;display:flex;align-items:center;gap:5px;transition:.2s}
+.btn-sm:hover{background:var(--blue);transform:translateY(-1px)}
+
+/* ─── SKILLS ─── */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.skills-col{display:flex;flex-direction:column;gap:1.5rem}
+.sg{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden}
+.sg-head{padding:.9rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-family:var(--ff-head);font-size:.75rem;font-weight:800;letter-spacing:.02em;color:var(--black)}
+.sg-ico{width:28px;height:28px;border-radius:7px;background:var(--blue-lt);border:1px solid var(--blue-mid);display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--blue)}
+.sg-body{padding:1.2rem;display:flex;flex-direction:column;gap:1rem}
+.sk-top{display:flex;justify-content:space-between;margin-bottom:.35rem;font-size:.82rem;font-weight:600}
+.sk-top span:last-child{font-family:var(--ff-mono);font-size:.65rem;color:var(--gray);font-weight:400}
+.bar{height:4px;background:var(--bg3);border-radius:2px}
+.bar-fill{height:100%;border-radius:2px;background:var(--blue);width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);position:relative}
+.bar-fill::after{content:'';position:absolute;right:0;top:50%;transform:translate(50%,-50%);width:9px;height:9px;border-radius:50%;background:var(--white);border:2px solid var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.sk-icons{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.sk-ic{background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:.8rem .3rem;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.6rem;font-weight:600;color:var(--gray);text-align:center;transition:.2s;cursor:default}
+.sk-ic i{font-size:1.1rem}
+.sk-ic:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt);transform:translateY(-2px)}
+
+/* ─── TAGS ─── */
+.tc-cloud{display:flex;flex-wrap:wrap;gap:.75rem}
+.tc{display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.2rem;border:1.5px solid var(--border);border-radius:100px;font-size:.8rem;font-weight:600;background:var(--white);color:var(--black);cursor:default;transition:.2s}
+.tc i{color:var(--blue);font-size:.78rem}
+.tc:hover{border-color:var(--blue);background:var(--blue-lt);color:var(--blue);transform:translateY(-2px)}
+
+/* ─── CONTACT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.c-links{display:flex;flex-direction:column;gap:.75rem}
+.c-link{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;background:var(--white);border:1.5px solid var(--border);border-radius:14px;text-decoration:none;color:var(--black);transition:.2s}
+.c-link:hover{border-color:var(--blue);background:var(--blue-lt);transform:translateX(5px)}
+.c-ico{width:40px;height:40px;border-radius:10px;background:var(--blue-lt);border:1px solid var(--blue-mid);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:.9rem;flex-shrink:0}
+.c-lbl{font-family:var(--ff-mono);font-size:.6rem;color:var(--gray);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem}
+.c-val{font-size:.84rem;font-weight:600}
+.contact-panel{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden}
+.cp-dark{background:var(--dark-bg);padding:2rem;color:#fff}
+.cp-dark h3{font-family:var(--ff-head);font-size:2rem;font-weight:800;letter-spacing:-.03em;line-height:.95;margin-bottom:.5rem}
+.cp-dark h3 span{color:var(--blue2)}
+.cp-dark p{font-size:.82rem;color:#666}
+.cp-form{padding:2rem;display:flex;flex-direction:column;gap:1rem}
+.cp-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cp-field{display:flex;flex-direction:column;gap:.4rem}
+.cp-field label{font-family:var(--ff-mono);font-size:.6rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+.cp-field input,.cp-field textarea{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:.7rem .9rem;font-family:var(--ff-body);font-size:.85rem;color:var(--black);outline:none;transition:border-color .2s;resize:none}
+.cp-field input::placeholder,.cp-field textarea::placeholder{color:var(--gray2)}
+.cp-field input:focus,.cp-field textarea:focus{border-color:var(--blue)}
+.cp-send{background:var(--black);color:#fff;border:none;border-radius:100px;padding:.85rem;font-family:var(--ff-head);font-size:.85rem;font-weight:800;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.cp-send:hover{background:var(--blue);transform:translateY(-1px)}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--border);padding:3rem 0 2.5rem}
+.foot-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.foot-brand{font-family:var(--ff-head);font-size:1.4rem;font-weight:800;letter-spacing:-.03em}
+.foot-brand span{color:var(--blue)}
+.foot-soc{display:flex;gap:.5rem}
+.foot-soc a{width:38px;height:38px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg2);display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:.88rem;text-decoration:none;transition:.2s}
+.foot-soc a:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt)}
+.foot-copy{font-size:.72rem;color:var(--gray)}
+.foot-copy span{color:var(--blue)}
+
+/* ─── MODAL ─── */
+.modal-ov{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.65);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-ov.open{display:flex}
+.modal-box{background:var(--white);border:1.5px solid var(--border);border-radius:20px;width:100%;max-width:500px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2)}
+.m-head{padding:1.1rem 1.5rem;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.m-ttl{font-family:var(--ff-head);font-size:1rem;font-weight:800;display:flex;align-items:center;gap:8px}
+.m-close{background:none;border:none;color:var(--gray);font-size:1rem;cursor:pointer;transition:color .15s}
+.m-close:hover{color:var(--black)}
+.m-body{padding:1.3rem;overflow-y:auto;flex:1}
+.logbox{background:var(--dark-bg);border:1px solid var(--dark-bg2);border-radius:var(--r);padding:1.1rem;font-family:var(--ff-mono);font-size:.72rem;line-height:1.9;max-height:280px;overflow-y:auto;color:#ccc}
+.l-ts{color:#555}.l-ok{color:#4ade80}.l-info{color:var(--blue2)}.l-warn{color:#fb923c}
+.m-foot{padding:1rem 1.5rem;background:var(--bg2);border-top:1px solid var(--border);text-align:right}
+
+/* ─── FADE UP ─── */
+.fu{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.fu.vis{opacity:1;transform:none}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .hero-title-section{grid-template-columns:1fr;gap:2rem}
+  .hero-side{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}.about-img{max-width:360px}
+  .exp-grid,.proj-grid{grid-template-columns:repeat(2,1fr)}
+  .skills-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}
+  .sb-inner{grid-template-columns:repeat(2,1fr)}.pipe-metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .wrap{padding:0 1.3rem}.nav-in{padding:0 1.3rem}
+  .nav-links{display:none}.nav-cta{display:none}.ham{display:block}
+  .hw-1,.hw-2,.hw-3,.hw-4{font-size:clamp(3.5rem,13vw,7rem)}
+  .hw-5{font-size:clamp(2rem,6vw,3.5rem)}
+  .hero-desc-row{flex-direction:column;gap:1.5rem}
+  .exp-grid,.proj-grid{grid-template-columns:1fr}
+  section.sec{padding:4.5rem 0}
+  .info-grid{grid-template-columns:1fr}
+  .stgs{gap:.3rem;overflow-x:auto;padding-bottom:.4rem}
+  .sn{width:44px;height:44px;font-size:1rem}
+  .pipe-metrics{grid-template-columns:1fr 1fr}
+  .sb-inner{grid-template-columns:1fr 1fr}
+  .cp-row{grid-template-columns:1fr}
+  .foot-in{flex-direction:column;align-items:flex-start}
+  .hero-side{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hw-1,.hw-2,.hw-3,.hw-4{font-size:3.2rem}
+  .hero-ctas{flex-direction:column}
+  .btn-blk,.btn-ol{justify-content:center}
+  .pipe-metrics{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <div class="nav-in">
+    <a href="#hero" class="nav-logo"><span class="logo-dot"></span>Alex Morgan</a>
+    <ul class="nav-links">
+      <a href="#profile">Profile</a><a href="#education">Education</a>
+      <a href="#experience">Experience</a><a href="#projects">Projects</a>
+      <a href="#skills">Skills</a><a href="#interests">Interests</a>
+      <a href="#languages">Languages</a><a href="#contact">Contact</a>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <a href="#contact" class="nav-cta">Hire Me</a>
+      <button class="ham" id="hamBtn"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+<div class="mob" id="mobMenu">
+  <a href="#profile" class="ml">Profile</a><a href="#education" class="ml">Education</a>
+  <a href="#experience" class="ml">Experience</a><a href="#projects" class="ml">Projects</a>
+  <a href="#skills" class="ml">Skills</a><a href="#interests" class="ml">Interests</a>
+  <a href="#languages" class="ml">Languages</a><a href="#contact" class="ml">Contact</a>
+</div>
+
+<div class="wrap">
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero" id="hero">
+
+  <div class="hero-topbar">
+    <div class="htb-badge"><span class="htb-dot"></span> Available for Work · Ahmedabad, India</div>
+    <div class="htb-right">8+ YRS EXPERIENCE &nbsp;·&nbsp; CLOUD ARCHITECT &nbsp;·&nbsp; SRE SPECIALIST</div>
+  </div>
+
+  <!-- AGENCEE STACKED TITLE — one big word per line -->
+  <div class="hero-title-section">
+    <div class="hero-words">
+      <span class="hw hw-1">SENIOR</span>
+      <span class="hw hw-2">DEVOPS</span>
+      <span class="hw hw-3">ENGI</span>
+      <span class="hw hw-4">NEER</span>
+      <span class="hw hw-5">& Cloud Architect</span>
+    </div>
+    <div class="hero-side">
+      <div class="hero-side-img">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Alex Morgan">
+      </div>
+      <div class="hero-side-card">
+        <div class="hsc-row">
+          <div class="hsc-stat"><div class="hsc-num blue" data-count="8">0</div><div class="hsc-lbl">Years Exp.</div></div>
+          <div class="hsc-stat"><div class="hsc-num" data-count="200">0</div><div class="hsc-lbl">VMs Migrated</div></div>
+          <div class="hsc-stat"><div class="hsc-num blue" data-count="99">0</div><div class="hsc-lbl">% SLA</div></div>
+          <div class="hsc-stat"><div class="hsc-num" data-count="40">0</div><div class="hsc-lbl">% Cost Saved</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-desc-row">
+    <p class="hero-desc">Building <strong>infrastructure that scales</strong> and never pages you at 3am. Turning manual chaos into automated pipelines, zero-downtime Kubernetes migrations, and self-healing cloud systems that just work.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-blk"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+      <a href="#projects" class="btn-ol"><i class="fas fa-code-branch"></i> View Projects</a>
+    </div>
+  </div>
+
+  <!-- ═══════ CI/CD PIPELINE — ANIMATES FROM PAGE LOAD ═══════ -->
+  <div class="pipeline-section">
+    <div class="pipe-header">
+      <div class="pipe-header-l">
+        <h2>CI/CD Pipeline</h2>
+        <p id="pipeMeta2">prod-deploy #1847 · branch: main · initializing...</p>
+      </div>
+      <div class="pipe-chip"><span class="pipe-chip-dot"></span><span id="pipeChipTxt">INITIALIZING</span></div>
+    </div>
+
+    <div class="pipe-card">
+      <div class="pipe-track">
+        <div class="pipe-fill" id="pipeFill2"></div>
+        <div class="stgs">
+          <div class="stg"><div class="sn pending" id="p0"><i class="fab fa-git-alt"></i></div><div class="s-lbl">Source</div><div class="s-time" id="pt0">0.8s</div></div>
+          <div class="stg"><div class="sn pending" id="p1"><i class="fas fa-spell-check"></i></div><div class="s-lbl">Lint</div><div class="s-time" id="pt1">12s</div></div>
+          <div class="stg"><div class="sn pending" id="p2"><i class="fas fa-hammer"></i></div><div class="s-lbl">Build</div><div class="s-time" id="pt2">48s</div></div>
+          <div class="stg"><div class="sn pending" id="p3"><i class="fas fa-vial"></i></div><div class="s-lbl">Test</div><div class="s-time" id="pt3">1m12s</div></div>
+          <div class="stg"><div class="sn pending" id="p4"><i class="fas fa-shield-halved"></i></div><div class="s-lbl">Scan</div><div class="s-time" id="pt4">34s</div></div>
+          <div class="stg"><div class="sn pending" id="p5"><i class="fab fa-docker"></i></div><div class="s-lbl">Docker</div><div class="s-time" id="pt5">58s</div></div>
+          <div class="stg"><div class="sn pending" id="p6"><i class="fas fa-dharmachakra"></i></div><div class="s-lbl">K8s</div><div class="s-time" id="pt6">1m22s</div></div>
+          <div class="stg"><div class="sn pending" id="p7"><i class="fas fa-chart-line"></i></div><div class="s-lbl">Monitor</div><div class="s-time" id="pt7">10s</div></div>
+        </div>
+      </div>
+      <div class="pipe-metrics">
+        <div class="pm"><div class="pm-ic pmi-blue"><i class="fas fa-clock"></i></div><div><div class="pm-val" id="p2BT">0:00</div><div class="pm-lbl">Build Time</div></div></div>
+        <div class="pm"><div class="pm-ic pmi-grn"><i class="fas fa-vial"></i></div><div><div class="pm-val" id="p2TC">0 / 847</div><div class="pm-lbl">Tests Passed</div></div></div>
+        <div class="pm"><div class="pm-ic pmi-grn"><i class="fas fa-shield-halved"></i></div><div><div class="pm-val">0 Critical</div><div class="pm-lbl">Vulnerabilities</div></div></div>
+        <div class="pm"><div class="pm-ic pmi-blue"><i class="fas fa-cube"></i></div><div><div class="pm-val" id="p2DS" style="font-size:.85rem">PENDING</div><div class="pm-lbl">Deploy Status</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- MARQUEE — Agencee ✦ style, dark band -->
+<div class="mq-outer">
+  <div class="mq-track">
+    <span class="mq-item"><span class="mq-star">✦</span> Kubernetes</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Terraform</span>
+    <span class="mq-item"><span class="mq-star">✦</span> AWS</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Docker</span>
+    <span class="mq-item"><span class="mq-star">✦</span> ArgoCD</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Prometheus</span>
+    <span class="mq-item"><span class="mq-star">✦</span> GitHub Actions</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Ansible</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Grafana</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Vault</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Kubernetes</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Terraform</span>
+    <span class="mq-item"><span class="mq-star">✦</span> AWS</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Docker</span>
+    <span class="mq-item"><span class="mq-star">✦</span> ArgoCD</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Prometheus</span>
+    <span class="mq-item"><span class="mq-star">✦</span> GitHub Actions</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Ansible</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Grafana</span>
+    <span class="mq-item"><span class="mq-star">✦</span> Vault</span>
+  </div>
+</div>
+
+<!-- STATS BAND — dark section like Agencee -->
+<div class="stats-band">
+  <div class="wrap">
+    <div class="sb-inner">
+      <div class="sb-item"><div class="sb-num blue" data-count2="8">0</div><div class="sb-lbl">Years of Experience</div></div>
+      <div class="sb-item"><div class="sb-num" data-count2="200">0</div><div class="sb-lbl">VMs Migrated to Cloud</div></div>
+      <div class="sb-item"><div class="sb-num blue" data-count2="99">0</div><div class="sb-lbl">% SLA Uptime Achieved</div></div>
+      <div class="sb-item"><div class="sb-num" data-count2="40">0</div><div class="sb-lbl">% Cloud Cost Reduction</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- PROFILE -->
+<section class="sec" id="profile">
+  <div class="about-grid fu">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Alex Morgan">
+      <div class="about-img-tag"><span><i class="fas fa-circle" style="color:#22c55e;font-size:.45rem;margin-right:5px"></i>Available for Work</span><span>Ahmedabad, India</span></div>
+    </div>
+    <div>
+      <div class="eyebrow">About Me</div>
+      <div class="about-name">Alex <span>Morgan</span></div>
+      <div class="about-role">Senior DevOps Engineer</div>
+      <p class="about-bio">Passionate about building resilient, self-healing infrastructure and automating everything that moves. 8+ years across cloud platforms, container orchestration, and CI/CD — turning manual chaos into elegant automated workflows.</p>
+      <p class="about-bio" style="margin-top:.9rem">"If you do it twice, automate it. If it's not monitored, it doesn't exist."</p>
+      <div class="info-grid">
+        <div class="inf"><div class="inf-k">Location</div><div class="inf-v">Ahmedabad, India</div></div>
+        <div class="inf"><div class="inf-k">Experience</div><div class="inf-v">8+ Years</div></div>
+        <div class="inf"><div class="inf-k">Status</div><div class="inf-v ok">Open to Work</div></div>
+        <div class="inf"><div class="inf-k">Focus</div><div class="inf-v">Cloud / SRE / Platform</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="sec" id="education">
+  <div class="eyebrow fu">Education</div>
+  <h2 class="sec-h fu">Training &<br><span class="dim">Certifications</span></h2>
+  <p class="sec-desc fu">The foundation stack — degrees, certs, and continuous learning.</p>
+  <div class="tl fu">
+    <div class="tl-item"><div class="tl-dot curr"><i class="fas fa-cloud"></i></div><div class="tl-card"><div class="tl-date">2023 — 2024</div><div class="tl-title">Cloud Computing & DevOps</div><div class="tl-org">MIT Professional Education</div><div class="tl-desc">Advanced certification in cloud-native architectures, Kubernetes orchestration, and SRE. Scalable infrastructure design and automated deployment strategies at enterprise scale.</div></div></div>
+    <div class="tl-item"><div class="tl-dot curr"><i class="fab fa-aws"></i></div><div class="tl-card"><div class="tl-date">2022</div><div class="tl-title">AWS Solutions Architect — Professional</div><div class="tl-org">Amazon Web Services</div><div class="tl-desc">Professional cert covering distributed systems on AWS. Multi-region HA, security, scalability, and cost optimization via Well-Architected Framework.</div></div></div>
+    <div class="tl-item"><div class="tl-dot"><i class="fas fa-graduation-cap"></i></div><div class="tl-card"><div class="tl-date">2014 — 2018</div><div class="tl-title">B.S. Computer Science</div><div class="tl-org">Stanford University</div><div class="tl-desc">Honors graduate. Focus on distributed systems and network architecture. Final thesis on container orchestration scheduling algorithms.</div></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="eyebrow fu">Experience</div>
+  <h2 class="sec-h fu">Production <span class="hl">War Stories</span></h2>
+  <p class="sec-desc fu">Real impact — every role had incidents, every incident made the system stronger.</p>
+  <div class="exp-grid fu">
+    <div class="exp-card"><div class="ec-bar"></div><div class="ec-head"><div><div class="ec-title">Sr. DevOps Engineer</div><div class="ec-co">TechScale Inc.</div></div><span class="ec-badge">2022 — Present</span></div><div class="ec-body"><div class="ec-metric"><i class="fas fa-server"></i>Migrated 200+ VMs to Kubernetes</div><div class="ec-metric"><i class="fas fa-arrow-trend-down"></i>Cloud costs reduced by 40%</div><div class="ec-metric"><i class="fas fa-rocket"></i>Deploy time: 2hrs → 5 minutes</div><div class="ec-metric"><i class="fas fa-circle-check"></i>Zero-downtime migration</div></div><div class="ec-tags"><span class="tag">Kubernetes</span><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">ArgoCD</span></div></div>
+    <div class="exp-card"><div class="ec-bar" style="background:linear-gradient(90deg,#2563eb,#7c3aed)"></div><div class="ec-head"><div><div class="ec-title">DevOps Lead</div><div class="ec-co">StartUpScale</div></div><span class="ec-badge">2020 — 2022</span></div><div class="ec-body"><div class="ec-metric"><i class="fas fa-code-branch"></i>Built CI/CD from scratch</div><div class="ec-metric"><i class="fas fa-calendar-days"></i>Release: 2 weeks → daily</div><div class="ec-metric"><i class="fas fa-bug-slash"></i>Incidents −85%</div><div class="ec-metric"><i class="fas fa-users"></i>Mentored 3 engineers</div></div><div class="ec-tags"><span class="tag">Docker</span><span class="tag">Jenkins</span><span class="tag">Azure</span><span class="tag">Python</span></div></div>
+    <div class="exp-card"><div class="ec-bar" style="background:linear-gradient(90deg,#0891b2,#2563eb)"></div><div class="ec-head"><div><div class="ec-title">Cloud Engineer</div><div class="ec-co">FinanceSecure</div></div><span class="ec-badge">2018 — 2020</span></div><div class="ec-body"><div class="ec-metric"><i class="fas fa-shield-halved"></i>SOC2 / PCI compliance</div><div class="ec-metric"><i class="fas fa-lock"></i>Zero data breaches</div><div class="ec-metric"><i class="fas fa-clock"></i>RPO 5min · RTO 15min</div><div class="ec-metric"><i class="fas fa-file-contract"></i>Audit prep −60%</div></div><div class="ec-tags"><span class="tag">Security</span><span class="tag">Vault</span><span class="tag">Compliance</span><span class="tag">AWS</span></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="eyebrow fu">Projects</div>
+  <h2 class="sec-h fu">Open <span class="hl">Source</span></h2>
+  <p class="sec-desc fu">Production-hardened. Battle-tested. Actively maintained.</p>
+  <div class="proj-grid fu">
+    <div class="proj-card"><div class="proj-h"><div class="proj-ico"><i class="fas fa-dharmachakra"></i></div><div><div class="proj-name">k8s-prod-cluster</div><div class="proj-meta"><span><i class="fas fa-star"></i> 142</span><span><i class="fas fa-code-branch"></i> 28</span><span style="color:#16a34a"><i class="fas fa-circle" style="font-size:.4rem"></i> active</span></div></div></div><div class="proj-body">Production-grade Kubernetes cluster config with Terraform, Helm, GitOps. Full monitoring, ingress, RBAC, network policies, Trivy scanning.</div><div class="proj-stack"><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Helm</span><span class="tag">Prometheus</span></div><div class="proj-foot"><div class="proj-commit"><i class="fas fa-history"></i> 2 days ago</div><button class="btn-sm deploy-btn" data-repo="k8s-prod-cluster"><i class="fas fa-rocket"></i> Deploy</button></div></div>
+    <div class="proj-card"><div class="proj-h"><div class="proj-ico" style="background:#f5f3ff;border-color:#e9d5ff;color:#7c3aed"><i class="fas fa-infinity"></i></div><div><div class="proj-name">pipeline-templates</div><div class="proj-meta"><span><i class="fas fa-star"></i> 89</span><span><i class="fas fa-code-branch"></i> 15</span><span style="color:#16a34a"><i class="fas fa-circle" style="font-size:.4rem"></i> active</span></div></div></div><div class="proj-body">Reusable CI/CD templates for GitHub Actions, GitLab CI, Jenkins. Multi-stage builds, SAST/DAST, semver tagging, approval gates.</div><div class="proj-stack"><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">Trivy</span><span class="tag">SonarQube</span></div><div class="proj-foot"><div class="proj-commit"><i class="fas fa-history"></i> 1 week ago</div><button class="btn-sm deploy-btn" data-repo="pipeline-templates"><i class="fas fa-rocket"></i> Deploy</button></div></div>
+    <div class="proj-card"><div class="proj-h"><div class="proj-ico" style="background:#ecfdf5;border-color:#a7f3d0;color:#059669"><i class="fas fa-cubes"></i></div><div><div class="proj-name">terraform-modules</div><div class="proj-meta"><span><i class="fas fa-star"></i> 127</span><span><i class="fas fa-code-branch"></i> 42</span><span style="color:#16a34a"><i class="fas fa-circle" style="font-size:.4rem"></i> active</span></div></div></div><div class="proj-body">Production-ready IaC modules for AWS, Azure, GCP. EKS/AKS/GKE, RDS, IAM, WAF. Terratest-validated. Semantic versioning.</div><div class="proj-stack"><span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">GCP</span></div><div class="proj-foot"><div class="proj-commit"><i class="fas fa-history"></i> 3 days ago</div><button class="btn-sm deploy-btn" data-repo="terraform-modules"><i class="fas fa-rocket"></i> Deploy</button></div></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="eyebrow fu">Skills</div>
+  <h2 class="sec-h fu">The Full <span class="hl">Toolbelt</span></h2>
+  <p class="sec-desc fu">From cloud architecture to containers to observability.</p>
+  <div class="skills-grid fu">
+    <div class="skills-col">
+      <div class="sg"><div class="sg-head"><div class="sg-ico"><i class="fas fa-cloud"></i></div>Cloud Platforms</div><div class="sg-body"><div><div class="sk-top"><span>AWS</span><span>95%</span></div><div class="bar"><div class="bar-fill" data-w="95"></div></div></div><div><div class="sk-top"><span>Azure</span><span>85%</span></div><div class="bar"><div class="bar-fill" data-w="85"></div></div></div><div><div class="sk-top"><span>Google Cloud</span><span>75%</span></div><div class="bar"><div class="bar-fill" data-w="75"></div></div></div></div></div>
+      <div class="sg"><div class="sg-head"><div class="sg-ico"><i class="fab fa-docker"></i></div>Containers & Orchestration</div><div class="sg-body"><div><div class="sk-top"><span>Kubernetes</span><span>92%</span></div><div class="bar"><div class="bar-fill" data-w="92"></div></div></div><div><div class="sk-top"><span>Docker</span><span>95%</span></div><div class="bar"><div class="bar-fill" data-w="95"></div></div></div><div><div class="sk-top"><span>Helm</span><span>88%</span></div><div class="bar"><div class="bar-fill" data-w="88"></div></div></div></div></div>
+      <div class="sg"><div class="sg-head"><div class="sg-ico"><i class="fas fa-code-branch"></i></div>CI/CD & Automation</div><div class="sg-body"><div><div class="sk-top"><span>GitHub Actions</span><span>90%</span></div><div class="bar"><div class="bar-fill" data-w="90"></div></div></div><div><div class="sk-top"><span>Jenkins</span><span>85%</span></div><div class="bar"><div class="bar-fill" data-w="85"></div></div></div><div><div class="sk-top"><span>ArgoCD</span><span>78%</span></div><div class="bar"><div class="bar-fill" data-w="78"></div></div></div></div></div>
+    </div>
+    <div class="skills-col">
+      <div class="sg"><div class="sg-head"><div class="sg-ico"><i class="fas fa-layer-group"></i></div>IaC & Config Management</div><div class="sg-body"><div><div class="sk-top"><span>Terraform</span><span>93%</span></div><div class="bar"><div class="bar-fill" data-w="93"></div></div></div><div><div class="sk-top"><span>Ansible</span><span>87%</span></div><div class="bar"><div class="bar-fill" data-w="87"></div></div></div><div><div class="sk-top"><span>Pulumi</span><span>70%</span></div><div class="bar"><div class="bar-fill" data-w="70"></div></div></div></div></div>
+      <div class="sg"><div class="sg-head"><div class="sg-ico"><i class="fas fa-chart-bar"></i></div>Observability</div><div class="sg-body"><div><div class="sk-top"><span>Prometheus + Grafana</span><span>91%</span></div><div class="bar"><div class="bar-fill" data-w="91"></div></div></div><div><div class="sk-top"><span>ELK / OpenSearch</span><span>84%</span></div><div class="bar"><div class="bar-fill" data-w="84"></div></div></div><div><div class="sk-top"><span>Datadog</span><span>80%</span></div><div class="bar"><div class="bar-fill" data-w="80"></div></div></div></div></div>
+      <div class="sg"><div class="sg-head"><div class="sg-ico"><i class="fas fa-code"></i></div>Languages & Scripting</div><div class="sg-body"><div class="sk-icons"><div class="sk-ic"><i class="fab fa-python" style="color:#4b8bbe"></i>Python</div><div class="sk-ic"><i class="fas fa-terminal" style="color:var(--blue)"></i>Bash</div><div class="sk-ic"><i class="fas fa-code" style="color:#00acd7"></i>Go</div><div class="sk-ic"><i class="fab fa-js" style="color:#ca8a04"></i>JS/TS</div><div class="sk-ic"><i class="fas fa-file-code" style="color:#ea580c"></i>YAML</div><div class="sk-ic"><i class="fas fa-cube" style="color:#7c3aed"></i>HCL</div><div class="sk-ic"><i class="fas fa-database" style="color:#0891b2"></i>SQL</div><div class="sk-ic"><i class="fab fa-git-alt" style="color:#dc2626"></i>Git</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section class="sec" id="interests">
+  <div class="eyebrow fu">Interests</div>
+  <h2 class="sec-h fu">Passion <span class="hl">Areas</span></h2>
+  <p class="sec-desc fu">The rabbit holes that make the craft more interesting.</p>
+  <div class="tc-cloud fu">
+    <span class="tc"><i class="fas fa-server"></i>Home Lab</span><span class="tc"><i class="fas fa-shield-halved"></i>Security Research</span>
+    <span class="tc"><i class="fas fa-chart-line"></i>Observability</span><span class="tc"><i class="fas fa-robot"></i>Platform Engineering</span>
+    <span class="tc"><i class="fas fa-code"></i>Open Source</span><span class="tc"><i class="fas fa-gamepad"></i>Gaming Infrastructure</span>
+    <span class="tc"><i class="fas fa-book"></i>Technical Writing</span><span class="tc"><i class="fas fa-users"></i>DevOps Culture</span>
+    <span class="tc"><i class="fas fa-brain"></i>SRE Practices</span><span class="tc"><i class="fas fa-network-wired"></i>eBPF & Networking</span>
+    <span class="tc"><i class="fas fa-leaf"></i>FinOps</span><span class="tc"><i class="fas fa-flask"></i>Chaos Engineering</span>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="sec" id="languages">
+  <div class="eyebrow fu">Languages</div>
+  <h2 class="sec-h fu">Human <span class="hl">& Machine</span></h2>
+  <p class="sec-desc fu">Fluent in both documentation and deployment manifests.</p>
+  <div class="tc-cloud fu">
+    <span class="tc"><i class="fas fa-globe"></i>English — Native</span><span class="tc"><i class="fas fa-globe"></i>Spanish — Intermediate</span>
+    <span class="tc"><i class="fab fa-python"></i>Python</span><span class="tc"><i class="fas fa-terminal"></i>Bash / Shell</span>
+    <span class="tc"><i class="fas fa-code"></i>Go</span><span class="tc"><i class="fas fa-file-code"></i>YAML / HCL</span>
+    <span class="tc"><i class="fab fa-js-square"></i>TypeScript</span><span class="tc"><i class="fas fa-database"></i>SQL</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="eyebrow fu">Contact</div>
+  <h2 class="sec-h fu">Let's <span class="hl">Build Together</span></h2>
+  <p class="sec-desc fu">Have an interesting infrastructure problem? Always monitoring. Response &lt;24h.</p>
+  <div class="contact-grid fu">
+    <div class="c-links">
+      <a href="mailto:alex@devops.io" class="c-link"><div class="c-ico"><i class="fas fa-envelope"></i></div><div><div class="c-lbl">Email</div><div class="c-val">alex@devopsportfolio.com</div></div></a>
+      <a href="https://github.com" target="_blank" class="c-link"><div class="c-ico"><i class="fab fa-github"></i></div><div><div class="c-lbl">GitHub</div><div class="c-val">github.com/alex-devops</div></div></a>
+      <a href="https://linkedin.com" target="_blank" class="c-link"><div class="c-ico"><i class="fab fa-linkedin"></i></div><div><div class="c-lbl">LinkedIn</div><div class="c-val">linkedin.com/in/alex-devops</div></div></a>
+      <a href="#" class="c-link"><div class="c-ico"><i class="fas fa-file-pdf"></i></div><div><div class="c-lbl">Resume</div><div class="c-val">Download PDF — March 2026</div></div></a>
+    </div>
+    <div class="contact-panel">
+      <div class="cp-dark"><h3>Send a <span>Message</span></h3><p>Open to roles, freelance, and collaborations.</p></div>
+      <div class="cp-form">
+        <div class="cp-row"><div class="cp-field"><label>Name</label><input type="text" placeholder="Your name"></div><div class="cp-field"><label>Email</label><input type="email" placeholder="you@email.com"></div></div>
+        <div class="cp-field"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+        <div class="cp-field"><label>Message</label><textarea rows="4" placeholder="Tell me about your project..."></textarea></div>
+        <button class="cp-send" id="sendBtn2"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="foot-brand">Alex <span>Morgan</span></div>
+    <div class="foot-copy">© 2026 Alex Morgan · <span>Don't deploy on Fridays.</span></div>
+    <div class="foot-soc">
+      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://dev.to" target="_blank"><i class="fab fa-dev"></i></a>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<!-- MODALS -->
+<div class="modal-ov" id="deployModal2"><div class="modal-box"><div class="m-head"><span class="m-ttl"><i class="fas fa-rocket" style="color:var(--blue)"></i> Deploying...</span><button class="m-close" data-close="deployModal2">&times;</button></div><div class="m-body"><div class="logbox" id="dLogs2"></div></div><div class="m-foot"><button class="btn-sm" data-close="deployModal2" style="border-radius:8px">Acknowledge</button></div></div></div>
+<div class="modal-ov" id="sendModal2"><div class="modal-box"><div class="m-head"><span class="m-ttl"><i class="fas fa-check-circle" style="color:#22c55e"></i> Message Sent!</span><button class="m-close" data-close="sendModal2">&times;</button></div><div class="m-body"><div class="logbox"><div><span class="l-ok">[OK]</span> Delivered. Response &lt;24h.</div><div><span class="l-ok">[OK]</span> Talk soon!</div></div></div><div class="m-foot"><button class="btn-sm" data-close="sendModal2" style="border-radius:8px">Close</button></div></div></div>
+
+<script>
+// PROGRESS
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;document.getElementById('prog').style.transform=`scaleX(${window.scrollY/h})`});
+// MOBILE MENU
+document.getElementById('hamBtn').addEventListener('click',()=>document.getElementById('mobMenu').classList.toggle('open'));
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('click',()=>document.getElementById('mobMenu').classList.remove('open')));
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+// ACTIVE NAV
+const nls=document.querySelectorAll('.nav-links a');
+document.querySelectorAll('section[id]').forEach(s=>new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)nls.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))})},{threshold:.3}).observe(s));
+// FADE UP
+const fuO=new IntersectionObserver((entries,obs)=>{entries.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('vis'),i*60);obs.unobserve(en.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fu').forEach(el=>fuO.observe(el));
+// SKILL BARS
+document.querySelectorAll('.sg').forEach(g=>new IntersectionObserver((e,o)=>{e.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');o.unobserve(en.target)}})},{threshold:.3}).observe(g));
+// COUNTER (small hero stats)
+function animCount(el,target,dur=1500){let s;const r=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/dur,1);el.textContent=Math.floor(p*target);if(p<1)requestAnimationFrame(r);else el.textContent=target};requestAnimationFrame(r)}
+new IntersectionObserver((e,o)=>{e.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('[data-count]').forEach(el=>animCount(el,+el.dataset.count));o.unobserve(en.target)}})},{threshold:.5}).observe(document.querySelector('.hero-side-card'));
+// Stats band counter
+new IntersectionObserver((e,o)=>{e.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('[data-count2]').forEach(el=>animCount(el,+el.dataset.count2,2000));o.unobserve(en.target)}})},{threshold:.4}).observe(document.querySelector('.stats-band'));
+
+// ══════════════════════════════════════════
+// CI/CD PIPELINE — FULL ANIMATION FROM LOAD
+// ══════════════════════════════════════════
+const IDS2=['p0','p1','p2','p3','p4','p5','p6','p7'];
+const ACT2=[300,900,1700,2900,4400,5700,7000,8500];
+const DONE2=[800,1500,2600,4100,5400,6700,8200,9500];
+
+function resetPipe2(){
+  IDS2.forEach(id=>{const n=document.getElementById(id);n.className='sn pending';const b=n.querySelector('.sbadge');if(b)b.remove()});
+  const f=document.getElementById('pipeFill2');f.style.transition='none';f.style.width='0';
+  document.getElementById('p2BT').textContent='0:00';
+  document.getElementById('p2TC').textContent='0 / 847';
+  document.getElementById('p2DS').textContent='PENDING';
+  document.getElementById('p2DS').style.color='';
+  document.getElementById('pipeChipTxt').textContent='INITIALIZING';
+  document.getElementById('pipeMeta2').textContent='prod-deploy #1847 · branch: main · initializing...';
+}
+
+function runPipe2(){
+  resetPipe2();
+  setTimeout(()=>{
+    const f=document.getElementById('pipeFill2');
+    f.style.transition='width 9s cubic-bezier(.4,0,.15,1)';f.style.width='100%';
+    document.getElementById('pipeChipTxt').textContent='RUNNING';
+    document.getElementById('pipeMeta2').textContent='prod-deploy #1847 · branch: main · started '+new Date().toLocaleTimeString();
+  },200);
+
+  ACT2.forEach((ms,i)=>{
+    setTimeout(()=>{
+      const n=document.getElementById(IDS2[i]);n.className='sn active';
+      const b=document.createElement('span');b.className='sbadge spin';
+      b.innerHTML='<i class="fas fa-spinner fa-spin" style="font-size:.5rem"></i>';n.appendChild(b);
+      const sec=Math.round(ms/1000);const bt=document.getElementById('p2BT');
+      if(bt)bt.textContent=sec<60?'0:'+String(sec).padStart(2,'0'):Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
+      if(i===3)document.getElementById('p2TC').textContent='847 / 847';
+      if(i===6){document.getElementById('p2DS').textContent='DEPLOYING';document.getElementById('p2DS').style.color='#d97706';document.getElementById('pipeChipTxt').textContent='DEPLOYING';}
+    },ms);
+    setTimeout(()=>{
+      const n=document.getElementById(IDS2[i]);n.className='sn done';
+      const b=n.querySelector('.sbadge');if(b){b.className='sbadge ok';b.innerHTML='<i class="fas fa-check" style="font-size:.5rem"></i>';}
+      if(i===7){document.getElementById('p2DS').textContent='SUCCESS';document.getElementById('p2DS').style.color='#16a34a';document.getElementById('p2BT').textContent='4:22';document.getElementById('pipeChipTxt').textContent='SUCCESS ✓';}
+    },DONE2[i]);
+  });
+}
+
+runPipe2();
+setInterval(runPipe2,16000);
+
+// DEPLOY + SEND
+function makeLogs(repo){const ts=new Date().toLocaleTimeString();return[`<div><span class="l-ts">${ts}</span> <span class="l-info">INFO</span> Deploying: <strong>${repo}</strong></div>`,`<div><span class="l-ts">${ts}</span> <span class="l-ok">PASS</span> Tests: 847/847 · Scan: 0 vulns ✓</div>`,`<div><span class="l-ts">${ts}</span> <span class="l-ok">DONE</span> Zero-downtime rollout complete ✓</div>`].join('');}
+document.querySelectorAll('.deploy-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.getElementById('dLogs2').innerHTML=makeLogs(btn.dataset.repo);document.getElementById('deployModal2').classList.add('open')})});
+document.getElementById('sendBtn2').addEventListener('click',()=>document.getElementById('sendModal2').classList.add('open'));
+document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',()=>document.getElementById(el.dataset.close)?.classList.remove('open')));
+document.querySelectorAll('.modal-ov').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-ov.open').forEach(m=>m.classList.remove('open'))});
+</script>
+</body>
+</html>

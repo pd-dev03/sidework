@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Portfolio | Automate Everything</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #2d5af1;
+            --secondary: #00d4aa;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --terminal-bg: #1e1e1e;
+            --terminal-green: #4af626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0f1e;
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(45, 90, 241, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 90, 241, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Source Code Pro', monospace;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            color: var(--terminal-green);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+            background-color: rgba(45, 90, 241, 0.1);
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            padding: 5px 10px;
+            background-color: rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #e2e8f0, var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .pipeline-visualization {
+            margin: 60px auto;
+            max-width: 900px;
+            height: 120px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .pipeline-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .pipeline-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stage-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--dark);
+            border: 2px solid var(--gray);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            transition: all 0.5s;
+        }
+
+        .stage-label {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .pipeline-connector {
+            position: absolute;
+            top: 25px;
+            left: 75px;
+            width: calc(100% - 150px);
+            height: 2px;
+            background-color: var(--gray);
+            z-index: 1;
+        }
+
+        .pipeline-flow {
+            position: absolute;
+            top: 25px;
+            left: 75px;
+            width: 0;
+            height: 2px;
+            background-color: var(--success);
+            z-index: 1;
+            animation: flowAnimation 8s infinite linear;
+        }
+
+        @keyframes flowAnimation {
+            0% { width: 0; }
+            20% { width: 20%; }
+            40% { width: 40%; }
+            60% { width: 60%; }
+            80% { width: 80%; }
+            100% { width: calc(100% - 150px); }
+        }
+
+        .stage-check {
+            position: absolute;
+            top: 10px;
+            right: -5px;
+            color: var(--success);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid rgba(45, 90, 241, 0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 50px;
+            max-width: 700px;
+        }
+
+        /* What I Actually Do Section */
+        .devops-reality {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .reality-column {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .reality-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reality-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .reality-item:last-child {
+            border-bottom: none;
+        }
+
+        .reality-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #e2e8f0;
+        }
+
+        .reality-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .joke-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            font-family: 'Source Code Pro', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .joke-button:hover {
+            background-color: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* CI/CD Showcase */
+        .pipeline-showcase {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .pipeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .pipeline-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pipeline-stats {
+            display: flex;
+            gap: 20px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+        }
+
+        .pipeline-stage-showcase {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .pipeline-step {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border-right: 1px solid rgba(100, 116, 139, 0.2);
+            position: relative;
+        }
+
+        .pipeline-step:last-child {
+            border-right: none;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            background-color: rgba(45, 90, 241, 0.1);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .step-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #e2e8f0;
+        }
+
+        .step-duration {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .step-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .step-status.success {
+            background-color: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        .step-status.running {
+            background-color: var(--warning);
+            animation: pulse 1.5s infinite;
+        }
+
+        .step-status.pending {
+            background-color: var(--gray);
+        }
+
+        .yaml-snippet {
+            background-color: var(--terminal-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary);
+            overflow-x: auto;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .yaml-key {
+            color: #569cd6;
+        }
+
+        .yaml-value {
+            color: #ce9178;
+        }
+
+        .yaml-comment {
+            color: #6a9955;
+        }
+
+        /* IaC Section */
+        .iac-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .terraform-visualization {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .resource-graph {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .resource-node {
+            padding: 15px;
+            background-color: rgba(45, 90, 241, 0.1);
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+            font-family: 'Source Code Pro', monospace;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resource-node i {
+            color: var(--primary);
+        }
+
+        .cloud-providers {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .cloud-provider {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .cloud-provider:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .cloud-provider i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .aws { color: #ff9900; }
+        .azure { color: #0078d4; }
+        .gcp { color: #4285f4; }
+
+        .destroy-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            font-family: 'Source Code Pro', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .destroy-button:hover {
+            background-color: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Commands Section */
+        .commands-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .command-level {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .level-title {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .command-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .command-item {
+            padding: 12px 15px;
+            background-color: rgba(45, 90, 241, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+            font-family: 'Source Code Pro', monospace;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .command-item:hover {
+            background-color: rgba(45, 90, 241, 0.1);
+            transform: translateX(5px);
+        }
+
+        .command {
+            color: var(--terminal-green);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .command-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            display: none;
+        }
+
+        /* Monitoring Section */
+        .dashboard-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .dashboard-title {
+            font-size: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .time-range {
+            display: flex;
+            gap: 10px;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .time-option {
+            padding: 5px 15px;
+            background-color: rgba(45, 90, 241, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .time-option.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background-color: rgba(10, 15, 30, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .graph-container {
+            height: 250px;
+            background-color: rgba(10, 15, 30, 0.7);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .graph-line {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 0 20px;
+        }
+
+        .graph-bar {
+            width: 15px;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            border-radius: 4px 4px 0 0;
+            transition: height 1s ease;
+        }
+
+        .alert-container {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid var(--danger);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(239, 68, 68, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--danger);
+            font-size: 1.2rem;
+        }
+
+        .alert-content h4 {
+            color: #e2e8f0;
+            margin-bottom: 5px;
+        }
+
+        .alert-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(45, 90, 241, 0.1);
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+        }
+
+        .contact-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .contact-button {
+            padding: 15px 30px;
+            background-color: rgba(45, 90, 241, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-button:hover {
+            background-color: rgba(45, 90, 241, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .trigger-alert-button {
+            padding: 15px 40px;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Source Code Pro', monospace;
+            margin: 0 auto 50px;
+            display: inline-block;
+        }
+
+        .trigger-alert-button:hover {
+            background-color: rgba(239, 68, 68, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.2);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 15, 30, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--dark);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .log-output {
+            background-color: var(--terminal-bg);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .log-line {
+            margin-bottom: 5px;
+        }
+
+        .log-timestamp {
+            color: var(--gray);
+        }
+
+        .log-error {
+            color: var(--danger);
+        }
+
+        .log-warning {
+            color: var(--warning);
+        }
+
+        .log-info {
+            color: var(--secondary);
+        }
+
+        .modal-footer {
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            text-align: right;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .devops-reality, .iac-grid, .commands-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pipeline-stage-showcase {
+                flex-wrap: wrap;
+            }
+            
+            .pipeline-step {
+                flex: 0 0 calc(33.333% - 20px);
+                margin-bottom: 20px;
+                border-right: none;
+                border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .pipeline-visualization {
+                height: 200px;
+            }
+            
+            .pipeline-stages {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .pipeline-connector, .pipeline-flow {
+                display: none;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cloud-providers {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Terminal Typing Effect */
+        .terminal-typing {
+            font-family: 'Source Code Pro', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--terminal-green);
+            width: 0;
+            animation: typing 3.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--terminal-green) }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: #e2e8f0;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">Dev<span>Ops</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#reality">Reality</a></li>
+                    <li><a href="#cicd">CI/CD</a></li>
+                    <li><a href="#iac">IaC</a></li>
+                    <li><a href="#commands">Commands</a></li>
+                    <li><a href="#monitoring">Monitoring</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="status-badge">
+                <div class="status-indicator"></div>
+                <span>Production: 🟢 Healthy</span>
+                <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltiptext">for now...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1 class="hero-title terminal-typing">I automate deployments so developers can sleep.</h1>
+            <p class="hero-subtitle">DevOps Engineer | Cloud | CI/CD | Reliability</p>
+            
+            <div class="pipeline-visualization">
+                <div class="pipeline-connector"></div>
+                <div class="pipeline-flow"></div>
+                <div class="pipeline-stages">
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fab fa-git-alt"></i></div>
+                        <div class="stage-label">Git</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="stage-label">CI</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-hammer"></i></div>
+                        <div class="stage-label">Build</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-vial"></i></div>
+                        <div class="stage-label">Test</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fab fa-docker"></i></div>
+                        <div class="stage-label">Docker</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-cubes"></i></div>
+                        <div class="stage-label">K8s</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-cloud"></i></div>
+                        <div class="stage-label">Cloud</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="stage-label">Monitoring</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What I Actually Do Section -->
+    <section id="reality" class="container">
+        <h2 class="section-title">What I Actually Do</h2>
+        <p class="section-subtitle">The reality of DevOps: translating "just deploy it" into actual work</p>
+        
+        <div class="devops-reality">
+            <div class="reality-column">
+                <h3><i class="fas fa-code"></i> Developers Say</h3>
+                <div class="reality-item">
+                    <h4>"Just deploy it"</h4>
+                    <p>Simple request, right? What could possibly go wrong?</p>
+                </div>
+                <div class="reality-item">
+                    <h4>"It works on my machine"</h4>
+                    <p>The classic phrase that starts every incident.</p>
+                </div>
+                <div class="reality-item">
+                    <h4>"Can we deploy on Friday?"</h4>
+                    <p>Sure, if you want to ruin my weekend.</p>
+                </div>
+                <div class="reality-item">
+                    <h4>"The site is slow"</h4>
+                    <p>Could be code, could be infra, could be the database, could be...</p>
+                </div>
+            </div>
+            
+            <div class="reality-column">
+                <h3><i class="fas fa-cogs"></i> DevOps Translates To</h3>
+                <div class="reality-item">
+                    <h4>CI/CD Pipeline Configuration</h4>
+                    <p>Setting up automated build, test, and deployment workflows.</p>
+                </div>
+                <div class="reality-item">
+                    <h4>Infrastructure as Code</h4>
+                    <p>Defining servers, networks, and services in code for reproducibility.</p>
+                </div>
+                <div class="reality-item">
+                    <h4>Monitoring & Alerting</h4>
+                    <p>Implementing systems to detect issues before users do.</p>
+                </div>
+                <div class="reality-item">
+                    <h4>Security & Secrets Management</h4>
+                    <p>Ensuring credentials are secure and access is controlled.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="joke-button" id="joke-button">
+            <i class="fas fa-bug"></i> "It worked yesterday"
+        </div>
+    </section>
+
+    <!-- CI/CD Pipeline Showcase -->
+    <section id="cicd" class="container">
+        <h2 class="section-title">CI/CD Pipelines</h2>
+        <p class="section-subtitle">Automating the path from commit to production <span class="tooltip">(Not on Friday)<span class="tooltiptext">Never deploy on Friday!</span></span></p>
+        
+        <div class="pipeline-showcase">
+            <div class="pipeline-header">
+                <div class="pipeline-status">
+                    <div class="status-indicator"></div>
+                    <span>Pipeline: Running</span>
+                </div>
+                <div class="pipeline-stats">
+                    <span>Duration: 4m 22s</span>
+                    <span>Deploy Strategy: Blue-Green</span>
+                </div>
+            </div>
+            
+            <div class="pipeline-stage-showcase">
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fab fa-github"></i></div>
+                    <div class="step-label">Source</div>
+                    <div class="step-duration">0:12</div>
+                    <div class="step-status success"></div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-code"></i></div>
+                    <div class="step-label">Build</div>
+                    <div class="step-duration">1:45</div>
+                    <div class="step-status success"></div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-vial"></i></div>
+                    <div class="step-label">Test</div>
+                    <div class="step-duration">1:20</div>
+                    <div class="step-status success"></div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fab fa-docker"></i></div>
+                    <div class="step-label">Containerize</div>
+                    <div class="step-duration">0:45</div>
+                    <div class="step-status success"></div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="step-label">Deploy</div>
+                    <div class="step-duration">0:20</div>
+                    <div class="step-status running"></div>
+                </div>
+            </div>
+            
+            <div class="yaml-snippet">
+                <pre><code><span class="yaml-key">name</span>: <span class="yaml-value">CI/CD Pipeline</span>
+<span class="yaml-key">on</span>:
+  <span class="yaml-key">push</span>:
+    <span class="yaml-key">branches</span>: [ <span class="yaml-value">main</span> ]
+<span class="yaml-key">jobs</span>:
+  <span class="yaml-key">build</span>:
+    <span class="yaml-key">runs-on</span>: <span class="yaml-value">ubuntu-latest</span>
+    <span class="yaml-key">steps</span>:
+    - <span class="yaml-key">uses</span>: <span class="yaml-value">actions/checkout@v3</span>
+    - <span class="yaml-key">name</span>: <span class="yaml-value">Build Docker image</span>
+      <span class="yaml-key">run</span>: <span class="yaml-value">docker build -t app:${{ github.sha }} .</span>
+    - <span class="yaml-key">name</span>: <span class="yaml-value">Run tests</span>
+      <span class="yaml-key">run</span>: <span class="yaml-value">docker run app:${{ github.sha }} npm test</span>
+    - <span class="yaml-key">name</span>: <span class="yaml-value">Deploy to production</span>
+      <span class="yaml-key">if</span>: <span class="yaml-value">success()</span>
+      <span class="yaml-key">run</span>: <span class="yaml-value">kubectl set image deployment/app app=app:${{ github.sha }}</span>
+<span class="yaml-comment"># Never deploy on Friday!</span></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infrastructure as Code Section -->
+    <section id="iac" class="container">
+        <h2 class="section-title">Infrastructure as Code</h2>
+        <p class="section-subtitle">Defining cloud infrastructure with Terraform, because clicking in the console is for beginners</p>
+        
+        <div class="iac-grid">
+            <div class="terraform-visualization">
+                <h3>Terraform Resource Graph</h3>
+                <div class="resource-graph">
+                    <div class="resource-node">
+                        <i class="fas fa-server"></i>
+                        <span>aws_instance.web_server (x3)</span>
+                    </div>
+                    <div class="resource-node">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>aws_lb.application</span>
+                    </div>
+                    <div class="resource-node">
+                        <i class="fas fa-database"></i>
+                        <span>aws_rds.database</span>
+                    </div>
+                    <div class="resource-node">
+                        <i class="fas fa-hdd"></i>
+                        <span>aws_s3.bucket</span>
+                    </div>
+                    <div class="resource-node">
+                        <i class="fas fa-user-shield"></i>
+                        <span>aws_iam.role</span>
+                    </div>
+                </div>
+                
+                <div class="destroy-button" id="destroy-button">
+                    <i class="fas fa-trash"></i> terraform destroy
+                </div>
+            </div>
+            
+            <div>
+                <h3>Cloud Providers</h3>
+                <div class="cloud-providers">
+                    <div class="cloud-provider">
+                        <i class="fab fa-aws aws"></i>
+                        <h4>AWS</h4>
+                        <p>EC2, S3, RDS, IAM, Lambda</p>
+                    </div>
+                    <div class="cloud-provider">
+                        <i class="fab fa-microsoft azure"></i>
+                        <h4>Azure</h4>
+                        <p>VM, Blob Storage, SQL, AKS</p>
+                    </div>
+                    <div class="cloud-provider">
+                        <i class="fab fa-google gcp"></i>
+                        <h4>GCP</h4>
+                        <p>Compute Engine, Cloud Storage, GKE</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h3>Services Managed</h3>
+                    <ul style="list-style: none; margin-top: 15px;">
+                        <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Compute (EC2 / VM)</span>
+                        </li>
+                        <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Storage (S3 / Blob)</span>
+                        </li>
+                        <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Load Balancers</span>
+                        </li>
+                        <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>IAM & Security</span>
+                        </li>
+                        <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Databases (RDS / SQL)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section id="commands" class="container">
+        <h2 class="section-title">Commands Every DevOps Knows</h2>
+        <p class="section-subtitle">From basic navigation to debugging production issues</p>
+        
+        <div class="commands-container">
+            <div class="command-level">
+                <h3 class="level-title">Beginner</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <div class="command">ls -la</div>
+                        <div class="command-desc">List all files with details</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">cd /var/log</div>
+                        <div class="command-desc">Change to logs directory</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">chmod +x script.sh</div>
+                        <div class="command-desc">Make script executable</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">ps aux | grep nginx</div>
+                        <div class="command-desc">Find nginx processes</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">df -h</div>
+                        <div class="command-desc">Check disk space</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="command-level">
+                <h3 class="level-title">Intermediate</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <div class="command">grep -r "error" /logs</div>
+                        <div class="command-desc">Search for errors in logs</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">awk '{print $1}' file</div>
+                        <div class="command-desc">Extract first column</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">sed -i 's/old/new/g' file</div>
+                        <div class="command-desc">Replace text in file</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">curl -I https://api.example.com</div>
+                        <div class="command-desc">Check HTTP headers</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">netstat -tulpn</div>
+                        <div class="command-desc">Show listening ports</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="command-level">
+                <h3 class="level-title">Advanced</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <div class="command">strace -p 1234</div>
+                        <div class="command-desc">Trace system calls</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">tcpdump -i eth0 port 80</div>
+                        <div class="command-desc">Capture network traffic</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">journalctl -f -u nginx</div>
+                        <div class="command-desc">Follow nginx logs</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">kubectl get pods -A</div>
+                        <div class="command-desc">List all Kubernetes pods</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command">terraform plan</div>
+                        <div class="command-desc">Preview infrastructure changes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monitoring Section -->
+    <section id="monitoring" class="container">
+        <h2 class="section-title">Monitoring & Alerts</h2>
+        <p class="section-subtitle">Keeping an eye on the systems while you sleep (or try to)</p>
+        
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h3 class="dashboard-title">Production Dashboard</h3>
+                <div class="time-range">
+                    <div class="time-option active">1h</div>
+                    <div class="time-option">6h</div>
+                    <div class="time-option">24h</div>
+                    <div class="time-option">7d</div>
+                </div>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">98.7%</div>
+                    <div class="metric-label">Uptime</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">142ms</div>
+                    <div class="metric-label">Avg Response</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.2%</div>
+                    <div class="metric-label">Error Rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">2.4k</div>
+                    <div class="metric-label">Req/Min</div>
+                </div>
+            </div>
+            
+            <div class="graph-container">
+                <div class="graph-line">
+                    <div class="graph-bar" style="height: 70%;"></div>
+                    <div class="graph-bar" style="height: 85%;"></div>
+                    <div class="graph-bar" style="height: 60%;"></div>
+                    <div class="graph-bar" style="height: 95%;"></div>
+                    <div class="graph-bar" style="height: 45%;"></div>
+                    <div class="graph-bar" style="height: 75%;"></div>
+                    <div class="graph-bar" style="height: 80%;"></div>
+                    <div class="graph-bar" style="height: 65%;"></div>
+                </div>
+            </div>
+            
+            <div class="alert-container">
+                <div class="alert-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="alert-content">
+                    <h4>High CPU Utilization Detected</h4>
+                    <p>Alert fired at 3:07 AM - CPU usage above 90% for 5 minutes on web-server-02</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+        <h2 class="contact-title">Page Me</h2>
+        <p class="contact-subtitle">When the pager goes off, you know it's serious. Let's connect before that happens.</p>
+        
+        <div class="contact-buttons">
+            <div class="contact-button">
+                <i class="fas fa-envelope"></i>
+                Email
+            </div>
+            <div class="contact-button">
+                <i class="fab fa-github"></i>
+                GitHub
+            </div>
+            <div class="contact-button">
+                <i class="fab fa-linkedin"></i>
+                LinkedIn
+            </div>
+            <div class="contact-button">
+                <i class="fas fa-file-download"></i>
+                Resume
+            </div>
+        </div>
+        
+        <div class="trigger-alert-button" id="trigger-alert-button">
+            <i class="fas fa-bell"></i> Trigger Alert
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container">
+        <div class="copyright">
+            &copy; <span id="current-year"></span> DevOps Portfolio. All systems operational.
+            <br>
+            <small>Remember: If it's not monitored, it doesn't exist. No manual production changes. Deploys should be boring.</small>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="joke-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-bug"></i> "It worked yesterday"</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="log-output">
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:14:23]</span> <span class="log-info">INFO</span>: Starting deployment...</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:14:25]</span> <span class="log-info">INFO</span>: Building Docker image...</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:14:45]</span> <span class="log-error">ERROR</span>: Build failed: dependency conflict</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:14:46]</span> <span class="log-warning">WARNING</span>: Developer says: "It worked yesterday!"</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:15:10]</span> <span class="log-info">INFO</span>: Checking package-lock.json...</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:15:25]</span> <span class="log-error">ERROR</span>: Found: lodash@4.17.20 in lock, lodash@4.17.19 in code</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:15:40]</span> <span class="log-info">INFO</span>: Fixing version mismatch...</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:16:05]</span> <span class="log-info">INFO</span>: Build successful!</div>
+                    <div class="log-line"><span class="log-timestamp">[2024-03-15 09:16:10]</span> <span class="log-info">INFO</span>: Moral: Always check your lock files</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button">Acknowledged</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="destroy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> terraform destroy</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px;">Are you absolutely sure you want to run <strong>terraform destroy</strong>?</p>
+                <div class="log-output">
+                    <div class="log-line"><span class="log-timestamp">[WARNING]</span> This will destroy ALL infrastructure in the current workspace.</div>
+                    <div class="log-line"><span class="log-timestamp">[WARNING]</span> 5 resources will be destroyed:</div>
+                    <div class="log-line"><span class="log-timestamp">[WARNING]</span> - aws_instance.web_server (x3)</div>
+                    <div class="log-line"><span class="log-timestamp">[WARNING]</span> - aws_lb.application</div>
+                    <div class="log-line"><span class="log-timestamp">[WARNING]</span> - aws_rds.database</div>
+                    <div class="log-line" style="margin-top: 15px;"><span class="log-timestamp">[QUESTION]</span> Are you absolutely sure you hate your job?</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button" style="background-color: var(--danger);">Yes, Destroy Everything</button>
+                <button class="modal-button" style="background-color: var(--gray); margin-left: 10px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Set current year in footer
+            $('#current-year').text(new Date().getFullYear());
+            
+            // Fade in elements on scroll
+            function checkFadeIn() {
+                $('.fade-in').each(function() {
+                    var elementTop = $(this).offset().top;
+                    var elementBottom = elementTop + $(this).outerHeight();
+                    var viewportTop = $(window).scrollTop();
+                    var viewportBottom = viewportTop + $(window).height();
+                    
+                    if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }
+            
+            // Initialize fade-in elements
+            $('section h2, section p, .devops-reality, .pipeline-showcase, .iac-grid, .commands-container, .dashboard-container').addClass('fade-in');
+            
+            // Check on load and scroll
+            checkFadeIn();
+            $(window).scroll(checkFadeIn);
+            
+            // Pipeline animation
+            function animatePipeline() {
+                $('.stage-check').each(function(index) {
+                    var $check = $(this);
+                    setTimeout(function() {
+                        $check.css('opacity', 1);
+                    }, index * 1000);
+                });
+            }
+            
+            // Start pipeline animation
+            setTimeout(animatePipeline, 1000);
+            
+            // Animate monitoring graph bars
+            function animateGraphBars() {
+                $('.graph-bar').each(function(index) {
+                    var $bar = $(this);
+                    var height = $bar.css('height');
+                    $bar.css('height', '0');
+                    
+                    setTimeout(function() {
+                        $bar.animate({
+                            height: height
+                        }, 1000 + (index * 100));
+                    }, 500);
+                });
+            }
+            
+            // Start graph animation when monitoring section is in view
+            var animationStarted = false;
+            $(window).scroll(function() {
+                var monitoringSection = $('#monitoring');
+                var sectionTop = monitoringSection.offset().top;
+                var sectionBottom = sectionTop + monitoringSection.outerHeight();
+                var viewportTop = $(window).scrollTop();
+                var viewportBottom = viewportTop + $(window).height();
+                
+                if (sectionBottom > viewportTop && sectionTop < viewportBottom && !animationStarted) {
+                    animateGraphBars();
+                    animationStarted = true;
+                }
+            });
+            
+            // Show command description on hover
+            $('.command-item').hover(
+                function() {
+                    $(this).find('.command-desc').slideDown(200);
+                },
+                function() {
+                    $(this).find('.command-desc').slideUp(200);
+                }
+            );
+            
+            // Modal functionality
+            function openModal(modalId) {
+                $('body').css('overflow', 'hidden');
+                $(modalId).fadeIn(300);
+            }
+            
+            function closeModal() {
+                $('body').css('overflow', 'auto');
+                $('.modal').fadeOut(300);
+            }
+            
+            // Open joke modal
+            $('#joke-button').click(function() {
+                openModal('#joke-modal');
+            });
+            
+            // Open destroy modal
+            $('#destroy-button').click(function() {
+                openModal('#destroy-modal');
+            });
+            
+            // Open alert modal
+            $('#trigger-alert-button').click(function() {
+                // Create a custom alert modal
+                var alertModal = `
+                <div class="modal" id="alert-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title"><i class="fas fa-bell" style="color: var(--danger);"></i> Alert Triggered!</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="log-output">
+                                <div class="log-line"><span class="log-timestamp">[ALERT]</span> <span class="log-error">PagerDuty alert triggered</span></div>
+                                <div class="log-line"><span class="log-timestamp">[TIME]</span> ${new Date().toLocaleTimeString()}</div>
+                                <div class="log-line"><span class="log-timestamp">[SEVERITY]</span> <span class="log-error">HIGH - Production issue detected</span></div>
+                                <div class="log-line"><span class="log-timestamp">[MESSAGE]</span> Someone wants to connect with you!</div>
+                                <div class="log-line"><span class="log-timestamp">[ACTION]</span> <span class="log-info">Please check your email for contact information</span></div>
+                                <div class="log-line" style="margin-top: 15px;"><span class="log-timestamp">[NOTE]</span> Just kidding! But seriously, let's connect.</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-button">Acknowledge Alert</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+                
+                $('body').append(alertModal);
+                openModal('#alert-modal');
+                
+                // Add close functionality to new modal
+                $('#alert-modal .modal-close, #alert-modal .modal-button').click(function() {
+                    $('#alert-modal').remove();
+                    closeModal();
+                });
+            });
+            
+            // Close modals
+            $('.modal-close, .modal-button').click(function() {
+                closeModal();
+            });
+            
+            // Click outside modal to close
+            $(document).click(function(event) {
+                if ($(event.target).hasClass('modal')) {
+                    closeModal();
+                }
+            });
+            
+            // Smooth scrolling for navigation
+            $('nav a').click(function(e) {
+                e.preventDefault();
+                var target = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top - 80
+                }, 800);
+            });
+            
+            // Time range selector in monitoring
+            $('.time-option').click(function() {
+                $('.time-option').removeClass('active');
+                $(this).addClass('active');
+            });
+            
+            // Tooltip for "Not on Friday"
+            $('.tooltip').hover(function() {
+                // Tooltip functionality is handled by CSS
+            });
+            
+            // Status badge hover effect
+            $('.status-badge').hover(
+                function() {
+                    $(this).css('background-color', 'rgba(245, 158, 11, 0.1)');
+                    $(this).css('border-color', 'rgba(245, 158, 11, 0.3)');
+                    $('.status-indicator').css('background-color', 'var(--warning)');
+                },
+                function() {
+                    $(this).css('background-color', 'rgba(16, 185, 129, 0.1)');
+                    $(this).css('border-color', 'rgba(16, 185, 129, 0.3)');
+                    $('.status-indicator').css('background-color', 'var(--success)');
+                }
+            );
+            
+            // Simulate a pipeline stage failure (for realism)
+            setTimeout(function() {
+                var randomStage = Math.floor(Math.random() * 8);
+                $('.pipeline-stage').eq(randomStage).find('.stage-check').html('<i class="fas fa-times-circle" style="color: var(--danger);"></i>');
+                
+                // Fix it after a moment
+                setTimeout(function() {
+                    $('.pipeline-stage').eq(randomStage).find('.stage-check').html('<i class="fas fa-check-circle" style="color: var(--success);"></i>');
+                }, 3000);
+            }, 15000);
+            
+            // Update metrics randomly (simulate real monitoring)
+            setInterval(function() {
+                var uptime = (98.5 + Math.random() * 0.5).toFixed(1);
+                var response = Math.floor(130 + Math.random() * 30);
+                var errorRate = (0.1 + Math.random() * 0.3).toFixed(1);
+                var requests = Math.floor(2000 + Math.random() * 1000);
+                
+                $('.metric-card:nth-child(1) .metric-value').text(uptime + '%');
+                $('.metric-card:nth-child(2) .metric-value').text(response + 'ms');
+                $('.metric-card:nth-child(3) .metric-value').text(errorRate + '%');
+                $('.metric-card:nth-child(4) .metric-value').text(requests.toLocaleString());
+                
+                // Update graph bars
+                $('.graph-bar').each(function() {
+                    var newHeight = Math.floor(30 + Math.random() * 70);
+                    $(this).css('height', newHeight + '%');
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

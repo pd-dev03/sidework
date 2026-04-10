@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Boost Effect Recreation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 1. THE DOTTED GRID BACKGROUND */
+        .bg-dots {
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* 2. THE ANIMATED FLOWING LINE EFFECT */
+        .flow-line {
+            stroke-dasharray: 20, 180; /* Length of the "pulse" and the gap */
+            stroke-dashoffset: 200;
+            animation: flow 4s linear infinite;
+        }
+
+        @keyframes flow {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Smoothing for the Plus signs */
+        .junction-plus {
+            font-family: sans-serif;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body class="bg-white antialiased">
+
+    <div class="relative min-h-screen bg-dots border-b border-gray-200 overflow-hidden">
+        
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 100 L200 100 L300 200 L600 200" stroke="#f3f4f6" stroke-width="1" fill="none" />
+            <path d="M1000 50 L850 50 L750 150 L600 150" stroke="#f3f4f6" stroke-width="1" fill="none" />
+            
+            <path d="M0 100 L200 100 L300 200 L600 200" stroke="#94a3b8" stroke-width="1.5" fill="none" class="flow-line" />
+            <path d="M1000 50 L850 50 L750 150 L600 150" stroke="#94a3b8" stroke-width="1.5" fill="none" class="flow-line" style="animation-delay: 2s;" />
+        </svg>
+
+        <div class="relative z-10 flex flex-col items-center justify-center pt-32 px-6 text-center">
+            <h1 class="text-5xl font-bold text-gray-900 tracking-tight max-w-2xl">
+                Boost your development with <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600">AI Assistance</span>
+            </h1>
+            <p class="mt-6 text-gray-500 max-w-xl text-lg">
+                Recreating the high-end technical design of Laravel's modern landing pages.
+            </p>
+        </div>
+
+        <div class="max-w-5xl mx-auto mt-24 grid grid-cols-1 md:grid-cols-2 border-l border-t border-gray-200 relative">
+            
+            <div class="absolute -top-3 -left-2.5 text-gray-400 text-xl junction-plus">+</div>
+            <div class="absolute -top-3 left-1/2 -ml-2 text-gray-400 text-xl junction-plus">+</div>
+            <div class="absolute -top-3 -right-2.5 text-gray-400 text-xl junction-plus">+</div>
+
+            <div class="p-8 border-r border-b border-gray-200 relative group bg-white/50 backdrop-blur-sm">
+                <div class="absolute top-0 right-0 -mr-1 -mt-1 w-2 h-2 rounded-full border border-gray-300 bg-white shadow-sm"></div>
+                
+                <h3 class="font-semibold text-gray-900">Application Info</h3>
+                <p class="mt-2 text-sm text-gray-500">Reads PHP & Laravel versions and database engine data automatically.</p>
+            </div>
+
+            <div class="p-8 border-r border-b border-gray-200 relative bg-white/50 backdrop-blur-sm">
+                <h3 class="font-semibold text-gray-900">Database Schema</h3>
+                <p class="mt-2 text-sm text-gray-500">Inspects and reads your complete database schema with intelligent analysis.</p>
+            </div>
+
+            <div class="absolute -bottom-4 -left-2.5 text-gray-400 text-xl junction-plus">+</div>
+            <div class="absolute -bottom-4 left-1/2 -ml-2 text-gray-400 text-xl junction-plus">+</div>
+            <div class="absolute -bottom-4 -right-2.5 text-gray-400 text-xl junction-plus">+</div>
+        </div>
+    </div>
+
+</body>
+</html>

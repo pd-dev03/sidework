@@ -1,0 +1,26 @@
+How to Customize Colors:
+Want different colors? Just change these values at the top of the CSS:
+--devops-primary: #YOUR_COLOR;
+--devops-secondary: #YOUR_COLOR;
+--devops-accent: #YOUR_COLOR;
+--devops-success: #YOUR_COLOR;
+--devops-warning: #YOUR_COLOR;
+--devops-danger: #YOUR_COLOR;
+--devops-terminal: #YOUR_COLOR;
+
+Example color schemes you could use:
+
+1. Purple/Blue Theme:
+--devops-primary: #8a2be2;
+--devops-secondary: #4169e1;
+--devops-accent: #ff1493;
+
+2. Green/Teal Theme:
+--devops-primary: #00fa9a;
+--devops-secondary: #20b2aa;
+--devops-accent: #ff6b6b;
+
+3. Orange/Red Theme:
+--devops-primary: #ff7f50;
+--devops-secondary: #dc143c;
+--devops-accent: #00ced1;

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Midnight Sage</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Outfit:wght@200;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css  ">
+</head>
+<body>
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="logo">LT<span>/</span>dev</div>
+  <ul>
+    <li><a href="#about">01</a><span>About</span></li>
+    <li><a href="#education">02</a><span>Education</span></li>
+    <li><a href="#experience">03</a><span>Exp</span></li>
+    <li><a href="#projects">04</a><span>Projects</span></li>
+    <li><a href="#skills">05</a><span>Skills</span></li>
+    <li><a href="#contact">06</a><span>Contact</span></li>
+  </ul>
+  <a href="#contact" class="hire-btn">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-top">
+    <div class="hero-badge">Backend Engineer · Systems Architect</div>
+  </div>
+  <div class="hero-center">
+    <div class="hero-pre">Hello World, I'm</div>
+    <h1 id="glitchName">LUCAS<br>TAKAHASHI</h1>
+    <div class="hero-underline"></div>
+  </div>
+  <div class="hero-bottom">
+    <p>I build the invisible infrastructure that makes things possible. Servers, APIs, clouds — this is my canvas.</p>
+    <div class="hero-scroll-cue">SCROLL ↓</div>
+  </div>
+  <div class="hero-grid-bg"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-split">
+    <div class="about-left">
+      <div class="section-tag">// 01_about</div>
+      <h2>Systems<br>Thinker.</h2>
+      <div class="about-links">
+        <a href="#">GitHub ↗</a><a href="#">LinkedIn ↗</a><a href="#">Resume ↗</a>
+      </div>
+    </div>
+    <div class="about-right">
+      <p class="big-quote" id="scrollHighlight">"I don't just write code — I design systems that breathe. Every service I build is engineered for resilience, every database schema crafted for clarity. After seven years in backend development across startups and Fortune 500 companies, I've learned that great software is less about clever tricks and more about disciplined thinking."</p>
+      <div class="about-facts">
+        <div class="fact"><span>7+</span>Years Backend</div>
+        <div class="fact"><span>200M+</span>Records Managed</div>
+        <div class="fact"><span>99.99%</span>Uptime Target</div>
+        <div class="fact"><span>Tokyo</span>Based</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="section-tag">// 02_education</div>
+  <div class="edu-terminal">
+    <div class="terminal-window">
+      <div class="terminal-bar"><span class="tb-dot red"></span><span class="tb-dot yellow"></span><span class="tb-dot green"></span><span class="tb-title">education.log</span></div>
+      <div class="terminal-body">
+        <div class="term-line"><span class="prompt">$</span><span class="cmd"> cat degrees.txt</span></div>
+        <div class="term-output">
+          <div class="term-entry">
+            <span class="te-year">[2018]</span>
+            <span class="te-degree">MSc. Information Systems</span>
+            <span class="te-school">University of Tokyo</span>
+          </div>
+          <div class="term-entry">
+            <span class="te-year">[2016]</span>
+            <span class="te-degree">BSc. Computer Science</span>
+            <span class="te-school">Osaka University</span>
+          </div>
+          <div class="term-entry">
+            <span class="te-year">[2014]</span>
+            <span class="te-degree">AWS Solutions Architect</span>
+            <span class="te-school">Amazon Web Services</span>
+          </div>
+        </div>
+        <div class="term-line cursor-line"><span class="prompt">$</span><span class="term-cursor">▊</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-tag">// 03_experience</div>
+  <div class="exp-list">
+    <div class="exp-row">
+      <div class="exp-meta">
+        <div class="exp-yr">2021→</div>
+        <div class="exp-co">MERCARI</div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-desc">
+        <h3>Principal Backend Engineer</h3>
+        <p>Architected the payment settlement system processing ¥500B+ annually. Led migration from monolith to microservices.</p>
+        <div class="tech-stack">Go · Kafka · PostgreSQL · GCP · Kubernetes</div>
+      </div>
+    </div>
+    <div class="exp-row">
+      <div class="exp-meta">
+        <div class="exp-yr">2019→21</div>
+        <div class="exp-co">LINE</div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-desc">
+        <h3>Senior Backend Engineer</h3>
+        <p>Built message routing infrastructure for 180M+ users. Reduced latency by 65% through custom connection pooling.</p>
+        <div class="tech-stack">Java · Redis · MySQL · AWS · gRPC</div>
+      </div>
+    </div>
+    <div class="exp-row">
+      <div class="exp-meta">
+        <div class="exp-yr">2017→19</div>
+        <div class="exp-co">CYBERAGENT</div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-desc">
+        <h3>Software Engineer</h3>
+        <p>Built ad delivery systems handling 100K+ req/sec. Developed internal observability platform still in use today.</p>
+        <div class="tech-stack">Scala · Spark · Cassandra · Docker</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS - Horizontal Cinematic Scroll -->
+<section class="projects" id="projects">
+  <div class="section-tag">// 04_projects</div>
+  <div class="proj-sticky-wrap">
+    <div class="proj-sticky">
+      <div class="proj-scroll-hint">← drag to explore</div>
+      <div class="proj-horizontal-track" id="projTrack">
+        <div class="proj-h-item" style="--c:#2C5F3E">
+          <div class="ph-num">01</div>
+          <h3>GoShield</h3>
+          <p>Distributed rate-limiter library for Go. 3,200 GitHub stars. Used by 400+ production systems worldwide.</p>
+          <div class="ph-tag">Open Source · Go</div>
+          <a href="#">View on GitHub →</a>
+        </div>
+        <div class="proj-h-item" style="--c:#1A3D2C">
+          <div class="ph-num">02</div>
+          <h3>OmniQueue</h3>
+          <p>Ultra-reliable message queue with at-least-once delivery guarantees. Processes 50M+ messages daily for 3 enterprise clients.</p>
+          <div class="ph-tag">Enterprise · Go/Kafka</div>
+          <a href="#">Case Study →</a>
+        </div>
+        <div class="proj-h-item" style="--c:#0D2E1E">
+          <div class="ph-num">03</div>
+          <h3>DataHarbor</h3>
+          <p>Self-hosted data lake solution for companies too small for Snowflake. MIT licensed. 900+ deployments.</p>
+          <div class="ph-tag">Open Source · Python/SQL</div>
+          <a href="#">Documentation →</a>
+        </div>
+        <div class="proj-h-item" style="--c:#2C4A3E">
+          <div class="ph-num">04</div>
+          <h3>PerfScope</h3>
+          <p>eBPF-based performance profiler. Identifies bottlenecks in production without any instrumentation overhead.</p>
+          <div class="ph-tag">DevTools · Rust/eBPF</div>
+          <a href="#">Try Demo →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-tag">// 05_skills</div>
+  <div class="skills-terminal">
+    <div class="skills-col">
+      <div class="skills-group">
+        <div class="sg-title">Languages</div>
+        <div class="skill-meter" data-level="95"><div class="sm-label">Go</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Expert</div></div>
+        <div class="skill-meter" data-level="88"><div class="sm-label">Java</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Expert</div></div>
+        <div class="skill-meter" data-level="80"><div class="sm-label">Python</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Advanced</div></div>
+        <div class="skill-meter" data-level="65"><div class="sm-label">Rust</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Intermediate</div></div>
+        <div class="skill-meter" data-level="30"><div class="sm-label">C++</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Beginner</div></div>
+      </div>
+    </div>
+    <div class="skills-col">
+      <div class="skills-group">
+        <div class="sg-title">Infrastructure</div>
+        <div class="skill-meter" data-level="92"><div class="sm-label">Kubernetes</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Expert</div></div>
+        <div class="skill-meter" data-level="88"><div class="sm-label">AWS / GCP</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Expert</div></div>
+        <div class="skill-meter" data-level="78"><div class="sm-label">PostgreSQL</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Advanced</div></div>
+        <div class="skill-meter" data-level="70"><div class="sm-label">Kafka</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Advanced</div></div>
+        <div class="skill-meter" data-level="45"><div class="sm-label">eBPF</div><div class="sm-track"><div class="sm-fill"></div></div><div class="sm-badge">Intermediate</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS & LANGUAGES -->
+<section class="interests" id="interests">
+  <div class="section-tag">// 06_interests</div>
+  <div class="int-lang-grid">
+    <div>
+      <h3>Interests</h3>
+      <div class="int-list">
+        <span>Distributed Systems</span><span>Low-Level Programming</span>
+        <span>Shogi</span><span>Ramen Culture</span><span>Trail Running</span>
+        <span>Mechanical Watches</span><span>Jazz Drums</span>
+      </div>
+    </div>
+    <div>
+      <h3>Languages</h3>
+      <div class="lang-term">
+        <div class="lt-row"><span class="lt-name">Japanese</span><div class="lt-bar" style="--w:100%"></div><span class="lt-level">Native</span></div>
+        <div class="lt-row"><span class="lt-name">English</span><div class="lt-bar" style="--w:90%"></div><span class="lt-level">Fluent</span></div>
+        <div class="lt-row"><span class="lt-name">Mandarin</span><div class="lt-bar" style="--w:55%"></div><span class="lt-level">Intermediate</span></div>
+        <div class="lt-row"><span class="lt-name">Korean</span><div class="lt-bar" style="--w:25%"></div><span class="lt-level">Basic</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-tag">// 07_contact</div>
+  <div class="contact-split">
+    <div class="contact-left">
+      <h2>Let's<br>Build.</h2>
+      <p>lucas@takahashi.dev</p>
+      <p>+81 3 1234 5678</p>
+      <div class="c-socials"><a href="#">GitHub</a><a href="#">Twitter</a><a href="#">LinkedIn</a></div>
+    </div>
+    <form id="contactForm4" class="contact-right">
+      <div class="cfield"><label>name_</label><input type="text" placeholder="your_name"></div>
+      <div class="cfield"><label>email_</label><input type="email" placeholder="your@email.com"></div>
+      <div class="cfield"><label>message_</label><textarea rows="6" placeholder="// write your message here..."></textarea></div>
+      <button type="submit" class="send-btn">$ submit.send() →</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer"><span>© 2025 Lucas Takahashi</span><span>// ship it</span></footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Dusk Aurora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-name">Sam Yuen</div>
+  <div class="nav-center">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-btn">Let's Talk</a>
+</nav>
+
+<!-- HERO — Aurora gradient shifting background -->
+<section class="hero" id="home">
+  <div class="aurora-bg">
+    <div class="aurora-orb orb1"></div>
+    <div class="aurora-orb orb2"></div>
+    <div class="aurora-orb orb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-ring"></span>
+      <span>Available for Projects</span>
+    </div>
+    <h1 class="hero-heading">
+      <span class="h-line">Creative</span>
+      <span class="h-line italic">Developer</span>
+      <span class="h-line">&amp; Designer</span>
+    </h1>
+    <div class="hero-img-float">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80" alt="Profile">
+      <div class="float-label">Sam Yuen</div>
+      <div class="float-sub">UI Eng · SF Bay Area</div>
+    </div>
+    <p class="hero-desc">Bridging the gap between design systems and delightful user experiences. 6 years building at the intersection of craft and engineering.</p>
+    <div class="hero-cta-row">
+      <a href="#projects" class="cta-primary">See My Work</a>
+      <a href="#contact" class="cta-ghost">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="section-eyebrow">About</div>
+  <div class="about-layout">
+    <div class="about-para-wrap">
+      <p id="auroraPara" class="aurora-para">
+        I'm Sam — a UI engineer who thinks in systems and ships in details. My work lives at the frontier of interaction design and frontend engineering, where milliseconds matter and pixel perfection is non-negotiable. I've led design systems at scale, mentored junior engineers, and contributed to open-source tools used by tens of thousands of developers. When I'm not building, I'm studying — always reading, always curious, always growing. I believe the best products are built by people who genuinely love using them.
+      </p>
+    </div>
+    <div class="about-side">
+      <div class="about-orbit">
+        <div class="orbit-center">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Sam">
+        </div>
+        <div class="orbit-ring r1">
+          <div class="orbit-tag" style="--angle:0deg">React</div>
+          <div class="orbit-tag" style="--angle:90deg">CSS</div>
+          <div class="orbit-tag" style="--angle:180deg">Node</div>
+          <div class="orbit-tag" style="--angle:270deg">Figma</div>
+        </div>
+      </div>
+      <div class="about-quick-stats">
+        <div class="qs"><span class="qs-n">6</span><span class="qs-l">Years</span></div>
+        <div class="qs"><span class="qs-n">38</span><span class="qs-l">Projects</span></div>
+        <div class="qs"><span class="qs-n">4</span><span class="qs-l">Countries</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & EXPERIENCE — SVG path ping-pong -->
+<section class="section timeline-section dark-section" id="education">
+  <div class="section-eyebrow light">Education & Experience</div>
+  <div class="timeline-layout">
+    <div class="tl-col tl-left">
+      <div class="tl-label">Education</div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2017</div>
+        <h3>B.Sc. Computer Science</h3>
+        <p>UC Berkeley</p>
+        <small>Summa Cum Laude · HCI specialization</small>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2019</div>
+        <h3>M.Sc. Design Engineering</h3>
+        <p>Royal College of Art</p>
+        <small>London · Full scholarship recipient</small>
+      </div>
+    </div>
+    <div class="tl-center">
+      <svg id="timelineSvg" width="60" height="100%" viewBox="0 0 60 600" preserveAspectRatio="none">
+        <path id="timelinePath" d="M30 0 C 10 150, 50 300, 30 450 S 10 550, 30 600" stroke="rgba(232,168,124,0.3)" stroke-width="1.5" fill="none" stroke-dasharray="8 4"/>
+        <path id="timelinePathAnimated" d="M30 0 C 10 150, 50 300, 30 450 S 10 550, 30 600" stroke="#E8A87C" stroke-width="2" fill="none" stroke-dasharray="600" stroke-dashoffset="600"/>
+      </svg>
+    </div>
+    <div class="tl-col tl-right">
+      <div class="tl-label">Experience</div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2019–21</div>
+        <h3>UI Engineer</h3>
+        <p>Airbnb</p>
+        <small>Design system · Accessibility · React Native</small>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2021–23</div>
+        <h3>Senior Frontend Engineer</h3>
+        <p>Shopify</p>
+        <small>Polaris design system lead</small>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023–now</div>
+        <h3>Principal Engineer</h3>
+        <p>Loom (Atlassian)</p>
+        <small>Video experience platform · 14M users</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS — Iris-open on hover -->
+<section class="section projects-section" id="projects">
+  <div class="section-eyebrow">Selected Projects</div>
+  <div class="iris-grid">
+    <div class="iris-item" data-color="#E8A87C">
+      <div class="iris-preview" style="background:linear-gradient(135deg,#E8A87C22,#1A0E2E)">
+        <div class="iris-reveal" style="background:linear-gradient(135deg,#E8A87C,#C45F3A)"></div>
+      </div>
+      <div class="iris-content">
+        <div class="iris-num">01</div>
+        <h3>Aurora DS</h3>
+        <p>Open-source design system with 200+ components, zero-runtime CSS approach</p>
+        <div class="iris-tags"><span>React</span><span>TypeScript</span><span>Storybook</span></div>
+      </div>
+    </div>
+    <div class="iris-item" data-color="#9B89AC">
+      <div class="iris-preview" style="background:linear-gradient(135deg,#9B89AC22,#1A0E2E)">
+        <div class="iris-reveal" style="background:linear-gradient(135deg,#9B89AC,#5B4A6C)"></div>
+      </div>
+      <div class="iris-content">
+        <div class="iris-num">02</div>
+        <h3>Halo Analytics</h3>
+        <p>Real-time analytics dashboard with WebGL data visualization</p>
+        <div class="iris-tags"><span>D3.js</span><span>WebGL</span><span>Python</span></div>
+      </div>
+    </div>
+    <div class="iris-item" data-color="#7B9E8F">
+      <div class="iris-preview" style="background:linear-gradient(135deg,#7B9E8F22,#1A0E2E)">
+        <div class="iris-reveal" style="background:linear-gradient(135deg,#7B9E8F,#3A5E50)"></div>
+      </div>
+      <div class="iris-content">
+        <div class="iris-num">03</div>
+        <h3>Memo Spatial</h3>
+        <p>Spatial note-taking app with canvas-based infinite workspace</p>
+        <div class="iris-tags"><span>Canvas API</span><span>CRDT</span><span>Electron</span></div>
+      </div>
+    </div>
+    <div class="iris-item" data-color="#D4A76A">
+      <div class="iris-preview" style="background:linear-gradient(135deg,#D4A76A22,#1A0E2E)">
+        <div class="iris-reveal" style="background:linear-gradient(135deg,#D4A76A,#9A7040)"></div>
+      </div>
+      <div class="iris-content">
+        <div class="iris-num">04</div>
+        <h3>VoiceFlow AI</h3>
+        <p>AI voice interface builder with visual flow editor</p>
+        <div class="iris-tags"><span>Next.js</span><span>OpenAI</span><span>WebRTC</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS — Blob morphing -->
+<section class="section skills-section dark-section" id="skills">
+  <div class="section-eyebrow light">Skills</div>
+  <div class="skills-blob-layout">
+    <div class="blob-skill-list">
+      <div class="blob-skill" data-level="95" data-name="React / Next.js">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">React / Next.js</span><span class="blob-lvl">Expert</span></div>
+      </div>
+      <div class="blob-skill" data-level="88" data-name="CSS / Animation">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">CSS / Animation</span><span class="blob-lvl">Expert</span></div>
+      </div>
+      <div class="blob-skill" data-level="82" data-name="TypeScript">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">TypeScript</span><span class="blob-lvl">Advanced</span></div>
+      </div>
+      <div class="blob-skill" data-level="75" data-name="Node.js / APIs">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">Node.js / APIs</span><span class="blob-lvl">Advanced</span></div>
+      </div>
+      <div class="blob-skill" data-level="60" data-name="Python / ML">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">Python / ML</span><span class="blob-lvl">Intermediate</span></div>
+      </div>
+      <div class="blob-skill" data-level="40" data-name="DevOps / Docker">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">DevOps / Docker</span><span class="blob-lvl">Intermediate</span></div>
+      </div>
+      <div class="blob-skill" data-level="25" data-name="iOS / Swift">
+        <div class="blob-wrap"><div class="blob-shape"></div></div>
+        <div class="blob-info"><span class="blob-name">iOS / Swift</span><span class="blob-lvl">Beginner</span></div>
+      </div>
+    </div>
+    <div class="languages-block">
+      <h3>Human Languages</h3>
+      <div class="lang-bars">
+        <div class="lang-b"><span>English</span><div class="lb-track"><div class="lb-fill" style="width:100%"></div></div><span class="lb-label">Native</span></div>
+        <div class="lang-b"><span>Mandarin</span><div class="lb-track"><div class="lb-fill" style="width:80%"></div></div><span class="lb-label">Fluent</span></div>
+        <div class="lang-b"><span>Spanish</span><div class="lb-track"><div class="lb-fill" style="width:55%"></div></div><span class="lb-label">Intermediate</span></div>
+        <div class="lang-b"><span>Japanese</span><div class="lb-track"><div class="lb-fill" style="width:20%"></div></div><span class="lb-label">Beginner</span></div>
+      </div>
+      <div class="interests-list-aurora">
+        <h3>Interests</h3>
+        <div class="interest-tags">
+          <span>Generative Art</span><span>Rock Climbing</span><span>Coffee Roasting</span>
+          <span>Birdwatching</span><span>Mechanical Keyboards</span><span>Ceramics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="section-eyebrow">Contact</div>
+  <div class="contact-aurora">
+    <div class="contact-text-col">
+      <h2 class="contact-h">Start a<br><em>Conversation</em></h2>
+      <p class="contact-p">I'm selective about projects but open to great conversations. If you're building something meaningful, let's explore what's possible together.</p>
+      <div class="contact-links">
+        <a href="mailto:sam@example.com">✉ sam@example.com</a>
+        <a href="#">⟶ LinkedIn</a>
+        <a href="#">⟶ GitHub</a>
+        <a href="#">⟶ Dribbble</a>
+      </div>
+    </div>
+    <form class="aurora-form" id="contactForm">
+      <div class="af-field"><label>Name</label><input type="text" placeholder="Your name"></div>
+      <div class="af-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      <div class="af-field"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+      <div class="af-field"><label>Message</label><textarea rows="5" placeholder="Tell me more..."></textarea></div>
+      <button type="submit" class="aurora-btn">Send Message <span class="aurora-btn-glow"></span></button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>Sam Yuen © 2024</span>
+  <span>Dusk Aurora Template</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

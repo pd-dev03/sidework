@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENGINEERING PORTFOLIO - TECHNICAL DRAWING</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ====================
+           REAL BLUEPRINT STYLING
+           ==================== */
+        :root {
+            --blueprint-bg: #001f3f; /* True blueprint dark blue */
+            --blueprint-paper: #0a2e5a; /* Paper color */
+            --blueprint-line: #a3d5ff; /* Light cyan blueprint lines */
+            --blueprint-dim: #7fbfff; /* Dimension lines */
+            --blueprint-text: #c7e5ff; /* Text color */
+            --drafting-red: #ff4444; /* Drafting pencil/red line */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--blueprint-bg);
+            color: var(--blueprint-text);
+            line-height: 1.4;
+            padding: 20px;
+            /* TRUE BLUEPRINT GRID */
+            background-image: 
+                linear-gradient(rgba(163, 213, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(163, 213, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* DRAFTING PAPER */
+        .drafting-paper {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: var(--blueprint-paper);
+            border: 3px solid var(--blueprint-line);
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+        }
+        
+        /* TITLE BLOCK - ENGINEERING STYLE */
+        .title-block {
+            border: 3px solid var(--blueprint-line);
+            padding: 25px;
+            margin-bottom: 50px;
+            position: relative;
+            background: linear-gradient(to bottom, 
+                rgba(10, 46, 90, 0.9) 0%, 
+                rgba(10, 46, 90, 0.7) 100%);
+        }
+        
+        .title-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .title-field {
+            border-bottom: 1px dashed var(--blueprint-line);
+            padding: 8px 0;
+        }
+        
+        .title-field label {
+            color: var(--blueprint-dim);
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .title-field .value {
+            font-size: 1.2rem;
+            color: var(--blueprint-text);
+        }
+        
+        /* BLUEPRINT BORDER WITH TOOLS */
+        .drafting-border {
+            position: absolute;
+            border: 1px solid var(--blueprint-line);
+            pointer-events: none;
+        }
+        
+        .border-top { top: 20px; left: 20px; right: 20px; height: 1px; }
+        .border-right { top: 20px; right: 20px; bottom: 20px; width: 1px; }
+        .border-bottom { bottom: 20px; left: 20px; right: 20px; height: 1px; }
+        .border-left { top: 20px; left: 20px; bottom: 20px; width: 1px; }
+        
+        /* DRAFTING TOOLS DECORATION */
+        .drafting-tool {
+            position: absolute;
+            color: var(--blueprint-dim);
+            font-size: 1.5rem;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .ruler { top: 10%; left: 5%; transform: rotate(15deg); }
+        .compass { top: 15%; right: 8%; transform: rotate(-10deg); }
+        .triangle { bottom: 20%; left: 7%; transform: rotate(30deg); }
+        .pencil { bottom: 15%; right: 10%; transform: rotate(-20deg); }
+        
+        /* ENGINEERING SECTION STYLES */
+        .drawing-section {
+            margin: 60px 0;
+            position: relative;
+            padding: 30px;
+            border: 2px solid var(--blueprint-line);
+            background-color: rgba(10, 46, 90, 0.6);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dotted var(--blueprint-line);
+            padding-bottom: 15px;
+        }
+        
+        .drawing-number {
+            background-color: var(--blueprint-bg);
+            border: 1px solid var(--blueprint-line);
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            color: var(--blueprint-dim);
+        }
+        
+        /* TRUE BLUEPRINT LINES */
+        .center-line {
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                var(--drafting-red) 10px,
+                var(--drafting-red) 12px
+            );
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .hidden-line {
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 5px,
+                var(--blueprint-dim) 5px,
+                var(--blueprint-dim) 7px
+            );
+            margin: 20px 0;
+        }
+        
+        .phantom-line {
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 3px,
+                var(--blueprint-line) 3px,
+                var(--blueprint-line) 5px
+            );
+            margin: 20px 0;
+        }
+        
+        /* DIMENSIONING */
+        .dimension {
+            position: relative;
+            height: 40px;
+            margin: 30px 0;
+        }
+        
+        .dimension-line {
+            height: 2px;
+            background-color: var(--blueprint-line);
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            right: 50px;
+        }
+        
+        .dimension-arrow {
+            position: absolute;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid var(--blueprint-line);
+        }
+        
+        .arrow-left { left: 50px; }
+        .arrow-right { right: 50px; transform: rotate(180deg); }
+        
+        .dimension-text {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--blueprint-paper);
+            padding: 2px 10px;
+            font-size: 0.9rem;
+            color: var(--blueprint-dim);
+        }
+        
+        /* TECHNICAL DATA TABLES */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 1px solid var(--blueprint-line);
+        }
+        
+        .spec-table th {
+            background-color: rgba(0, 31, 63, 0.8);
+            border: 1px solid var(--blueprint-line);
+            padding: 12px;
+            text-align: left;
+            color: var(--blueprint-dim);
+            font-weight: normal;
+        }
+        
+        .spec-table td {
+            border: 1px solid var(--blueprint-line);
+            padding: 12px;
+            border-left: 1px dashed var(--blueprint-line);
+            border-right: 1px dashed var(--blueprint-line);
+        }
+        
+        /* ENGINEERING VIEWPORT */
+        .viewport {
+            border: 2px solid var(--blueprint-line);
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            background-color: rgba(0, 31, 63, 0.3);
+        }
+        
+        .viewport-label {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background-color: var(--blueprint-paper);
+            padding: 0 15px;
+            color: var(--blueprint-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* SCALE INDICATOR */
+        .scale-indicator {
+            display: inline-block;
+            border-top: 2px solid var(--blueprint-line);
+            position: relative;
+            margin: 20px 0;
+            padding-top: 25px;
+        }
+        
+        .scale-ticks {
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 10px;
+        }
+        
+        .scale-tick {
+            position: absolute;
+            top: 0;
+            height: 5px;
+            width: 1px;
+            background-color: var(--blueprint-line);
+        }
+        
+        .scale-text {
+            position: absolute;
+            top: -25px;
+            font-size: 0.8rem;
+            color: var(--blueprint-dim);
+        }
+        
+        /* REVISION TABLE */
+        .revision-table {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            border: 1px solid var(--blueprint-line);
+            background-color: rgba(0, 31, 63, 0.9);
+            padding: 15px;
+            width: 250px;
+        }
+        
+        .revision-table h4 {
+            color: var(--blueprint-dim);
+            border-bottom: 1px dashed var(--blueprint-line);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .rev-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px dotted var(--blueprint-line);
+            padding: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .rev-row.header {
+            font-weight: bold;
+            color: var(--blueprint-dim);
+        }
+        
+        /* SKILL GAUGES */
+        .skill-gauge {
+            margin: 20px 0;
+        }
+        
+        .gauge-track {
+            height: 8px;
+            background-color: rgba(0, 31, 63, 0.5);
+            border: 1px solid var(--blueprint-line);
+            border-radius: 0;
+            margin-top: 5px;
+            position: relative;
+        }
+        
+        .gauge-fill {
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--blueprint-line),
+                var(--blueprint-line) 5px,
+                var(--blueprint-dim) 5px,
+                var(--blueprint-dim) 10px
+            );
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .gauge-marks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .gauge-mark {
+            position: absolute;
+            top: -5px;
+            width: 1px;
+            height: 18px;
+            background-color: var(--blueprint-line);
+        }
+        
+        /* PROJECT SCHEMATICS */
+        .schematic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .schematic-box {
+            border: 2px solid var(--blueprint-line);
+            padding: 0;
+            background-color: rgba(0, 31, 63, 0.4);
+            position: relative;
+        }
+        
+        .schematic-header {
+            background-color: rgba(0, 31, 63, 0.8);
+            padding: 15px;
+            border-bottom: 2px solid var(--blueprint-line);
+        }
+        
+        .schematic-body {
+            padding: 20px;
+        }
+        
+        .component-diagram {
+            height: 150px;
+            background: 
+                linear-gradient(90deg, transparent 49%, var(--blueprint-line) 49%, var(--blueprint-line) 51%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, var(--blueprint-line) 49%, var(--blueprint-line) 51%, transparent 51%);
+            background-size: 20px 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .component {
+            position: absolute;
+            border: 1px solid var(--blueprint-line);
+            padding: 8px;
+            background-color: var(--blueprint-paper);
+            font-size: 0.8rem;
+        }
+        
+        /* CONTACT FORM - DRAFTING STYLE */
+        .drafting-form {
+            max-width: 900px;
+            margin: 40px auto;
+            border: 2px solid var(--blueprint-line);
+            padding: 30px;
+            background-color: rgba(0, 31, 63, 0.5);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .form-field {
+            border-bottom: 1px dashed var(--blueprint-line);
+            padding-bottom: 10px;
+        }
+        
+        .form-label {
+            color: var(--blueprint-dim);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--blueprint-text);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            outline: none;
+            padding: 5px 0;
+        }
+        
+        .submit-dwg {
+            background-color: transparent;
+            color: var(--blueprint-line);
+            border: 2px solid var(--blueprint-line);
+            padding: 12px 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 30px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-dwg:hover {
+            background-color: var(--blueprint-line);
+            color: var(--blueprint-bg);
+        }
+        
+        .submit-dwg:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .submit-dwg:hover:before {
+            left: 100%;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .drafting-paper {
+                padding: 20px;
+            }
+            
+            .title-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .revision-table {
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .schematic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .drafting-paper {
+                padding: 15px;
+            }
+            
+            .drawing-section {
+                padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .drafting-tool {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="drafting-paper">
+        <!-- Drafting Border -->
+        <div class="drafting-border border-top"></div>
+        <div class="drafting-border border-right"></div>
+        <div class="drafting-border border-bottom"></div>
+        <div class="drafting-border border-left"></div>
+        
+        <!-- Drafting Tools -->
+        <div class="drafting-tool ruler"><i class="fas fa-ruler-combined"></i></div>
+        <div class="drafting-tool compass"><i class="fas fa-drafting-compass"></i></div>
+        <div class="drafting-tool triangle"><i class="fas fa-draw-polygon"></i></div>
+        <div class="drafting-tool pencil"><i class="fas fa-pencil-alt"></i></div>
+        
+        <!-- Revision Table -->
+        <div class="revision-table">
+            <h4>REVISION HISTORY</h4>
+            <div class="rev-row header">
+                <div>REV</div>
+                <div>DATE</div>
+                <div>BY</div>
+            </div>
+            <div class="rev-row">
+                <div>B</div>
+                <div>2024-01-20</div>
+                <div>ARC</div>
+            </div>
+            <div class="rev-row">
+                <div>A</div>
+                <div>2024-01-10</div>
+                <div>DES</div>
+            </div>
+            <div class="rev-row">
+                <div>PRELIM</div>
+                <div>2023-12-15</div>
+                <div>DRF</div>
+            </div>
+        </div>
+        
+        <!-- TITLE BLOCK -->
+        <div class="title-block">
+            <h1 style="font-size: 2.8rem; text-align: center; color: var(--blueprint-line); 
+                       margin-bottom: 10px; letter-spacing: 3px;">
+                ENGINEERING PORTFOLIO
+            </h1>
+            <h2 style="text-align: center; color: var(--blueprint-dim); margin-bottom: 30px;
+                      font-weight: normal; border-bottom: 1px dotted var(--blueprint-line);
+                      padding-bottom: 15px;">
+                TECHNICAL SPECIFICATIONS & QUALIFICATIONS
+            </h2>
+            
+            <div class="center-line"></div>
+            
+            <div class="title-grid">
+                <div class="title-field">
+                    <label>DRAWN BY</label>
+                    <div class="value">A. ENGINEER</div>
+                </div>
+                <div class="title-field">
+                    <label>CHECKED BY</label>
+                    <div class="value">J. REVIEWER</div>
+                </div>
+                <div class="title-field">
+                    <label>DATE</label>
+                    <div class="value">2024-01-20</div>
+                </div>
+                <div class="title-field">
+                    <label>DRAWING NO.</label>
+                    <div class="value">ENG-2024-001</div>
+                </div>
+                <div class="title-field">
+                    <label>SCALE</label>
+                    <div class="value">1:100</div>
+                </div>
+                <div class="title-field">
+                    <label>SHEET</label>
+                    <div class="value">1 OF 1</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PROFILE SECTION -->
+        <div class="drawing-section" id="profile">
+            <div class="section-header">
+                <h2 style="color: var(--blueprint-line); font-size: 1.8rem;">SYSTEM SPECIFICATIONS</h2>
+                <div class="drawing-number">DWG-001</div>
+            </div>
+            
+            <div class="viewport">
+                <div class="viewport-label">PROFILE VIEW</div>
+                <div style="display: grid; grid-template-columns: 250px 1fr; gap: 40px; align-items: center;">
+                    <div style="border: 3px solid var(--blueprint-line); padding: 10px; background-color: rgba(0,31,63,0.5);">
+                        <div style="width: 230px; height: 230px; background-color: var(--blueprint-bg); 
+                                   border: 1px solid var(--blueprint-line); display: flex; align-items: center; 
+                                   justify-content: center; color: var(--blueprint-dim);">
+                            <i class="fas fa-user" style="font-size: 5rem;"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--blueprint-line); font-size: 2rem; margin-bottom: 10px;">
+                            ALEXANDER TECHNO
+                        </h3>
+                        <div style="color: var(--blueprint-dim); font-size: 1.2rem; margin-bottom: 15px;">
+                            Senior Systems Engineer
+                        </div>
+                        <div class="hidden-line"></div>
+                        <p>Licensed Professional Engineer with 10+ years in systems architecture, 
+                           automation, and technical design. Specializing in scalable infrastructure 
+                           and engineering solutions.</p>
+                        
+                        <div class="dimension">
+                            <div class="dimension-line"></div>
+                            <div class="dimension-arrow arrow-left"></div>
+                            <div class="dimension-arrow arrow-right"></div>
+                            <div class="dimension-text">10 YEARS EXPERIENCE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- EDUCATION & EXPERIENCE -->
+        <div class="drawing-section" id="experience">
+            <div class="section-header">
+                <h2 style="color: var(--blueprint-line); font-size: 1.8rem;">OPERATIONAL HISTORY</h2>
+                <div class="drawing-number">DWG-002</div>
+            </div>
+            
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>PERIOD</th>
+                        <th>POSITION / QUALIFICATION</th>
+                        <th>ORGANIZATION</th>
+                        <th>LOCATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2020-Present</td>
+                        <td>Senior Systems Architect</td>
+                        <td>Global Engineering Solutions</td>
+                        <td>San Francisco, CA</td>
+                    </tr>
+                    <tr>
+                        <td>2017-2020</td>
+                        <td>Lead Engineer</td>
+                        <td>Tech Infrastructure Corp</td>
+                        <td>Boston, MA</td>
+                    </tr>
+                    <tr>
+                        <td>2015-2017</td>
+                        <td>Systems Engineer</td>
+                        <td>Innovation Labs</td>
+                        <td>Seattle, WA</td>
+                    </tr>
+                    <tr>
+                        <td>2013-2015</td>
+                        <td>MSc. Systems Engineering</td>
+                        <td>Stanford University</td>
+                        <td>Stanford, CA</td>
+                    </tr>
+                    <tr>
+                        <td>2009-2013</td>
+                        <td>BEng. Mechanical Engineering</td>
+                        <td>MIT</td>
+                        <td>Cambridge, MA</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="scale-indicator" style="width: 300px;">
+                <div class="scale-ticks">
+                    <div class="scale-tick" style="left: 0;"></div>
+                    <div class="scale-tick" style="left: 50px;"></div>
+                    <div class="scale-tick" style="left: 100px;"></div>
+                    <div class="scale-tick" style="left: 150px;"></div>
+                    <div class="scale-tick" style="left: 200px;"></div>
+                    <div class="scale-tick" style="left: 250px;"></div>
+                    <div class="scale-tick" style="left: 300px;"></div>
+                </div>
+                <div class="scale-text" style="left: 0;">0</div>
+                <div class="scale-text" style="left: 50px;">5</div>
+                <div class="scale-text" style="left: 100px;">10</div>
+                <div class="scale-text" style="left: 150px;">15</div>
+                <div class="scale-text" style="left: 200px;">20</div>
+                <div class="scale-text" style="left: 250px;">25</div>
+                <div class="scale-text" style="left: 300px;">30</div>
+            </div>
+        </div>
+        
+        <!-- TECHNICAL SKILLS -->
+        <div class="drawing-section" id="skills">
+            <div class="section-header">
+                <h2 style="color: var(--blueprint-line); font-size: 1.8rem;">TECHNICAL PROFICIENCY GAUGES</h2>
+                <div class="drawing-number">DWG-003</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div>
+                    <h4 style="color: var(--blueprint-dim); margin-bottom: 15px;">ENGINEERING SOFTWARE</h4>
+                    <div class="skill-gauge">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>AutoCAD / Revit</span>
+                            <span>98%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" data-width="98"></div>
+                            <div class="gauge-marks">
+                                <div class="gauge-mark" style="left: 0;"></div>
+                                <div class="gauge-mark" style="left: 20%;"></div>
+                                <div class="gauge-mark" style="left: 40%;"></div>
+                                <div class="gauge-mark" style="left: 60%;"></div>
+                                <div class="gauge-mark" style="left: 80%;"></div>
+                                <div class="gauge-mark" style="left: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-gauge">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>SolidWorks</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" data-width="95"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-gauge">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>ANSYS / FEA</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" data-width="90"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--blueprint-dim); margin-bottom: 15px;">PROGRAMMING & SYSTEMS</h4>
+                    <div class="skill-gauge">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Python / MATLAB</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" data-width="92"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-gauge">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>C++ / Embedded Systems</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" data-width="88"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-gauge">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>PLC / Automation</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PROJECT SCHEMATICS -->
+        <div class="drawing-section" id="projects">
+            <div class="section-header">
+                <h2 style="color: var(--blueprint-line); font-size: 1.8rem;">PROJECT SCHEMATICS</h2>
+                <div class="drawing-number">DWG-004</div>
+            </div>
+            
+            <div class="schematic-grid">
+                <div class="schematic-box">
+                    <div class="schematic-header">
+                        <h4 style="color: var(--blueprint-line); margin: 0;">Automated Assembly Line</h4>
+                    </div>
+                    <div class="schematic-body">
+                        <div class="component-diagram">
+                            <div class="component" style="top: 20px; left: 30px;">Conveyor</div>
+                            <div class="component" style="top: 80px; left: 150px;">Robot Arm</div>
+                            <div class="component" style="top: 40px; right: 50px;">QC Camera</div>
+                        </div>
+                        <div class="phantom-line"></div>
+                        <p><strong>Client:</strong> AutoManufacture Inc.</p>
+                        <p><strong>Scope:</strong> Full automation system design</p>
+                        <p><strong>Technologies:</strong> PLC, Robotics, Vision Systems</p>
+                    </div>
+                </div>
+                
+                <div class="schematic-box">
+                    <div class="schematic-header">
+                        <h4 style="color: var(--blueprint-line); margin: 0;">Energy Management System</h4>
+                    </div>
+                    <div class="schematic-body">
+                        <div class="component-diagram">
+                            <div class="component" style="top: 30px; left: 50px;">Sensors</div>
+                            <div class="component" style="bottom: 30px; left: 100px;">Controller</div>
+                            <div class="component" style="top: 70px; right: 70px;">Dashboard</div>
+                        </div>
+                        <div class="phantom-line"></div>
+                        <p><strong>Client:</strong> GreenEnergy Corp</p>
+                        <p><strong>Scope:</strong> Smart grid optimization</p>
+                        <p><strong>Technologies:</strong> IoT, Data Analytics, Python</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONTACT FORM -->
+        <div class="drawing-section" id="contact">
+            <div class="section-header">
+                <h2 style="color: var(--blueprint-line); font-size: 1.8rem;">COMMUNICATION PROTOCOL</h2>
+                <div class="drawing-number">DWG-005</div>
+            </div>
+            
+            <div class="drafting-form">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">REQUESTOR / COMPANY</label>
+                        <input type="text" class="form-input" id="contact-company" placeholder="Enter company/name">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">CONTACT ADDRESS</label>
+                        <input type="email" class="form-input" id="contact-email" placeholder="email@company.com">
+                    </div>
+                    <div class="form-field" style="grid-column: 1 / -1;">
+                        <label class="form-label">PROJECT REFERENCE</label>
+                        <input type="text" class="form-input" id="contact-subject" placeholder="Project name/number">
+                    </div>
+                    <div class="form-field" style="grid-column: 1 / -1;">
+                        <label class="form-label">TECHNICAL INQUIRY</label>
+                        <textarea class="form-input" id="contact-message" placeholder="Detailed technical requirements..." style="height: 120px; resize: vertical;"></textarea>
+                    </div>
+                </div>
+                
+                <button class="submit-dwg">SUBMIT ENGINEERING REQUEST</button>
+                <div id="form-response" style="text-align: center; margin-top: 20px; min-height: 30px;"></div>
+            </div>
+            
+            <div class="center-line" style="margin: 40px 0;"></div>
+            
+            <div style="text-align: center;">
+                <h4 style="color: var(--blueprint-dim); margin-bottom: 20px;">ALTERNATE COMMUNICATION VECTORS</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <div style="color: var(--blueprint-line);">EMAIL</div>
+                        <div>engineer@techblueprint.io</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--blueprint-line);">TELEPHONE</div>
+                        <div>+1 (555) 123-4567</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--blueprint-line);">LOCATION</div>
+                        <div>Engineering Dept, Tech Park</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- DRAWING NOTES -->
+        <div style="margin-top: 50px; padding: 20px; border-top: 2px dotted var(--blueprint-line);">
+            <h4 style="color: var(--blueprint-dim); margin-bottom: 15px;">DRAWING NOTES</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; font-size: 0.9rem;">
+                <div>
+                    <div style="color: var(--blueprint-line);">1.</div>
+                    <div>All dimensions in millimeters unless noted otherwise.</div>
+                </div>
+                <div>
+                    <div style="color: var(--blueprint-line);">2.</div>
+                    <div>Tolerances: ±0.5mm unless specified.</div>
+                </div>
+                <div>
+                    <div style="color: var(--blueprint-line);">3.</div>
+                    <div>Refer to supporting documentation for full specifications.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            // Initialize skill gauges
+            function initializeGauges() {
+                $('.gauge-fill').each(function() {
+                    var width = $(this).data('width') + '%';
+                    $(this).css('width', width);
+                });
+            }
+            
+            // Scroll animation for gauges
+            $(window).on('scroll', function() {
+                var skillsSection = $('#skills');
+                var windowHeight = $(window).height();
+                var scrollTop = $(window).scrollTop();
+                var sectionTop = skillsSection.offset().top;
+                
+                if (scrollTop + windowHeight > sectionTop + 100) {
+                    initializeGauges();
+                }
+            });
+            
+            // Contact form submission
+            $('.submit-dwg').on('click', function(e) {
+                e.preventDefault();
+                
+                var company = $('#contact-company').val().trim();
+                var email = $('#contact-email').val().trim();
+                var subject = $('#contact-subject').val().trim();
+                var message = $('#contact-message').val().trim();
+                
+                if (!company || !email || !subject || !message) {
+                    $('#form-response').html('<div style="color: #ff4444;">ERROR: Complete all required fields.</div>');
+                    return;
+                }
+                
+                var submitBtn = $(this);
+                submitBtn.html('<i class="fas fa-spinner fa-spin"></i> PROCESSING...');
+                submitBtn.prop('disabled', true);
+                
+                // Simulate AJAX request
+                setTimeout(function() {
+                    $('#form-response').html('<div style="color: #a3d5ff;">SUCCESS: Engineering request logged. Reference #ENG' + 
+                                           Math.floor(Math.random() * 10000) + ' generated.</div>');
+                    
+                    // Clear form
+                    $('#contact-company, #contact-email, #contact-subject, #contact-message').val('');
+                    
+                    // Reset button
+                    setTimeout(function() {
+                        submitBtn.html('SUBMIT ENGINEERING REQUEST');
+                        submitBtn.prop('disabled', false);
+                    }, 3000);
+                }, 2000);
+            });
+            
+            // Add drawing numbers to sections on load
+            $('.drawing-section').each(function(index) {
+                var dwgNum = $(this).find('.drawing-number');
+                if (dwgNum.text() === '') {
+                    dwgNum.text('DWG-' + (index + 1).toString().padStart(3, '0'));
+                }
+            });
+            
+            // Initialize if already in view
+            if ($('#skills').offset().top < $(window).height()) {
+                initializeGauges();
+            }
+            
+            // Add random scale indicators
+            function addScaleIndicators() {
+                $('.scale-indicator').each(function() {
+                    var width = $(this).width();
+                    var tickCount = Math.floor(width / 50);
+                    
+                    for (var i = 0; i <= tickCount; i++) {
+                        var tick = $('<div class="scale-tick"></div>');
+                        tick.css('left', (i * 50) + 'px');
+                        $(this).find('.scale-ticks').append(tick);
+                        
+                        if (i % 2 === 0) {
+                            var text = $('<div class="scale-text"></div>');
+                            text.css('left', (i * 50) + 'px');
+                            text.text(i * 5);
+                            $(this).append(text);
+                        }
+                    }
+                });
+            }
+            
+            addScaleIndicators();
+        });
+    </script>
+</body>
+</html>

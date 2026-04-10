@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/000000/laravel.png">
+    <title>Laravel Developer Portfolio | PHP Expert</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        :root {
+            /* Laravel Theme Colors */
+            --laravel-red: #FF2D20;
+            --laravel-orange: #FB923C;
+            --php-purple: #777BB3;
+            --vue-green: #41B883;
+            --js-yellow: #F7DF1E;
+            
+            /* Dark Theme */
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #334155;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border-color: rgba(255, 255, 255, 0.1);
+            
+            /* Gradients */
+            --gradient-laravel: linear-gradient(135deg, var(--laravel-red), var(--laravel-orange));
+            --gradient-php: linear-gradient(135deg, var(--php-purple), #8892BF);
+            --gradient-dark: linear-gradient(145deg, #1E293B, #0F172A);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #F8FAFC;
+            --bg-secondary: #F1F5F9;
+            --bg-card: #FFFFFF;
+            --text-primary: #1E293B;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --gradient-dark: linear-gradient(145deg, #FFFFFF, #F1F5F9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-laravel);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: var(--gradient-laravel);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Terminal Font */
+        .terminal {
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        [data-theme="light"] header {
+            background: rgba(248, 250, 252, 0.95);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-laravel);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--laravel-red);
+        }
+
+        .nav-link.active {
+            color: var(--laravel-red);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-laravel);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: 2rem;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: var(--gradient-laravel);
+            opacity: 0.1;
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .badge-laravel {
+            background: rgba(255, 45, 32, 0.1);
+            border-color: rgba(255, 45, 32, 0.2);
+            color: var(--laravel-red);
+        }
+
+        .badge-php {
+            background: rgba(119, 123, 179, 0.1);
+            border-color: rgba(119, 123, 179, 0.2);
+            color: var(--php-purple);
+        }
+
+        .hero-terminal {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #FF5F56; }
+        .dot-yellow { background: #FFBD2E; }
+        .dot-green { background: #27CA3F; }
+
+        .terminal-body {
+            padding: 1rem 0;
+        }
+
+        .terminal-line {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-prompt {
+            color: var(--laravel-red);
+            font-weight: 600;
+        }
+
+        .terminal-command {
+            color: var(--text-primary);
+        }
+
+        .terminal-output {
+            color: var(--vue-green);
+            margin-left: 2rem;
+            font-size: 0.95rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: var(--bg-secondary);
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .profile-image {
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--gradient-laravel);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-title {
+            color: var(--laravel-red);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .profile-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-laravel);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Education Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--gradient-laravel);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-laravel);
+            border-radius: 50%;
+            border: 4px solid var(--bg-primary);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: var(--gradient-laravel);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            background: rgba(255, 45, 32, 0.1);
+            color: var(--laravel-red);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .experience-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-laravel);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: var(--laravel-red);
+            font-weight: 500;
+        }
+
+        .experience-date {
+            padding: 0.25rem 1rem;
+            background: rgba(255, 45, 32, 0.1);
+            color: var(--laravel-red);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .experience-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            height: 200px;
+            background: var(--gradient-laravel);
+            opacity: 0.8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: white;
+            opacity: 0.3;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: var(--laravel-red);
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: var(--gradient-laravel);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-percentage {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-laravel);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Interests Section */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .interest-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--laravel-red);
+        }
+
+        .interest-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: var(--gradient-laravel);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .interest-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .interest-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Languages Section */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .language-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .language-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .language-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-laravel);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .language-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .language-level {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            border-color: var(--laravel-red);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 45, 32, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--laravel-red);
+            font-size: 1.25rem;
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--laravel-red);
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            background: var(--gradient-laravel);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--gradient-laravel);
+            color: white;
+            border-color: transparent;
+        }
+
+        .copyright {
+            text-align: center;
+            color: var(--text-muted);
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content,
+            .profile-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding: 0 0 0 70px;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <i class="fab fa-laravel"></i>
+                    </div>
+                    <span>Lara<span class="gradient-text">Dev</span></span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#profile" class="nav-link">Profile</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#interests" class="nav-link">Interests</a></li>
+                    <li><a href="#languages" class="nav-link">Languages</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section (Home) -->
+    <section id="home" class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Hi, I'm <span class="gradient-text">Alex Morgan</span><br>Laravel Developer</h1>
+                    <p>Building scalable web applications with PHP Laravel for 5+ years. Passionate about clean code, efficient architecture, and modern web technologies.</p>
+                    
+                    <div class="hero-badges">
+                        <div class="badge badge-laravel">
+                            <i class="fab fa-laravel"></i>
+                            Laravel Expert
+                        </div>
+                        <div class="badge badge-php">
+                            <i class="fab fa-php"></i>
+                            PHP 8.2+
+                        </div>
+                        <div class="badge">
+                            <i class="fab fa-vuejs"></i>
+                            Vue.js
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-database"></i>
+                            MySQL
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-terminal terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <span>Terminal — Laravel Artisan</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command">php artisan make:controller ProjectController</span>
+                        </div>
+                        <div class="terminal-output">Controller created successfully.</div>
+                        
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command">php artisan migrate</span>
+                        </div>
+                        <div class="terminal-output">Migration table created successfully.</div>
+                        
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command">php artisan serve</span>
+                        </div>
+                        <div class="terminal-output">Server running on http://localhost:8000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="profile-section section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+                <p class="section-subtitle">Get to know more about my background and expertise</p>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Alex Morgan" class="profile-img">
+                    <div class="profile-badge">
+                        <i class="fas fa-code"></i> 5+ Years Experience
+                    </div>
+                </div>
+                
+                <div class="profile-info">
+                    <h2>Alex Morgan</h2>
+                    <div class="profile-title">Senior Laravel Developer & Backend Specialist</div>
+                    
+                    <p class="profile-description">
+                        Passionate Laravel developer with 5+ years of experience building robust web applications. 
+                        Specialized in creating scalable backend systems, RESTful APIs, and enterprise solutions. 
+                        Strong advocate for clean code, testing, and modern development practices.
+                    </p>
+                    
+                    <p class="profile-description">
+                        My philosophy revolves around writing maintainable code, implementing efficient solutions, 
+                        and continuously learning new technologies. I believe in building software that not only 
+                        works but also excels in performance and scalability.
+                    </p>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">My academic background and certifications</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h3 class="timeline-title">Master's in Computer Science</h3>
+                                <div class="timeline-subtitle">Stanford University</div>
+                            </div>
+                        </div>
+                        <span class="timeline-date">2018 - 2020</span>
+                        <p>Specialized in Software Engineering and Web Technologies. Focused on advanced algorithms, distributed systems, and modern web development frameworks.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div>
+                                <h3 class="timeline-title">Laravel Certification</h3>
+                                <div class="timeline-subtitle">Laravel Certified Developer</div>
+                            </div>
+                        </div>
+                        <span class="timeline-date">2021</span>
+                        <p>Official Laravel certification demonstrating expertise in Laravel framework, including advanced topics like queues, events, and API development.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div>
+                                <h3 class="timeline-title">Bachelor's in Software Engineering</h3>
+                                <div class="timeline-subtitle">MIT</div>
+                            </div>
+                        </div>
+                        <span class="timeline-date">2014 - 2018</span>
+                        <p>Graduated with honors. Focused on software architecture, database design, and web application development using modern technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Work <span class="gradient-text">Experience</span></h2>
+                <p class="section-subtitle">My professional journey and career achievements</p>
+            </div>
+            
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">Senior Laravel Developer</h3>
+                            <div class="experience-company">TechSolutions Inc.</div>
+                        </div>
+                        <span class="experience-date">2021 - Present</span>
+                    </div>
+                    <p class="experience-description">
+                        Lead developer for multiple enterprise Laravel applications. Architect and implement scalable backend systems, RESTful APIs, and microservices. Mentor junior developers and establish coding standards.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">PHP 8</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">Full Stack Developer</h3>
+                            <div class="experience-company">Digital Innovations</div>
+                        </div>
+                        <span class="experience-date">2019 - 2021</span>
+                    </div>
+                    <p class="experience-description">
+                        Developed and maintained web applications using Laravel and Vue.js. Implemented CI/CD pipelines, automated testing, and improved application performance by 40%.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">GitLab CI</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">PHP Developer</h3>
+                            <div class="experience-company">WebCraft Studios</div>
+                        </div>
+                        <span class="experience-date">2018 - 2019</span>
+                    </div>
+                    <p class="experience-description">
+                        Developed custom CMS solutions and e-commerce platforms. Collaborated with frontend developers to create seamless user experiences and optimized database performance.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">jQuery</span>
+                        <span class="tech-tag">Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+                <p class="section-subtitle">Some of my recent work and contributions</p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            <i class="fas fa-store"></i> E-Commerce Platform
+                        </h3>
+                        <p class="project-description">
+                            Full-featured e-commerce platform with multi-vendor support, payment integration, inventory management, and real-time analytics.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            <i class="fas fa-cogs"></i> Project Management API
+                        </h3>
+                        <p class="project-description">
+                            RESTful API for project management with real-time notifications, team collaboration, and comprehensive documentation.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Sanctum</span>
+                            <span class="tech-tag">WebSockets</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-book"></i> Docs
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            <i class="fas fa-chart-bar"></i> Analytics Dashboard
+                        </h3>
+                        <p class="project-description">
+                            Real-time analytics dashboard with customizable widgets, data visualization, and automated reporting.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Livewire</span>
+                            <span class="tech-tag">Charts.js</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+                <p class="section-subtitle">My expertise across different technologies and tools</p>
+            </div>
+            
+            <div class="skills-container">
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fab fa-laravel"></i>
+                        </div>
+                        <h3 class="category-title">Backend Development</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Laravel Framework</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">PHP</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">RESTful APIs</span>
+                            <span class="skill-percentage">92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="92"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">MySQL/PostgreSQL</span>
+                            <span class="skill-percentage">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="category-title">Frontend & Tools</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Vue.js</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Git & GitHub</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Docker</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Personal <span class="gradient-text">Interests</span></h2>
+                <p class="section-subtitle">Beyond coding - what keeps me inspired and motivated</p>
+            </div>
+            
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4 class="interest-name">Technical Reading</h4>
+                    <p class="interest-description">Reading programming books, documentation, and tech blogs</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4 class="interest-name">Open Source</h4>
+                    <p class="interest-description">Contributing to open source projects and communities</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h4 class="interest-name">Game Development</h4>
+                    <p class="interest-description">Exploring game dev with Unity and Godot</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h4 class="interest-name">Music Production</h4>
+                    <p class="interest-description">Creating electronic music in spare time</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-hiking"></i>
+                    </div>
+                    <h4 class="interest-name">Hiking</h4>
+                    <p class="interest-description">Exploring nature trails and mountains</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4 class="interest-name">AI & ML</h4>
+                    <p class="interest-description">Learning about artificial intelligence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section id="languages" class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Known <span class="gradient-text">Languages</span></h2>
+                <p class="section-subtitle">Programming and spoken languages proficiency</p>
+            </div>
+            
+            <div class="languages-grid">
+                <div class="language-card">
+                    <div class="language-header">
+                        <div class="language-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div>
+                            <div class="language-name">PHP</div>
+                            <div class="language-level">Native / Expert</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="language-card">
+                    <div class="language-header">
+                        <div class="language-icon">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <div>
+                            <div class="language-name">JavaScript</div>
+                            <div class="language-level">Advanced</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="language-card">
+                    <div class="language-header">
+                        <div class="language-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div>
+                            <div class="language-name">Python</div>
+                            <div class="language-level">Intermediate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="language-card">
+                    <div class="language-header">
+                        <div class="language-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div>
+                            <div class="language-name">English</div>
+                            <div class="language-level">Fluent (Native)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="language-card">
+                    <div class="language-header">
+                        <div class="language-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div>
+                            <div class="language-name">Spanish</div>
+                            <div class="language-level">Intermediate (B1)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="language-card">
+                    <div class="language-header">
+                        <div class="language-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div>
+                            <div class="language-name">French</div>
+                            <div class="language-level">Basic (A2)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact <span class="gradient-text">Me</span></h2>
+                <p class="section-subtitle">Let's discuss your project or just say hello!</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>alex@laraveldev.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>San Francisco, California</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Availability</h4>
+                            <p>Available for freelance & full-time</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Project Inquiry" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fab fa-laravel"></i>
+                    </div>
+                    <span>Lara<span class="gradient-text">Dev</span></span>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-dev"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Alex Morgan - Laravel Developer. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart" style="color: var(--laravel-red);"></i> and Laravel</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // Theme Toggle
+            const themeToggle = $('#themeToggle');
+            const themeIcon = themeToggle.find('i');
+            
+            themeToggle.click(function() {
+                const currentTheme = $('body').attr('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                $('body').attr('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                if (newTheme === 'light') {
+                    themeIcon.removeClass('fa-moon').addClass('fa-sun');
+                } else {
+                    themeIcon.removeClass('fa-sun').addClass('fa-moon');
+                }
+            });
+            
+            // Set initial theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            $('body').attr('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                themeIcon.removeClass('fa-moon').addClass('fa-sun');
+            }
+            
+            // Smooth Scrolling
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = $(this).attr('href');
+                if (targetId === '#') return;
+                
+                const targetElement = $(targetId);
+                if (targetElement.length) {
+                    // Update active nav link
+                    $('.nav-link').removeClass('active');
+                    $(this).addClass('active');
+                    
+                    // Scroll to target
+                    $('html, body').animate({
+                        scrollTop: targetElement.offset().top - 80
+                    }, 800);
+                }
+            });
+            
+            // Animate skill bars on scroll
+            function animateSkillBars() {
+                $('.skill-progress').each(function() {
+                    const $bar = $(this);
+                    const width = $bar.data('width');
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                $bar.css('width', width + '%');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    
+                    observer.observe($bar[0]);
+                });
+            }
+            
+            // Form submission
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! I will get back to you soon.');
+                this.reset();
+            });
+            
+            // Terminal animation
+            function animateTerminal() {
+                const lines = $('.terminal-line');
+                let index = 0;
+                
+                function showNextLine() {
+                    if (index < lines.length) {
+                        $(lines[index]).css('opacity', '0').css('transform', 'translateX(-20px)');
+                        
+                        setTimeout(() => {
+                            $(lines[index]).css({
+                                'opacity': '1',
+                                'transform': 'translateX(0)',
+                                'transition': 'all 0.5s ease'
+                            });
+                            index++;
+                            setTimeout(showNextLine, 500);
+                        }, 100);
+                    }
+                }
+                
+                setTimeout(showNextLine, 1000);
+            }
+            
+            // Initialize animations
+            setTimeout(() => {
+                animateSkillBars();
+                animateTerminal();
+                
+                // Add scroll animations
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            $(entry.target).css({
+                                'opacity': '1',
+                                'transform': 'translateY(0)'
+                            });
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                // Observe all animated elements
+                $('.timeline-content, .experience-card, .project-card, .skill-category, .interest-card, .language-card, .contact-item').each(function() {
+                    $(this).css({
+                        'opacity': '0',
+                        'transform': 'translateY(30px)',
+                        'transition': 'all 0.6s ease'
+                    });
+                    observer.observe(this);
+                });
+            }, 500);
+            
+            // Update active nav on scroll
+            $(window).scroll(function() {
+                const scrollPosition = $(window).scrollTop() + 100;
+                
+                $('section').each(function() {
+                    const sectionId = $(this).attr('id');
+                    const sectionTop = $(this).offset().top;
+                    const sectionBottom = sectionTop + $(this).outerHeight();
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        $('.nav-link').removeClass('active');
+                        $(`.nav-link[href="#${sectionId}"]`).addClass('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

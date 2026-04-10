@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE INFILTRATOR — Red Team Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <div id="noise-overlay"></div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- BOOT OVERLAY -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="boot-screen">
+    <div id="boot-lines"></div>
+    <div id="boot-progress-wrap">
+      <div id="boot-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- KONAMI EASTER EGG OVERLAY -->
+  <div id="konami-overlay">
+    <div id="konami-terminal">
+      <div class="konami-topbar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="terminal-path">~/classified — EYES ONLY — 80×24</span>
+        <button id="konami-close">✕ EXIT</button>
+      </div>
+      <div id="konami-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <nav id="nav">
+    <div class="nav-brand">
+      <span class="nav-bracket">[</span>INFILTRATOR<span class="nav-bracket">]</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#whoami" data-hover="00">whoami</a></li>
+      <li><a href="#about" data-hover="01">profile</a></li>
+      <li><a href="#exploits" data-hover="02">./exploits</a></li>
+      <li><a href="#killchain" data-hover="03">pipeline</a></li>
+      <li><a href="#services" data-hover="04">services</a></li>
+      <li><a href="#threatmap" data-hover="05">threat map</a></li>
+      <li><a href="#vault" data-hover="06">vault</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span class="status-text">SECURE CHANNEL</span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- HERO — whoami (UNCHANGED) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="whoami" class="section-hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-scan-line"></div>
+    <div class="terminal-block">
+      <div class="terminal-topbar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-path">~/root — bash — 80×24</span>
+      </div>
+      <div class="terminal-body" id="terminal-output"></div>
+    </div>
+    <div class="hero-type-block">
+      <div class="hero-label">UNIT DESIGNATION</div>
+      <h1 class="hero-name" id="hero-name">
+        <span class="line-one">MARCUS</span>
+        <span class="line-two">VANCE</span>
+      </h1>
+      <div class="hero-role-row">
+        <span class="hero-role-tag">RED TEAM LEAD</span>
+        <span class="hero-divider">///</span>
+        <span class="hero-role-tag">EXPLOIT ENGINEER</span>
+        <span class="hero-divider">///</span>
+        <span class="hero-role-tag">THREAT ARCHITECT</span>
+      </div>
+    </div>
+    <div class="clearance-badge">
+      <div class="cb-inner">
+        <div class="cb-label">CLEARANCE</div>
+        <div class="cb-level">TOP SECRET / SCI</div>
+        <div class="cb-id">ID: MV-0x4F2A1</div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span class="si-text">INITIALIZE SCROLL</span>
+      <div class="si-arrow">
+        <div class="si-line"></div>
+        <div class="si-chevron"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SCROLL-DECRYPT (UNCHANGED) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="decrypt-section" class="section-decrypt">
+    <div class="decrypt-container">
+      <div class="section-tag">// OPERATIONAL PROFILE</div>
+      <p class="decrypt-paragraph" id="decrypt-text">
+        I don't exploit vulnerabilities. I architect their discovery.
+        Built on a foundation of adversarial simulation, I design
+        penetration scenarios that replicate nation-state TTPs
+        against Fortune 500 infrastructure. My engagements don't
+        find what auditors miss — they find what the adversary
+        already knows. Every vector mapped. Every assumption
+        stress-tested. Every defense measured against the attacker
+        who doesn't follow rules of engagement.
+      </p>
+    </div>
+    <div class="decrypt-side">
+      <div class="stat-block" data-count="47">
+        <div class="stat-number"><span class="counter">47</span></div>
+        <div class="stat-label">Zero-Days<br/>Reported</div>
+      </div>
+      <div class="stat-block" data-count="200">
+        <div class="stat-number"><span class="counter">200</span><span class="stat-plus">+</span></div>
+        <div class="stat-label">Engagements<br/>Executed</div>
+      </div>
+      <div class="stat-block" data-count="12">
+        <div class="stat-number"><span class="counter">12</span></div>
+        <div class="stat-label">CVEs<br/>Authored</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: ABOUT / PROFILE -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="about" class="section-about">
+    <!-- HEX DUMP background -->
+    <div class="hex-bg" id="hex-bg-about"></div>
+    <div class="about-inner">
+      <div class="about-left">
+        <div class="section-tag">// UNIT PROFILE</div>
+        <h2 class="section-title">About Me</h2>
+        <div class="about-id-card">
+          <div class="id-photo-frame">
+            <div class="id-photo-inner">
+              <div class="id-photo-ascii">
+┌─────────────┐
+│  ▓▓▓▓▓▓▓▓  │
+│  ▓  ████  ▓  │
+│  ▓ ██  ██ ▓  │
+│  ▓  ████  ▓  │
+│  ▓▓▓▓▓▓▓▓  │
+│  [MV-0x4F]  │
+└─────────────┘
+              </div>
+              <div class="id-scan-line"></div>
+            </div>
+            <div class="id-verified">
+              <span class="id-verified-dot"></span>
+              IDENTITY VERIFIED
+            </div>
+          </div>
+          <div class="id-details">
+            <div class="id-row"><span class="id-key">DESIGNATION</span><span class="id-val">Marcus Vance</span></div>
+            <div class="id-row"><span class="id-key">ALIAS</span><span class="id-val">/dev/null · ghost@0x0</span></div>
+            <div class="id-row"><span class="id-key">ROLE</span><span class="id-val">Red Team Lead</span></div>
+            <div class="id-row"><span class="id-key">LOCATION</span><span class="id-val">[CLASSIFIED]</span></div>
+            <div class="id-row"><span class="id-key">CLEARANCE</span><span class="id-val gold-text">TS/SCI · ACTIVE</span></div>
+            <div class="id-row"><span class="id-key">LANGUAGES</span><span class="id-val">EN · RU · ZH (read)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-bio">
+          <p>I operate at the intersection of offensive security research and adversarial simulation. With over 8 years embedded in the security trenches — from NSA threat intelligence to independent red team consulting — I've developed a pathological obsession with finding what defenders miss.</p>
+          <p>My approach is architectural. Not "can I break it" but "how would a sophisticated adversary break it, and what would they do next." I think in kill chains, not checklists.</p>
+          <p>When I'm not breaking things professionally, I contribute to open-source offensive tooling, write CVE advisories, and occasionally surface at DEF CON under a handle I won't disclose here.</p>
+        </div>
+
+        <!-- INTERESTS -->
+        <div class="interests-block">
+          <div class="section-tag" style="margin-top:32px;">// SYSTEM INTERESTS</div>
+          <div class="interests-grid">
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">Exploit Dev</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">Firmware RE</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">Threat Intel</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">OSINT</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">CTF / Pwn</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">Cryptography</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">OT / SCADA</div>
+            </div>
+            <div class="interest-item">
+              <div class="interest-icon">⬡</div>
+              <div class="interest-label">Malware Dev</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: EDUCATION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="education" class="section-education">
+    <div class="edu-inner">
+      <div class="section-tag">// KNOWLEDGE BASE</div>
+      <h2 class="section-title">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-item" data-reveal>
+          <div class="edu-year">2012 — 2016</div>
+          <div class="edu-degree">B.S. Computer Science</div>
+          <div class="edu-school">Carnegie Mellon University · Pittsburgh, PA</div>
+          <div class="edu-focus">Focus: Systems Security · Network Architecture</div>
+          <div class="edu-tags">
+            <span class="edu-tag">GPA 3.9/4.0</span>
+            <span class="edu-tag">Dean's List</span>
+          </div>
+        </div>
+        <div class="edu-item" data-reveal>
+          <div class="edu-year">2014</div>
+          <div class="edu-degree">OSCP — Offensive Security Certified Professional</div>
+          <div class="edu-school">Offensive Security</div>
+          <div class="edu-focus">PWK Course · Lab Penetration Testing</div>
+          <div class="edu-tags">
+            <span class="edu-tag">Cert</span>
+          </div>
+        </div>
+        <div class="edu-item" data-reveal>
+          <div class="edu-year">2016</div>
+          <div class="edu-degree">OSCE — Offensive Security Expert</div>
+          <div class="edu-school">Offensive Security</div>
+          <div class="edu-focus">CTP · Advanced Exploit Dev · Shellcoding</div>
+          <div class="edu-tags">
+            <span class="edu-tag">Cert</span>
+            <span class="edu-tag">Advanced</span>
+          </div>
+        </div>
+        <div class="edu-item" data-reveal>
+          <div class="edu-year">2019</div>
+          <div class="edu-degree">GREM — GIAC Reverse Engineering Malware</div>
+          <div class="edu-school">SANS Institute</div>
+          <div class="edu-focus">Malware analysis · Anti-evasion techniques</div>
+          <div class="edu-tags">
+            <span class="edu-tag">Cert</span>
+          </div>
+        </div>
+        <div class="edu-item wide" data-reveal>
+          <div class="edu-year">2022</div>
+          <div class="edu-degree">DEF CON 30 — Black Badge · CTF Champion</div>
+          <div class="edu-school">DEF CON · Las Vegas, NV</div>
+          <div class="edu-focus">First place finish in Capture the Flag open division. Team: /dev/null</div>
+          <div class="edu-tags">
+            <span class="edu-tag gold-border">BLACK BADGE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: EXPERIENCE / CLEARANCE STAGES (replaces old credentials) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="credentials" class="section-credentials">
+    <div class="cred-header">
+      <div class="section-tag">// AUTHORIZATION RECORD</div>
+      <h2 class="section-title">Clearance Stages</h2>
+    </div>
+    <div class="stages-layout">
+      <div class="stage-item" data-stage-num="STAGE I">
+        <div class="stage-marker"></div>
+        <div class="stage-content">
+          <div class="stage-year">2016 — 2018</div>
+          <div class="stage-title">Threat Intelligence Analyst</div>
+          <div class="stage-org">NSA / Cybersecurity Division · Fort Meade, MD</div>
+          <p class="stage-brief">Advanced persistent threat tracking, nation-state actor attribution, zero-day intelligence fusion</p>
+          <div class="stage-clearance">TS/SCI</div>
+        </div>
+      </div>
+      <div class="stage-item" data-stage-num="STAGE II">
+        <div class="stage-marker"></div>
+        <div class="stage-content">
+          <div class="stage-year">2018 — 2021</div>
+          <div class="stage-title">Senior Penetration Tester</div>
+          <div class="stage-org">Mandiant · Washington, D.C.</div>
+          <p class="stage-brief">Red team lead on 60+ enterprise engagements. Developed internal TTP simulation framework used across 3 global teams</p>
+          <div class="stage-clearance">CONFIDENTIAL</div>
+        </div>
+      </div>
+      <div class="stage-item" data-stage-num="STAGE III">
+        <div class="stage-marker"></div>
+        <div class="stage-content">
+          <div class="stage-year">2021 — 2024</div>
+          <div class="stage-title">Exploit Engineer / Vulnerability Researcher</div>
+          <div class="stage-org">Crowdstrike · Remote</div>
+          <p class="stage-brief">Authored 12 CVEs across enterprise VPN, cloud IAM, and OT/SCADA systems. Presented at DEF CON 31 & Black Hat USA</p>
+          <div class="stage-clearance">SECRET</div>
+        </div>
+      </div>
+      <div class="stage-item active" data-stage-num="STAGE IV">
+        <div class="stage-marker"></div>
+        <div class="stage-content">
+          <div class="stage-year">2024 — PRESENT</div>
+          <div class="stage-title">Independent Red Team Consultant</div>
+          <div class="stage-org">Self-Directed · Global Operations</div>
+          <p class="stage-brief">Bespoke red team engagements for tier-1 financial institutions, defense contractors, and critical infrastructure operators</p>
+          <div class="stage-clearance active-tag">ACTIVE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: SKILLS — RAM ALLOCATION STYLE -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="skills" class="section-skills">
+    <div class="hex-bg" id="hex-bg-skills"></div>
+    <div class="skills-inner">
+      <div class="section-tag">// CAPABILITY MATRIX</div>
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skills-col">
+          <div class="skills-col-label">OFFENSIVE / EXPLOIT</div>
+          <div class="skill-item" data-pct="96">
+            <div class="skill-header">
+              <span class="skill-name">Web Application Exploitation</span>
+              <span class="skill-alloc">96% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="96"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="92">
+            <div class="skill-header">
+              <span class="skill-name">Network Intrusion / AD Attack</span>
+              <span class="skill-alloc">92% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="92"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="88">
+            <div class="skill-header">
+              <span class="skill-name">Malware Development / C2</span>
+              <span class="skill-alloc">88% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="88"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="84">
+            <div class="skill-header">
+              <span class="skill-name">Hardware / Firmware RE</span>
+              <span class="skill-alloc">84% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="84"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="90">
+            <div class="skill-header">
+              <span class="skill-name">Social Engineering</span>
+              <span class="skill-alloc">90% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="90"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skills-col">
+          <div class="skills-col-label">TOOLCHAIN / LANGUAGES</div>
+          <div class="skill-item" data-pct="95">
+            <div class="skill-header">
+              <span class="skill-name">Python · C · Assembly (x86/64)</span>
+              <span class="skill-alloc">95% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="95"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="89">
+            <div class="skill-header">
+              <span class="skill-name">Rust · Go · PowerShell</span>
+              <span class="skill-alloc">89% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="89"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="94">
+            <div class="skill-header">
+              <span class="skill-name">Metasploit · Cobalt Strike · Burp</span>
+              <span class="skill-alloc">94% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="94"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="78">
+            <div class="skill-header">
+              <span class="skill-name">IDA Pro · Ghidra · Binary Ninja</span>
+              <span class="skill-alloc">78% · STACK ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="78"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-pct="85">
+            <div class="skill-header">
+              <span class="skill-name">OSINT · Maltego · Shodan</span>
+              <span class="skill-alloc">85% · HEAP ALLOCATED</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar" data-fill="85"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Language proficiencies -->
+      <div class="lang-block">
+        <div class="section-tag" style="margin-top:60px;">// HUMAN LANGUAGE MODULES</div>
+        <div class="lang-grid">
+          <div class="lang-item">
+            <div class="lang-name">English</div>
+            <div class="lang-level">NATIVE · L1</div>
+            <div class="lang-bar"><div class="lang-fill" style="--fill:100%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-name">Russian</div>
+            <div class="lang-level">PROFESSIONAL · B2</div>
+            <div class="lang-bar"><div class="lang-fill" style="--fill:72%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-name">Mandarin</div>
+            <div class="lang-level">READ-ONLY · A2</div>
+            <div class="lang-bar"><div class="lang-fill" style="--fill:35%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-name">Arabic</div>
+            <div class="lang-level">BASIC · A1</div>
+            <div class="lang-bar"><div class="lang-fill" style="--fill:18%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- EXPLOITS ARCHIVE (UNCHANGED) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="exploits" class="section-exploits">
+    <div class="exploits-header">
+      <div class="section-tag">// ENGAGEMENT ARCHIVE</div>
+      <h2 class="section-title">./exploits</h2>
+      <div class="exploits-filter" id="filter-bar">
+        <button class="filter-btn active" data-filter="all">ALL</button>
+        <button class="filter-btn" data-filter="web">WEB APP</button>
+        <button class="filter-btn" data-filter="network">NETWORK</button>
+        <button class="filter-btn" data-filter="hardware">HARDWARE</button>
+        <button class="filter-btn" data-filter="social">SOCIAL ENG.</button>
+      </div>
+    </div>
+    <div class="engagements-grid" id="engagements-grid">
+      <article class="engagement-item" data-category="web" data-index="01">
+        <div class="eng-number">01</div>
+        <div class="eng-content">
+          <div class="eng-classification">CLASSIFICATION: RESTRICTED</div>
+          <h3 class="eng-title">
+            <span class="redacted">Operation ████████</span>
+            <span class="revealed">Operation BLACKGATE</span>
+          </h3>
+          <div class="eng-meta">
+            <span class="eng-tag">Web Application</span>
+            <span class="eng-tag">Auth Bypass</span>
+            <span class="eng-tag">RCE</span>
+          </div>
+          <p class="eng-desc">
+            <span class="redacted-block">████████ ████ ████████ ██████ ████████ ████████ OAuth 2.0 ████████ ████ ███████████ ████████.</span>
+            <span class="revealed-block">Critical OAuth 2.0 implementation flaw in enterprise SSO stack. Authorization code injection leading to full account takeover across 40K+ user base. Chained with SSRF to exfiltrate internal API tokens.</span>
+          </p>
+          <div class="eng-footer">
+            <span class="eng-severity critical">CRITICAL</span>
+            <span class="eng-cvss">CVSS 9.8</span>
+            <span class="eng-year">2024</span>
+          </div>
+        </div>
+        <div class="eng-hover-line"></div>
+      </article>
+      <article class="engagement-item featured" data-category="network" data-index="02">
+        <div class="eng-number">02</div>
+        <div class="eng-content">
+          <div class="eng-classification">CLASSIFICATION: SECRET</div>
+          <h3 class="eng-title">
+            <span class="redacted">Project ████████ ████</span>
+            <span class="revealed">Project IRONVEIL</span>
+          </h3>
+          <div class="eng-meta">
+            <span class="eng-tag">Network Intrusion</span>
+            <span class="eng-tag">AD Exploitation</span>
+            <span class="eng-tag">Lateral Movement</span>
+          </div>
+          <p class="eng-desc">
+            <span class="redacted-block">████████ ████████ ███████████ Active Directory ████████ ████████ ████████ ████████████ Kerberoasting ████████.</span>
+            <span class="revealed-block">Full-domain compromise via Kerberoasting and Pass-the-Hash chains. Simulated APT persistence across 6 network segments over 21-day red team engagement. Detection evasion rate: 94%.</span>
+          </p>
+          <div class="eng-footer">
+            <span class="eng-severity high">HIGH</span>
+            <span class="eng-cvss">CVSS 8.9</span>
+            <span class="eng-year">2024</span>
+          </div>
+        </div>
+        <div class="eng-hover-line"></div>
+      </article>
+      <article class="engagement-item" data-category="hardware" data-index="03">
+        <div class="eng-number">03</div>
+        <div class="eng-content">
+          <div class="eng-classification">CLASSIFICATION: TOP SECRET</div>
+          <h3 class="eng-title">
+            <span class="redacted">Codename ████ ████████</span>
+            <span class="revealed">Codename FERRITE</span>
+          </h3>
+          <div class="eng-meta">
+            <span class="eng-tag">Hardware</span>
+            <span class="eng-tag">Firmware Analysis</span>
+            <span class="eng-tag">JTAG</span>
+          </div>
+          <p class="eng-desc">
+            <span class="redacted-block">████████ ████ ████████ ████████ JTAG ████████████ ████████ ████ ████████ ████████ OEM ████████.</span>
+            <span class="revealed-block">Exposed undocumented JTAG interface on critical infrastructure OEM device. Extracted encrypted firmware, reversed proprietary protocol, achieved arbitrary code execution at bootloader level.</span>
+          </p>
+          <div class="eng-footer">
+            <span class="eng-severity critical">CRITICAL</span>
+            <span class="eng-cvss">CVSS 9.1</span>
+            <span class="eng-year">2023</span>
+          </div>
+        </div>
+        <div class="eng-hover-line"></div>
+      </article>
+      <article class="engagement-item" data-category="social" data-index="04">
+        <div class="eng-number">04</div>
+        <div class="eng-content">
+          <div class="eng-classification">CLASSIFICATION: CONFIDENTIAL</div>
+          <h3 class="eng-title">
+            <span class="redacted">████████ ████████ VIPER</span>
+            <span class="revealed">Operation VIPER</span>
+          </h3>
+          <div class="eng-meta">
+            <span class="eng-tag">Social Engineering</span>
+            <span class="eng-tag">Phishing</span>
+            <span class="eng-tag">Vishing</span>
+          </div>
+          <p class="eng-desc">
+            <span class="redacted-block">████████ ████████ ████████ phishing ████ ████████ ████████ ████ C-suite ████████ ████████.</span>
+            <span class="revealed-block">Multi-vector social engineering campaign targeting C-suite and finance teams. 78% credential capture rate on spear-phishing payload. Achieved wire transfer authorization access within 72 hours.</span>
+          </p>
+          <div class="eng-footer">
+            <span class="eng-severity high">HIGH</span>
+            <span class="eng-cvss">CVSS 8.2</span>
+            <span class="eng-year">2023</span>
+          </div>
+        </div>
+        <div class="eng-hover-line"></div>
+      </article>
+      <article class="engagement-item wide" data-category="web" data-index="05">
+        <div class="eng-number">05</div>
+        <div class="eng-content">
+          <div class="eng-classification">CLASSIFICATION: SECRET</div>
+          <h3 class="eng-title">
+            <span class="redacted">Research: ████████ ████████████</span>
+            <span class="revealed">Research: CHAINBREAKER</span>
+          </h3>
+          <div class="eng-meta">
+            <span class="eng-tag">Supply Chain</span>
+            <span class="eng-tag">Dependency Confusion</span>
+            <span class="eng-tag">CI/CD Poisoning</span>
+          </div>
+          <p class="eng-desc">
+            <span class="redacted-block">████████ ████████ ████████ ████████ CI/CD ████████ ████████ ████████ npm ████████ ████████████ ████████.</span>
+            <span class="revealed-block">Novel dependency confusion attack chain across npm and PyPI registries. Identified 23 Fortune 500 CI/CD pipelines susceptible to malicious package injection. Published as coordinated disclosure with CISA advisory.</span>
+          </p>
+          <div class="eng-footer">
+            <span class="eng-severity critical">CRITICAL</span>
+            <span class="eng-cvss">CVSS 9.3</span>
+            <span class="eng-year">2023</span>
+          </div>
+        </div>
+        <div class="eng-hover-line"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- KILL CHAIN PIPELINE (UNCHANGED) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="killchain" class="section-killchain">
+    <div class="kc-header">
+      <div class="section-tag">// METHODOLOGY</div>
+      <h2 class="section-title">Vulnerability Pipeline</h2>
+      <p class="kc-subtitle">A systematic, engineered approach to adversarial simulation</p>
+    </div>
+    <div class="kc-pipeline-wrap">
+      <div class="kc-pipeline" id="kc-pipeline">
+        <div class="kc-stage" data-stage="01">
+          <div class="kc-stage-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="20" cy="20" r="6" fill="currentColor" opacity="0.3"/>
+              <line x1="20" y1="2" x2="20" y2="9" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="38" y1="20" x2="31" y2="20" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="20" y1="38" x2="20" y2="31" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="2" y1="20" x2="9" y2="20" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="kc-stage-number">01</div>
+          <h3 class="kc-stage-name">RECON</h3>
+          <p class="kc-stage-desc">OSINT collection, attack surface enumeration, passive infrastructure mapping</p>
+          <div class="kc-stage-tools">MALTEGO · SHODAN · AMASS</div>
+        </div>
+        <div class="kc-connector">
+          <svg class="connector-svg" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="110" y2="10" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+            <polygon points="110,5 120,10 110,15" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="kc-stage" data-stage="02">
+          <div class="kc-stage-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="32" height="32" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 20h16M20 12v16" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="16" y="16" width="8" height="8" fill="currentColor" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="kc-stage-number">02</div>
+          <h3 class="kc-stage-name">SCAN</h3>
+          <p class="kc-stage-desc">Vulnerability identification, service fingerprinting, misconfiguration analysis</p>
+          <div class="kc-stage-tools">NMAP · NUCLEI · BURP</div>
+        </div>
+        <div class="kc-connector">
+          <svg class="connector-svg" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="110" y2="10" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+            <polygon points="110,5 120,10 110,15" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="kc-stage" data-stage="03">
+          <div class="kc-stage-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4L36 36H4L20 4Z" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.1"/>
+              <path d="M20 15L27 29H13L20 15Z" fill="currentColor" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="kc-stage-number">03</div>
+          <h3 class="kc-stage-name">EXPLOIT</h3>
+          <p class="kc-stage-desc">Custom payload delivery, privilege escalation, initial access establishment</p>
+          <div class="kc-stage-tools">METASPLOIT · COBALT STRIKE · CUSTOM</div>
+        </div>
+        <div class="kc-connector">
+          <svg class="connector-svg" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="110" y2="10" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+            <polygon points="110,5 120,10 110,15" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="kc-stage" data-stage="04">
+          <div class="kc-stage-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="14" width="28" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M14 14V10a6 6 0 0112 0v4" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="20" cy="22" r="3" fill="currentColor" opacity="0.6"/>
+              <line x1="20" y1="25" x2="20" y2="29" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="kc-stage-number">04</div>
+          <h3 class="kc-stage-name">PERSIST</h3>
+          <p class="kc-stage-desc">Backdoor implant, C2 channel establishment, stealth persistence mechanisms</p>
+          <div class="kc-stage-tools">SLIVER · HAVOC · CUSTOM C2</div>
+        </div>
+        <div class="kc-connector">
+          <svg class="connector-svg" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="110" y2="10" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+            <polygon points="110,5 120,10 110,15" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="kc-stage" data-stage="05">
+          <div class="kc-stage-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 20L20 8L32 20" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="14" y="20" width="12" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="17" y1="27" x2="17" y2="31" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="23" y1="27" x2="23" y2="31" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="kc-stage-number">05</div>
+          <h3 class="kc-stage-name">EXFILTRATE</h3>
+          <p class="kc-stage-desc">Data staging, covert egress, objective validation, evidence collection</p>
+          <div class="kc-stage-tools">DNS TUNNEL · HTTPS C2 · STEG</div>
+        </div>
+      </div>
+    </div>
+    <div class="kc-progress-wrap">
+      <div class="kc-progress-bar" id="kc-progress"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: NETWORK PACKET VISUALIZER -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="netvis" class="section-netvis">
+    <div class="netvis-inner">
+      <div class="section-tag">// ACTIVE TOOLCHAIN</div>
+      <h2 class="section-title">Network Visualizer</h2>
+      <p class="netvis-subtitle">Live packet simulation across operational toolchain</p>
+      <canvas id="netvis-canvas"></canvas>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: SERVICES -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="services" class="section-services">
+    <div class="services-inner">
+      <div class="section-tag">// SERVICE CATALOG</div>
+      <h2 class="section-title">Services</h2>
+      <div class="services-grid">
+        <div class="service-item" data-reveal>
+          <div class="service-code">SVC-01</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="1.2"/><path d="M12 20l5 5 11-10" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="service-name">Red Team Operations</h3>
+          <p class="service-desc">Full-scope adversarial simulation replicating nation-state TTPs. Multi-week engagements with detailed kill-chain documentation.</p>
+          <div class="service-tags">
+            <span>APT Simulation</span><span>Persistence</span><span>Evasion</span>
+          </div>
+        </div>
+        <div class="service-item" data-reveal>
+          <div class="service-code">SVC-02</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M14 16h12M14 20h8M14 24h10" stroke="currentColor" stroke-width="1.2"/></svg>
+          </div>
+          <h3 class="service-name">Web Application Penetration</h3>
+          <p class="service-desc">OWASP Top-10 and beyond. Business logic flaws, API security, OAuth/OIDC attack chains, supply chain exposure.</p>
+          <div class="service-tags">
+            <span>OWASP</span><span>API</span><span>Auth Bypass</span>
+          </div>
+        </div>
+        <div class="service-item" data-reveal>
+          <div class="service-code">SVC-03</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none"><path d="M8 12h24M8 20h24M8 28h24" stroke="currentColor" stroke-width="1.2"/><circle cx="14" cy="12" r="3" fill="currentColor" opacity="0.5"/><circle cx="26" cy="20" r="3" fill="currentColor" opacity="0.5"/><circle cx="18" cy="28" r="3" fill="currentColor" opacity="0.5"/></svg>
+          </div>
+          <h3 class="service-name">Network Infrastructure Audit</h3>
+          <p class="service-desc">Internal network segmentation review, Active Directory hardening, firewall rule analysis, lateral movement path mapping.</p>
+          <div class="service-tags">
+            <span>AD Hardening</span><span>Segmentation</span><span>VLAN</span>
+          </div>
+        </div>
+        <div class="service-item" data-reveal>
+          <div class="service-code">SVC-04</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none"><rect x="10" y="6" width="20" height="28" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M15 14h10M15 19h10M15 24h6" stroke="currentColor" stroke-width="1.2"/></svg>
+          </div>
+          <h3 class="service-name">Hardware &amp; Firmware Analysis</h3>
+          <p class="service-desc">JTAG/UART interface discovery, firmware extraction and reversing, embedded system exploitation, supply chain tampering assessment.</p>
+          <div class="service-tags">
+            <span>JTAG</span><span>Firmware RE</span><span>OT/SCADA</span>
+          </div>
+        </div>
+        <div class="service-item" data-reveal>
+          <div class="service-code">SVC-05</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none"><path d="M20 6l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" stroke="currentColor" stroke-width="1.2" fill="currentColor" fill-opacity="0.08"/></svg>
+          </div>
+          <h3 class="service-name">Social Engineering &amp; Phishing</h3>
+          <p class="service-desc">Tailored spear-phishing, vishing, physical intrusion simulations. Measures human layer resilience against sophisticated adversaries.</p>
+          <div class="service-tags">
+            <span>Phishing</span><span>Vishing</span><span>Physical</span>
+          </div>
+        </div>
+        <div class="service-item" data-reveal>
+          <div class="service-code">SVC-06</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 2"/><circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="1.2"/><line x1="20" y1="6" x2="20" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="34" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="1.2"/></svg>
+          </div>
+          <h3 class="service-name">Threat Intelligence &amp; Attribution</h3>
+          <p class="service-desc">Nation-state actor profiling, TTP mapping to MITRE ATT&CK, dark web monitoring, IOC development and threat feed curation.</p>
+          <div class="service-tags">
+            <span>ATT&CK</span><span>OSINT</span><span>Attribution</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: LIVE THREAT MAP -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="threatmap" class="section-threatmap">
+    <div class="threatmap-inner">
+      <div class="section-tag">// GLOBAL THREAT TELEMETRY</div>
+      <h2 class="section-title">Live Threat Map</h2>
+      <p class="threatmap-subtitle">Real-time adversary origin simulation · Decorative threat intelligence overlay</p>
+      <div class="threatmap-wrap">
+        <div class="threatmap-counters">
+          <div class="tm-counter">
+            <div class="tm-count" id="tm-attacks">0</div>
+            <div class="tm-label">ATTACKS / MIN</div>
+          </div>
+          <div class="tm-counter">
+            <div class="tm-count" id="tm-origins">0</div>
+            <div class="tm-label">ORIGIN NODES</div>
+          </div>
+          <div class="tm-counter">
+            <div class="tm-count" id="tm-blocked">0</div>
+            <div class="tm-label">BLOCKED</div>
+          </div>
+        </div>
+        <canvas id="threatmap-canvas"></canvas>
+        <div id="threat-log" class="threat-log"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NEW: CONTACT FORM -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="contact" class="section-contact">
+    <div class="hex-bg" id="hex-bg-contact"></div>
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-tag">// INITIALIZE CONTACT</div>
+        <h2 class="section-title">Contact</h2>
+        <p class="contact-desc">All communications are encrypted in transit. PGP-encrypted messages preferred for sensitive engagements. Response within 24-48 hrs.</p>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <span class="cm-label">EMAIL</span>
+            <a href="mailto:mv@infiltrator.io" class="cm-val">mv@infiltrator.io</a>
+          </div>
+          <div class="contact-method">
+            <span class="cm-label">KEYBASE</span>
+            <span class="cm-val">keybase.io/marcusvance</span>
+          </div>
+          <div class="contact-method">
+            <span class="cm-label">SIGNAL</span>
+            <span class="cm-val">[SHARED ON REQUEST]</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-form-wrap">
+          <div class="cf-field">
+            <label class="cf-label">DESIGNATION</label>
+            <input type="text" class="cf-input" placeholder="Your name or alias" />
+          </div>
+          <div class="cf-field">
+            <label class="cf-label">SECURE CHANNEL</label>
+            <input type="email" class="cf-input" placeholder="your@email.io" />
+          </div>
+          <div class="cf-field">
+            <label class="cf-label">ENGAGEMENT TYPE</label>
+            <select class="cf-input cf-select">
+              <option value="">SELECT OPERATION CLASS</option>
+              <option>Red Team Operation</option>
+              <option>Web Application Pentest</option>
+              <option>Network Infrastructure Audit</option>
+              <option>Hardware / Firmware Analysis</option>
+              <option>Social Engineering Campaign</option>
+              <option>Threat Intelligence</option>
+              <option>Other / Classified</option>
+            </select>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label">MISSION BRIEF</label>
+            <textarea class="cf-input cf-textarea" placeholder="Describe your engagement requirements..."></textarea>
+          </div>
+          <button class="cf-submit" id="cf-submit">
+            <span class="cf-submit-text">TRANSMIT SECURE MESSAGE</span>
+            <span class="cf-submit-arrow">→</span>
+          </button>
+          <div class="cf-note">Messages are end-to-end encrypted · PGP key in vault below</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- DIGITAL VAULT — FOOTER -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <footer id="vault" class="section-vault">
+    <div class="vault-grid">
+      <div class="vault-identity">
+        <div class="section-tag">// DIGITAL VAULT</div>
+        <div class="vault-name">MARCUS<br/>VANCE</div>
+        <p class="vault-tagline">Systems understood from the inside out.</p>
+        <div class="vault-links">
+          <a href="#" class="vault-link">GITHUB</a>
+          <a href="#" class="vault-link">LINKEDIN</a>
+          <a href="#" class="vault-link">X / TWITTER</a>
+          <a href="#" class="vault-link">KEYBASE</a>
+        </div>
+      </div>
+      <div class="vault-pgp">
+        <div class="pgp-label">
+          <span>PGP PUBLIC KEY</span>
+          <button id="copy-pgp-btn" class="copy-btn">
+            <span class="copy-icon">⎘</span>
+            <span class="copy-text">COPY</span>
+          </button>
+        </div>
+        <pre class="pgp-block" id="pgp-content">-----BEGIN PGP PUBLIC KEY BLOCK-----
+mQINBGXq3hQBEADN4V5fTm8eK2P9zLwQ1rFgJvU6oHs3b
+YnCpMXq7KdRz2jEf5V1LMWQ9nP0aGK4xT7sYhVJ3bNRLQ
+8CkZDfU2mXpEWv9KaJ6cR4yLBNsOT1HzGiXqMfP5VwUeK
+mBC7nZJQD9vKsR2LpHNFTXq8jEbU6YhP1rGWMC3oXsVKa4
+Tz9NwQeJmL5vCbPUR3HXfYK2qDsMNnG8T6pLRQVj0UkIz
+BEJwXfN7sTqL4CmVh9KeDpRYqZ3UGnPsJxBk2wTFgN5mV1
+LQdPsK6nXhTYjR8eWfC4mBzUDqJpN3vGLsKT9oXCyF2e5Z
+RKJ7nQmTfGpWsB4DxH3LNqV9CzYU6RkMdT8sPeWnFjbXLQ
+vN4KhGTqJm5sUPCzWfXe8DrBnYkTLQv7RpGsNMc3aJKX2F
+HqTzVBsNLpMy4CkGDeXUfR8wJvPmTnQs6YbLKHzFXe9WuC
+GN3mTqBsVpJ8RkLzXYfCDnW4eUHqTmPsNGb7KxJvZ2LFRC
+MqTs5nBwXPpJUhVkfLzG3eNY7CqRDsTvJmb4XKWFpN9Ug2
+==K5dX
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+        <div class="pgp-fingerprint">
+          FINGERPRINT: B4F2 A1C9 3E7D 5B08 F6N1 · 2A9C 7E3F D1B4 8C52 A6E9
+        </div>
+      </div>
+      <div class="vault-status">
+        <div class="vs-label">SYSTEM STATUS</div>
+        <div class="status-grid">
+          <div class="status-item">
+            <div class="si-indicator online"></div>
+            <div class="si-detail">
+              <div class="si-name">SECURE CHANNEL</div>
+              <div class="si-val">ENCRYPTED · AES-256</div>
+            </div>
+          </div>
+          <div class="status-item">
+            <div class="si-indicator online"></div>
+            <div class="si-detail">
+              <div class="si-name">AVAILABILITY</div>
+              <div class="si-val">Q1 2025 · LIMITED SLOTS</div>
+            </div>
+          </div>
+          <div class="status-item">
+            <div class="si-indicator pulse"></div>
+            <div class="si-detail">
+              <div class="si-name">LAST HANDSHAKE</div>
+              <div class="si-val" id="last-handshake">CALCULATING...</div>
+            </div>
+          </div>
+          <div class="status-item">
+            <div class="si-indicator online"></div>
+            <div class="si-detail">
+              <div class="si-name">RESPONSE TIME</div>
+              <div class="si-val">24-48 HRS · ENCRYPTED</div>
+            </div>
+          </div>
+        </div>
+        <div class="vault-contact-block">
+          <div class="contact-label">INITIALIZE CONTACT</div>
+          <a href="mailto:mv@infiltrator.io" class="contact-email">mv@infiltrator.io</a>
+          <div class="contact-note">PGP-encrypted comms preferred</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASCII SIGNATURE -->
+    <div class="ascii-signature">
+      <pre id="ascii-sig">
+ ███╗   ███╗ █████╗ ██████╗  ██████╗██╗   ██╗███████╗
+ ████╗ ████║██╔══██╗██╔══██╗██╔════╝██║   ██║██╔════╝
+ ██╔████╔██║███████║██████╔╝██║     ██║   ██║███████╗
+ ██║╚██╔╝██║██╔══██║██╔══██╗██║     ██║   ██║╚════██║
+ ██║ ╚═╝ ██║██║  ██║██║  ██║╚██████╗╚██████╔╝███████║
+ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+                                          ██╗   ██╗ █████╗ ███╗   ██╗ ██████╗███████╗
+                                          ██║   ██║██╔══██╗████╗  ██║██╔════╝██╔════╝
+                                          ██║   ██║███████║██╔██╗ ██║██║     █████╗  
+                                          ╚██╗ ██╔╝██╔══██║██║╚██╗██║██║     ██╔══╝  
+                                           ╚████╔╝ ██║  ██║██║ ╚████║╚██████╗███████╗
+                                            ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝
+      </pre>
+      <div class="ascii-sig-line">// RED TEAM LEAD · EXPLOIT ENGINEER · THREAT ARCHITECT · MV-0x4F2A1</div>
+    </div>
+
+    <div class="vault-bottom">
+      <div class="vb-left">© 2025 MARCUS VANCE · ALL RIGHTS RESERVED</div>
+      <div class="vb-center">
+        <span class="vb-id">BUILD: 0x4F2A · v2.4.1 · SIGNED</span>
+      </div>
+      <div class="vb-right">DESIGNED WITH PRECISION</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

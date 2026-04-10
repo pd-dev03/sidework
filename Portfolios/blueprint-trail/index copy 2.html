@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHITECTURAL PORTFOLIO BLUEPRINT</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ====================
+           REAL ARCHITECTURAL BLUEPRINT
+           ==================== */
+        :root {
+            --blueprint-bg: #0a1e3c; /* Dark blueprint paper */
+            --blueprint-paper: #0c2547; /* Slightly lighter for content */
+            --blueprint-line: #ffffff; /* WHITE blueprint lines */
+            --blueprint-dim: #a3d5ff; /* Light blue for dimensions */
+            --blueprint-red: #ff6b6b; /* Red pencil marks */
+            --blueprint-grid: rgba(255, 255, 255, 0.1);
+            --font-mono: 'Courier New', monospace;
+            --font-drafting: 'Arial Narrow', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-mono);
+            background-color: var(--blueprint-bg);
+            color: var(--blueprint-line);
+            line-height: 1.4;
+            font-size: 14px;
+            /* ARCHITECTURAL GRID */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* DRAFTING PAPER WITH WEAR MARKS */
+        .drafting-paper {
+            max-width: 1600px;
+            margin: 30px auto;
+            background-color: var(--blueprint-paper);
+            border: 2px solid var(--blueprint-line);
+            padding: 50px;
+            position: relative;
+            min-height: 100vh;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            
+            /* Paper texture */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 20%),
+                linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.03) 50%, transparent 51%);
+        }
+        
+        /* DRAFTING BOARD BORDER WITH TOOLS */
+        .drafting-border {
+            position: absolute;
+            border: 1px solid var(--blueprint-line);
+        }
+        
+        .border-top { top: 15px; left: 15px; right: 15px; height: 1px; }
+        .border-right { top: 15px; right: 15px; bottom: 15px; width: 1px; }
+        .border-bottom { bottom: 15px; left: 15px; right: 15px; height: 1px; }
+        .border-left { top: 15px; left: 15px; bottom: 15px; width: 1px; }
+        
+        /* DRAFTING TOOLS AS DESIGN ELEMENTS */
+        .drafting-tool {
+            position: absolute;
+            color: var(--blueprint-line);
+            font-size: 24px;
+            opacity: 0.4;
+            z-index: 0;
+        }
+        
+        .ruler-horizontal {
+            top: 10%;
+            left: 5%;
+            width: 200px;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 9px,
+                var(--blueprint-line) 9px,
+                var(--blueprint-line) 10px
+            );
+        }
+        
+        .ruler-vertical {
+            top: 15%;
+            right: 8%;
+            width: 2px;
+            height: 150px;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 9px,
+                var(--blueprint-line) 9px,
+                var(--blueprint-line) 10px
+            );
+        }
+        
+        .compass-circle {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--blueprint-line);
+            border-radius: 50%;
+            bottom: 20%;
+            left: 10%;
+            opacity: 0.3;
+        }
+        
+        .triangle-30 {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 87px solid rgba(255, 255, 255, 0.1);
+            top: 25%;
+            right: 15%;
+            transform: rotate(45deg);
+        }
+        
+        /* TITLE BLOCK - ARCHITECTURAL STYLE */
+        .title-block {
+            border: 3px solid var(--blueprint-line);
+            padding: 25px;
+            margin-bottom: 60px;
+            position: relative;
+            background-color: rgba(10, 30, 60, 0.8);
+        }
+        
+        .title-block::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px dashed var(--blueprint-line);
+            z-index: -1;
+        }
+        
+        .main-title {
+            font-family: var(--font-drafting);
+            font-size: 42px;
+            color: var(--blueprint-line);
+            text-align: center;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: var(--blueprint-dim);
+            font-size: 18px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        /* ARCHITECTURAL GRID OVERLAY */
+        .arch-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* BLUEPRINT SECTION */
+        .blueprint-section {
+            margin: 70px 0;
+            position: relative;
+            z-index: 1;
+            border: 2px solid var(--blueprint-line);
+            padding: 35px;
+            background-color: rgba(12, 37, 71, 0.7);
+        }
+        
+        .section-title {
+            font-family: var(--font-drafting);
+            font-size: 28px;
+            color: var(--blueprint-line);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed var(--blueprint-line);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '▶';
+            position: absolute;
+            right: 0;
+            color: var(--blueprint-red);
+            font-size: 20px;
+        }
+        
+        /* DRAFTING LINES */
+        .center-line {
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                var(--blueprint-red) 20px,
+                var(--blueprint-red) 22px
+            );
+            margin: 30px 0;
+        }
+        
+        .hidden-line {
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                var(--blueprint-dim) 10px,
+                var(--blueprint-dim) 12px
+            );
+            margin: 20px 0;
+        }
+        
+        /* ARCHITECTURAL PROFILE */
+        .profile-schematic {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 50px;
+            align-items: start;
+            margin-bottom: 40px;
+        }
+        
+        .profile-elevation {
+            position: relative;
+            border: 2px solid var(--blueprint-line);
+            padding: 25px;
+            background-color: rgba(10, 30, 60, 0.6);
+        }
+        
+        .elevation-title {
+            color: var(--blueprint-dim);
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .elevation-diagram {
+            height: 250px;
+            position: relative;
+            border: 1px solid var(--blueprint-line);
+            background-color: rgba(10, 30, 60, 0.3);
+        }
+        
+        /* ARCHITECTURAL SYMBOLS */
+        .arch-symbol {
+            position: absolute;
+            font-size: 12px;
+            color: var(--blueprint-line);
+            text-align: center;
+        }
+        
+        .symbol-window {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            border: 1px solid var(--blueprint-line);
+            background-color: rgba(163, 213, 255, 0.1);
+        }
+        
+        .symbol-door {
+            position: absolute;
+            width: 20px;
+            height: 80px;
+            border: 1px solid var(--blueprint-line);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* DIMENSIONING */
+        .dimension {
+            position: relative;
+            height: 60px;
+            margin: 25px 0;
+        }
+        
+        .dimension-line {
+            height: 1px;
+            background-color: var(--blueprint-line);
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            right: 40px;
+        }
+        
+        .extension-line {
+            position: absolute;
+            width: 1px;
+            height: 20px;
+            background-color: var(--blueprint-line);
+        }
+        
+        .extension-left { left: 40px; top: 10px; }
+        .extension-right { right: 40px; top: 10px; }
+        
+        .dimension-text {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--blueprint-paper);
+            padding: 2px 15px;
+            font-size: 14px;
+            color: var(--blueprint-dim);
+            font-family: var(--font-drafting);
+        }
+        
+        /* ARCHITECTURAL TABLE */
+        .spec-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 30px 0;
+            border: 1px solid var(--blueprint-line);
+        }
+        
+        .spec-table th {
+            background-color: rgba(10, 30, 60, 0.9);
+            border: 1px solid var(--blueprint-line);
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--blueprint-dim);
+            font-family: var(--font-drafting);
+            font-size: 16px;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .spec-table td {
+            border: 1px solid var(--blueprint-line);
+            padding: 15px 20px;
+            border-top: 1px dashed var(--blueprint-line);
+        }
+        
+        /* PROJECT PLANS */
+        .plan-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .floor-plan {
+            border: 3px solid var(--blueprint-line);
+            padding: 25px;
+            background-color: rgba(10, 30, 60, 0.5);
+            position: relative;
+        }
+        
+        .plan-title {
+            color: var(--blueprint-line);
+            font-family: var(--font-drafting);
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .plan-diagram {
+            height: 250px;
+            position: relative;
+            border: 1px solid var(--blueprint-line);
+            background-color: rgba(10, 30, 60, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        /* ROOM SYMBOLS */
+        .room {
+            position: absolute;
+            border: 1px solid var(--blueprint-line);
+            padding: 10px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* SCALE BAR */
+        .scale-bar {
+            display: inline-block;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .scale-line {
+            height: 3px;
+            background-color: var(--blueprint-line);
+            width: 200px;
+            position: relative;
+        }
+        
+        .scale-ticks {
+            position: absolute;
+            top: -10px;
+            width: 100%;
+        }
+        
+        .scale-tick {
+            position: absolute;
+            width: 1px;
+            height: 10px;
+            background-color: var(--blueprint-line);
+        }
+        
+        /* STAMP AND SEAL */
+        .arch-stamp {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            border: 2px solid var(--blueprint-red);
+            padding: 15px 25px;
+            background-color: rgba(10, 30, 60, 0.9);
+            transform: rotate(2deg);
+        }
+        
+        .stamp-title {
+            color: var(--blueprint-red);
+            font-family: var(--font-drafting);
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* SKILL DIAGRAM */
+        .skill-radar {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .radar-circle {
+            position: absolute;
+            border: 1px solid var(--blueprint-line);
+            border-radius: 50%;
+        }
+        
+        .circle-1 { width: 250px; height: 250px; top: 25px; left: 25px; }
+        .circle-2 { width: 200px; height: 200px; top: 50px; left: 50px; }
+        .circle-3 { width: 150px; height: 150px; top: 75px; left: 75px; }
+        .circle-4 { width: 100px; height: 100px; top: 100px; left: 100px; }
+        
+        .radar-axis {
+            position: absolute;
+            background-color: var(--blueprint-line);
+        }
+        
+        .axis-1 { width: 2px; height: 300px; top: 0; left: 150px; }
+        .axis-2 { width: 300px; height: 2px; top: 150px; left: 0; }
+        .axis-3 { 
+            width: 2px; 
+            height: 300px; 
+            top: 0; 
+            left: 150px;
+            transform: rotate(45deg);
+            transform-origin: center;
+        }
+        .axis-4 { 
+            width: 2px; 
+            height: 300px; 
+            top: 0; 
+            left: 150px;
+            transform: rotate(-45deg);
+            transform-origin: center;
+        }
+        
+        .skill-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: var(--blueprint-red);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* CONTACT FORM - BLUEPRINT STYLE */
+        .contact-form {
+            border: 3px double var(--blueprint-line);
+            padding: 35px;
+            margin: 40px 0;
+            background-color: rgba(10, 30, 60, 0.6);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .form-field {
+            position: relative;
+            padding-bottom: 25px;
+            border-bottom: 1px dotted var(--blueprint-line);
+        }
+        
+        .form-label {
+            color: var(--blueprint-dim);
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+            font-family: var(--font-drafting);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--blueprint-line);
+            font-family: var(--font-mono);
+            font-size: 16px;
+            padding: 5px 0;
+            outline: none;
+        }
+        
+        .form-input:focus {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .submit-button {
+            background-color: transparent;
+            color: var(--blueprint-line);
+            border: 2px solid var(--blueprint-line);
+            padding: 15px 50px;
+            font-family: var(--font-drafting);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin: 40px auto 0;
+            position: relative;
+        }
+        
+        .submit-button:hover {
+            background-color: var(--blueprint-line);
+            color: var(--blueprint-bg);
+        }
+        
+        /* REVISION CLOUD */
+        .revision-cloud {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            border: 2px solid var(--blueprint-red);
+            padding: 15px;
+            background-color: rgba(10, 30, 60, 0.9);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+        
+        .cloud-text {
+            color: var(--blueprint-red);
+            font-family: var(--font-drafting);
+            text-align: center;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .drafting-paper {
+                padding: 30px;
+            }
+            
+            .profile-schematic {
+                grid-template-columns: 1fr;
+            }
+            
+            .plan-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .ruler-horizontal,
+            .ruler-vertical,
+            .compass-circle,
+            .triangle-30 {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .drafting-paper {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .main-title {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .arch-stamp {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="drafting-paper">
+        <!-- DRAFTING BORDER -->
+        <div class="drafting-border border-top"></div>
+        <div class="drafting-border border-right"></div>
+        <div class="drafting-border border-bottom"></div>
+        <div class="drafting-border border-left"></div>
+        
+        <!-- DRAFTING TOOLS -->
+        <div class="ruler-horizontal"></div>
+        <div class="ruler-vertical"></div>
+        <div class="compass-circle"></div>
+        <div class="triangle-30"></div>
+        
+        <!-- ARCHITECTURAL GRID -->
+        <div class="arch-grid"></div>
+        
+        <!-- REVISION CLOUD -->
+        <div class="revision-cloud">
+            <div class="cloud-text">Revised</div>
+            <div class="cloud-text">2024.01.20</div>
+        </div>
+        
+        <!-- TITLE BLOCK -->
+        <div class="title-block">
+            <h1 class="main-title">ARCHITECTURAL PORTFOLIO</h1>
+            <div class="subtitle">PROFESSIONAL SPECIFICATIONS & QUALIFICATIONS</div>
+            
+            <div class="center-line"></div>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <tr>
+                    <td style="padding: 10px 20px; border-right: 1px solid var(--blueprint-line); width: 33%;">
+                        <div style="color: var(--blueprint-dim); font-size: 14px;">DRAWN BY</div>
+                        <div style="font-size: 18px;">A. ARCHITECT</div>
+                    </td>
+                    <td style="padding: 10px 20px; border-right: 1px solid var(--blueprint-line); width: 33%;">
+                        <div style="color: var(--blueprint-dim); font-size: 14px;">DATE</div>
+                        <div style="font-size: 18px;">2024-01-20</div>
+                    </td>
+                    <td style="padding: 10px 20px; width: 34%;">
+                        <div style="color: var(--blueprint-dim); font-size: 14px;">DWG NO.</div>
+                        <div style="font-size: 18px;">ARCH-2024-001</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 20px; border-right: 1px solid var(--blueprint-line); border-top: 1px solid var(--blueprint-line);">
+                        <div style="color: var(--blueprint-dim); font-size: 14px;">CHECKED BY</div>
+                        <div style="font-size: 18px;">J. REVIEWER</div>
+                    </td>
+                    <td style="padding: 10px 20px; border-right: 1px solid var(--blueprint-line); border-top: 1px solid var(--blueprint-line);">
+                        <div style="color: var(--blueprint-dim); font-size: 14px;">SCALE</div>
+                        <div style="font-size: 18px;">1:100</div>
+                    </td>
+                    <td style="padding: 10px 20px; border-top: 1px solid var(--blueprint-line);">
+                        <div style="color: var(--blueprint-dim); font-size: 14px;">SHEET</div>
+                        <div style="font-size: 18px;">1 OF 1</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- PROFILE SECTION -->
+        <section id="profile" class="blueprint-section">
+            <h2 class="section-title">ARCHITECT PROFILE</h2>
+            
+            <div class="profile-schematic">
+                <div class="profile-elevation">
+                    <div class="elevation-title">FRONT ELEVATION</div>
+                    <div class="elevation-diagram">
+                        <!-- Head -->
+                        <div class="symbol-window" style="top: 50px; left: 120px;"></div>
+                        <!-- Shoulders -->
+                        <div style="position: absolute; top: 110px; left: 100px; width: 100px; height: 40px; border: 1px solid var(--blueprint-line);"></div>
+                        <!-- Torso -->
+                        <div style="position: absolute; top: 150px; left: 110px; width: 80px; height: 80px; border: 1px solid var(--blueprint-line);"></div>
+                        
+                        <!-- Dimension lines -->
+                        <div style="position: absolute; left: 80px; top: 50px; width: 40px; height: 1px; background-color: var(--blueprint-line);"></div>
+                        <div style="position: absolute; left: 80px; top: 50px; width: 1px; height: 20px; background-color: var(--blueprint-line);"></div>
+                        <div style="position: absolute; left: 80px; top: 70px; width: 1px; height: 20px; background-color: var(--blueprint-line);"></div>
+                        <div style="position: absolute; left: 80px; top: 90px; width: 40px; height: 1px; background-color: var(--blueprint-line);"></div>
+                        
+                        <div class="arch-symbol" style="top: 75px; left: 60px;">5'10"</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <div style="font-size: 24px; color: var(--blueprint-line);">ALEXANDRA CHEN</div>
+                        <div style="color: var(--blueprint-dim); margin-top: 10px;">LICENSED ARCHITECT</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="dimension">
+                        <div class="dimension-line"></div>
+                        <div class="extension-line extension-left"></div>
+                        <div class="extension-line extension-right"></div>
+                        <div class="dimension-text">15 YEARS EXPERIENCE</div>
+                    </div>
+                    
+                    <p style="margin-bottom: 25px; font-size: 16px; line-height: 1.6;">
+                        Licensed architect with 15 years of experience in commercial and residential design. 
+                        Specializing in sustainable architecture, urban planning, and innovative structural solutions. 
+                        Registered in California, New York, and Texas. LEED AP BD+C certified.
+                    </p>
+                    
+                    <div class="hidden-line"></div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
+                        <div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">LICENSE NUMBER</div>
+                            <div style="font-size: 16px;">ARC-48932-CA</div>
+                        </div>
+                        <div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">SPECIALIZATION</div>
+                            <div style="font-size: 16px;">Sustainable Design</div>
+                        </div>
+                        <div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">LOCATION</div>
+                            <div style="font-size: 16px;">San Francisco, CA</div>
+                        </div>
+                        <div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">STATUS</div>
+                            <div style="font-size: 16px;">Available for Projects</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="blueprint-section">
+            <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
+            
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">PERIOD</th>
+                        <th style="width: 25%;">POSITION</th>
+                        <th style="width: 30%;">ORGANIZATION</th>
+                        <th style="width: 25%;">KEY PROJECTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2018-2023</td>
+                        <td>Principal Architect</td>
+                        <td>Modern Structures Architects</td>
+                        <td>GreenTech Campus, Riverfront Development</td>
+                    </tr>
+                    <tr>
+                        <td>2015-2018</td>
+                        <td>Senior Architect</td>
+                        <td>Urban Design Collective</td>
+                        <td>Mixed-Use Tower, Community Center</td>
+                    </tr>
+                    <tr>
+                        <td>2012-2015</td>
+                        <td>Project Architect</td>
+                        <td>Sustainable Design Studio</td>
+                        <td>LEED Platinum Office, Eco-Housing</td>
+                    </tr>
+                    <tr>
+                        <td>2010-2012</td>
+                        <td>Architectural Designer</td>
+                        <td>Design Innovations LLC</td>
+                        <td>Residential Complex, Retail Spaces</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="scale-bar">
+                <div class="scale-line">
+                    <div class="scale-ticks">
+                        <div class="scale-tick" style="left: 0;"></div>
+                        <div class="scale-tick" style="left: 50px;"></div>
+                        <div class="scale-tick" style="left: 100px;"></div>
+                        <div class="scale-tick" style="left: 150px;"></div>
+                        <div class="scale-tick" style="left: 200px;"></div>
+                    </div>
+                </div>
+                <div style="position: absolute; top: -25px; left: 0; color: var(--blueprint-dim); font-size: 12px;">0</div>
+                <div style="position: absolute; top: -25px; left: 50px; color: var(--blueprint-dim); font-size: 12px;">5</div>
+                <div style="position: absolute; top: -25px; left: 100px; color: var(--blueprint-dim); font-size: 12px;">10</div>
+                <div style="position: absolute; top: -25px; left: 150px; color: var(--blueprint-dim); font-size: 12px;">15</div>
+                <div style="position: absolute; top: -25px; left: 200px; color: var(--blueprint-dim); font-size: 12px;">20</div>
+                <div style="position: absolute; top: 10px; left: 100px; color: var(--blueprint-dim); font-size: 12px;">YEARS EXPERIENCE</div>
+            </div>
+        </section>
+        
+        <!-- EDUCATION SECTION -->
+        <section id="education" class="blueprint-section">
+            <h2 class="section-title">EDUCATION & CERTIFICATIONS</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div>
+                    <div style="border: 2px solid var(--blueprint-line); padding: 20px; margin-bottom: 20px;">
+                        <div style="color: var(--blueprint-red); font-size: 16px; margin-bottom: 10px;">HARVARD GSD</div>
+                        <div style="font-size: 18px; margin-bottom: 10px;">Master of Architecture</div>
+                        <div style="color: var(--blueprint-dim);">2010-2012</div>
+                    </div>
+                    
+                    <div style="border: 2px solid var(--blueprint-line); padding: 20px;">
+                        <div style="color: var(--blueprint-red); font-size: 16px; margin-bottom: 10px;">UC BERKELEY</div>
+                        <div style="font-size: 18px; margin-bottom: 10px;">B.A. Architecture</div>
+                        <div style="color: var(--blueprint-dim);">2006-2010</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div style="border-left: 2px solid var(--blueprint-line); padding-left: 20px;">
+                        <h3 style="color: var(--blueprint-dim); margin-bottom: 20px; font-size: 18px;">CERTIFICATIONS</h3>
+                        
+                        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dotted var(--blueprint-line);">
+                            <div style="font-size: 16px;">Licensed Architect - California</div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">License # ARC-48932</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dotted var(--blueprint-line);">
+                            <div style="font-size: 16px;">LEED AP BD+C</div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">Green Building Certification</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dotted var(--blueprint-line);">
+                            <div style="font-size: 16px;">NCARB Certified</div>
+                            <div style="color: var(--blueprint-dim); font-size: 14px;">National Certification</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="blueprint-section">
+            <h2 class="section-title">TECHNICAL PROFICIENCY</h2>
+            
+            <div style="display: grid; grid-template-columns: 350px 1fr; gap: 50px; align-items: center;">
+                <div class="skill-radar">
+                    <div class="radar-circle circle-1"></div>
+                    <div class="radar-circle circle-2"></div>
+                    <div class="radar-circle circle-3"></div>
+                    <div class="radar-circle circle-4"></div>
+                    
+                    <div class="radar-axis axis-1"></div>
+                    <div class="radar-axis axis-2"></div>
+                    <div class="radar-axis axis-3"></div>
+                    <div class="radar-axis axis-4"></div>
+                    
+                    <div class="skill-point" style="top: 50%; left: 70%;"></div>
+                    <div class="skill-point" style="top: 30%; left: 60%;"></div>
+                    <div class="skill-point" style="top: 40%; left: 40%;"></div>
+                    <div class="skill-point" style="top: 60%; left: 50%;"></div>
+                    <div class="skill-point" style="top: 70%; left: 30%;"></div>
+                    
+                    <div style="position: absolute; top: 20px; left: 140px; color: var(--blueprint-dim);">AutoCAD</div>
+                    <div style="position: absolute; top: 140px; left: 280px; color: var(--blueprint-dim);">Revit</div>
+                    <div style="position: absolute; top: 280px; left: 140px; color: var(--blueprint-dim);">SketchUp</div>
+                    <div style="position: absolute; top: 140px; left: 20px; color: var(--blueprint-dim);">Rhino 3D</div>
+                </div>
+                
+                <div>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>SOFTWARE</th>
+                                <th>PROFICIENCY</th>
+                                <th>EXPERIENCE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>AutoCAD</td>
+                                <td>Expert</td>
+                                <td>15 years</td>
+                            </tr>
+                            <tr>
+                                <td>Revit</td>
+                                <td>Expert</td>
+                                <td>12 years</td>
+                            </tr>
+                            <tr>
+                                <td>SketchUp Pro</td>
+                                <td>Advanced</td>
+                                <td>10 years</td>
+                            </tr>
+                            <tr>
+                                <td>Rhino 3D</td>
+                                <td>Advanced</td>
+                                <td>8 years</td>
+                            </tr>
+                            <tr>
+                                <td>Adobe Creative Suite</td>
+                                <td>Advanced</td>
+                                <td>10 years</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="blueprint-section">
+            <h2 class="section-title">PROJECT PORTFOLIO</h2>
+            
+            <div class="plan-container">
+                <div class="floor-plan">
+                    <div class="plan-title">GREEN TECH CAMPUS</div>
+                    <div class="plan-diagram">
+                        <!-- Building outline -->
+                        <div style="position: absolute; top: 30px; left: 50px; width: 200px; height: 150px; border: 2px solid var(--blueprint-line);"></div>
+                        
+                        <!-- Rooms -->
+                        <div class="room" style="top: 40px; left: 60px; width: 60px; height: 40px;">Office</div>
+                        <div class="room" style="top: 40px; left: 130px; width: 60px; height: 40px;">Lab</div>
+                        <div class="room" style="top: 90px; left: 60px; width: 85px; height: 80px;">Common Area</div>
+                        <div class="room" style="top: 90px; left: 155px; width: 85px; height: 80px;">Green Space</div>
+                        
+                        <!-- Doors -->
+                        <div class="symbol-door" style="top: 100px; left: 145px; transform: rotate(90deg);"></div>
+                        
+                        <!-- Windows -->
+                        <div class="symbol-window" style="top: 40px; left: 200px; transform: rotate(90deg);"></div>
+                        <div class="symbol-window" style="top: 110px; left: 10px; transform: rotate(90deg);"></div>
+                    </div>
+                    <div style="text-align: center; color: var(--blueprint-dim);">
+                        <div>250,000 sq ft | LEED Platinum | 2021-2023</div>
+                        <div>Silicon Valley, California</div>
+                    </div>
+                </div>
+                
+                <div class="floor-plan">
+                    <div class="plan-title">RIVERFRONT DEVELOPMENT</div>
+                    <div class="plan-diagram">
+                        <!-- Building outline -->
+                        <div style="position: absolute; top: 40px; left: 40px; width: 160px; height: 120px; border: 2px solid var(--blueprint-line);"></div>
+                        <div style="position: absolute; top: 40px; left: 210px; width: 100px; height: 120px; border: 2px solid var(--blueprint-line);"></div>
+                        
+                        <!-- Connecting walkway -->
+                        <div style="position: absolute; top: 90px; left: 200px; width: 10px; height: 20px; background-color: var(--blueprint-line);"></div>
+                        
+                        <!-- Rooms -->
+                        <div class="room" style="top: 50px; left: 50px; width: 70px; height: 50px;">Retail</div>
+                        <div class="room" style="top: 110px; left: 50px; width: 70px; height: 40px;">Lobby</div>
+                        <div class="room" style="top: 50px; left: 220px; width: 70px; height: 100px;">Residential</div>
+                        
+                        <!-- River representation -->
+                        <div style="position: absolute; bottom: 10px; left: 10px; right: 10px; height: 20px; border-top: 2px dashed var(--blueprint-dim);"></div>
+                    </div>
+                    <div style="text-align: center; color: var(--blueprint-dim);">
+                        <div>Mixed-Use | 400 Units | 2019-2022</div>
+                        <div>Portland, Oregon</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="blueprint-section">
+            <h2 class="section-title">CONTACT & COMMISSION</h2>
+            
+            <div class="contact-form">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">CLIENT / FIRM</label>
+                        <input type="text" class="form-input" id="client-name" placeholder="Enter client or firm name">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">CONTACT EMAIL</label>
+                        <input type="email" class="form-input" id="client-email" placeholder="contact@firm.com">
+                    </div>
+                    <div class="form-field" style="grid-column: 1 / -1;">
+                        <label class="form-label">PROJECT TITLE</label>
+                        <input type="text" class="form-input" id="project-title" placeholder="Project name or reference">
+                    </div>
+                    <div class="form-field" style="grid-column: 1 / -1;">
+                        <label class="form-label">PROJECT BRIEF</label>
+                        <textarea class="form-input" id="project-brief" placeholder="Describe your project requirements, scope, and timeline..." style="height: 120px;"></textarea>
+                    </div>
+                </div>
+                
+                <button class="submit-button">REQUEST PROPOSAL</button>
+                <div id="form-response" style="text-align: center; margin-top: 25px; min-height: 30px;"></div>
+            </div>
+            
+            <div class="center-line" style="margin: 40px 0;"></div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
+                <div>
+                    <div style="font-size: 16px; color: var(--blueprint-dim); margin-bottom: 10px;">STUDIO ADDRESS</div>
+                    <div>123 Design Avenue</div>
+                    <div>San Francisco, CA 94107</div>
+                </div>
+                <div>
+                    <div style="font-size: 16px; color: var(--blueprint-dim); margin-bottom: 10px;">CONTACT</div>
+                    <div>alexandra@archblueprint.com</div>
+                    <div>+1 (555) 123-4567</div>
+                </div>
+                <div>
+                    <div style="font-size: 16px; color: var(--blueprint-dim); margin-bottom: 10px;">OFFICE HOURS</div>
+                    <div>Mon-Fri: 9AM-6PM PST</div>
+                    <div>By Appointment</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ARCHITECT'S STAMP -->
+        <div class="arch-stamp">
+            <div class="stamp-title">APPROVED</div>
+            <div style="text-align: center; color: var(--blueprint-line); font-size: 14px;">
+                <div>A. CHEN</div>
+                <div>LICENSED ARCHITECT</div>
+                <div>CA #ARC-48932</div>
+                <div>2024-01-20</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            // Add blueprint annotations
+            function addBlueprintAnnotations() {
+                // Add measurement annotations
+                $('.dimension').each(function() {
+                    var width = $(this).width() - 80;
+                    $(this).find('.dimension-line').css('width', width + 'px');
+                });
+                
+                // Add skill point positions
+                $('.skill-point').each(function() {
+                    var randomX = 30 + Math.random() * 40;
+                    var randomY = 30 + Math.random() * 40;
+                    $(this).css({
+                        'left': randomX + '%',
+                        'top': randomY + '%'
+                    });
+                });
+            }
+            
+            // Contact form submission
+            $('.submit-button').on('click', function(e) {
+                e.preventDefault();
+                
+                var clientName = $('#client-name').val().trim();
+                var clientEmail = $('#client-email').val().trim();
+                var projectTitle = $('#project-title').val().trim();
+                var projectBrief = $('#project-brief').val().trim();
+                
+                if (!clientName || !clientEmail || !projectTitle || !projectBrief) {
+                    $('#form-response').html('<div style="color: var(--blueprint-red);">Please complete all fields.</div>');
+                    return;
+                }
+                
+                var submitBtn = $(this);
+                var originalText = submitBtn.html();
+                submitBtn.html('<i class="fas fa-spinner fa-spin"></i> SENDING...');
+                submitBtn.prop('disabled', true);
+                
+                // Simulate AJAX request
+                setTimeout(function() {
+                    var projectNumber = 'PROJ-' + Math.floor(Math.random() * 9000 + 1000);
+                    
+                    $('#form-response').html('<div style="color: var(--blueprint-dim);">' +
+                        '<i class="fas fa-check-circle" style="margin-right: 10px;"></i>' +
+                        'PROPOSAL REQUEST #' + projectNumber + ' RECEIVED. You will receive our preliminary assessment within 48 hours.</div>');
+                    
+                    // Clear form
+                    $('#client-name, #client-email, #project-title, #project-brief').val('');
+                    
+                    // Reset button
+                    setTimeout(function() {
+                        submitBtn.html(originalText);
+                        submitBtn.prop('disabled', false);
+                    }, 3000);
+                }, 2000);
+            });
+            
+            // Add blueprint grid coordinates
+            function addGridCoordinates() {
+                var coordinates = ['A1', 'B2', 'C3', 'D4', 'E5', 'F6'];
+                $('.blueprint-section').each(function(index) {
+                    if (index < coordinates.length) {
+                        var coord = $('<div class="arch-symbol"></div>');
+                        coord.text(coordinates[index]);
+                        coord.css({
+                            'position': 'absolute',
+                            'top': '10px',
+                            'right': '10px',
+                            'color': 'var(--blueprint-dim)',
+                            'font-size': '12px',
+                            'border': '1px solid var(--blueprint-dim)',
+                            'padding': '2px 5px'
+                        });
+                        $(this).append(coord);
+                    }
+                });
+            }
+            
+            // Initialize
+            addBlueprintAnnotations();
+            addGridCoordinates();
+            
+            // Add window resize handler
+            $(window).resize(function() {
+                addBlueprintAnnotations();
+            });
+            
+            // Add print styles
+            $(document).keydown(function(e) {
+                if (e.ctrlKey && e.key === 'p') {
+                    e.preventDefault();
+                    alert('This architectural blueprint is optimized for professional printing. Use browser print function for best results.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

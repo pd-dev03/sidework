@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Portfolio v1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕹️</text></svg>">
+</head>
+<body class="bg-black text-green-400 font-mono min-h-screen p-4">
+    <!-- CRT Screen Effect Container -->
+    <div class="crt-effect max-w-4xl mx-auto border-2 border-green-800 rounded-lg p-4 md:p-6">
+        
+        <!-- Terminal Header -->
+        <div class="flex justify-between items-center mb-4 border-b border-green-900 pb-2">
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                <span class="ml-2 text-sm text-green-300">terminal_portfolio.exe</span>
+            </div>
+            <div class="text-xs text-green-500">v1.0</div>
+        </div>
+
+        <!-- Game Display Area -->
+        <div id="gameDisplay" class="mb-4 h-96 overflow-y-auto p-2 bg-gray-900 rounded border border-green-900">
+            <!-- ASCII Art and game output will be injected here -->
+            <div id="output" class="space-y-2"></div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="flex items-center gap-2">
+            <span class="text-green-500 blink">></span>
+            <input 
+                type="text" 
+                id="commandInput" 
+                autocomplete="off"
+                autofocus
+                class="flex-1 bg-transparent border-none outline-none text-green-300 font-mono"
+                placeholder="Type your command here..."
+            />
+            <button id="helpBtn" class="px-3 py-1 bg-green-900 text-green-300 rounded text-sm hover:bg-green-800">?</button>
+        </div>
+
+        <!-- Hints/Status Bar -->
+        <div class="mt-4 text-xs text-green-600 flex justify-between">
+            <div>Type <span class="text-green-400">'help'</span> for commands</div>
+            <div id="locationDisplay">📍 LOBBY</div>
+        </div>
+
+        <!-- Hidden Portfolio Data (JSON) -->
+        <script type="application/json" id="portfolioData">
+        {
+            "name": "Alex Chen",
+            "title": "Creative Developer",
+            "projects": [
+                {
+                    "id": "neon_grid",
+                    "name": "Neon Grid Generator",
+                    "year": "2023",
+                    "tech": ["Three.js", "GLSL", "WebGL"],
+                    "description": "An interactive 3D grid that reacts to audio input. Used in several music visualizer projects.",
+                    "link": "#",
+                    "hint": "Look for glowing server racks in the SERVER_ROOM"
+                },
+                {
+                    "id": "quantum_blog",
+                    "name": "Quantum Blog Engine",
+                    "year": "2022",
+                    "tech": ["Next.js", "MDX", "Vercel"],
+                    "description": "A blog platform that uses quantum-inspired algorithms to suggest content connections.",
+                    "link": "#",
+                    "hint": "Found on a terminal in the LAB"
+                }
+            ],
+            "skills": {
+                "frontend": ["React", "Vue", "Svelte"],
+                "backend": ["Node.js", "Python", "Go"],
+                "design": ["Figma", "Blender", "After Effects"]
+            },
+            "contact": {
+                "email": "alex@terminal.dev",
+                "github": "github.com/alex-terminal",
+                "linkedin": "linkedin.com/in/alex-terminal"
+            }
+        }
+        </script>
+    </div>
+
+    <script src="ascii-art.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

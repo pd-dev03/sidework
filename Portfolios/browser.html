@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #202124;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #202124;
+        }
+
+        /* Main Window Frame */
+        .chrome-window {
+            width: 100%;
+            max-width: 1200px;
+            height: 700px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Title Bar - Real Windows 11 Style */
+        .title-bar {
+            height: 32px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            border-bottom: 1px solid #e0e0e0;
+            user-select: none;
+            position: relative;
+        }
+
+        .window-drag-area {
+            flex: 1;
+            height: 100%;
+            -webkit-app-region: drag;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+        }
+
+        .window-title {
+            font-size: 12px;
+            color: #5f6368;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .window-title i {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        .window-controls {
+            display: flex;
+            height: 100%;
+            -webkit-app-region: no-drag;
+        }
+
+        .window-btn {
+            width: 46px;
+            height: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-size: 10px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .window-btn:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .window-btn.close:hover {
+            background: #e81123;
+            color: white;
+        }
+
+        /* Chrome Tabs Bar */
+        .tabs-container {
+            height: 40px;
+            background: #fafafa;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 4px 0 12px;
+            border-bottom: 1px solid #e0e0e0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: 4px;
+        }
+
+        .chrome-tab {
+            height: 32px;
+            min-width: 160px;
+            max-width: 240px;
+            background: #f0f0f0;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid #d0d0d0;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        .chrome-tab:hover {
+            background: #f5f5f5;
+        }
+
+        .chrome-tab.active {
+            height: 36px;
+            background: white;
+            margin-top: 4px;
+            border-color: #e0e0e0;
+            z-index: 2;
+        }
+
+        .tab-favicon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            background: #1a73e8;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+        }
+
+        .tab-title {
+            flex: 1;
+            font-size: 13px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tab-close {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #666;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.2s;
+        }
+
+        .chrome-tab:hover .tab-close {
+            opacity: 1;
+        }
+
+        .tab-close:hover {
+            background: #e0e0e0;
+        }
+
+        .new-tab-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #5f6368;
+            border-radius: 8px 8px 0 0;
+            margin-left: 4px;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .new-tab-btn:hover {
+            background: #f0f0f0;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            height: 56px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-btn:active {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.disabled:hover {
+            background: transparent;
+        }
+
+        /* Address Bar - Exact Chrome Style */
+        .address-bar-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .address-bar {
+            height: 40px;
+            background: #f1f3f4;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+
+        .address-bar.focused {
+            background: white;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 1px #1a73e8, 0 0 0 4px rgba(26, 115, 232, 0.15);
+        }
+
+        .security-icon {
+            color: #1e8e3e;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+        }
+
+        .url-display {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: text;
+        }
+
+        .bookmark-btn {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #5f6368;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bookmark-btn:hover {
+            color: #333;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 4px;
+            margin-left: 4px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 50%;
+            color: #5f6368;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Loading Animation - Chrome Style */
+        .loading-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #1a73e8;
+            transform: translateX(-100%);
+            z-index: 1000;
+        }
+
+        .loading-bar.active {
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: translateX(-100%);
+            }
+            50% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Page Content */
+        .page-content {
+            height: 100%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            min-height: 100%;
+            background: white;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* New Tab Page - Chrome Default */
+        .new-tab-page {
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .chrome-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 32px;
+        }
+
+        .chrome-logo-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ea4335 0deg 90deg,
+                #fbbc04 90deg 180deg,
+                #34a853 180deg 270deg,
+                #4285f4 270deg 360deg
+            );
+            position: relative;
+        }
+
+        .chrome-logo-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .search-box {
+            width: 580px;
+            height: 46px;
+            background: white;
+            border-radius: 24px;
+            border: 1px solid #dfe1e5;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.1);
+            margin-bottom: 32px;
+        }
+
+        .search-box:hover {
+            box-shadow: 0 1px 8px rgba(32, 33, 36, 0.2);
+        }
+
+        .search-box i {
+            color: #9aa0a6;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            background: transparent;
+        }
+
+        .search-input::placeholder {
+            color: #9aa0a6;
+        }
+
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 112px);
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .shortcut {
+            width: 112px;
+            height: 112px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #202124;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .shortcut:hover {
+            background: #f8f9fa;
+        }
+
+        .shortcut-icon {
+            width: 48px;
+            height: 48px;
+            background: #f1f3f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #5f6368;
+        }
+
+        .shortcut-title {
+            font-size: 13px;
+            text-align: center;
+            line-height: 1.4;
+            max-width: 100px;
+        }
+
+        /* Portfolio Content */
+        .portfolio-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .profile-info .title {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .profile-info .description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        /* Projects Grid */
+        .projects-header {
+            margin-bottom: 40px;
+        }
+
+        .projects-header h1 {
+            font-size: 2rem;
+            color: #202124;
+            margin-bottom: 12px;
+        }
+
+        .projects-header p {
+            color: #5f6368;
+            font-size: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .project-image {
+            height: 160px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
+        }
+
+        .project-content {
+            padding: 24px;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 12px;
+        }
+
+        .project-description {
+            color: #5f6368;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            padding: 4px 12px;
+            background: #f1f3f4;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            margin-bottom: 60px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .skill-category h3 {
+            color: #202124;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .skill-item {
+            margin-bottom: 16px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .skill-name {
+            font-size: 14px;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .skill-percentage {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #1a73e8, #0d62d9);
+            border-radius: 3px;
+            width: 0;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #f1f3f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a73e8;
+            font-size: 18px;
+        }
+
+        .contact-details h4 {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 4px;
+        }
+
+        .contact-details p {
+            font-size: 16px;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        /* Bookmarks Bar */
+        .bookmarks-bar {
+            height: 36px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            overflow-x: auto;
+        }
+
+        .bookmark {
+            font-size: 12px;
+            color: #5f6368;
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .bookmark:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 6px;
+            border: 3px solid #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Context Menu */
+        .context-menu {
+            position: fixed;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            min-width: 200px;
+            z-index: 10000;
+            display: none;
+            border: 1px solid #e0e0e0;
+        }
+
+        .context-menu.active {
+            display: block;
+        }
+
+        .context-item {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #202124;
+            transition: all 0.2s;
+        }
+
+        .context-item:hover {
+            background: #f5f5f5;
+        }
+
+        .context-item i {
+            width: 16px;
+            color: #5f6368;
+        }
+
+        .context-divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 4px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chrome-window {
+                height: 600px;
+            }
+            
+            .portfolio-content {
+                padding: 20px;
+            }
+            
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px;
+            }
+            
+            .search-box {
+                width: 90%;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(3, 96px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chrome-window">
+        <!-- Windows Title Bar -->
+        <div class="title-bar">
+            <div class="window-drag-area">
+                <div class="window-title">
+                    <i class="fab fa-chrome"></i>
+                    Chrome
+                </div>
+            </div>
+            <div class="window-controls">
+                <button class="window-btn" title="Minimize">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="window-btn" title="Maximize">
+                    <i class="far fa-square"></i>
+                </button>
+                <button class="window-btn close" title="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bookmarks Bar -->
+        <div class="bookmarks-bar">
+            <a href="#" class="bookmark" onclick="switchTab('portfolio')">Portfolio</a>
+            <a href="#" class="bookmark" onclick="switchTab('projects')">Projects</a>
+            <a href="#" class="bookmark" onclick="switchTab('skills')">Skills</a>
+            <a href="#" class="bookmark" onclick="switchTab('contact')">Contact</a>
+            <a href="#" class="bookmark" onclick="window.open('https://github.com', '_blank')">GitHub</a>
+            <a href="#" class="bookmark" onclick="window.open('https://linkedin.com', '_blank')">LinkedIn</a>
+        </div>
+
+        <!-- Tabs Container -->
+        <div class="tabs-container" id="tabsContainer">
+            <!-- Tabs will be dynamically generated -->
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-buttons">
+                <button class="nav-btn disabled" id="backBtn" title="Back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="nav-btn disabled" id="forwardBtn" title="Forward">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="nav-btn" id="refreshBtn" title="Refresh">
+                    <i class="fas fa-redo-alt"></i>
+                </button>
+            </div>
+
+            <div class="address-bar-container">
+                <div class="address-bar" id="addressBar">
+                    <div class="security-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="url-display" id="urlDisplay">https://johndoe.dev</div>
+                    <button class="bookmark-btn" title="Bookmark this page">
+                        <i class="far fa-star"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" title="Extensions">
+                    <i class="fas fa-puzzle-piece"></i>
+                </button>
+                <button class="action-btn" id="menuBtn" title="Google Chrome menu">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Bar -->
+        <div class="loading-bar" id="loadingBar"></div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <div class="page-content" id="pageContent">
+                <!-- New Tab Page -->
+                <div class="page active" id="new-tab">
+                    <div class="new-tab-page">
+                        <div class="chrome-logo">
+                            <div class="chrome-logo-circle">
+                                <div class="chrome-logo-center"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="search-input" placeholder="Search Google or type a URL" id="searchInput">
+                            <i class="fas fa-microphone" style="cursor: pointer;"></i>
+                        </div>
+
+                        <div class="shortcuts-grid">
+                            <a href="#" class="shortcut" onclick="switchTab('portfolio')">
+                                <div class="shortcut-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="shortcut-title">Portfolio</div>
+                            </a>
+                            <a href="#" class="shortcut" onclick="switchTab('projects')">
+                                <div class="shortcut-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="shortcut-title">Projects</div>
+                            </a>
+                            <a href="#" class="shortcut" onclick="switchTab('skills')">
+                                <div class="shortcut-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="shortcut-title">Skills</div>
+                            </a>
+                            <a href="#" class="shortcut" onclick="switchTab('contact')">
+                                <div class="shortcut-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="shortcut-title">Contact</div>
+                            </a>
+                            <a href="#" class="shortcut" onclick="window.open('https://github.com', '_blank')">
+                                <div class="shortcut-icon">
+                                    <i class="fab fa-github"></i>
+                                </div>
+                                <div class="shortcut-title">GitHub</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Page -->
+                <div class="page" id="portfolio">
+                    <div class="portfolio-content">
+                        <div class="profile-section">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h1>John Doe</h1>
+                                <div class="title">Senior Full-Stack Developer</div>
+                                <div class="description">
+                                    Passionate software engineer with 8+ years of experience building scalable web applications.
+                                    Specialized in React, Node.js, and cloud architecture. Currently leading development
+                                    at TechCorp Inc. while contributing to open-source projects.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="projects-header">
+                            <h1>Featured Work</h1>
+                            <p>A selection of recent projects showcasing technical expertise and creative solutions.</p>
+                        </div>
+
+                        <div class="projects-grid">
+                            <div class="project-card" onclick="openProject('ecommerce')">
+                                <div class="project-image"></div>
+                                <div class="project-content">
+                                    <div class="project-title">E-Commerce Platform</div>
+                                    <div class="project-description">
+                                        Full-stack shopping platform with real-time inventory, payment processing,
+                                        and admin dashboard. Served 50k+ monthly users.
+                                    </div>
+                                    <div class="project-tags">
+                                        <span class="project-tag">React</span>
+                                        <span class="project-tag">Node.js</span>
+                                        <span class="project-tag">MongoDB</span>
+                                        <span class="project-tag">AWS</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" onclick="openProject('analytics')">
+                                <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                                <div class="project-content">
+                                    <div class="project-title">Analytics Dashboard</div>
+                                    <div class="project-description">
+                                        Real-time data visualization platform with interactive charts,
+                                        custom reporting, and team collaboration features.
+                                    </div>
+                                    <div class="project-tags">
+                                        <span class="project-tag">Vue.js</span>
+                                        <span class="project-tag">D3.js</span>
+                                        <span class="project-tag">WebSockets</span>
+                                        <span class="project-tag">Redis</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" onclick="openProject('mobile')">
+                                <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                                <div class="project-content">
+                                    <div class="project-title">Mobile Banking App</div>
+                                    <div class="project-description">
+                                        Secure mobile banking application with biometric authentication,
+                                        real-time transactions, and financial insights.
+                                    </div>
+                                    <div class="project-tags">
+                                        <span class="project-tag">React Native</span>
+                                        <span class="project-tag">GraphQL</span>
+                                        <span class="project-tag">Firebase</span>
+                                        <span class="project-tag">Security</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Page -->
+                <div class="page" id="skills">
+                    <div class="portfolio-content">
+                        <div class="projects-header">
+                            <h1>Technical Skills</h1>
+                            <p>Comprehensive expertise across modern web development technologies and methodologies.</p>
+                        </div>
+
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h3>Frontend Development</h3>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">React.js</span>
+                                        <span class="skill-percentage">95%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="95"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">TypeScript</span>
+                                        <span class="skill-percentage">90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="90"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">Vue.js</span>
+                                        <span class="skill-percentage">85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="85"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h3>Backend Development</h3>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">Node.js</span>
+                                        <span class="skill-percentage">92%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="92"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">Python/Django</span>
+                                        <span class="skill-percentage">88%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="88"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">PostgreSQL</span>
+                                        <span class="skill-percentage">85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="85"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h3>Cloud & DevOps</h3>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">AWS</span>
+                                        <span class="skill-percentage">90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="90"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">Docker</span>
+                                        <span class="skill-percentage">85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="85"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">CI/CD</span>
+                                        <span class="skill-percentage">82%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="82"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Page -->
+                <div class="page" id="contact">
+                    <div class="portfolio-content">
+                        <div class="projects-header">
+                            <h1>Get In Touch</h1>
+                            <p>Let's collaborate on your next project or discuss opportunities.</p>
+                        </div>
+
+                        <div class="contact-section">
+                            <div class="contact-info">
+                                <a href="mailto:john@johndoe.dev" class="contact-item" target="_blank">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>Email</h4>
+                                        <p>john@johndoe.dev</p>
+                                    </div>
+                                </a>
+
+                                <a href="tel:+15551234567" class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>Phone</h4>
+                                        <p>+1 (555) 123-4567</p>
+                                    </div>
+                                </a>
+
+                                <a href="https://github.com/johndoe" class="contact-item" target="_blank">
+                                    <div class="contact-icon">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>GitHub</h4>
+                                        <p>github.com/johndoe</p>
+                                    </div>
+                                </a>
+
+                                <a href="https://linkedin.com/in/johndoe" class="contact-item" target="_blank">
+                                    <div class="contact-icon">
+                                        <i class="fab fa-linkedin"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>LinkedIn</h4>
+                                        <p>linkedin.com/in/johndoe</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-item" onclick="createNewTab()">
+            <i class="fas fa-plus"></i>
+            <span>New tab</span>
+        </div>
+        <div class="context-item" onclick="reopenClosedTab()">
+            <i class="fas fa-history"></i>
+            <span>Reopen closed tab</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="bookmarkPage()">
+            <i class="far fa-star"></i>
+            <span>Bookmark tab</span>
+        </div>
+        <div class="context-item" onclick="muteSite()">
+            <i class="fas fa-volume-mute"></i>
+            <span>Mute site</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="reloadPage()">
+            <i class="fas fa-redo"></i>
+            <span>Reload</span>
+        </div>
+        <div class="context-item" onclick="printPage()">
+            <i class="fas fa-print"></i>
+            <span>Print...</span>
+        </div>
+    </div>
+
+    <script>
+        // Browser State
+        const state = {
+            tabs: [
+                { 
+                    id: 'new-tab', 
+                    title: 'New Tab', 
+                    url: 'chrome://newtab', 
+                    favicon: '🌐', 
+                    active: true,
+                    secure: true 
+                }
+            ],
+            history: {
+                back: [],
+                forward: []
+            },
+            closedTabs: [],
+            activeTabId: 'new-tab',
+            urls: {
+                'new-tab': 'chrome://newtab',
+                'portfolio': 'https://johndoe.dev',
+                'projects': 'https://johndoe.dev/projects',
+                'skills': 'https://johndoe.dev/skills',
+                'contact': 'https://johndoe.dev/contact',
+                'github': 'https://github.com/johndoe',
+                'linkedin': 'https://linkedin.com/in/johndoe'
+            },
+            titles: {
+                'new-tab': 'New Tab',
+                'portfolio': 'Portfolio - John Doe',
+                'projects': 'Projects - John Doe',
+                'skills': 'Skills - John Doe',
+                'contact': 'Contact - John Doe'
+            }
+        };
+
+        // DOM Elements
+        const tabsContainer = document.getElementById('tabsContainer');
+        const pageContent = document.getElementById('pageContent');
+        const urlDisplay = document.getElementById('urlDisplay');
+        const addressBar = document.getElementById('addressBar');
+        const loadingBar = document.getElementById('loadingBar');
+        const backBtn = document.getElementById('backBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const menuBtn = document.getElementById('menuBtn');
+        const contextMenu = document.getElementById('contextMenu');
+        const searchInput = document.getElementById('searchInput');
+
+        // Initialize Browser
+        function initBrowser() {
+            renderTabs();
+            updateNavigationButtons();
+            
+            // Add new tab button
+            const newTabBtn = document.createElement('button');
+            newTabBtn.className = 'new-tab-btn';
+            newTabBtn.innerHTML = '<i class="fas fa-plus"></i>';
+            newTabBtn.title = 'New tab';
+            newTabBtn.onclick = createNewTab;
+            tabsContainer.appendChild(newTabBtn);
+            
+            // Event Listeners
+            document.addEventListener('click', () => {
+                contextMenu.classList.remove('active');
+            });
+            
+            tabsContainer.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                showContextMenu(e.pageX, e.pageY);
+            });
+            
+            addressBar.addEventListener('click', () => {
+                addressBar.classList.add('focused');
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!addressBar.contains(e.target)) {
+                    addressBar.classList.remove('focused');
+                }
+            });
+            
+            backBtn.onclick = goBack;
+            forwardBtn.onclick = goForward;
+            refreshBtn.onclick = reloadPage;
+            
+            menuBtn.onclick = () => {
+                showContextMenu(menuBtn.offsetLeft, menuBtn.offsetTop + 45);
+            };
+            
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Ctrl/Cmd + T
+                if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+                    e.preventDefault();
+                    createNewTab();
+                }
+                // Ctrl/Cmd + W
+                if ((e.ctrlKey || e.metaKey) && e.key === 'w') {
+                    e.preventDefault();
+                    closeActiveTab();
+                }
+                // Ctrl/Cmd + 1-9
+                if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
+                    e.preventDefault();
+                    const index = parseInt(e.key) - 1;
+                    if (index < state.tabs.length) {
+                        switchTab(state.tabs[index].id);
+                    }
+                }
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        navigateToSearch(query);
+                    }
+                }
+            });
+            
+            // Animate skill bars
+            setTimeout(animateSkillBars, 500);
+        }
+
+        // Render Tabs
+        function renderTabs() {
+            tabsContainer.innerHTML = '';
+            
+            state.tabs.forEach(tab => {
+                const tabElement = document.createElement('div');
+                tabElement.className = `chrome-tab ${tab.active ? 'active' : ''}`;
+                tabElement.innerHTML = `
+                    <div class="tab-favicon">${tab.favicon}</div>
+                    <div class="tab-title">${tab.title}</div>
+                    <button class="tab-close" onclick="closeTab('${tab.id}')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                tabElement.onclick = (e) => {
+                    if (!e.target.closest('.tab-close')) {
+                        switchTab(tab.id);
+                    }
+                };
+                tabsContainer.appendChild(tabElement);
+            });
+        }
+
+        // Switch Tab
+        function switchTab(tabId) {
+            if (state.activeTabId === tabId) return;
+            
+            // Add to history
+            state.history.back.push(state.activeTabId);
+            state.history.forward = [];
+            
+            // Update active tab
+            state.activeTabId = tabId;
+            state.tabs.forEach(tab => {
+                tab.active = tab.id === tabId;
+            });
+            
+            // Show loading
+            showLoading();
+            
+            // Update UI
+            setTimeout(() => {
+                renderTabs();
+                updateContent();
+                updateNavigationButtons();
+                hideLoading();
+            }, 300);
+        }
+
+        // Create New Tab
+        function createNewTab() {
+            const newTabId = 'new-tab-' + Date.now();
+            const newTab = {
+                id: newTabId,
+                title: 'New Tab',
+                url: 'chrome://newtab',
+                favicon: '🌐',
+                active: true,
+                secure: true
+            };
+            
+            // Deactivate other tabs
+            state.tabs.forEach(tab => tab.active = false);
+            
+            // Add new tab
+            state.tabs.push(newTab);
+            state.activeTabId = newTabId;
+            
+            // Update UI
+            showLoading();
+            setTimeout(() => {
+                renderTabs();
+                updateContent();
+                hideLoading();
+            }, 300);
+        }
+
+        // Navigate to specific page
+        function navigateTo(pageId) {
+            let tab = state.tabs.find(t => t.id === pageId);
+            
+            if (!tab) {
+                tab = {
+                    id: pageId,
+                    title: state.titles[pageId] || pageId,
+                    url: state.urls[pageId] || `https://${pageId}.com`,
+                    favicon: getFavicon(pageId),
+                    active: true,
+                    secure: true
+                };
+                
+                state.tabs.forEach(t => t.active = false);
+                state.tabs.push(tab);
+            }
+            
+            state.activeTabId = tab.id;
+            switchTab(pageId);
+        }
+
+        // Update Content
+        function updateContent() {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show active page
+            const activeTab = state.tabs.find(tab => tab.id === state.activeTabId);
+            const pageId = activeTab ? activeTab.id : 'new-tab';
+            const pageElement = document.getElementById(pageId);
+            
+            if (pageElement) {
+                pageElement.classList.add('active');
+                urlDisplay.textContent = activeTab.url;
+                animateSkillBars();
+            } else {
+                // Show new tab page
+                document.getElementById('new-tab').classList.add('active');
+                urlDisplay.textContent = 'chrome://newtab';
+            }
+        }
+
+        // Close Tab
+        function closeTab(tabId) {
+            if (state.tabs.length <= 1) return;
+            
+            const tabIndex = state.tabs.findIndex(tab => tab.id === tabId);
+            const tab = state.tabs[tabIndex];
+            const wasActive = tab.active;
+            
+            // Add to closed tabs for reopening
+            state.closedTabs.push(tab);
+            
+            // Remove tab
+            state.tabs.splice(tabIndex, 1);
+            
+            if (wasActive) {
+                // Activate first tab
+                state.tabs[0].active = true;
+                state.activeTabId = state.tabs[0].id;
+                switchTab(state.activeTabId);
+            }
+            
+            renderTabs();
+        }
+
+        // Close Active Tab
+        function closeActiveTab() {
+            closeTab(state.activeTabId);
+        }
+
+        // Navigation
+        function goBack() {
+            if (state.history.back.length > 0) {
+                state.history.forward.push(state.activeTabId);
+                const previousTabId = state.history.back.pop();
+                
+                const tab = state.tabs.find(t => t.id === previousTabId);
+                if (tab) {
+                    state.tabs.forEach(t => t.active = false);
+                    tab.active = true;
+                    state.activeTabId = tab.id;
+                    switchTab(tab.id);
+                }
+            }
+        }
+
+        function goForward() {
+            if (state.history.forward.length > 0) {
+                state.history.back.push(state.activeTabId);
+                const nextTabId = state.history.forward.pop();
+                
+                const tab = state.tabs.find(t => t.id === nextTabId);
+                if (tab) {
+                    state.tabs.forEach(t => t.active = false);
+                    tab.active = true;
+                    state.activeTabId = tab.id;
+                    switchTab(tab.id);
+                }
+            }
+        }
+
+        function reloadPage() {
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                animateSkillBars();
+            }, 800);
+        }
+
+        // Loading Animation
+        function showLoading() {
+            loadingBar.classList.add('active');
+        }
+
+        function hideLoading() {
+            loadingBar.classList.remove('active');
+        }
+
+        // Helper Functions
+        function getFavicon(pageId) {
+            const icons = {
+                'portfolio': '👨‍💻',
+                'projects': '🚀',
+                'skills': '📊',
+                'contact': '📧',
+                'github': '🐙',
+                'linkedin': '💼',
+                'new-tab': '🌐'
+            };
+            return icons[pageId] || '📄';
+        }
+
+        function updateNavigationButtons() {
+            backBtn.classList.toggle('disabled', state.history.back.length === 0);
+            forwardBtn.classList.toggle('disabled', state.history.forward.length === 0);
+        }
+
+        function animateSkillBars() {
+            document.querySelectorAll('.skill-progress').forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+
+        function openProject(projectId) {
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                alert(`Opening project: ${projectId}\n\nIn a real portfolio, this would show:\n• Detailed project description\n• Screenshots and demos\n• Technologies used\n• GitHub repository\n• Live demo link\n• Case study`);
+            }, 500);
+        }
+
+        function navigateToSearch(query) {
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                alert(`Searching for: ${query}\n\nIn a real Chrome browser, this would perform a Google search.`);
+            }, 800);
+        }
+
+        // Context Menu
+        function showContextMenu(x, y) {
+            contextMenu.style.left = x + 'px';
+            contextMenu.style.top = y + 'px';
+            contextMenu.classList.add('active');
+        }
+
+        function bookmarkPage() {
+            const activeTab = state.tabs.find(tab => tab.active);
+            if (activeTab) {
+                alert(`Bookmarked: ${activeTab.title}\nURL: ${activeTab.url}`);
+            }
+        }
+
+        function muteSite() {
+            alert('Site muted');
+        }
+
+        function reopenClosedTab() {
+            if (state.closedTabs.length > 0) {
+                const tab = state.closedTabs.pop();
+                state.tabs.forEach(t => t.active = false);
+                state.tabs.push({...tab, active: true});
+                state.activeTabId = tab.id;
+                switchTab(tab.id);
+            }
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        // Initialize
+        window.onload = initBrowser;
+    </script>
+</body>
+</html>

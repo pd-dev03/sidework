@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet/48/rocket.png">
+    <title>Production-Grade Kubernetes Cluster | DevOps Portfolio</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        :root {
+            /* Dark Mode Default - DevOps Theme */
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --primary-bg: #1E1E1F;
+            --accent-gradient: linear-gradient(135deg, #FF6B6B, #FFAA5E);
+            --devops-gradient: linear-gradient(135deg, #00d4aa, #2d5af1);
+            --warning-gradient: linear-gradient(135deg, #FFAA5E, #FF6B6B);
+            --success-gradient: linear-gradient(135deg, #10b981, #3b82f6);
+            --terminal-gradient: linear-gradient(135deg, #4af626, #2d5af1);
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --emerald: #10b981;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --neumorphism-light: rgba(255, 255, 255, 0.03);
+            --neumorphism-dark: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-bg: #f0f2f5;
+            --accent-gradient: linear-gradient(135deg, #FF6B6B, #FFAA5E);
+            --devops-gradient: linear-gradient(135deg, #00d4aa, #2d5af1);
+            --warning-gradient: linear-gradient(135deg, #FFAA5E, #FF6B6B);
+            --success-gradient: linear-gradient(135deg, #059669, #2563eb);
+            --terminal-gradient: linear-gradient(135deg, #16a34a, #2563eb);
+            --text-main: #1a1a1a;
+            --text-dim: #4b5563;
+            --emerald: #059669;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --neumorphism-light: rgba(255, 255, 255, 0.8);
+            --neumorphism-dark: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, .clash {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        .terminal-font {
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--shadow-color);
+        }
+
+        .theme-toggle i {
+            font-size: 1.25rem;
+            background: var(--warning-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.5s ease;
+        }
+
+        [data-theme="light"] .fa-moon {
+            display: none;
+        }
+
+        [data-theme="light"] .fa-sun {
+            display: block;
+        }
+
+        .fa-sun {
+            display: none;
+        }
+
+        /* Abstract Background Elements */
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(45, 90, 241, 0.1);
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            border-radius: 50px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+            background: rgba(45, 90, 241, 0.2);
+            border-color: rgba(45, 90, 241, 0.5);
+        }
+
+        /* Project Header */
+        .project-header {
+            position: relative;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        /* Banner Image Section */
+        .project-banner {
+            position: relative;
+            height: 400px;
+            border-radius: 25px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 60px var(--shadow-color);
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.3), rgba(45, 90, 241, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-icon {
+            font-size: 8rem;
+            background: var(--devops-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.5;
+        }
+
+        /* Project Title */
+        .project-title-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .project-title {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            display: inline-block;
+        }
+
+        .gradient-text {
+            background: var(--warning-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Project Meta - DevOps Style */
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .meta-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(45, 90, 241, 0.5);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .meta-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--devops-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .meta-content h4 {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .meta-content p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 5px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Case Study Section - No Boxes */
+        .case-study-section {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid;
+            border-image: var(--devops-gradient);
+            border-image-slice: 1;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            background: var(--devops-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .case-study-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            padding-left: 1.5rem;
+            border-left: 3px solid;
+            border-image: var(--devops-gradient);
+            border-image-slice: 1;
+        }
+
+        .case-study-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .case-study-content strong {
+            color: var(--text-main);
+            background: linear-gradient(135deg, #00d4aa, #2d5af1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Tech Stack - DevOps Style */
+        .tech-stack-section {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .tech-stack-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-stack-card h3 i {
+            background: var(--devops-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tech-stack-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateX(10px);
+            background: rgba(45, 90, 241, 0.1);
+            border-color: rgba(45, 90, 241, 0.3);
+        }
+
+        .tech-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--devops-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .tech-name {
+            font-weight: 500;
+            flex-grow: 1;
+        }
+
+        .tech-level {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        /* Media Gallery */
+        .media-gallery {
+            margin: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border-color: rgba(45, 90, 241, 0.5);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.3), rgba(45, 90, 241, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-icon {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        /* Links Section */
+        .links-section {
+            margin: 4rem 0;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            transform: translateX(10px);
+            background: rgba(45, 90, 241, 0.1);
+            border-color: rgba(45, 90, 241, 0.3);
+        }
+
+        .link-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--devops-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .link-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .link-content p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        /* Terminal Output */
+        .terminal-section {
+            margin: 4rem 0;
+        }
+
+        .terminal-output {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .terminal-output::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--devops-gradient);
+        }
+
+        .terminal-line {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            animation: terminalType 0.3s ease forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        @keyframes terminalType {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .terminal-prompt {
+            color: #4af626;
+            font-weight: 600;
+            min-width: 100px;
+        }
+
+        .terminal-command {
+            color: white;
+        }
+
+        .terminal-comment {
+            color: #6b7280;
+        }
+
+        /* Metrics Dashboard */
+        .metrics-section {
+            margin: 4rem 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .metric-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--success-gradient);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding: 4rem 0 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--devops-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            color: white;
+            border-color: transparent;
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .copyright {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(8, 8, 8, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        [data-theme="light"] .modal {
+            background-color: rgba(248, 249, 250, 0.95);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 25px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 60px var(--shadow-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background-color: var(--primary-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #ef4444;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            overflow-y: auto;
+            flex: 1;
+            text-align: center;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            background-color: var(--primary-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: right;
+        }
+
+        .modal-button {
+            padding: 10px 24px;
+            background: var(--devops-gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-stack-section {
+                position: static;
+            }
+            
+            .project-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .project-meta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .project-banner {
+                height: 300px;
+            }
+            
+            .banner-icon {
+                font-size: 5rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--card-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--devops-gradient);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2d5af1, #00d4aa);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </div>
+    
+    <div class="grid-pattern"></div>
+
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html#projects" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Projects
+        </a>
+
+        <!-- Banner Image -->
+        <div class="project-banner">
+            <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
+                 alt="Kubernetes Cluster Architecture" class="banner-image">
+            <div class="banner-overlay">
+                <i class="fas fa-cubes banner-icon"></i>
+            </div>
+        </div>
+
+        <!-- Project Title -->
+        <div class="project-title-section">
+            <h1 class="project-title">Production-Grade <span class="gradient-text">Kubernetes</span> Infrastructure</h1>
+            <p class="project-subtitle">
+                Automated cloud-native infrastructure with Terraform, Helm, and GitOps workflows. 
+                Designed for 99.99% uptime, security compliance, and zero-downtime deployments.
+            </p>
+        </div>
+
+        <!-- Project Meta Information -->
+        <div class="project-meta">
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="meta-content">
+                    <h4>Category</h4>
+                    <p>SaaS Application <span class="status-badge">Freelance</span></p>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="meta-content">
+                    <h4>Timeline</h4>
+                    <p>Mar 2023 - Aug 2023</p>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="meta-content">
+                    <h4>Team Size</h4>
+                    <p>5 Engineers</p>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="meta-content">
+                    <h4>Client</h4>
+                    <p>TechScale Inc.</p>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="meta-content">
+                    <h4>Status</h4>
+                    <p><span class="status-badge">Deployed to Production</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column - Case Studies -->
+            <div class="content-left">
+                <!-- My Role & Contribution -->
+                <section class="case-study-section">
+                    <div class="section-header">
+                        <i class="fas fa-user-tie section-icon"></i>
+                        <h2 class="section-title">My Role & Contribution</h2>
+                    </div>
+                    <div class="case-study-content">
+                        <p>As the <strong>Lead DevOps Architect</strong>, I engineered a fully automated Kubernetes ecosystem from the ground up. My primary mission: transform manual infrastructure management into a self-healing, scalable platform that developers love to deploy on.</p>
+                        
+                        <p><strong>Infrastructure Design:</strong> Architected multi-AZ EKS clusters with intelligent node provisioning using Karpenter. Implemented VPC networking with private subnets, transit gateways, and automated security groups.</p>
+                        
+                        <p><strong>GitOps Revolution:</strong> Established ArgoCD-based GitOps workflows where infrastructure is code, deployments are automated, and rollbacks are one-click. Configured automated sync policies and health checks that eliminated manual intervention.</p>
+                        
+                        <p><strong>Security Hardening:</strong> Implemented Pod Security Admission, Network Policies, and OPA Gatekeeper policies. Integrated HashiCorp Vault for dynamic secrets and automated TLS certificate rotation with cert-manager.</p>
+                        
+                        <p><strong>Monitoring & Observability:</strong> Deployed Prometheus/Grafana stacks with custom dashboards for cluster metrics, application SLIs, and cost optimization alerts. Built early warning systems for capacity planning.</p>
+                    </div>
+                </section>
+
+                <!-- Challenges Faced -->
+                <section class="case-study-section">
+                    <div class="section-header">
+                        <i class="fas fa-exclamation-triangle section-icon"></i>
+                        <h2 class="section-title">Challenges Overcome</h2>
+                    </div>
+                    <div class="case-study-content">
+                        <p><strong>Performance Bottlenecks:</strong> Initial deployments suffered from 8+ second API response times during peak loads. Network latency and inefficient pod scheduling created unpredictable performance.</p>
+                        
+                        <p><strong>Cost Spikes:</strong> Uncontrolled auto-scaling led to 300% AWS bill increases during testing phases. Finding the sweet spot between performance and cost efficiency became critical.</p>
+                        
+                        <p><strong>Security Compliance:</strong> Client demanded PCI-DSS Level 1 and SOC2 Type II compliance. Every container, every network call, every API endpoint needed hardening.</p>
+                        
+                        <p><strong>Stateful Complexity:</strong> Migrating PostgreSQL, Redis, and Kafka clusters to Kubernetes required custom operators, backup strategies, and recovery playbooks.</p>
+                        
+                        <p><strong>Multi-Region Resilience:</strong> Implementing active-active multi-region deployment with synchronized state management and sub-60-second failover.</p>
+                        
+                        <p><strong>Developer Adoption:</strong> Convincing 50+ developers to trust and adopt the new platform required comprehensive documentation, workshops, and 24/7 support.</p>
+                    </div>
+                </section>
+
+                <!-- The Solution -->
+                <section class="case-study-section">
+                    <div class="section-header">
+                        <i class="fas fa-lightbulb section-icon"></i>
+                        <h2 class="section-title">Architecture & Solution</h2>
+                    </div>
+                    <div class="case-study-content">
+                        <p><strong>Infrastructure as Code:</strong> Terraform modules for EKS, VPC, IAM, RDS, ElastiCache. Version-controlled configurations with drift detection and automated remediation.</p>
+                        
+                        <p><strong>Cluster Optimization:</strong> Implemented Karpenter for intelligent node provisioning—70% faster node startup. Cluster Autoscaler with custom metrics and predictive scaling algorithms.</p>
+                        
+                        <p><strong>Security Framework:</strong> Open Policy Agent for policy enforcement, Aqua Security for vulnerability scanning, Falco for runtime security. Service mesh with Istio for mTLS encryption and traffic management.</p>
+                        
+                        <p><strong>Cost Intelligence:</strong> Kubecost integration with custom alerts. Spot instances for stateless workloads (45% savings), reserved instances for databases. Automated rightsizing recommendations.</p>
+                        
+                        <p><strong>Stateful Solutions:</strong> Rook Ceph for distributed storage, Velero for backup/restore, custom operators for database lifecycle management.</p>
+                        
+                        <p><strong>Global Architecture:</strong> AWS Global Accelerator + Route53 latency-based routing. S3 Cross-Region Replication for persistent data. Automated failover with chaos engineering validation.</p>
+                        
+                        <p><strong>Developer Experience:</strong> Backstage.io developer portal with golden paths. Automated CI/CD pipelines with security scanning. Feature flagging with LaunchDarkly and progressive deployments.</p>
+                    </div>
+                </section>
+
+                <!-- Media Gallery -->
+                <section class="media-gallery">
+                    <div class="section-header">
+                        <i class="fas fa-images section-icon"></i>
+                        <h2 class="section-title">Infrastructure Visualizations</h2>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-image="1">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Cluster Architecture" class="gallery-image">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand gallery-icon"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-image="2">
+                            <img src="https://images.unsplash.com/photo-1629654291660-3c98113a0434?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Monitoring Dashboard" class="gallery-image">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand gallery-icon"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-image="3">
+                            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Security Configuration" class="gallery-image">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand gallery-icon"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-image="4">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Deployment Pipeline" class="gallery-image">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand gallery-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Result & Impact -->
+                <section class="case-study-section">
+                    <div class="section-header">
+                        <i class="fas fa-chart-line section-icon"></i>
+                        <h2 class="section-title">Impact & Results</h2>
+                    </div>
+                    <div class="case-study-content">
+                        <p><strong>Operational Excellence:</strong> 99.99% uptime achieved with zero unplanned outages. Mean Time to Recovery (MTTR) reduced from 45 minutes to 8 minutes through automated healing.</p>
+                        
+                        <p><strong>Cost Efficiency:</strong> 45% infrastructure cost reduction through intelligent scaling and spot instance optimization. Automated cost reporting eliminated 15+ hours monthly of manual analysis.</p>
+                        
+                        <p><strong>Developer Velocity:</strong> Deployment time reduced from 2 hours to under 5 minutes. Developer onboarding time decreased from 2 weeks to 2 days with self-service tools.</p>
+                        
+                        <p><strong>Security Posture:</strong> PCI-DSS and SOC2 compliance achieved 30 days ahead of schedule. Automated vulnerability scanning reduced security audit preparation by 70%.</p>
+                        
+                        <p><strong>Scalability Proved:</strong> Handled Black Friday traffic spikes of 300% above baseline without performance degradation. Auto-scaling managed 500% workload increases within 5 minutes.</p>
+                        
+                        <p><strong>Business Impact:</strong> Infrastructure supported 40% YoY business growth without additional operational overhead. 60% reduction in infrastructure-related support tickets.</p>
+                        
+                        <p><strong>Team Growth:</strong> Platform became a learning ground for 3 engineers who advanced to senior positions. Architecture became the blueprint for all future TechScale projects.</p>
+                    </div>
+                </section>
+
+                <!-- Terminal Output -->
+                <section class="terminal-section">
+                    <div class="section-header">
+                        <i class="fas fa-terminal section-icon"></i>
+                        <h2 class="section-title">Deployment Commands</h2>
+                    </div>
+                    <div class="terminal-output">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command">kubectl get nodes -o wide</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">></span>
+                            <span>NAME                                        STATUS   ROLES    AGE   VERSION</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">></span>
+                            <span>ip-10-0-1-100.ec2.internal   Ready    &lt;none&gt;   45d   v1.25.7-eks-a59e1f0</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command">helm list -A</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">></span>
+                            <span>argocd          argocd          5               deployed        argo-cd-5.13.6</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">></span>
+                            <span>prometheus      monitoring      3               deployed        prometheus-15.10.1</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command">terraform apply -auto-approve</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">></span>
+                            <span style="color: #10b981;">Apply complete! Resources: 0 added, 0 changed, 0 destroyed.</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-comment"># Infrastructure fully managed by GitOps</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - Tech Stack & Links -->
+            <div class="tech-stack-section">
+                <!-- Tech Stack -->
+                <div class="tech-stack-card">
+                    <h3><i class="fas fa-code"></i> Tech Stack</h3>
+                    <div class="tech-stack-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="tech-name">AWS EKS</div>
+                            <div class="tech-level">Expert</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <div class="tech-name">Kubernetes</div>
+                            <div class="tech-level">Expert</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                            <div class="tech-name">Terraform</div>
+                            <div class="tech-level">Expert</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-stream"></i>
+                            </div>
+                            <div class="tech-name">ArgoCD</div>
+                            <div class="tech-level">Advanced</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="tech-name">Vault</div>
+                            <div class="tech-level">Advanced</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="tech-name">Prometheus</div>
+                            <div class="tech-level">Advanced</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="tech-name">Istio</div>
+                            <div class="tech-level">Intermediate</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <div class="tech-name">Python</div>
+                            <div class="tech-level">Expert</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Links Section -->
+                <div class="tech-stack-card">
+                    <h3><i class="fas fa-link"></i> Project Links</h3>
+                    <div class="links-grid">
+                        <a href="https://github.com/alex-devops/kubernetes-cluster" class="project-link" target="_blank">
+                            <div class="link-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="link-content">
+                                <h4>GitHub Repository</h4>
+                                <p>Full source code & documentation</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://demo.kubernetes-cluster.dev" class="project-link" target="_blank">
+                            <div class="link-icon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <div class="link-content">
+                                <h4>Live Demo</h4>
+                                <p>Staging environment dashboard</p>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="project-link">
+                            <div class="link-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="link-content">
+                                <h4>Documentation</h4>
+                                <p>Technical specifications & API docs</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="tech-stack-card">
+                    <h3><i class="fas fa-chart-bar"></i> Key Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">99.99%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">45%</div>
+                            <div class="metric-label">Cost Reduction</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">5min</div>
+                            <div class="metric-label">Deployment Time</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">70%</div>
+                            <div class="metric-label">Faster Recovery</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-socials">
+                <a href="https://github.com" class="social-link" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com" class="social-link" target="_blank" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com" class="social-link" target="_blank" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://dev.to" class="social-link" target="_blank" title="Blog">
+                    <i class="fab fa-dev"></i>
+                </a>
+            </div>
+            <p class="footer-text">Infrastructure as Code • GitOps • Cloud Native • Automation</p>
+            <p class="copyright">&copy; 2026 DevOps Portfolio. Production-grade infrastructure delivered.</p>
+        </footer>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal" id="image-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-expand"></i> Infrastructure Visualization</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modal-image" class="modal-image" src="" alt="Project Visualization">
+                <p id="modal-caption" style="margin-top: 1rem; color: var(--text-dim);"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Theme Toggle
+            const themeToggle = $('#themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            
+            $('html').attr('data-theme', currentTheme);
+            
+            themeToggle.click(() => {
+                const currentTheme = $('html').attr('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                $('html').attr('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                themeToggle.css('transform', 'scale(0.9)');
+                setTimeout(() => {
+                    themeToggle.css('transform', 'scale(1)');
+                }, 150);
+            });
+
+            // Gallery Modal
+            const galleryItems = [
+                {
+                    src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    caption: 'Kubernetes Cluster Architecture Diagram'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1629654291660-3c98113a0434?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    caption: 'Real-time Monitoring Dashboard'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    caption: 'Security Configuration & Compliance'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    caption: 'CI/CD Pipeline Visualization'
+                }
+            ];
+
+            $('.gallery-item').click(function() {
+                const index = $(this).data('image') - 1;
+                const item = galleryItems[index];
+                
+                $('#modal-image').attr('src', item.src);
+                $('#modal-caption').text(item.caption);
+                
+                openModal('#image-modal');
+            });
+
+            // Modal functionality
+            function openModal(modalId) {
+                $('body').css('overflow', 'hidden');
+                $(modalId).fadeIn(300);
+            }
+
+            function closeModal() {
+                $('body').css('overflow', 'auto');
+                $('.modal').fadeOut(300);
+            }
+
+            $('.modal-close, .close-modal').click(closeModal);
+
+            $(document).click(function(event) {
+                if ($(event.target).hasClass('modal')) {
+                    closeModal();
+                }
+            });
+
+            // Terminal animation
+            function animateTerminal() {
+                const lines = $('.terminal-line');
+                lines.each(function(index) {
+                    const line = $(this);
+                    setTimeout(() => {
+                        line.css('animation', 'terminalType 0.3s ease forwards');
+                    }, index * 100);
+                });
+            }
+
+            // Animate metrics
+            function animateMetrics() {
+                $('.metric-value').each(function() {
+                    const element = $(this);
+                    const value = element.text();
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                element.css('opacity', '0');
+                                element.css('transform', 'translateY(20px)');
+                                
+                                setTimeout(() => {
+                                    element.css('opacity', '1');
+                                    element.css('transform', 'translateY(0)');
+                                    element.css('transition', 'opacity 0.6s ease, transform 0.6s ease');
+                                }, 200);
+                                
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    
+                    observer.observe(element[0]);
+                });
+            }
+
+            // Initialize animations
+            setTimeout(() => {
+                animateTerminal();
+                animateMetrics();
+                
+                // Animate sections on scroll
+                const sections = $('.case-study-section, .tech-stack-card, .terminal-section, .media-gallery');
+                sections.css('opacity', '0');
+                sections.css('transform', 'translateY(30px)');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            $(entry.target).css('opacity', '1');
+                            $(entry.target).css('transform', 'translateY(0)');
+                            $(entry.target).css('transition', 'opacity 0.6s ease, transform 0.6s ease');
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+                
+                sections.each((_, section) => observer.observe(section));
+            }, 500);
+
+            // Interactive elements
+            $('.meta-item, .tech-item, .project-link').hover(
+                function() {
+                    $(this).css('transform', $(this).hasClass('meta-item') ? 'translateY(-5px)' : 'translateX(10px)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                }
+            );
+        });
+    </script>
+</body>
+</html>

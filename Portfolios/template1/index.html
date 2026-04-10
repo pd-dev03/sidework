@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Editorial Ink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- Grain Overlay -->
+<div class="grain"></div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">AR.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-pill" id="navPill"></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-label">Available for work ✦</div>
+  <div class="hero-text-wrap">
+    <h1 class="hero-name">
+      <span class="name-line">Alexandra</span>
+      <span class="name-line italic">Rivera</span>
+    </h1>
+    <div class="hero-role">
+      <span class="role-text" id="typingText"></span><span class="cursor-blink">|</span>
+    </div>
+  </div>
+  <div class="hero-portrait">
+    <div class="portrait-frame">
+      <div class="portrait-placeholder">
+        <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="260" fill="#C8603A" opacity="0.15"/>
+          <circle cx="100" cy="90" r="45" fill="#C8603A" opacity="0.4"/>
+          <ellipse cx="100" cy="220" rx="70" ry="50" fill="#C8603A" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="portrait-tag">UI/UX Designer & Developer</div>
+    </div>
+  </div>
+  <div class="hero-scroll">scroll ↓</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">01 — About</div>
+  <div class="about-grid">
+    <div class="about-headline">
+      <h2>Crafting digital<br><em>experiences</em><br>that matter.</h2>
+    </div>
+    <div class="about-body">
+      <p class="highlight-paragraph" id="aboutPara">I am a product designer and front-end developer with over five years of experience building interfaces that sit at the intersection of beauty and function. My work spans from conceptual ideation through to pixel-perfect implementation. I believe that the best design is invisible — it simply works, feels right, and leaves users wanting to return. Every project I take on begins with deep listening, moves through careful research, and ends with something that truly serves the people using it.</p>
+      <div class="about-stats">
+        <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years Experience</span></div>
+        <div class="stat"><span class="stat-num">48</span><span class="stat-label">Projects Shipped</span></div>
+        <div class="stat"><span class="stat-num">12</span><span class="stat-label">Happy Clients</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education dark-section" id="education">
+  <div class="section-label light">02 — Education</div>
+  <div class="edu-list">
+    <div class="edu-item" data-year="2023">
+      <div class="edu-degree">Master of Design</div>
+      <div class="edu-school">Royal College of Art, London</div>
+      <div class="edu-detail">Interaction Design, Graduated with Distinction</div>
+    </div>
+    <div class="edu-item" data-year="2020">
+      <div class="edu-degree">Bachelor of Fine Arts</div>
+      <div class="edu-school">Parsons School of Design, New York</div>
+      <div class="edu-detail">Communication Design, Dean's List Honoree</div>
+    </div>
+    <div class="edu-item" data-year="2019">
+      <div class="edu-degree">Exchange Programme</div>
+      <div class="edu-school">École des Beaux-Arts, Paris</div>
+      <div class="edu-detail">Visual Arts & Typography Studies</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-label">03 — Experience</div>
+  <div class="exp-container">
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">2022 — Present</div>
+        <div class="exp-company">Studio Nimbus</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Senior Product Designer</div>
+        <p>Led end-to-end design for SaaS products serving 200K+ users. Rebuilt the core design system, reducing inconsistency by 60% across all platforms.</p>
+        <div class="exp-tags"><span>Figma</span><span>React</span><span>Design Systems</span></div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">2020 — 2022</div>
+        <div class="exp-company">Meridian Labs</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">UI/UX Designer</div>
+        <p>Designed mobile-first experiences for fintech and health-tech startups. Shipped 8 major product features in 18 months.</p>
+        <div class="exp-tags"><span>Mobile</span><span>Prototyping</span><span>User Research</span></div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">2019 — 2020</div>
+        <div class="exp-company">Freelance</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Brand & Web Designer</div>
+        <p>Worked with 15+ independent brands and agencies to build visual identities and responsive websites from scratch.</p>
+        <div class="exp-tags"><span>Branding</span><span>HTML/CSS</span><span>Webflow</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects dark-section" id="projects">
+  <div class="section-label light">04 — Projects</div>
+  <div class="projects-strip">
+    <div class="proj-item">
+      <div class="proj-num">01</div>
+      <div class="proj-info">
+        <div class="proj-name">Luminary Banking App</div>
+        <div class="proj-type">UX Design · Mobile</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-hover-img">
+        <div class="proj-img-placeholder" style="background: linear-gradient(135deg, #C8603A, #8A9E7B);"></div>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-num">02</div>
+      <div class="proj-info">
+        <div class="proj-name">Verde E-commerce Platform</div>
+        <div class="proj-type">Product Design · Web</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-hover-img">
+        <div class="proj-img-placeholder" style="background: linear-gradient(135deg, #8A9E7B, #C8603A);"></div>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-num">03</div>
+      <div class="proj-info">
+        <div class="proj-name">Pulse Health Dashboard</div>
+        <div class="proj-type">Data Visualization · Web App</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-hover-img">
+        <div class="proj-img-placeholder" style="background: linear-gradient(135deg, #1C1410, #C8603A);"></div>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-num">04</div>
+      <div class="proj-info">
+        <div class="proj-name">Atelier Brand Identity</div>
+        <div class="proj-type">Branding · Print</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-hover-img">
+        <div class="proj-img-placeholder" style="background: linear-gradient(135deg, #8A9E7B, #1C1410);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-label">05 — Skills</div>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <h3>Design</h3>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Figma / Sketch</span><span class="level">Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Motion Design</span><span class="level">Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>3D / Blender</span><span class="level">Intermediate</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Print Design</span><span class="level">Beginner</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="30"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h3>Development</h3>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>HTML / CSS</span><span class="level">Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>JavaScript / React</span><span class="level">Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Node.js</span><span class="level">Intermediate</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Python</span><span class="level">Beginner</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="25"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS & LANGUAGES -->
+<section class="interests dark-section" id="interests">
+  <div class="section-label light">06 — Interests & Languages</div>
+  <div class="int-lang-grid">
+    <div class="interests-col">
+      <h3>Interests</h3>
+      <div class="tag-cloud">
+        <span>Typography</span><span>Photography</span><span>Architecture</span>
+        <span>Jazz Music</span><span>Film Theory</span><span>Urban Design</span>
+        <span>Creative Writing</span><span>Ceramics</span>
+      </div>
+    </div>
+    <div class="languages-col">
+      <h3>Languages</h3>
+      <div class="lang-list">
+        <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Native</span></div>
+        <div class="lang-item"><span class="lang-name">Spanish</span><span class="lang-level">Fluent</span></div>
+        <div class="lang-item"><span class="lang-name">French</span><span class="lang-level">Conversational</span></div>
+        <div class="lang-item"><span class="lang-name">Japanese</span><span class="lang-level">Beginner</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">07 — Contact</div>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <h2>Let's create something<br><em>extraordinary</em><br>together.</h2>
+      <div class="contact-details">
+        <p>hello@alexandrarivera.com</p>
+        <p>+1 (212) 555 0182</p>
+        <div class="social-links">
+          <a href="#">LinkedIn</a><a href="#">Dribbble</a><a href="#">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Jane Smith">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@example.com">
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Project Inquiry">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message <span>→</span></button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© 2025 Alexandra Rivera</span>
+  <span>Designed with intention.</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

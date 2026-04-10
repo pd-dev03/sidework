@@ -1,0 +1,2619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Portfolio | Automate Everything</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #2d5af1;
+            --secondary: #00d4aa;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --terminal-bg: #1e1e1e;
+            --terminal-green: #4af626;
+            --terminal-blue: #569cd6;
+            --terminal-yellow: #dcdcaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0f1e;
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(45, 90, 241, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 170, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(10, 15, 30, 0.97);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 90, 241, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Source Code Pro', monospace;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            color: var(--terminal-green);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+            background-color: rgba(45, 90, 241, 0.1);
+        }
+
+        nav a.active {
+            color: var(--secondary);
+        }
+
+        nav a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            padding: 5px 10px;
+            background-color: rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #e2e8f0, var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .terminal-prompt {
+            display: inline-block;
+            font-family: 'Source Code Pro', monospace;
+            background-color: var(--terminal-bg);
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            border-left: 4px solid var(--terminal-green);
+        }
+
+        .prompt-line {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prompt-symbol {
+            color: var(--terminal-green);
+            font-weight: 600;
+        }
+
+        .typing-text {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--terminal-green);
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            animation-fill-mode: both;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--terminal-green) }
+        }
+
+        .pipeline-visualization {
+            margin: 60px auto;
+            max-width: 900px;
+            height: 120px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .pipeline-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .pipeline-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stage-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--dark);
+            border: 2px solid var(--gray);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            transition: all 0.5s;
+        }
+
+        .stage-label {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .pipeline-connector {
+            position: absolute;
+            top: 25px;
+            left: 75px;
+            width: calc(100% - 150px);
+            height: 2px;
+            background-color: var(--gray);
+            z-index: 1;
+        }
+
+        .pipeline-flow {
+            position: absolute;
+            top: 25px;
+            left: 75px;
+            width: 0;
+            height: 2px;
+            background-color: var(--success);
+            z-index: 1;
+            animation: flowAnimation 8s infinite linear;
+        }
+
+        @keyframes flowAnimation {
+            0% { width: 0; }
+            20% { width: 20%; }
+            40% { width: 40%; }
+            60% { width: 60%; }
+            80% { width: 80%; }
+            100% { width: calc(100% - 150px); }
+        }
+
+        .stage-check {
+            position: absolute;
+            top: 10px;
+            right: -5px;
+            color: var(--success);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid rgba(45, 90, 241, 0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 50px;
+            max-width: 700px;
+        }
+
+        /* Profile Section - systemctl style */
+        .profile-terminal {
+            background-color: var(--terminal-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .terminal-line {
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .line-prefix {
+            color: var(--terminal-green);
+            margin-right: 10px;
+            min-width: 150px;
+        }
+
+        .line-content {
+            flex: 1;
+        }
+
+        .status-active {
+            color: var(--success);
+        }
+
+        .profile-readme {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            border-left: 4px solid var(--terminal-blue);
+        }
+
+        .readme-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        /* Experience Section - Incident Reports */
+        .incident-reports {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .incident-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .incident-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .incident-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .incident-title {
+            font-size: 1.3rem;
+            color: #e2e8f0;
+        }
+
+        .incident-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-resolved {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .results-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .results-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .results-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .tools-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tool-tag {
+            padding: 5px 12px;
+            background-color: rgba(45, 90, 241, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: 'Source Code Pro', monospace;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+        }
+
+        /* Education Section - Dependencies */
+        .dependencies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .dependency-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .dependency-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .dependency-name {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+        }
+
+        .dependency-version {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .dependency-meta {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .dependency-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .dependency-status {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-valid {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Projects Section - GitHub Style */
+        .github-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .repo-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .repo-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .repo-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .repo-name {
+            font-size: 1.1rem;
+            color: var(--terminal-blue);
+            font-weight: 600;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .repo-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .repo-description {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+
+        .repo-tech {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            padding: 3px 10px;
+            background-color: rgba(45, 90, 241, 0.1);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .repo-body {
+            padding: 20px;
+        }
+
+        .repo-readme {
+            background-color: rgba(10, 15, 30, 0.7);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            max-height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .readme-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, rgba(10, 15, 30, 0.9));
+        }
+
+        .repo-footer {
+            padding: 15px 20px;
+            background-color: rgba(10, 15, 30, 0.7);
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .last-commit {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .deploy-button {
+            padding: 8px 16px;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 6px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .deploy-button:hover {
+            background-color: rgba(16, 185, 129, 0.2);
+        }
+
+        /* Skills Section - Monitoring Dashboard */
+        .skills-dashboard {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .dashboard-category {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-meter {
+            margin-bottom: 25px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .skill-name {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1rem;
+        }
+
+        .skill-level {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .meter-container {
+            height: 10px;
+            background-color: rgba(100, 116, 139, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .skill-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .skill-badge {
+            padding: 8px 15px;
+            background-color: rgba(45, 90, 241, 0.1);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Interests Section - systemd Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.95rem;
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(45, 90, 241, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .service-name {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+        }
+
+        .service-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            color: var(--success);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        .service-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Languages Section - Locale Settings */
+        .locale-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .locale-setting {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .locale-setting:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .locale-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .locale-key {
+            color: var(--terminal-blue);
+            font-size: 1.1rem;
+        }
+
+        .locale-value {
+            color: var(--terminal-yellow);
+            font-size: 1rem;
+        }
+
+        .locale-proficiency {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .proficiency-bar {
+            flex: 1;
+            height: 6px;
+            background-color: rgba(100, 116, 139, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .proficiency-fill {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 3px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .proficiency-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            min-width: 100px;
+            text-align: right;
+        }
+
+        /* Contact Section - API Endpoints */
+        .endpoints-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .endpoint {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .endpoint:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .endpoint-method {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-family: 'Source Code Pro', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .method-get {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .method-post {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .endpoint-path {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+        }
+
+        .endpoint-description {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .curl-example {
+            background-color: var(--terminal-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .endpoint-response {
+            background-color: rgba(10, 15, 30, 0.7);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .response-title {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--gray);
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .response-content {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+        }
+
+        .trigger-alert-button {
+            display: block;
+            margin: 50px auto 0;
+            padding: 15px 40px;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .trigger-alert-button:hover {
+            background-color: rgba(239, 68, 68, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(45, 90, 241, 0.1);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        .copyright small {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 15, 30, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--dark);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .log-output {
+            background-color: var(--terminal-bg);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .log-line {
+            margin-bottom: 5px;
+        }
+
+        .log-timestamp {
+            color: var(--gray);
+        }
+
+        .log-error {
+            color: var(--danger);
+        }
+
+        .log-warning {
+            color: var(--warning);
+        }
+
+        .log-info {
+            color: var(--secondary);
+        }
+
+        .log-success {
+            color: var(--success);
+        }
+
+        .modal-footer {
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            text-align: right;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .github-projects {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .pipeline-visualization {
+                height: 200px;
+            }
+            
+            .pipeline-stages {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .pipeline-connector, .pipeline-flow {
+                display: none;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .github-projects {
+                grid-template-columns: 1fr;
+            }
+            
+            .dependencies-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .locale-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .locale-proficiency {
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(45, 90, 241, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background-color: rgba(45, 90, 241, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: #e2e8f0;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            border: 1px solid rgba(45, 90, 241, 0.3);
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">Dev<span>Ops</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#profile">Profile</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#interests">Interests</a></li>
+                    <li><a href="#languages">Languages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="status-badge">
+                <div class="status-indicator"></div>
+                <span>Production: 🟢 Healthy</span>
+                <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltiptext">for now...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1 class="hero-title">I automate deployments so developers can sleep.</h1>
+            <p class="hero-subtitle">DevOps Engineer | Cloud Architect | SRE</p>
+            
+            <div class="terminal-prompt">
+                <div class="prompt-line">
+                    <span class="prompt-symbol">$</span>
+                    <span class="typing-text">whoami && echo "DevOps Engineer with 8+ years of experience in cloud infrastructure, CI/CD, and automation"</span>
+                </div>
+                <div class="prompt-line">
+                    <span class="prompt-symbol">></span>
+                    <span style="color: var(--terminal-blue);">Alex Morgan - Senior DevOps Engineer</span>
+                </div>
+                <div class="prompt-line">
+                    <span class="prompt-symbol">></span>
+                    <span>Specializing in AWS, Kubernetes, Terraform, and building resilient systems</span>
+                </div>
+            </div>
+            
+            <div class="pipeline-visualization">
+                <div class="pipeline-connector"></div>
+                <div class="pipeline-flow"></div>
+                <div class="pipeline-stages">
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fab fa-git-alt"></i></div>
+                        <div class="stage-label">Git</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="stage-label">CI</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-hammer"></i></div>
+                        <div class="stage-label">Build</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-vial"></i></div>
+                        <div class="stage-label">Test</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fab fa-docker"></i></div>
+                        <div class="stage-label">Docker</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-cubes"></i></div>
+                        <div class="stage-label">K8s</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-cloud"></i></div>
+                        <div class="stage-label">Cloud</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="stage-label">Monitoring</div>
+                        <div class="stage-check"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile/About Section -->
+    <section id="profile" class="container">
+        <h2 class="section-title">Profile</h2>
+        <p class="section-subtitle">systemctl status devops-engineer</p>
+        
+        <div class="profile-terminal">
+            <div class="terminal-line">
+                <div class="line-prefix">● devops-engineer.service</div>
+                <div class="line-content">- DevOps Engineer & Cloud Architect</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Loaded:</div>
+                <div class="line-content">loaded (8+ years experience)</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Active:</div>
+                <div class="line-content"><span class="status-active">active (running)</span> since Mon 2015-01-01</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Main PID:</div>
+                <div class="line-content">42 (automation)</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Status:</div>
+                <div class="line-content">"Automating everything in sight"</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Cpu:</div>
+                <div class="line-content">100% (always learning)</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Memory:</div>
+                <div class="line-content">Extensive cloud infrastructure experience</div>
+            </div>
+            <div class="terminal-line">
+                <div class="line-prefix">Tasks:</div>
+                <div class="line-content">256 (parallel processing enabled)</div>
+            </div>
+        </div>
+        
+        <div class="profile-readme">
+            <h3 class="readme-title">README.md</h3>
+            <p>Senior DevOps Engineer with 8+ years of experience designing, implementing, and maintaining cloud infrastructure and CI/CD pipelines. Passionate about automation, scalability, and system reliability.</p>
+            <p>I specialize in transforming manual processes into automated workflows, reducing deployment times from hours to minutes, and ensuring systems are resilient and cost-effective.</p>
+            <p>My philosophy: <strong>"If you have to do it more than once, automate it. If it's not monitored, it doesn't exist."</strong></p>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="container">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-subtitle">Incident reports and resolution timelines</p>
+        
+        <div class="incident-reports">
+            <!-- Incident 1 -->
+            <div class="incident-card">
+                <div class="incident-header">
+                    <h3 class="incident-title">TechCorp Inc. - Senior DevOps Engineer</h3>
+                    <div class="incident-status status-resolved">
+                        <i class="fas fa-check-circle"></i>
+                        <span>2020 - Present</span>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Timeline: Q2 2021 - Q4 2021</span>
+                    </div>
+                    <div class="timeline-item">
+                        <i class="fas fa-bullseye"></i>
+                        <span>Objective: Migrate 200+ VMs to Kubernetes</span>
+                    </div>
+                </div>
+                
+                <p><strong>Challenge:</strong> Legacy VM-based infrastructure with manual deployments, inconsistent environments, and high operational overhead.</p>
+                
+                <h4 style="margin: 20px 0 10px; color: var(--secondary);">Results:</h4>
+                <ul class="results-list">
+                    <li>Reduced infrastructure costs by 40% through containerization and auto-scaling</li>
+                    <li>Improved deployment time from 2 hours to 5 minutes with GitOps approach</li>
+                    <li>Achieved zero downtime during migration with blue-green deployment strategy</li>
+                    <li>Implemented comprehensive monitoring reducing MTTR by 70%</li>
+                </ul>
+                
+                <div class="tools-tags">
+                    <span class="tool-tag">Kubernetes</span>
+                    <span class="tool-tag">Terraform</span>
+                    <span class="tool-tag">AWS</span>
+                    <span class="tool-tag">ArgoCD</span>
+                    <span class="tool-tag">Prometheus</span>
+                    <span class="tool-tag">Istio</span>
+                </div>
+            </div>
+            
+            <!-- Incident 2 -->
+            <div class="incident-card">
+                <div class="incident-header">
+                    <h3 class="incident-title">StartUpScale - DevOps Lead</h3>
+                    <div class="incident-status status-resolved">
+                        <i class="fas fa-check-circle"></i>
+                        <span>2018 - 2020</span>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Timeline: 2018 - 2020</span>
+                    </div>
+                    <div class="timeline-item">
+                        <i class="fas fa-bullseye"></i>
+                        <span>Objective: Build scalable CI/CD from scratch</span>
+                    </div>
+                </div>
+                
+                <p><strong>Challenge:</strong> Startup with no DevOps practices, manual deployments causing frequent outages, and no monitoring in place.</p>
+                
+                <h4 style="margin: 20px 0 10px; color: var(--secondary);">Results:</h4>
+                <ul class="results-list">
+                    <li>Designed and implemented full CI/CD pipeline reducing release cycle from 2 weeks to daily</li>
+                    <li>Built infrastructure as code reducing environment setup from days to minutes</li>
+                    <li>Reduced production incidents by 85% through comprehensive testing and monitoring</li>
+                    <li>Mentored 3 junior engineers in DevOps practices and tools</li>
+                </ul>
+                
+                <div class="tools-tags">
+                    <span class="tool-tag">Docker</span>
+                    <span class="tool-tag">Jenkins</span>
+                    <span class="tool-tag">Azure</span>
+                    <span class="tool-tag">Ansible</span>
+                    <span class="tool-tag">ELK Stack</span>
+                    <span class="tool-tag">Python</span>
+                </div>
+            </div>
+            
+            <!-- Incident 3 -->
+            <div class="incident-card">
+                <div class="incident-header">
+                    <h3 class="incident-title">FinanceSecure - Cloud Engineer</h3>
+                    <div class="incident-status status-resolved">
+                        <i class="fas fa-check-circle"></i>
+                        <span>2015 - 2018</span>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Timeline: 2016 - 2017</span>
+                    </div>
+                    <div class="timeline-item">
+                        <i class="fas fa-bullseye"></i>
+                        <span>Objective: Secure cloud migration for financial data</span>
+                    </div>
+                </div>
+                
+                <p><strong>Challenge:</strong> Migrate sensitive financial systems to cloud while maintaining strict security and compliance requirements (SOC2, PCI-DSS).</p>
+                
+                <h4 style="margin: 20px 0 10px; color: var(--secondary);">Results:</h4>
+                <ul class="results-list">
+                    <li>Successfully migrated critical systems with zero data breaches</li>
+                    <li>Implemented automated security scanning in CI/CD pipeline</li>
+                    <li>Reduced compliance audit preparation time by 60% through automation</li>
+                    <li>Designed disaster recovery strategy achieving RPO of 5 minutes and RTO of 15 minutes</li>
+                </ul>
+                
+                <div class="tools-tags">
+                    <span class="tool-tag">AWS Security</span>
+                    <span class="tool-tag">Vault</span>
+                    <span class="tool-tag">CloudFormation</span>
+                    <span class="tool-tag">Security Scanning</span>
+                    <span class="tool-tag">Compliance</span>
+                    <span class="tool-tag">Disaster Recovery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="container">
+        <h2 class="section-title">Education</h2>
+        <p class="section-subtitle">Dependencies installed and configured</p>
+        
+        <div class="dependencies-container">
+            <!-- Dependency 1 -->
+            <div class="dependency-card">
+                <div class="dependency-header">
+                    <h3 class="dependency-name">University of Technology</h3>
+                    <span class="dependency-version">2014-2018</span>
+                </div>
+                <div class="dependency-meta">
+                    <span>Package: BSc. Computer Science</span>
+                </div>
+                <div class="dependency-description">
+                    Specialized in Cloud Computing and Distributed Systems. Graduated with honors. Coursework included Advanced Algorithms, Computer Networks, Operating Systems, and Database Management.
+                </div>
+                <div class="dependency-meta" style="margin-top: 15px;">
+                    <span>GPA: 3.8/4.0</span>
+                </div>
+            </div>
+            
+            <!-- Dependency 2 -->
+            <div class="dependency-card">
+                <div class="dependency-header">
+                    <h3 class="dependency-name">AWS Certified Solutions Architect</h3>
+                    <span class="dependency-version">2020</span>
+                </div>
+                <div class="dependency-meta">
+                    <span>Package: Professional Certification</span>
+                </div>
+                <div class="dependency-description">
+                    Expert-level certification demonstrating advanced technical skills and experience in designing distributed systems on AWS.
+                </div>
+                <div class="dependency-status status-valid" style="margin-top: 15px;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Valid until 2024</span>
+                </div>
+            </div>
+            
+            <!-- Dependency 3 -->
+            <div class="dependency-card">
+                <div class="dependency-header">
+                    <h3 class="dependency-name">Certified Kubernetes Administrator (CKA)</h3>
+                    <span class="dependency-version">2021</span>
+                </div>
+                <div class="dependency-meta">
+                    <span>Package: Professional Certification</span>
+                </div>
+                <div class="dependency-description">
+                    Certification demonstrating the skills, knowledge, and competence to perform the responsibilities of a Kubernetes administrator.
+                </div>
+                <div class="dependency-status status-valid" style="margin-top: 15px;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Valid until 2024</span>
+                </div>
+            </div>
+            
+            <!-- Dependency 4 -->
+            <div class="dependency-card">
+                <div class="dependency-header">
+                    <h3 class="dependency-name">Terraform Associate Certification</h3>
+                    <span class="dependency-version">2022</span>
+                </div>
+                <div class="dependency-meta">
+                    <span>Package: Professional Certification</span>
+                </div>
+                <div class="dependency-description">
+                    Certification validating understanding of Terraform's core concepts, workflow, and ability to write and maintain Terraform code.
+                </div>
+                <div class="dependency-status status-valid" style="margin-top: 15px;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Valid until 2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">GitHub repositories with deployment pipelines</p>
+        
+        <div class="github-projects">
+            <!-- Repo 1 -->
+            <div class="repo-card">
+                <div class="repo-header">
+                    <div class="repo-title">
+                        <h3 class="repo-name">kubernetes-production-cluster</h3>
+                        <div class="repo-stats">
+                            <span><i class="fas fa-star"></i> 142</span>
+                            <span><i class="fas fa-code-branch"></i> 28</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">Production-grade Kubernetes cluster configuration with Terraform, Helm, and GitOps workflows.</p>
+                    <div class="repo-tech">
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Helm</span>
+                    </div>
+                </div>
+                <div class="repo-body">
+                    <div class="repo-readme">
+                        <p>This repository contains infrastructure as code for provisioning a production-ready Kubernetes cluster on AWS with all necessary components for security, monitoring, and CI/CD.</p>
+                        <p>Features include: VPC networking, EKS cluster, node groups, ingress controller, cert-manager, external-dns, Prometheus stack, Grafana, and ArgoCD for GitOps.</p>
+                        <div class="readme-fade"></div>
+                    </div>
+                </div>
+                <div class="repo-footer">
+                    <div class="last-commit">
+                        <i class="fas fa-history"></i> Updated 2 days ago
+                    </div>
+                    <button class="deploy-button deploy-repo" data-repo="kubernetes-production-cluster">
+                        <i class="fas fa-rocket"></i> Deploy to Production
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Repo 2 -->
+            <div class="repo-card">
+                <div class="repo-header">
+                    <div class="repo-title">
+                        <h3 class="repo-name">ci-cd-pipeline-templates</h3>
+                        <div class="repo-stats">
+                            <span><i class="fas fa-star"></i> 89</span>
+                            <span><i class="fas fa-code-branch"></i> 15</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">Reusable CI/CD pipeline templates for GitHub Actions, GitLab CI, and Jenkins.</p>
+                    <div class="repo-tech">
+                        <span class="tech-tag">GitHub Actions</span>
+                        <span class="tech-tag">GitLab CI</span>
+                        <span class="tech-tag">Jenkins</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+                <div class="repo-body">
+                    <div class="repo-readme">
+                        <p>Collection of reusable CI/CD pipeline templates for various use cases including: Docker builds, Kubernetes deployments, security scanning, performance testing, and multi-environment deployments.</p>
+                        <p>Each template includes best practices for caching, parallelization, and error handling to ensure fast and reliable pipelines.</p>
+                        <div class="readme-fade"></div>
+                    </div>
+                </div>
+                <div class="repo-footer">
+                    <div class="last-commit">
+                        <i class="fas fa-history"></i> Updated 1 week ago
+                    </div>
+                    <button class="deploy-button deploy-repo" data-repo="ci-cd-pipeline-templates">
+                        <i class="fas fa-rocket"></i> Deploy to Production
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Repo 3 -->
+            <div class="repo-card">
+                <div class="repo-header">
+                    <div class="repo-title">
+                        <h3 class="repo-name">terraform-modules-library</h3>
+                        <div class="repo-stats">
+                            <span><i class="fas fa-star"></i> 127</span>
+                            <span><i class="fas fa-code-branch"></i> 42</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">Reusable Terraform modules for AWS, Azure, and GCP infrastructure.</p>
+                    <div class="repo-tech">
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">GCP</span>
+                    </div>
+                </div>
+                <div class="repo-body">
+                    <div class="repo-readme">
+                        <p>Library of production-ready Terraform modules following best practices for security, reliability, and cost optimization. Modules include: VPC networking, Kubernetes clusters, databases, load balancers, monitoring stacks, and serverless functions.</p>
+                        <p>All modules include comprehensive documentation, examples, and automated testing.</p>
+                        <div class="readme-fade"></div>
+                    </div>
+                </div>
+                <div class="repo-footer">
+                    <div class="last-commit">
+                        <i class="fas fa-history"></i> Updated 3 days ago
+                    </div>
+                    <button class="deploy-button deploy-repo" data-repo="terraform-modules-library">
+                        <i class="fas fa-rocket"></i> Deploy to Production
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="container">
+        <h2 class="section-title">Skills</h2>
+        <p class="section-subtitle">Monitoring dashboard with skill levels</p>
+        
+        <div class="skills-dashboard">
+            <!-- Category 1 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fas fa-cloud"></i>
+                    Cloud Platforms
+                </h3>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">AWS</span>
+                        <span class="skill-level">Expert</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Azure</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Google Cloud</span>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="75"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 2 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fas fa-cogs"></i>
+                    Infrastructure as Code
+                </h3>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Terraform</span>
+                        <span class="skill-level">Expert</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">CloudFormation</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="80"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Ansible</span>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="70"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 3 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fab fa-docker"></i>
+                    Containers & Orchestration
+                </h3>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Kubernetes</span>
+                        <span class="skill-level">Expert</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Docker</span>
+                        <span class="skill-level">Expert</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="92"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Helm</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="85"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 4 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fas fa-code-branch"></i>
+                    CI/CD & GitOps
+                </h3>
+                <div class="skill-badges">
+                    <div class="skill-badge">
+                        <i class="fab fa-github"></i>
+                        GitHub Actions
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fab fa-gitlab"></i>
+                        GitLab CI
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fab fa-jenkins"></i>
+                        Jenkins
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-rocket"></i>
+                        ArgoCD
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-sync-alt"></i>
+                        FluxCD
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 5 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fas fa-chart-line"></i>
+                    Monitoring & Observability
+                </h3>
+                <div class="skill-badges">
+                    <div class="skill-badge">
+                        <i class="fas fa-database"></i>
+                        Prometheus
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-chart-bar"></i>
+                        Grafana
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-search"></i>
+                        ELK Stack
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-bell"></i>
+                        AlertManager
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Datadog
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 6 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Security & Compliance
+                </h3>
+                <div class="skill-badges">
+                    <div class="skill-badge">
+                        <i class="fas fa-key"></i>
+                        HashiCorp Vault
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-user-lock"></i>
+                        IAM & RBAC
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-search"></i>
+                        Security Scanning
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-file-contract"></i>
+                        SOC2/PCI Compliance
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 7 -->
+            <div class="dashboard-category">
+                <h3 class="category-title">
+                    <i class="fas fa-code"></i>
+                    Programming & Scripting
+                </h3>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Python</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Bash/Shell</span>
+                        <span class="skill-level">Expert</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">Go</span>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="70"></div>
+                    </div>
+                </div>
+                <div class="skill-meter">
+                    <div class="skill-header">
+                        <span class="skill-name">YAML/JSON</span>
+                        <span class="skill-level">Expert</span>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" data-width="95"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="container">
+        <h2 class="section-title">Interests</h2>
+        <p class="section-subtitle">systemd services currently running</p>
+        
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <h3 class="service-name">docker.service</h3>
+                </div>
+                <div class="service-status">
+                    <div class="status-dot"></div>
+                    <span>Containerization enthusiast</span>
+                </div>
+                <p class="service-description">
+                    Always exploring new container patterns, optimizing Dockerfiles, and experimenting with container security and performance tuning.
+                </p>
+            </div>
+            
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3 class="service-name">kubernetes.socket</h3>
+                </div>
+                <div class="service-status">
+                    <div class="status-dot"></div>
+                    <span>Orchestration expert</span>
+                </div>
+                <p class="service-description">
+                    Contributing to Kubernetes open-source projects, writing custom operators, and exploring advanced patterns like service mesh and GitOps.
+                </p>
+            </div>
+            
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="service-name">homelab.service</h3>
+                </div>
+                <div class="service-status">
+                    <div class="status-dot"></div>
+                    <span>Home infrastructure</span>
+                </div>
+                <p class="service-description">
+                    Running Proxmox cluster with Kubernetes, TrueNAS for storage, networking gear, and experimenting with self-hosted services and automation.
+                </p>
+            </div>
+            
+            <!-- Service 4 -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="service-name">open-source.service</h3>
+                </div>
+                <div class="service-status">
+                    <div class="status-dot"></div>
+                    <span>Open source contributor</span>
+                </div>
+                <p class="service-description">
+                    Maintaining 3+ open source projects, contributing to Terraform providers, Kubernetes tools, and DevOps automation libraries.
+                </p>
+            </div>
+            
+            <!-- Service 5 -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="service-name">learning.service</h3>
+                </div>
+                <div class="service-status">
+                    <div class="status-dot"></div>
+                    <span>Continuous learning</span>
+                </div>
+                <p class="service-description">
+                    Always studying new technologies, taking courses on distributed systems, reading infrastructure books, and attending DevOps conferences.
+                </p>
+            </div>
+            
+            <!-- Service 6 -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="service-name">automation.service</h3>
+                </div>
+                <div class="service-status">
+                    <div class="status-dot"></div>
+                    <span>Automation obsessive</span>
+                </div>
+                <p class="service-description">
+                    Automating everything from home lights to infrastructure deployment. If it has to be done more than once, it gets automated.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section id="languages" class="container">
+        <h2 class="section-title">Languages</h2>
+        <p class="section-subtitle">System locales and proficiency levels</p>
+        
+        <div class="locale-container">
+            <!-- Human Languages -->
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=en_US.UTF-8</span>
+                    <span class="locale-value">English (Native)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="100"></div>
+                    </div>
+                    <span class="proficiency-label">Native Proficiency</span>
+                </div>
+            </div>
+            
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=fr_FR.UTF-8</span>
+                    <span class="locale-value">French (Professional)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="85"></div>
+                    </div>
+                    <span class="proficiency-label">Professional Proficiency</span>
+                </div>
+            </div>
+            
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=es_ES.UTF-8</span>
+                    <span class="locale-value">Spanish (Intermediate)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="65"></div>
+                    </div>
+                    <span class="proficiency-label">Intermediate Proficiency</span>
+                </div>
+            </div>
+            
+            <!-- Programming Languages -->
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=python3.11</span>
+                    <span class="locale-value">Python (Expert)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="90"></div>
+                    </div>
+                    <span class="proficiency-label">Expert Level</span>
+                </div>
+            </div>
+            
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=bash5.2</span>
+                    <span class="locale-value">Bash/Shell (Expert)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="95"></div>
+                    </div>
+                    <span class="proficiency-label">Expert Level</span>
+                </div>
+            </div>
+            
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=golang1.20</span>
+                    <span class="locale-value">Go (Advanced)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="80"></div>
+                    </div>
+                    <span class="proficiency-label">Advanced Level</span>
+                </div>
+            </div>
+            
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=yaml</span>
+                    <span class="locale-value">YAML (Expert)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="98"></div>
+                    </div>
+                    <span class="proficiency-label">Expert Level</span>
+                </div>
+            </div>
+            
+            <div class="locale-setting">
+                <div class="locale-header">
+                    <span class="locale-key">LANG=hcl2</span>
+                    <span class="locale-value">HCL (Terraform) (Expert)</span>
+                </div>
+                <div class="locale-proficiency">
+                    <div class="proficiency-bar">
+                        <div class="proficiency-fill" data-width="92"></div>
+                    </div>
+                    <span class="proficiency-label">Expert Level</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Available API endpoints for connection</p>
+        
+        <div class="endpoints-container">
+            <!-- Endpoint 1 -->
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <div class="endpoint-method method-get">GET</div>
+                    <div class="endpoint-path">/contact/email</div>
+                </div>
+                <p class="endpoint-description">Returns primary email address for professional inquiries.</p>
+                <div class="curl-example">
+                    $ curl -X GET https://portfolio.dev/contact/email
+                </div>
+                <div class="endpoint-response">
+                    <div class="response-title">Response:</div>
+                    <div class="response-content">
+                        {<br>
+                        &nbsp;&nbsp;"status": "200 OK",<br>
+                        &nbsp;&nbsp;"email": "alex.morgan@example.com",<br>
+                        &nbsp;&nbsp;"response_time": "usually within 24 hours"<br>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Endpoint 2 -->
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <div class="endpoint-method method-get">GET</div>
+                    <div class="endpoint-path">/contact/linkedin</div>
+                </div>
+                <p class="endpoint-description">Returns LinkedIn profile URL for professional networking.</p>
+                <div class="curl-example">
+                    $ curl -X GET https://portfolio.dev/contact/linkedin
+                </div>
+                <div class="endpoint-response">
+                    <div class="response-title">Response:</div>
+                    <div class="response-content">
+                        {<br>
+                        &nbsp;&nbsp;"status": "200 OK",<br>
+                        &nbsp;&nbsp;"url": "https://linkedin.com/in/alexmorgan",<br>
+                        &nbsp;&nbsp;"connection_policy": "Always open to connect with fellow DevOps professionals"<br>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Endpoint 3 -->
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <div class="endpoint-method method-get">GET</div>
+                    <div class="endpoint-path">/contact/github</div>
+                </div>
+                <p class="endpoint-description">Returns GitHub profile URL to view projects and contributions.</p>
+                <div class="curl-example">
+                    $ curl -X GET https://portfolio.dev/contact/github
+                </div>
+                <div class="endpoint-response">
+                    <div class="response-title">Response:</div>
+                    <div class="response-content">
+                        {<br>
+                        &nbsp;&nbsp;"status": "200 OK",<br>
+                        &nbsp;&nbsp;"url": "https://github.com/alexmorgan",<br>
+                        &nbsp;&nbsp;"repositories": "42 public repos",<br>
+                        &nbsp;&nbsp;"contributions": "Active contributor to open source"<br>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Endpoint 4 -->
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <div class="endpoint-method method-post">POST</div>
+                    <div class="endpoint-path">/contact/message</div>
+                </div>
+                <p class="endpoint-description">Send a direct message. All fields are required.</p>
+                <div class="curl-example">
+                    $ curl -X POST https://portfolio.dev/contact/message \<br>
+                    &nbsp;&nbsp;-H "Content-Type: application/json" \<br>
+                    &nbsp;&nbsp;-d '{"name": "Your Name", "email": "your.email@example.com", "message": "Your message here", "urgency": "low|medium|high"}'
+                </div>
+                <div class="endpoint-response">
+                    <div class="response-title">Response:</div>
+                    <div class="response-content">
+                        {<br>
+                        &nbsp;&nbsp;"status": "202 Accepted",<br>
+                        &nbsp;&nbsp;"message": "Message received successfully",<br>
+                        &nbsp;&nbsp;"estimated_response": "1-2 business days",<br>
+                        &nbsp;&nbsp;"note": "High urgency messages get priority response"<br>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="trigger-alert-button" id="trigger-alert-button">
+            <i class="fas fa-bell"></i> Trigger Alert (Contact Me)
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container">
+        <div class="copyright">
+            &copy; <span id="current-year"></span> DevOps Portfolio. All systems operational.
+            <br>
+            <small>Remember: If it's not monitored, it doesn't exist. No manual production changes. Deploys should be boring. Don't deploy on Friday.</small>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="deploy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-rocket"></i> Deploying to Production</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="log-output" id="deploy-logs">
+                    <!-- Logs will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button">Acknowledge</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="alert-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-bell" style="color: var(--danger);"></i> Alert Triggered!</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="log-output">
+                    <div class="log-line"><span class="log-timestamp">[ALERT]</span> <span class="log-error">PagerDuty alert triggered</span></div>
+                    <div class="log-line"><span class="log-timestamp">[TIME]</span> <span id="alert-time"></span></div>
+                    <div class="log-line"><span class="log-timestamp">[SEVERITY]</span> <span class="log-error">HIGH - Contact request initiated</span></div>
+                    <div class="log-line"><span class="log-timestamp">[MESSAGE]</span> Someone wants to connect with you!</div>
+                    <div class="log-line"><span class="log-timestamp">[ACTION REQUIRED]</span> <span class="log-warning">Please provide your contact information</span></div>
+                    <div class="log-line"><span class="log-timestamp">[CONTACT INFO]</span></div>
+                    <div class="log-line" style="margin-left: 20px;"><span class="log-info">Email: alex.morgan@example.com</span></div>
+                    <div class="log-line" style="margin-left: 20px;"><span class="log-info">LinkedIn: linkedin.com/in/alexmorgan</span></div>
+                    <div class="log-line" style="margin-left: 20px;"><span class="log-info">GitHub: github.com/alexmorgan</span></div>
+                    <div class="log-line" style="margin-top: 15px;"><span class="log-timestamp">[NOTE]</span> <span class="log-success">This was just a demonstration! But seriously, let's connect.</span></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button">Acknowledge Alert</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Set current year in footer
+            $('#current-year').text(new Date().getFullYear());
+            
+            // Set alert time
+            $('#alert-time').text(new Date().toLocaleString());
+            
+            // Fade in elements on scroll
+            function checkFadeIn() {
+                $('.fade-in').each(function() {
+                    var elementTop = $(this).offset().top;
+                    var elementBottom = elementTop + $(this).outerHeight();
+                    var viewportTop = $(window).scrollTop();
+                    var viewportBottom = viewportTop + $(window).height();
+                    
+                    if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }
+            
+            // Initialize fade-in elements
+            $('section h2, section p, .profile-terminal, .incident-card, .dependency-card, .repo-card, .dashboard-category, .service-card, .locale-setting, .endpoint').addClass('fade-in');
+            
+            // Check on load and scroll
+            checkFadeIn();
+            $(window).scroll(checkFadeIn);
+            
+            // Animate skill meters
+            function animateSkillMeters() {
+                $('.meter-fill').each(function() {
+                    var width = $(this).data('width');
+                    $(this).css('width', width + '%');
+                });
+            }
+            
+            // Animate proficiency bars
+            function animateProficiencyBars() {
+                $('.proficiency-fill').each(function() {
+                    var width = $(this).data('width');
+                    $(this).css('width', width + '%');
+                });
+            }
+            
+            // Start animations when skills section is in view
+            var skillsAnimated = false;
+            var languagesAnimated = false;
+            
+            $(window).scroll(function() {
+                // Skills section
+                var skillsSection = $('#skills');
+                var skillsTop = skillsSection.offset().top;
+                var skillsBottom = skillsTop + skillsSection.outerHeight();
+                var viewportTop = $(window).scrollTop();
+                var viewportBottom = viewportTop + $(window).height();
+                
+                if (skillsBottom > viewportTop && skillsTop < viewportBottom && !skillsAnimated) {
+                    animateSkillMeters();
+                    skillsAnimated = true;
+                }
+                
+                // Languages section
+                var languagesSection = $('#languages');
+                var languagesTop = languagesSection.offset().top;
+                var languagesBottom = languagesTop + languagesSection.outerHeight();
+                
+                if (languagesBottom > viewportTop && languagesTop < viewportBottom && !languagesAnimated) {
+                    animateProficiencyBars();
+                    languagesAnimated = true;
+                }
+                
+                // Show/hide scroll to top button
+                if ($(window).scrollTop() > 300) {
+                    $('#scrollTop').addClass('visible');
+                } else {
+                    $('#scrollTop').removeClass('visible');
+                }
+            });
+            
+            // Pipeline animation
+            function animatePipeline() {
+                $('.stage-check').each(function(index) {
+                    var $check = $(this);
+                    setTimeout(function() {
+                        $check.css('opacity', 1);
+                    }, index * 1000);
+                });
+            }
+            
+            // Start pipeline animation
+            setTimeout(animatePipeline, 1000);
+            
+            // Smooth scrolling for navigation
+            $('nav a').click(function(e) {
+                e.preventDefault();
+                var target = $(this).attr('href');
+                
+                // Update active nav item
+                $('nav a').removeClass('active');
+                $(this).addClass('active');
+                
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top - 80
+                }, 800);
+            });
+            
+            // Scroll to top button
+            $('#scrollTop').click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
+            });
+            
+            // Modal functionality
+            function openModal(modalId) {
+                $('body').css('overflow', 'hidden');
+                $(modalId).fadeIn(300);
+            }
+            
+            function closeModal() {
+                $('body').css('overflow', 'auto');
+                $('.modal').fadeOut(300);
+            }
+            
+            // Deploy button functionality
+            $('.deploy-button').click(function() {
+                var repoName = $(this).data('repo');
+                var deployLogs = $('#deploy-logs');
+                
+                // Generate logs based on repo
+                var logs = '';
+                var timestamp = new Date().toLocaleTimeString();
+                
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Starting deployment of ' + repoName + '...</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Checking pre-conditions...</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: All pre-conditions satisfied</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Running terraform plan...</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: Plan complete (5 resources to add, 0 to change, 0 to destroy)</div>';
+                
+                if (repoName === 'kubernetes-production-cluster') {
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Creating EKS cluster...</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: EKS cluster created successfully</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Deploying Helm charts...</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: All Helm charts deployed</div>';
+                } else if (repoName === 'ci-cd-pipeline-templates') {
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Setting up CI/CD pipeline...</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: GitHub Actions workflow created</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Configuring deployment environments...</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: Staging and production environments configured</div>';
+                } else if (repoName === 'terraform-modules-library') {
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Initializing Terraform modules...</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: Modules initialized</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Running module tests...</div>';
+                    logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: All tests passed</div>';
+                }
+                
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Running post-deployment verification...</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: Verification passed</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-success">SUCCESS</span>: Deployment completed successfully!</div>';
+                logs += '<div class="log-line"><span class="log-timestamp">[' + timestamp + ']</span> <span class="log-info">INFO</span>: Deployment time: 4 minutes 22 seconds</div>';
+                
+                deployLogs.html(logs);
+                openModal('#deploy-modal');
+            });
+            
+            // Trigger alert button
+            $('#trigger-alert-button').click(function() {
+                // Update alert time
+                $('#alert-time').text(new Date().toLocaleString());
+                openModal('#alert-modal');
+            });
+            
+            // Close modals
+            $('.modal-close, .modal-button').click(function() {
+                closeModal();
+            });
+            
+            // Click outside modal to close
+            $(document).click(function(event) {
+                if ($(event.target).hasClass('modal')) {
+                    closeModal();
+                }
+            });
+            
+            // Status badge hover effect
+            $('.status-badge').hover(
+                function() {
+                    $(this).css('background-color', 'rgba(245, 158, 11, 0.1)');
+                    $(this).css('border-color', 'rgba(245, 158, 11, 0.3)');
+                    $('.status-indicator').css('background-color', 'var(--warning)');
+                },
+                function() {
+                    $(this).css('background-color', 'rgba(16, 185, 129, 0.1)');
+                    $(this).css('border-color', 'rgba(16, 185, 129, 0.3)');
+                    $('.status-indicator').css('background-color', 'var(--success)');
+                }
+            );
+            
+            // Simulate a pipeline stage failure (for realism)
+            setTimeout(function() {
+                var randomStage = Math.floor(Math.random() * 8);
+                $('.pipeline-stage').eq(randomStage).find('.stage-check').html('<i class="fas fa-times-circle" style="color: var(--danger);"></i>');
+                
+                // Fix it after a moment
+                setTimeout(function() {
+                    $('.pipeline-stage').eq(randomStage).find('.stage-check').html('<i class="fas fa-check-circle" style="color: var(--success);"></i>');
+                }, 3000);
+            }, 15000);
+            
+            // Update active nav item on scroll
+            $(window).scroll(function() {
+                var scrollPosition = $(window).scrollTop() + 100;
+                
+                $('section').each(function() {
+                    var sectionId = $(this).attr('id');
+                    var sectionTop = $(this).offset().top;
+                    var sectionBottom = sectionTop + $(this).outerHeight();
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        $('nav a').removeClass('active');
+                        $('nav a[href="#' + sectionId + '"]').addClass('active');
+                    }
+                });
+                
+                // Handle hero section
+                if (scrollPosition < $('#profile').offset().top) {
+                    $('nav a').removeClass('active');
+                    $('nav a[href="#hero"]').addClass('active');
+                }
+            });
+            
+            // Initialize animations on load
+            setTimeout(function() {
+                checkFadeIn();
+                
+                // Animate skills if already in view
+                var skillsSection = $('#skills');
+                var skillsTop = skillsSection.offset().top;
+                var viewportHeight = $(window).height();
+                
+                if (skillsTop < viewportHeight) {
+                    animateSkillMeters();
+                    skillsAnimated = true;
+                }
+                
+                // Animate languages if already in view
+                var languagesSection = $('#languages');
+                var languagesTop = languagesSection.offset().top;
+                
+                if (languagesTop < viewportHeight) {
+                    animateProficiencyBars();
+                    languagesAnimated = true;
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

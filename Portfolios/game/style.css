@@ -1,0 +1,104 @@
+/* CRT Monitor Effects */
+.crt-effect::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.crt-effect {
+    position: relative;
+    background: #0a0a0a;
+    box-shadow: 
+        0 0 0 1px #0f0,
+        inset 0 0 20px rgba(0, 255, 0, 0.1),
+        0 0 30px rgba(0, 255, 0, 0.2);
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.99; }
+    10% { opacity: 0.97; }
+    15% { opacity: 1; }
+    100% { opacity: 0.97; }
+}
+
+/* Blinking cursor */
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Custom scrollbar for terminal */
+#gameDisplay::-webkit-scrollbar {
+    width: 10px;
+}
+
+#gameDisplay::-webkit-scrollbar-track {
+    background: #111;
+}
+
+#gameDisplay::-webkit-scrollbar-thumb {
+    background: #0a5;
+    border-radius: 5px;
+}
+
+/* Typing effect */
+.typewriter {
+    overflow: hidden;
+    border-right: 2px solid #0f0;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #0f0 }
+}
+
+/* ASCII Art Styling */
+.ascii-art {
+    line-height: 1.1;
+    font-family: 'Source Code Pro', monospace;
+    color: #0f0;
+    white-space: pre;
+    font-size: 12px;
+}
+
+/* Command highlight */
+.command {
+    color: #ff0;
+    font-weight: bold;
+}
+
+/* Item highlight */
+.item {
+    color: #0af;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.item:hover {
+    color: #0ff;
+}

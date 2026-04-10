@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaunchFolio — Premium Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F0E8;
+    --bg2: #EDE9DF;
+    --surface: #E8E3D8;
+    --text: #0D0D0D;
+    --muted: #888880;
+    --muted2: #AAAAAA;
+    --border: rgba(0,0,0,0.1);
+    --black: #0D0D0D;
+    --white: #FDFAF4;
+    --accent: #0D0D0D;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 6%;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(244, 240, 232, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  nav.scrolled {
+    height: 58px;
+    background: rgba(244, 240, 232, 0.98);
+  }
+
+  .nav-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .nav-name {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta-btn {
+    background: var(--black);
+    color: var(--white) !important;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    transition: opacity 0.2s, transform 0.2s !important;
+  }
+
+  .nav-cta-btn:hover { opacity: 0.85; transform: scale(1.03); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 100px 6% 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .availability-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 48px;
+    width: fit-content;
+  }
+
+  .avail-dot {
+    width: 7px; height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: avail 2s ease-in-out infinite;
+  }
+
+  @keyframes avail {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-h1 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 128px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+
+  .hero-h1 em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-sub {
+    max-width: 440px;
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .hero-sub strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .btn-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--black);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn-dark:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  }
+
+  .btn-dark .avatar-mini {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .hero-social {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .social-count {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ── CLIENT STACK ── */
+  .client-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  .avatar-stack {
+    display: flex;
+  }
+
+  .avatar-stack img {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    object-fit: cover;
+    margin-right: -10px;
+  }
+
+  .client-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-left: 18px;
+  }
+
+  /* ── SECTION BASE ── */
+  .section {
+    padding: 100px 6%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .section-h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 48px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--white);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    margin-bottom: 16px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-row:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+
+  .project-row:hover .proj-view { opacity: 1; transform: translateY(0); }
+  .project-row:hover .project-thumb { transform: scale(1.04); }
+
+  .project-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .proj-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--surface);
+    color: var(--muted);
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .proj-year {
+    font-size: 13px;
+    color: var(--muted2);
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .project-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .proj-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 24px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.3s;
+  }
+
+  .project-thumb-wrap {
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .project-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    min-height: 220px;
+  }
+
+  .projects-more {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  /* ── TESTIMONIAL PULLQUOTE ── */
+  .pullquote-section {
+    padding: 80px 6%;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pullquote {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .pullquote-text {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .pullquote-text strong { font-weight: 700; }
+
+  .pullquote-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pullquote-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+  }
+
+  .pullquote-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .pullquote-role {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── SERVICES ── */
+  .services-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 320px;
+  }
+
+  .tech-pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    color: var(--muted);
+    background: var(--white);
+    transition: all 0.2s;
+  }
+
+  .tech-pill:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .service-col {
+    padding: 36px 32px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.25s;
+  }
+
+  .service-col:hover { background: var(--white); }
+  .service-col:last-child { border-right: none; }
+
+  .service-icon-box {
+    width: 44px; height: 44px;
+    background: var(--surface);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    transition: background 0.2s;
+  }
+
+  .service-col:hover .service-icon-box { background: var(--black); }
+
+  .service-col-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .service-col-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── ABOUT / BIO ── */
+  .about-section {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-img-wrap {
+    position: sticky;
+    top: 90px;
+  }
+
+  .about-portrait {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    aspect-ratio: 3/4;
+  }
+
+  .about-stat {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .about-stat strong { color: var(--text); font-size: 20px; font-weight: 700; }
+
+  .about-content {}
+
+  .work-history {
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+  }
+
+  .work-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .work-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .work-company { font-weight: 600; color: var(--text); }
+  .work-role { color: var(--muted); }
+  .work-years { font-size: 12px; color: var(--muted2); }
+
+  .about-para {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .about-para strong { color: var(--text); font-weight: 600; }
+
+  /* ── PRICING ── */
+  .pricing-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .price-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .price-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.1);
+  }
+
+  .price-card.highlight {
+    background: var(--black);
+    border-color: var(--black);
+    color: var(--white);
+  }
+
+  .price-card.highlight .price-tier { color: rgba(255,255,255,0.5); }
+  .price-card.highlight .price-amount { color: var(--white); }
+  .price-card.highlight .price-desc { color: rgba(255,255,255,0.6); }
+  .price-card.highlight .price-feature { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.1); }
+
+  .slots-badge {
+    position: absolute;
+    top: -14px; right: 24px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 4px 14px;
+    border-radius: 100px;
+  }
+
+  .price-tier {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .price-amount {
+    font-family: var(--serif);
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .price-period {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.5;
+  }
+
+  .price-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .price-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .price-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .price-feature::before {
+    content: '→';
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .btn-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg);
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.25s;
+    border: 1px solid var(--border);
+  }
+
+  .btn-light:hover {
+    background: var(--surface);
+    transform: translateY(-2px);
+  }
+
+  .btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    color: var(--black);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.25s;
+  }
+
+  .btn-white:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 16px;
+    scrollbar-width: none;
+  }
+
+  .testimonials-scroll::-webkit-scrollbar { display: none; }
+
+  .testi-card {
+    min-width: 340px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: transform 0.3s;
+  }
+
+  .testi-card:hover { transform: translateY(-4px); }
+
+  .testi-quote {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .testi-quote strong { font-weight: 700; }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testi-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .testi-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .testi-role { font-size: 12px; color: var(--muted); }
+
+  /* ── FAQ ── */
+  .faq-grid {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .faq-row {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    text-align: left;
+    gap: 20px;
+    transition: color 0.2s;
+  }
+
+  .faq-trigger:hover { color: var(--muted); }
+
+  .faq-num {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--muted2);
+    flex-shrink: 0;
+    min-width: 28px;
+  }
+
+  .faq-chevron {
+    font-size: 20px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    font-style: normal;
+  }
+
+  .faq-row.open .faq-chevron { transform: rotate(45deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    padding-left: 44px;
+  }
+
+  .faq-row.open .faq-answer {
+    max-height: 200px;
+    padding-bottom: 24px;
+  }
+
+  .faq-footer {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 680px;
+    margin-left: auto; margin-right: auto;
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+
+  .faq-footer-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .faq-footer-text { flex: 1; }
+  .faq-footer-text strong { display: block; font-size: 15px; font-weight: 600; }
+  .faq-footer-text span { font-size: 13px; color: var(--muted); }
+
+  /* ── BLOG ── */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .blog-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: block;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  }
+
+  .blog-card:hover .blog-img { transform: scale(1.05); }
+
+  .blog-img-wrap { overflow: hidden; height: 200px; }
+
+  .blog-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+
+  .blog-body { padding: 24px; }
+
+  .blog-date {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .blog-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .blog-excerpt {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  .big-footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 100px 6% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-word-wrap {
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 48px;
+    margin-bottom: 60px;
+  }
+
+  .footer-rotating-text {
+    font-family: var(--serif);
+    font-size: clamp(72px, 14vw, 180px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--white);
+    display: block;
+  }
+
+  .footer-rotating-text span {
+    display: inline-block;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-col-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+
+  .footer-col a {
+    display: block;
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--white); }
+
+  .footer-bottom {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+
+  /* ── MOBILE ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(244,240,232,0.98);
+    backdrop-filter: blur(20px);
+    padding: 24px 6%;
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 20px;
+    z-index: 99;
+  }
+
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; }
+
+  @media (max-width: 960px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-img-wrap { position: static; }
+    .about-portrait { max-height: 340px; width: 100%; }
+    .services-list { grid-template-columns: 1fr 1fr; }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .project-row { grid-template-columns: 1fr; }
+    .project-thumb { min-height: 200px; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-h1 { font-size: clamp(42px, 13vw, 72px); }
+    .services-list { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .hero-actions { align-items: flex-start; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .section { padding: 72px 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-identity">
+    <img src="https://picsum.photos/seed/josephav/100/100" alt="Joseph" class="nav-avatar">
+    <span class="nav-name">Joseph Alexander</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact" class="nav-cta-btn">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#projects">Work</a>
+  <a href="#services">Services</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#blog">Blog</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="availability-pill">
+    <span class="avail-dot"></span>
+    Available for August '25
+  </div>
+  <h1 class="hero-h1">Design that<br><em>delivers</em> results.</h1>
+  <div class="hero-bottom">
+    <p class="hero-sub"><strong>Strategic design that drives growth, not just looks good.</strong> I create everything your brand needs to attract customers and turn them into sales.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-dark">
+        <img src="https://picsum.photos/seed/josephav/100/100" alt="" class="avatar-mini">
+        Book a call with me
+      </a>
+      <div class="hero-social"><span class="social-count">1,214</span> followers on X</div>
+    </div>
+  </div>
+  <div class="client-row">
+    <div class="avatar-stack">
+      <img src="https://picsum.photos/seed/cl1/100/100" alt="">
+      <img src="https://picsum.photos/seed/cl2/100/100" alt="">
+      <img src="https://picsum.photos/seed/cl3/100/100" alt="">
+      <img src="https://picsum.photos/seed/cl4/100/100" alt="">
+      <img src="https://picsum.photos/seed/cl5/100/100" alt="">
+    </div>
+    <span class="client-count">99+ Happy clients</span>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-eyebrow">Latest Projects</div>
+  <h2 class="section-h2 reveal">Selected Work</h2>
+  <div class="projects-list">
+    <a href="#" class="project-row reveal">
+      <div class="project-body">
+        <div>
+          <div class="project-meta">
+            <span class="proj-tag">Consulting Site</span>
+            <span class="proj-year">2026</span>
+          </div>
+          <h3 class="project-title">Kora</h3>
+          <p class="project-desc">A premium consulting firm website with strategic positioning, clean hierarchy, and conversion-focused layout.</p>
+        </div>
+        <span class="proj-view">View Project →</span>
+      </div>
+      <div class="project-thumb-wrap">
+        <img src="https://picsum.photos/seed/kora/600/400" alt="Kora" class="project-thumb">
+      </div>
+    </a>
+    <a href="#" class="project-row reveal reveal-d1">
+      <div class="project-body">
+        <div>
+          <div class="project-meta">
+            <span class="proj-tag">AI Agency</span>
+            <span class="proj-year">2026</span>
+          </div>
+          <h3 class="project-title">KYMA</h3>
+          <p class="project-desc">Bold identity and web presence for an emerging AI agency. Dark, dynamic, and built to convert.</p>
+        </div>
+        <span class="proj-view">View Project →</span>
+      </div>
+      <div class="project-thumb-wrap">
+        <img src="https://picsum.photos/seed/kyma/600/400" alt="KYMA" class="project-thumb">
+      </div>
+    </a>
+    <a href="#" class="project-row reveal reveal-d2">
+      <div class="project-body">
+        <div>
+          <div class="project-meta">
+            <span class="proj-tag">Design Studio</span>
+            <span class="proj-year">2025</span>
+          </div>
+          <h3 class="project-title">Mugen</h3>
+          <p class="project-desc">A design studio portfolio with expressive typography, fluid layouts, and intentional whitespace.</p>
+        </div>
+        <span class="proj-view">View Project →</span>
+      </div>
+      <div class="project-thumb-wrap">
+        <img src="https://picsum.photos/seed/mugen/600/400" alt="Mugen" class="project-thumb">
+      </div>
+    </a>
+  </div>
+  <div class="projects-more reveal">
+    <a href="#" class="btn-light" style="max-width:220px; margin:0 auto;">View all my projects →</a>
+  </div>
+</section>
+
+<!-- PULLQUOTE TESTIMONIAL -->
+<div class="pullquote-section">
+  <div class="pullquote reveal">
+    <p class="pullquote-text">"Working with Joseph felt like having a seasoned design partner <strong>who truly understood our vision for KYMA</strong> and brought it to life in ways we hadn't even imagined."</p>
+    <div class="pullquote-author">
+      <img src="https://picsum.photos/seed/tweber/100/100" alt="" class="pullquote-avatar">
+      <div>
+        <div class="pullquote-name">Thomas Weber</div>
+        <div class="pullquote-role">Co-founder of KYMA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow">Services</div>
+      <h2 class="section-h2 reveal" style="margin-bottom:0;">Services that<br>supercharge your<br>business.</h2>
+    </div>
+    <div class="tech-stack reveal reveal-d1">
+      <span class="tech-pill">Figma</span>
+      <span class="tech-pill">Framer</span>
+      <span class="tech-pill">Webflow</span>
+      <span class="tech-pill">Rive</span>
+      <span class="tech-pill">Blender</span>
+      <span class="tech-pill">ChatGPT</span>
+      <span class="tech-pill">Claude</span>
+      <span class="tech-pill">Trello</span>
+    </div>
+  </div>
+  <div class="services-list reveal">
+    <div class="service-col">
+      <div class="service-icon-box">🖼</div>
+      <div class="service-col-title">Framer Development</div>
+      <div class="service-col-desc">High-performance sites built in Framer with smooth animations and smart layouts.</div>
+    </div>
+    <div class="service-col">
+      <div class="service-icon-box">✦</div>
+      <div class="service-col-title">Brand Design</div>
+      <div class="service-col-desc">Cohesive visual identity systems — logos, palettes, typography, and brand guidelines.</div>
+    </div>
+    <div class="service-col">
+      <div class="service-icon-box">⬡</div>
+      <div class="service-col-title">Web Apps</div>
+      <div class="service-col-desc">Functional, beautiful web applications designed for usability and conversion.</div>
+    </div>
+    <div class="service-col">
+      <div class="service-icon-box">📄</div>
+      <div class="service-col-title">Landing Pages</div>
+      <div class="service-col-desc">Conversion-focused landing pages built to drive leads and product sales.</div>
+    </div>
+    <div class="service-col">
+      <div class="service-icon-box">▶</div>
+      <div class="service-col-title">Motion Graphics</div>
+      <div class="service-col-desc">Animated brand assets, UI motion, and micro-interactions that bring interfaces to life.</div>
+    </div>
+    <div class="service-col">
+      <div class="service-icon-box">◈</div>
+      <div class="service-col-title">UX / UI Consultation</div>
+      <div class="service-col-desc">Expert guidance on product design, user flows, and interface strategy.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section">
+  <div class="section-eyebrow">About</div>
+  <div class="about-section">
+    <div class="about-img-wrap reveal">
+      <img src="https://picsum.photos/seed/josephfull/600/800" alt="Joseph Alexander" class="about-portrait">
+      <div class="about-stat">
+        <strong>1,214</strong> followers on X
+      </div>
+    </div>
+    <div class="about-content">
+      <h2 class="section-h2 reveal" style="margin-bottom:32px;">Designing experiences that solve real problems.</h2>
+      <p class="about-para reveal reveal-d1"><strong>I love turning ideas into something real through design.</strong> What started as a hobby turned into a career when I discovered how design can make things both look great and work better.</p>
+      <p class="about-para reveal reveal-d1"><strong>I focus on creating user interfaces that serve a real purpose</strong> — making sure they're not just pretty, but actually solve problems. Whether I'm working on a mobile app or a website, my goal is to make something that feels natural and easy to use.</p>
+      <p class="about-para reveal reveal-d2"><strong>I'm a bit of a perfectionist when it comes to the small stuff,</strong> but I think that's what makes good design great. This attention to detail helps me build strong relationships with clients, as they know I'll put the same care into their project that they would.</p>
+      <div class="work-history reveal reveal-d2">
+        <div class="work-label">Work History</div>
+        <div class="work-row">
+          <span class="work-company">KYMA</span>
+          <span class="work-role">Full-Stack Designer</span>
+          <span class="work-years">2012–2024</span>
+        </div>
+        <div class="work-row">
+          <span class="work-company">Mugen</span>
+          <span class="work-role">Staff Product Designer</span>
+          <span class="work-years">2020–2022</span>
+        </div>
+        <div class="work-row">
+          <span class="work-company">Axiom</span>
+          <span class="work-role">Designer</span>
+          <span class="work-years">2016–2020</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-eyebrow" style="text-align:center;">Pricing</div>
+  <h2 class="section-h2 reveal" style="text-align:center;">Simple pricing.<br>Standout designs.</h2>
+  <p style="text-align:center; color:var(--muted); margin-bottom:48px; font-size:16px;" class="reveal reveal-d1"><strong>Clear costs, no hidden fees.</strong> Select from monthly subscriptions or individual project rates.</p>
+  <div class="pricing-cards">
+    <div class="price-card highlight reveal">
+      <div class="slots-badge">Slots available</div>
+      <div class="price-tier">Unlimited Design</div>
+      <div class="price-amount">$8,000<span class="price-period"> / mo</span></div>
+      <p class="price-desc">One flat monthly rate for unlimited design requests. Ideal for ongoing design requirements.</p>
+      <ul class="price-features">
+        <li class="price-feature">No contracts or commitments</li>
+        <li class="price-feature">Pause or cancel anytime</li>
+        <li class="price-feature">Multiple Brands</li>
+        <li class="price-feature">Unlimited requests</li>
+        <li class="price-feature">Avg 48 hour turnaround</li>
+        <li class="price-feature">Framer development</li>
+      </ul>
+      <a href="#contact" class="btn-white">Get Started →</a>
+    </div>
+    <div class="price-card reveal reveal-d1">
+      <div class="price-tier">Single Project</div>
+      <div class="price-amount" style="font-size:40px;">Custom</div>
+      <p class="price-desc">Comprehensive design services for any project scope. Ideal for one-time design needs.</p>
+      <ul class="price-features">
+        <li class="price-feature">Clearly defined scope</li>
+        <li class="price-feature">Fixed timeline</li>
+        <li class="price-feature">3 revision rounds</li>
+        <li class="price-feature">Milestone updates</li>
+      </ul>
+      <a href="#contact" class="btn-light">Get a Quote →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="section-eyebrow">Testimonials</div>
+  <h2 class="section-h2 reveal">Hear from my clients.</h2>
+  <div class="testimonials-scroll reveal">
+    <div class="testi-card">
+      <p class="testi-quote">The new UI design <strong>cut our customer support tickets in half.</strong> It's been a game-changer for us.</p>
+      <div class="testi-author">
+        <img src="https://picsum.photos/seed/mm/100/100" alt="" class="testi-avatar">
+        <div>
+          <div class="testi-name">Martina Martinez</div>
+          <div class="testi-role">Customer Manager at SupportEase</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">Working with Joseph felt like having a seasoned design partner <strong>who truly understood our vision.</strong></p>
+      <div class="testi-author">
+        <img src="https://picsum.photos/seed/tweb/100/100" alt="" class="testi-avatar">
+        <div>
+          <div class="testi-name">Thomas Weber</div>
+          <div class="testi-role">Co-founder of KYMA</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">Our website <strong>conversion rate improved significantly</strong> thanks to Joseph's expertise.</p>
+      <div class="testi-author">
+        <img src="https://picsum.photos/seed/bh/100/100" alt="" class="testi-avatar">
+        <div>
+          <div class="testi-name">Ben Harper</div>
+          <div class="testi-role">CTO of Nexus</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">The rebranding exceeded our expectations. <strong>It's given us a competitive edge in our industry.</strong></p>
+      <div class="testi-author">
+        <img src="https://picsum.photos/seed/nr/100/100" alt="" class="testi-avatar">
+        <div>
+          <div class="testi-name">Natalie Rivera</div>
+          <div class="testi-role">Brand Manager at UnityBrands</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">The redesign transformed our brand image. <strong>We've seen a 30% increase in engagement</strong> since launch.</p>
+      <div class="testi-author">
+        <img src="https://picsum.photos/seed/ek/100/100" alt="" class="testi-avatar">
+        <div>
+          <div class="testi-name">Emma Kraft</div>
+          <div class="testi-role">CMO of TechVista</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-eyebrow" style="text-align:center;">FAQ</div>
+  <h2 class="section-h2 reveal" style="text-align:center; margin-bottom:48px;">Your questions answered.</h2>
+  <div class="faq-grid">
+    <div class="faq-row">
+      <button class="faq-trigger"><span class="faq-num">01</span>How long does a typical project take? <span class="faq-chevron">+</span></button>
+      <div class="faq-answer">Project timelines vary based on complexity. A simple project might take 2–3 weeks, while more comprehensive designs can take 1–2 months.</div>
+    </div>
+    <div class="faq-row">
+      <button class="faq-trigger"><span class="faq-num">02</span>Can you work with my existing brand and designs? <span class="faq-chevron">+</span></button>
+      <div class="faq-answer">Absolutely! I'm experienced in working with established brands. I will ensure all new designs align perfectly with your existing brand identity and style.</div>
+    </div>
+    <div class="faq-row">
+      <button class="faq-trigger"><span class="faq-num">03</span>What makes your design process unique? <span class="faq-chevron">+</span></button>
+      <div class="faq-answer">My process stands out due to our collaborative approach. I involve you at every stage, ensuring the final product truly reflects your vision while benefiting from my expertise.</div>
+    </div>
+    <div class="faq-row">
+      <button class="faq-trigger"><span class="faq-num">04</span>Do you offer ongoing support after delivery? <span class="faq-chevron">+</span></button>
+      <div class="faq-answer">Yes, I provide post-project support including minor adjustments and answering questions about your new designs for up to 30 days after delivery.</div>
+    </div>
+    <div class="faq-row">
+      <button class="faq-trigger"><span class="faq-num">05</span>How do you handle intellectual property rights? <span class="faq-chevron">+</span></button>
+      <div class="faq-answer">All client information and project details are kept strictly confidential. Upon project completion, you'll own full intellectual property rights to the final designs.</div>
+    </div>
+  </div>
+  <div class="faq-footer reveal">
+    <img src="https://picsum.photos/seed/josephav/100/100" alt="" class="faq-footer-avatar">
+    <div class="faq-footer-text">
+      <strong>Still not sure? Book a free discovery call.</strong>
+      <span>Learn more about how I work and how I can help your business take the next step.</span>
+    </div>
+    <a href="#contact" class="btn-dark" style="white-space:nowrap;">Schedule Now →</a>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="section" id="blog">
+  <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
+    <div>
+      <div class="section-eyebrow">Blog</div>
+      <h2 class="section-h2 reveal" style="margin-bottom:0;">From my blog, design insights.</h2>
+    </div>
+    <a href="#" class="btn-light reveal" style="max-width:120px; white-space:nowrap;">View All →</a>
+  </div>
+  <div class="blog-grid">
+    <a href="#" class="blog-card reveal">
+      <div class="blog-img-wrap">
+        <img src="https://picsum.photos/seed/blog1/600/400" alt="" class="blog-img">
+      </div>
+      <div class="blog-body">
+        <div class="blog-date">Mar 6, 2025 · By Joseph Alexander</div>
+        <h3 class="blog-title">How designers and developers can actually collaborate.</h3>
+        <p class="blog-excerpt">Discover proven strategies to bridge the designer-developer gap and ship better products faster.</p>
+      </div>
+    </a>
+    <a href="#" class="blog-card reveal reveal-d1">
+      <div class="blog-img-wrap">
+        <img src="https://picsum.photos/seed/blog2/600/400" alt="" class="blog-img">
+      </div>
+      <div class="blog-body">
+        <div class="blog-date">Apr 22, 2025 · By Joseph Alexander</div>
+        <h3 class="blog-title">Why faster isn't always better.</h3>
+        <p class="blog-excerpt">The case for slowing down and designing with intention — even under tight deadlines.</p>
+      </div>
+    </a>
+    <a href="#" class="blog-card reveal reveal-d2">
+      <div class="blog-img-wrap">
+        <img src="https://picsum.photos/seed/blog3/600/400" alt="" class="blog-img">
+      </div>
+      <div class="blog-body">
+        <div class="blog-date">Apr 1, 2025 · By Joseph Alexander</div>
+        <h3 class="blog-title">Designing for human connection.</h3>
+        <p class="blog-excerpt">Exploring how empathy-driven design decisions build products people actually love.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="big-footer" id="contact">
+  <div class="footer-word-wrap">
+    <div class="footer-rotating-text" id="rotatingWord">
+      <span id="wordSpan">design</span>
+    </div>
+    <p style="color:rgba(255,255,255,0.5); font-size:18px; margin-top:16px; font-family: var(--serif); font-style:italic;">incredible work together.</p>
+  </div>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-col-title">Email</div>
+      <a href="mailto:joseph@launchnow.design">joseph@launchnow.design</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Call Me</div>
+      <a href="#">Book Now →</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Menu</div>
+      <a href="#projects">Work</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <a href="#">Terms of service</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Joseph Alexander</span>
+    <span>JOSEPH ALEXANDER</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+  // Hamburger
+  const hb = document.getElementById('hamburger');
+  const mm = document.getElementById('mobileMenu');
+  hb.addEventListener('click', () => mm.classList.toggle('open'));
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mm.classList.remove('open')));
+
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.faq-row');
+      const isOpen = row.classList.contains('open');
+      document.querySelectorAll('.faq-row').forEach(r => r.classList.remove('open'));
+      if (!isOpen) row.classList.add('open');
+    });
+  });
+
+  // Footer word rotation
+  const words = ['design', 'build', 'create'];
+  let wi = 0;
+  const wordSpan = document.getElementById('wordSpan');
+  setInterval(() => {
+    wordSpan.style.opacity = '0';
+    wordSpan.style.transform = 'translateY(-20px)';
+    wordSpan.style.transition = 'opacity 0.4s, transform 0.4s';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length;
+      wordSpan.textContent = words[wi];
+      wordSpan.style.transform = 'translateY(20px)';
+      wordSpan.style.transition = 'none';
+      requestAnimationFrame(() => {
+        wordSpan.style.transition = 'opacity 0.4s, transform 0.4s';
+        wordSpan.style.opacity = '1';
+        wordSpan.style.transform = 'translateY(0)';
+      });
+    }, 400);
+  }, 2400);
+
+  // Hero stagger on load
+  ['.availability-pill', '.hero-h1', '.hero-bottom', '.client-row'].forEach((sel, i) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = `opacity 0.8s ease ${i * 0.15}s, transform 0.8s ease ${i * 0.15}s`;
+    requestAnimationFrame(() => setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 80));
+  });
+</script>
+</body>
+</html>

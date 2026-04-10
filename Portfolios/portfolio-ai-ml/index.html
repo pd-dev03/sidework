@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Developer Portfolio | Neon Edition</title>
+    <!-- Locomotive Scroll CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@300;400;600&family=Prata&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Futuristic cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">AI::ML</div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="#hero" class="nav-link" data-nav>Home</a></li>
+                    <li><a href="#about" class="nav-link" data-nav>About</a></li>
+                    <li><a href="#education" class="nav-link" data-nav>Education</a></li>
+                    <li><a href="#experience" class="nav-link" data-nav>Experience</a></li>
+                    <li><a href="#projects" class="nav-link" data-nav>Projects</a></li>
+                    <li><a href="#skills" class="nav-link" data-nav>Skills</a></li>
+                    <li><a href="#contact" class="nav-link" data-nav>Contact</a></li>
+                </ul>
+                <div class="nav-line"></div>
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main data-scroll-container>
+        <!-- Hero Section -->
+        <section id="hero" class="section hero" data-scroll-section>
+            <div class="hero-background">
+                <div class="cube"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-badge" data-scroll data-scroll-speed="1">AI Research & Engineering</div>
+                <h1 class="hero-title">
+                    <span class="title-line" data-scroll data-scroll-speed="1">Shaping</span>
+                    <span class="title-line" data-scroll data-scroll-speed="1.5">Intelligent</span>
+                    <span class="title-line" data-scroll data-scroll-speed="2">Futures</span>
+                </h1>
+                <div class="hero-subtitle">
+                    <span class="typing-text"></span>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-value">5+</span>
+                        <span class="stat-label">Years AI/ML</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">Publications</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Models Deployed</span>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Explore</span>
+                <div class="scroll-progress"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+                <span class="section-tag">01 — About</span>
+                <h2 class="section-title">About</h2>
+                <div class="section-number">01</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="1.5" data-scroll-direction="horizontal">
+                <div class="card glass-card">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>Deep Learning</h3>
+                    <p>Specialized in CNNs, Transformers, and GANs with 5+ years research experience.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 16v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2M7 10l3-3 3 3 4-4M17 10V4h-3"/>
+                        </svg>
+                    </div>
+                    <h3>ML Engineering</h3>
+                    <p>End-to-end pipeline design: data preprocessing to model serving at scale.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h3>Data Science</h3>
+                    <p>Statistical modeling, predictive analytics, and explainable AI.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Research</h3>
+                    <p>Published at NeurIPS, ICML; reviewer for top conferences.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section education" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+                <span class="section-tag">02 — Education</span>
+                <h2 class="section-title">Education</h2>
+                <div class="section-number">02</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="-1.5" data-scroll-direction="horizontal">
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
+                    <div class="card-year">2023</div>
+                    <h3>PhD in AI</h3>
+                    <p class="card-place">Stanford University</p>
+                    <p>Dissertation: "Efficient Transformers for Multimodal Learning"</p>
+                </div>
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
+                    <div class="card-year">2019</div>
+                    <h3>MSc Machine Learning</h3>
+                    <p class="card-place">ETH Zurich</p>
+                    <p>Thesis: "Graph Neural Networks for Molecular Property Prediction"</p>
+                </div>
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
+                    <div class="card-year">2017</div>
+                    <h3>BSc Computer Science</h3>
+                    <p class="card-place">University of Cambridge</p>
+                    <p>First-class honors, focus on AI and mathematics</p>
+                </div>
+                <div class="card timeline-card">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
+                    <div class="card-year">2016</div>
+                    <h3>Exchange Program</h3>
+                    <p class="card-place">MIT</p>
+                    <p>Advanced topics in reinforcement learning</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section experience" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+                <span class="section-tag">03 — Experience</span>
+                <h2 class="section-title">Experience</h2>
+                <div class="section-number">03</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="1.5" data-scroll-direction="horizontal">
+                <div class="card exp-card">
+                    <div class="exp-year">2023 — Present</div>
+                    <h3>Senior Research Scientist</h3>
+                    <p class="exp-company">DeepMind</p>
+                    <p>Leading multimodal foundation model development.</p>
+                    <div class="exp-metrics">
+                        <span>↑ 3 papers</span>
+                        <span>★ 2 patents</span>
+                    </div>
+                </div>
+                <div class="card exp-card">
+                    <div class="exp-year">2021 — 2023</div>
+                    <h3>ML Engineer</h3>
+                    <p class="exp-company">OpenAI</p>
+                    <p>Fine-tuning and deployment of large language models.</p>
+                    <div class="exp-metrics">
+                        <span>↑ 2 major releases</span>
+                        <span>★ 1M+ users</span>
+                    </div>
+                </div>
+                <div class="card exp-card">
+                    <div class="exp-year">2019 — 2021</div>
+                    <h3>Data Scientist</h3>
+                    <p class="exp-company">Netflix</p>
+                    <p>Personalization algorithms for content recommendation.</p>
+                    <div class="exp-metrics">
+                        <span>↑ 12% engagement</span>
+                        <span>★ A/B testing</span>
+                    </div>
+                </div>
+                <div class="card exp-card">
+                    <div class="exp-year">2017 — 2019</div>
+                    <h3>AI Researcher</h3>
+                    <p class="exp-company">FAIR (Facebook AI)</p>
+                    <p>Computer vision for augmented reality.</p>
+                    <div class="exp-metrics">
+                        <span>↑ 2 publications</span>
+                        <span>★ 1 open-source</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+                <span class="section-tag">04 — Projects</span>
+                <h2 class="section-title">Projects</h2>
+                <div class="section-number">04</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="-1.5" data-scroll-direction="horizontal">
+                <div class="card project-card large">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Vision Transformer</h3>
+                        <p>State-of-the-art image classification with 98% accuracy</p>
+                    </div>
+                </div>
+                <div class="card project-card">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>LLM Fine-tuning</h3>
+                        <p>Medical chatbot using LLaMA</p>
+                    </div>
+                </div>
+                <div class="card project-card wide">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Time Series Forecast</h3>
+                        <p>LSTM for predictive maintenance</p>
+                    </div>
+                </div>
+                <div class="card project-card">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span>View →</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>GAN Art Generator</h3>
+                        <p>Creative AI in artist styles</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section skills" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+                <span class="section-tag">05 — Skills</span>
+                <h2 class="section-title">Skills</h2>
+                <div class="section-number">05</div>
+            </div>
+            <div class="cards-container" data-scroll data-scroll-speed="1.5" data-scroll-direction="horizontal">
+                <div class="card skill-card">
+                    <div class="skill-radar">
+                        <div class="radar-fill" style="--percent:95"></div>
+                    </div>
+                    <h3>Python</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-radar">
+                        <div class="radar-fill" style="--percent:90"></div>
+                    </div>
+                    <h3>TensorFlow</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-radar">
+                        <div class="radar-fill" style="--percent:85"></div>
+                    </div>
+                    <h3>PyTorch</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-radar">
+                        <div class="radar-fill" style="--percent:80"></div>
+                    </div>
+                    <h3>SQL</h3>
+                </div>
+                <div class="card skill-card">
+                    <div class="skill-radar">
+                        <div class="radar-fill" style="--percent:75"></div>
+                    </div>
+                    <h3>Docker/K8s</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact" data-scroll-section>
+            <div class="section-header" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+                <span class="section-tag">06 — Connect</span>
+                <h2 class="section-title">Contact</h2>
+                <div class="section-number">06</div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info" data-scroll data-scroll-speed="-1" data-scroll-direction="horizontal">
+                    <h3>Let's innovate together</h3>
+                    <p>Open to research collaborations, consulting, and speaking engagements.</p>
+                    <div class="contact-channels">
+                        <a href="#" class="channel">Email →</a>
+                        <a href="#" class="channel">GitHub →</a>
+                        <a href="#" class="channel">LinkedIn →</a>
+                        <a href="#" class="channel">Google Scholar →</a>
+                    </div>
+                </div>
+                <div class="contact-form" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
+                    <form class="form">
+                        <input type="text" placeholder="Name" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea placeholder="Message" rows="4"></textarea>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

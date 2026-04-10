@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Warm Brutalism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain"></div>
+<canvas id="bgCanvas"></canvas>
+
+<!-- Spotlight overlay -->
+<div class="spotlight-layer" id="spotlightLayer">
+  <div class="spotlight-mask" id="spotlightMask"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">JK<span>.</span></div>
+  <div class="nav-right">
+    <span class="nav-status">● Available</span>
+    <button class="menu-toggle" id="menuToggle">Menu</button>
+  </div>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#education" onclick="closeMenu()">Education</a>
+    <a href="#experience" onclick="closeMenu()">Experience</a>
+    <a href="#projects" onclick="closeMenu()">Projects</a>
+    <a href="#skills" onclick="closeMenu()">Skills</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-outlined">
+      <div class="outlined-text" id="outlinedName">JAMES<br>KOWALSKI</div>
+      <div class="filled-text" id="filledName">JAMES<br>KOWALSKI</div>
+    </div>
+    <div class="hero-descriptor">
+      <div class="descriptor-badge">Full-Stack Developer</div>
+      <div class="descriptor-badge">Open Source Advocate</div>
+      <div class="descriptor-badge">Problem Solver</div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>DESIGN · DEVELOP · SHIP · ITERATE · CREATE · BUILD · DESIGN · DEVELOP · SHIP · ITERATE · CREATE · BUILD ·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-number">01</div>
+  <div class="about-content">
+    <h2 class="about-title">I BUILD<br><span class="stroke-text">THINGS</span><br>THAT WORK.</h2>
+    <div class="about-right">
+      <p>Full-stack developer obsessed with clean code, fast interfaces, and meaningful products. I've spent 6 years turning complex problems into simple, elegant solutions that users actually love.</p>
+      <p>Based in Berlin. Working globally.</p>
+      <div class="about-grid-stats">
+        <div class="mini-stat"><strong>6+</strong> Years</div>
+        <div class="mini-stat"><strong>60+</strong> Projects</div>
+        <div class="mini-stat"><strong>18</strong> Clients</div>
+        <div class="mini-stat"><strong>∞</strong> Coffee</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="section-marker">02 — Education</div>
+  <div class="edu-brutalist">
+    <div class="edu-block">
+      <div class="edu-year">2021</div>
+      <div class="edu-info">
+        <h3>MSc. Computer Science</h3>
+        <p>Technical University of Berlin</p>
+        <small>Specialization: Distributed Systems & HCI</small>
+      </div>
+      <div class="edu-badge">MASTER'S</div>
+    </div>
+    <div class="edu-block">
+      <div class="edu-year">2018</div>
+      <div class="edu-info">
+        <h3>BSc. Software Engineering</h3>
+        <p>University of Warsaw</p>
+        <small>Graduated with Honours, GPA 3.9/4.0</small>
+      </div>
+      <div class="edu-badge">BACHELOR'S</div>
+    </div>
+    <div class="edu-block">
+      <div class="edu-year">2016</div>
+      <div class="edu-info">
+        <h3>Web Development Bootcamp</h3>
+        <p>Le Wagon, Amsterdam</p>
+        <small>Full-stack Ruby on Rails Track</small>
+      </div>
+      <div class="edu-badge">CERT</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience dark-section" id="experience">
+  <div class="section-marker light">03 — Experience</div>
+  <div class="exp-brutalist">
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-co">AXIOM TECH</span>
+        <span class="exp-date">2022→NOW</span>
+      </div>
+      <h3>Lead Engineer</h3>
+      <p>Architected scalable microservices handling 5M+ daily requests. Built internal dev tooling that saved 20 hours/week across the team.</p>
+      <div class="exp-stack">Node · Kubernetes · PostgreSQL · Redis</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-co">NETCRAFT</span>
+        <span class="exp-date">2019→2022</span>
+      </div>
+      <h3>Senior Developer</h3>
+      <p>Led front-end rebuild of flagship SaaS — reduced load time 4x, boosted conversion 23%. Mentored 4 junior engineers.</p>
+      <div class="exp-stack">React · TypeScript · GraphQL · AWS</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-co">FREELANCE</span>
+        <span class="exp-date">2017→2019</span>
+      </div>
+      <h3>Web Developer</h3>
+      <p>Built custom web apps and e-commerce solutions for 20+ clients across fintech, retail, and media verticals.</p>
+      <div class="exp-stack">PHP · WordPress · JS · Vue</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS horizontal marquee list -->
+<section class="projects" id="projects">
+  <div class="section-marker">04 — Projects</div>
+  <div class="proj-accordion">
+    <div class="proj-acc-item" data-color="#E8D5B0">
+      <div class="proj-acc-header">
+        <div class="proj-acc-num">01</div>
+        <div class="proj-acc-title">DevFlow — Dev Tool Platform</div>
+        <div class="proj-acc-type">SaaS · Open Source</div>
+        <div class="proj-acc-toggle">+</div>
+      </div>
+      <div class="proj-acc-body">
+        <p>A CLI tool and web dashboard for managing dev workflows. 2,300 GitHub stars in 3 months. Built with Node.js, React, and SQLite.</p>
+        <a href="#" class="proj-link">View Project →</a>
+      </div>
+    </div>
+    <div class="proj-acc-item" data-color="#C49A8A">
+      <div class="proj-acc-header">
+        <div class="proj-acc-num">02</div>
+        <div class="proj-acc-title">Orbix — Analytics Dashboard</div>
+        <div class="proj-acc-type">Web App · Data Vis</div>
+        <div class="proj-acc-toggle">+</div>
+      </div>
+      <div class="proj-acc-body">
+        <p>Real-time analytics platform for e-commerce. Custom charting engine, live data streaming, and exportable PDF reports.</p>
+        <a href="#" class="proj-link">View Project →</a>
+      </div>
+    </div>
+    <div class="proj-acc-item" data-color="#2D4A3E">
+      <div class="proj-acc-header">
+        <div class="proj-acc-num">03</div>
+        <div class="proj-acc-title">NovaPay — Payment Infrastructure</div>
+        <div class="proj-acc-type">Fintech · API</div>
+        <div class="proj-acc-toggle">+</div>
+      </div>
+      <div class="proj-acc-body">
+        <p>Stripe-alternative payment API built from scratch. PCI-DSS compliant, 99.99% uptime, processes $2M+ monthly.</p>
+        <a href="#" class="proj-link">View Project →</a>
+      </div>
+    </div>
+    <div class="proj-acc-item" data-color="#0D0D0D">
+      <div class="proj-acc-header">
+        <div class="proj-acc-num">04</div>
+        <div class="proj-acc-title">Moodboard AI — Creative Tool</div>
+        <div class="proj-acc-type">AI · Product</div>
+        <div class="proj-acc-toggle">+</div>
+      </div>
+      <div class="proj-acc-body">
+        <p>AI-powered moodboard generator using DALL-E 3 + custom clustering. Used by 5,000+ designers monthly.</p>
+        <a href="#" class="proj-link">View Project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS - Radial clock layout -->
+<section class="skills dark-section" id="skills">
+  <div class="section-marker light">05 — Skills</div>
+  <div class="skills-radial-container">
+    <div class="skills-left">
+      <div class="skill-radial-list">
+        <div class="skill-radial-item" data-pct="95">
+          <div class="skill-radial-name">JavaScript / TypeScript</div>
+          <div class="skill-radial-bar"><div class="skill-radial-fill"></div></div>
+          <div class="skill-radial-label">Expert</div>
+        </div>
+        <div class="skill-radial-item" data-pct="90">
+          <div class="skill-radial-name">React / Next.js</div>
+          <div class="skill-radial-bar"><div class="skill-radial-fill"></div></div>
+          <div class="skill-radial-label">Expert</div>
+        </div>
+        <div class="skill-radial-item" data-pct="82">
+          <div class="skill-radial-name">Node.js / Express</div>
+          <div class="skill-radial-bar"><div class="skill-radial-fill"></div></div>
+          <div class="skill-radial-label">Advanced</div>
+        </div>
+        <div class="skill-radial-item" data-pct="75">
+          <div class="skill-radial-name">PostgreSQL / MongoDB</div>
+          <div class="skill-radial-bar"><div class="skill-radial-fill"></div></div>
+          <div class="skill-radial-label">Advanced</div>
+        </div>
+        <div class="skill-radial-item" data-pct="60">
+          <div class="skill-radial-name">DevOps / Docker</div>
+          <div class="skill-radial-bar"><div class="skill-radial-fill"></div></div>
+          <div class="skill-radial-label">Intermediate</div>
+        </div>
+        <div class="skill-radial-item" data-pct="40">
+          <div class="skill-radial-name">Rust</div>
+          <div class="skill-radial-bar"><div class="skill-radial-fill"></div></div>
+          <div class="skill-radial-label">Learning</div>
+        </div>
+      </div>
+    </div>
+    <div class="skills-right">
+      <canvas id="skillRadar" width="320" height="320"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS & LANGUAGES ticker -->
+<section class="interests" id="interests">
+  <div class="section-marker">06 — Interests & Languages</div>
+  <div class="ticker-section">
+    <div class="ticker-row">
+      <div class="ticker-inner forward">
+        <span>Open Source</span><span>●</span><span>Linux</span><span>●</span>
+        <span>Mechanical Keyboards</span><span>●</span><span>Rock Climbing</span><span>●</span>
+        <span>Coffee Brewing</span><span>●</span><span>Sci-Fi Novels</span><span>●</span>
+        <span>Open Source</span><span>●</span><span>Linux</span><span>●</span>
+        <span>Mechanical Keyboards</span><span>●</span><span>Rock Climbing</span><span>●</span>
+      </div>
+    </div>
+    <div class="ticker-row reverse-row">
+      <div class="ticker-inner backward">
+        <span>English → Native</span><span>●</span><span>Polish → Native</span><span>●</span>
+        <span>German → Fluent</span><span>●</span><span>Spanish → Basic</span><span>●</span>
+        <span>Mandarin → Learning</span><span>●</span>
+        <span>English → Native</span><span>●</span><span>Polish → Native</span><span>●</span>
+        <span>German → Fluent</span><span>●</span><span>Spanish → Basic</span><span>●</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact dark-section" id="contact">
+  <div class="section-marker light">07 — Contact</div>
+  <div class="contact-brutalist">
+    <div class="contact-big-text">LET'S<br>TALK.</div>
+    <div class="contact-form-area">
+      <form id="contactForm2">
+        <div class="bf-row">
+          <input type="text" placeholder="NAME" required>
+          <input type="email" placeholder="EMAIL" required>
+        </div>
+        <input type="text" placeholder="SUBJECT" class="bf-full">
+        <textarea placeholder="YOUR MESSAGE..." rows="6" class="bf-full"></textarea>
+        <button type="submit" class="bf-btn">SEND IT →</button>
+      </form>
+      <div class="contact-meta">
+        <p>james@kowalski.dev</p>
+        <p>+49 30 123 456</p>
+        <div class="contact-socials">
+          <a href="#">GitHub</a><a href="#">Twitter</a><a href="#">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© 2025 James Kowalski</span>
+  <span>Made with obsession, not passion.</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

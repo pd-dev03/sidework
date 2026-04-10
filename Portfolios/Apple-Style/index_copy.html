@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Morgan | Product Designer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --easing: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            color: #1d1d1f;
+            background-color: #f5f5f7;
+        }
+        
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s var(--easing), opacity 1.2s var(--easing);
+            will-change: transform, opacity;
+            overflow: hidden;
+        }
+        
+        .section.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        .section.next {
+            transform: translateY(100vh) scale(0.95);
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        .section.prev {
+            transform: translateY(-100vh) scale(0.95);
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        .bg-text {
+            position: absolute;
+            font-size: 35vw;
+            font-weight: 700;
+            opacity: 0.03;
+            color: #1d1d1f;
+            line-height: 0.8;
+            white-space: nowrap;
+            z-index: 0;
+            transition: transform 1.5s var(--easing);
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .scroll-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            opacity: 0.7;
+            transition: opacity 0.5s, transform 0.5s;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .scroll-hint.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+        
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(29, 29, 31, 0.2);
+            cursor: pointer;
+            transition: all 0.3s var(--easing);
+        }
+        
+        .nav-dot.active {
+            background-color: rgba(29, 29, 31, 0.9);
+            transform: scale(1.3);
+        }
+        
+        .project-card {
+            transition: all 0.5s var(--easing);
+            opacity: 0.7;
+            transform: translateY(20px);
+        }
+        
+        .project-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .contact-link {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+        
+        .contact-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #1d1d1f;
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--easing);
+        }
+        
+        .contact-link:hover:after {
+            transform: translateX(0);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 1s var(--easing) forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bg-text {
+                font-size: 50vw;
+            }
+            
+            .nav-dots {
+                right: 20px;
+            }
+            
+            .scroll-hint {
+                bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 3.5rem !important;
+            }
+            
+            h2 {
+                font-size: 2.8rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="0"></div>
+        <div class="nav-dot" data-section="1"></div>
+        <div class="nav-dot" data-section="2"></div>
+        <div class="nav-dot" data-section="3"></div>
+        <div class="nav-dot" data-section="4"></div>
+    </div>
+    
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+        <div class="text-center">
+            <div class="text-gray-600 text-sm mb-1">Scroll</div>
+            <div class="w-4 h-8 border border-gray-600 rounded-full mx-auto relative">
+                <div class="w-1 h-2 bg-gray-600 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-pulse"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 1: Hero -->
+    <section id="section-1" class="section active" data-bg-text="DESIGN">
+        <div class="bg-text">DESIGN</div>
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center">
+                <h1 class="text-7xl md:text-8xl font-bold mb-6 tracking-tight fade-in-up">Alex Morgan</h1>
+                <p class="text-2xl md:text-3xl text-gray-600 font-light tracking-wide fade-in-up delay-1">Product Designer</p>
+                <p class="mt-12 text-lg text-gray-500 max-w-xl mx-auto fade-in-up delay-2">Crafting intuitive digital experiences at the intersection of technology and human needs.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: Philosophy -->
+    <section id="section-2" class="section next" data-bg-text="CLARITY">
+        <div class="bg-text">CLARITY</div>
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-6xl md:text-7xl font-bold mb-8 tracking-tight fade-in-up">Design with<br>Intention</h2>
+                </div>
+                <div>
+                    <p class="text-xl text-gray-600 mb-8 fade-in-up delay-1">I believe that great design is invisible. It doesn't shout for attention but quietly solves problems, removes friction, and anticipates needs.</p>
+                    <div class="space-y-6 fade-in-up delay-2">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Human-Centered</h3>
+                            <p class="text-gray-500">Design that begins and ends with people, not pixels.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Systematic Thinking</h3>
+                            <p class="text-gray-500">Creating cohesive experiences through thoughtful systems.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Purposeful Simplicity</h3>
+                            <p class="text-gray-500">Reducing complexity to reveal what truly matters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: Selected Work -->
+    <section id="section-3" class="section next" data-bg-text="WORK">
+        <div class="bg-text">WORK</div>
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-6xl md:text-7xl font-bold mb-4 tracking-tight">Selected Work</h2>
+                <p class="text-xl text-gray-600">A curated collection of recent projects</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="project-card active" data-delay="0">
+                    <div class="mb-4">
+                        <div class="h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4"></div>
+                        <h3 class="text-2xl font-semibold mb-2">Atlas Design System</h3>
+                        <p class="text-gray-600">A comprehensive design system for enterprise applications</p>
+                    </div>
+                </div>
+                
+                <div class="project-card active" data-delay="0.1">
+                    <div class="mb-4">
+                        <div class="h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4"></div>
+                        <h3 class="text-2xl font-semibold mb-2">Nova Banking App</h3>
+                        <p class="text-gray-600">Redesigning personal finance for the next generation</p>
+                    </div>
+                </div>
+                
+                <div class="project-card active" data-delay="0.2">
+                    <div class="mb-4">
+                        <div class="h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4"></div>
+                        <h3 class="text-2xl font-semibold mb-2">HealthSync Platform</h3>
+                        <p class="text-gray-600">Connecting healthcare providers with patients seamlessly</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 fade-in-up delay-2">
+                <button class="text-lg font-medium text-gray-900 border border-gray-300 rounded-full px-8 py-3 hover:bg-gray-50 transition-colors duration-300">View All Projects</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: Experience -->
+    <section id="section-4" class="section next" data-bg-text="IMPACT">
+        <div class="bg-text">IMPACT</div>
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-6xl md:text-7xl font-bold mb-4 tracking-tight">Experience</h2>
+                <p class="text-xl text-gray-600">Focus areas and professional journey</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-8 fade-in-up">Core Expertise</h3>
+                    <div class="space-y-8">
+                        <div class="fade-in-up delay-1">
+                            <div class="flex justify-between mb-2">
+                                <h4 class="text-lg font-medium">Product Design</h4>
+                                <span class="text-gray-500">9 years</span>
+                            </div>
+                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-900 w-11/12"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="fade-in-up delay-2">
+                            <div class="flex justify-between mb-2">
+                                <h4 class="text-lg font-medium">Design Systems</h4>
+                                <span class="text-gray-500">6 years</span>
+                            </div>
+                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-900 w-9/12"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="fade-in-up delay-3">
+                            <div class="flex justify-between mb-2">
+                                <h4 class="text-lg font-medium">UX Research</h4>
+                                <span class="text-gray-500">7 years</span>
+                            </div>
+                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-900 w-8/12"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-8 fade-in-up">Recent Roles</h3>
+                    <div class="space-y-6">
+                        <div class="fade-in-up delay-1">
+                            <h4 class="text-lg font-medium">Lead Product Designer</h4>
+                            <p class="text-gray-600">Horizon Technologies • 2020 - Present</p>
+                        </div>
+                        
+                        <div class="fade-in-up delay-2">
+                            <h4 class="text-lg font-medium">Senior UI/UX Designer</h4>
+                            <p class="text-gray-600">Nexus Creative • 2017 - 2020</p>
+                        </div>
+                        
+                        <div class="fade-in-up delay-3">
+                            <h4 class="text-lg font-medium">Product Designer</h4>
+                            <p class="text-gray-600">Aperture Labs • 2015 - 2017</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: Contact -->
+    <section id="section-5" class="section next" data-bg-text="CONNECT">
+        <div class="bg-text">CONNECT</div>
+        <div class="container mx-auto px-8 max-w-6xl relative z-10">
+            <div class="text-center">
+                <h2 class="text-6xl md:text-7xl font-bold mb-8 tracking-tight fade-in-up">Let's Connect</h2>
+                <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto fade-in-up delay-1">I'm always interested in new opportunities and collaborations. Feel free to reach out for project inquiries or just to say hello.</p>
+                
+                <div class="flex flex-wrap justify-center gap-8 mb-16 fade-in-up delay-2">
+                    <a href="mailto:alex@example.com" class="contact-link text-2xl font-medium text-gray-900">alex@example.com</a>
+                    <a href="tel:+11234567890" class="contact-link text-2xl font-medium text-gray-900">+1 (123) 456-7890</a>
+                </div>
+                
+                <div class="flex justify-center space-x-8 fade-in-up delay-3">
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-linkedin"></i> <span class="ml-2">LinkedIn</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-dribbble"></i> <span class="ml-2">Dribbble</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition-colors duration-300 text-lg">
+                        <i class="fab fa-twitter"></i> <span class="ml-2">Twitter</span>
+                    </a>
+                </div>
+                
+                <div class="mt-20 pt-8 border-t border-gray-200 fade-in-up delay-3">
+                    <p class="text-gray-400">© 2023 Alex Morgan. All work is confidential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            let currentSection = 0;
+            const sections = $('.section');
+            const totalSections = sections.length;
+            let isScrolling = false;
+            const scrollDelay = 1200; // Match CSS transition duration
+            
+            // Initialize background text for each section
+            sections.each(function(index) {
+                const bgText = $(this).data('bg-text');
+                $(this).find('.bg-text').text(bgText);
+                
+                // Position background text randomly but consistently
+                const posX = (index * 30) % 80;
+                const posY = (index * 20) % 80;
+                $(this).find('.bg-text').css({
+                    left: `${posX}%`,
+                    top: `${posY}%`,
+                    transform: `translate(-${posX}%, -${posY}%)`
+                });
+            });
+            
+            // Navigation dots click handler
+            $('.nav-dot').click(function() {
+                const targetSection = $(this).data('section');
+                navigateToSection(targetSection);
+            });
+            
+            // Keyboard navigation
+            $(document).on('keydown', function(e) {
+                if (isScrolling) return;
+                
+                if (e.key === 'ArrowDown' || e.key === ' ') {
+                    e.preventDefault();
+                    navigateToSection(currentSection + 1);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    navigateToSection(currentSection - 1);
+                }
+            });
+            
+            // Mouse wheel navigation
+            let wheelTimeout;
+            $(document).on('wheel', function(e) {
+                if (isScrolling) return;
+                
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(function() {
+                    if (e.originalEvent.deltaY > 0) {
+                        navigateToSection(currentSection + 1);
+                    } else if (e.originalEvent.deltaY < 0) {
+                        navigateToSection(currentSection - 1);
+                    }
+                }, 100);
+            });
+            
+            // Touch swipe navigation for mobile
+            let touchStartY = 0;
+            $(document).on('touchstart', function(e) {
+                touchStartY = e.originalEvent.touches[0].clientY;
+            });
+            
+            $(document).on('touchend', function(e) {
+                if (isScrolling) return;
+                
+                const touchEndY = e.originalEvent.changedTouches[0].clientY;
+                const diff = touchStartY - touchEndY;
+                
+                // Minimum swipe distance
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        // Swipe up - go to next section
+                        navigateToSection(currentSection + 1);
+                    } else {
+                        // Swipe down - go to previous section
+                        navigateToSection(currentSection - 1);
+                    }
+                }
+            });
+            
+            // Navigation function
+            function navigateToSection(targetIndex) {
+                if (targetIndex < 0 || targetIndex >= totalSections || isScrolling) {
+                    return;
+                }
+                
+                isScrolling = true;
+                
+                // Update current section
+                const prevSection = currentSection;
+                currentSection = targetIndex;
+                
+                // Update navigation dots
+                $('.nav-dot').removeClass('active');
+                $(`.nav-dot[data-section="${currentSection}"]`).addClass('active');
+                
+                // Hide scroll hint on last section
+                if (currentSection === totalSections - 1) {
+                    $('.scroll-hint').addClass('hidden');
+                } else {
+                    $('.scroll-hint').removeClass('hidden');
+                }
+                
+                // Update section classes for transition
+                sections.each(function(index) {
+                    $(this).removeClass('active prev next');
+                    
+                    if (index === currentSection) {
+                        $(this).addClass('active');
+                        
+                        // Animate in elements for the active section
+                        animateSectionElements($(this));
+                    } else if (index < currentSection) {
+                        $(this).addClass('prev');
+                    } else {
+                        $(this).addClass('next');
+                    }
+                });
+                
+                // Animate background text for depth effect
+                animateBackgroundText(prevSection, currentSection);
+                
+                // Reset scrolling flag after transition
+                setTimeout(function() {
+                    isScrolling = false;
+                }, scrollDelay);
+            }
+            
+            // Animate elements within a section
+            function animateSectionElements(section) {
+                // Reset animations
+                section.find('.fade-in-up, .project-card').css({
+                    animation: 'none',
+                    opacity: 0,
+                    transform: 'translateY(30px)'
+                });
+                
+                // Trigger reflow to restart animations
+                setTimeout(() => {
+                    section.find('.fade-in-up').each(function(index) {
+                        $(this).css({
+                            animation: `fadeInUp 1s var(--easing) forwards ${$(this).hasClass('delay-1') ? '0.2s' : $(this).hasClass('delay-2') ? '0.4s' : $(this).hasClass('delay-3') ? '0.6s' : '0s'}`
+                        });
+                    });
+                    
+                    // Animate project cards with staggered delay
+                    section.find('.project-card').each(function(index) {
+                        const delay = $(this).data('delay') || 0;
+                        setTimeout(() => {
+                            $(this).css({
+                                animation: `fadeInUp 0.8s var(--easing) forwards`,
+                                opacity: 1,
+                                transform: 'translateY(0)'
+                            });
+                        }, delay * 1000);
+                    });
+                }, 100);
+            }
+            
+            // Animate background text for depth effect
+            function animateBackgroundText(fromIndex, toIndex) {
+                // Calculate direction
+                const direction = toIndex > fromIndex ? 1 : -1;
+                
+                // Move background text slightly based on scroll direction
+                sections.each(function(index) {
+                    const bgText = $(this).find('.bg-text');
+                    const currentPos = bgText.position();
+                    
+                    // Slight parallax effect
+                    bgText.css('transition', 'transform 1.5s var(--easing)');
+                    setTimeout(() => {
+                        const moveX = direction * 2;
+                        const moveY = direction * 1;
+                        
+                        bgText.css('transform', 
+                            `translate(${parseFloat(bgText.css('transform').split(',')[4]) + moveX}%, 
+                             ${parseFloat(bgText.css('transform').split(',')[5]) + moveY}%)`
+                        );
+                    }, 50);
+                });
+            }
+            
+            // Initialize animations for first section
+            animateSectionElements($('#section-1'));
+            
+            // Smooth scroll for anchor links (if any)
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                if (targetId === '#') return;
+                
+                const targetIndex = $(targetId).index('.section');
+                if (targetIndex >= 0) {
+                    navigateToSection(targetIndex);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

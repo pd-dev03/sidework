@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Editorial Ink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css  ">
+</head>
+<body>
+
+<!-- Grain overlay -->
+<div class="grain"></div>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Alex.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Work</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status"><span class="status-dot"></span>Available</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">
+    <span>Software Engineer</span>
+    <span class="divider">—</span>
+    <span>2024</span>
+  </div>
+  <div class="hero-name-wrap">
+    <h1 class="hero-name">
+      <span class="name-line" data-text="ALEX">ALEX</span>
+      <span class="name-line italic" data-text="MORGAN">MORGAN</span>
+    </h1>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Profile" class="hero-img">
+      <div class="hero-img-label">Full-Stack Developer</div>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-sub">Crafting digital experiences<br>that leave a mark.</p>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about section" id="about">
+  <div class="section-label">/ 01 About</div>
+  <div class="about-grid">
+    <div class="about-left">
+      <div class="about-highlight-para">
+        <p id="highlightPara">I am a full-stack developer with over five years of experience building products that blend engineering precision with considered design. My work spans startups, agencies, and enterprise teams — always with the same goal: software that feels inevitable. I believe the best interfaces disappear, leaving only the experience. I work at the intersection of technology and craft, pushing boundaries while staying grounded in what matters most — the human using the product.</p>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="about-stats">
+        <div class="stat"><span class="stat-num" data-count="5">0</span><span class="stat-label">Years Experience</span></div>
+        <div class="stat"><span class="stat-num" data-count="42">0</span><span class="stat-label">Projects Shipped</span></div>
+        <div class="stat"><span class="stat-num" data-count="18">0</span><span class="stat-label">Happy Clients</span></div>
+      </div>
+      <div class="about-tags">
+        <span>React</span><span>Node.js</span><span>TypeScript</span><span>PostgreSQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education section dark-section" id="education">
+  <div class="section-label light">/ 02 Education</div>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-year">2019</div>
+      <div class="edu-content">
+        <h3>B.Sc. Computer Science</h3>
+        <p>Massachusetts Institute of Technology</p>
+        <small>GPA 3.9 · Dean's List · Thesis on Distributed Systems</small>
+      </div>
+      <div class="edu-badge">MIT</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2021</div>
+      <div class="edu-content">
+        <h3>M.Sc. Software Engineering</h3>
+        <p>Stanford University</p>
+        <small>Specialization in Human-Computer Interaction</small>
+      </div>
+      <div class="edu-badge">STFD</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience section" id="experience">
+  <div class="section-label">/ 03 Experience</div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">2022 — Present</span>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <h3>Senior Frontend Engineer</h3>
+        <h4>Vercel Inc.</h4>
+        <p>Led the redesign of the deployment dashboard serving 400K+ developers. Reduced bundle size by 42% and improved Time-to-Interactive by 3 seconds.</p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">2021 — 2022</span>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <h3>Full-Stack Developer</h3>
+        <h4>Linear App</h4>
+        <p>Built real-time collaboration features using WebSockets and CRDT algorithms. Owned the notifications system from design to production.</p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">2019 — 2021</span>
+        <span class="exp-type">Contract</span>
+      </div>
+      <div class="exp-content">
+        <h3>Frontend Engineer</h3>
+        <h4>Freelance</h4>
+        <p>Designed and built 15+ client websites and web apps, focusing on performance and accessibility across diverse industries.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS — Horizontal Scroll -->
+<section class="projects section dark-section" id="projects">
+  <div class="section-label light">/ 04 Projects</div>
+  <div class="projects-intro">
+    <h2>Selected Work</h2>
+    <p>Drag to explore →</p>
+  </div>
+  <div class="projects-track-wrap">
+    <div class="projects-track" id="projectsTrack">
+      <div class="proj-slide">
+        <div class="proj-num">01</div>
+        <div class="proj-img" style="background:linear-gradient(135deg,#c8603a,#8a3a20)"></div>
+        <h3>NeuralBoard</h3>
+        <p>AI-powered Kanban system with predictive task routing</p>
+        <div class="proj-tags"><span>React</span><span>Python</span><span>GPT-4</span></div>
+      </div>
+      <div class="proj-slide">
+        <div class="proj-num">02</div>
+        <div class="proj-img" style="background:linear-gradient(135deg,#2d6a4f,#1b4332)"></div>
+        <h3>Folia Finance</h3>
+        <p>Personal finance dashboard with ML-based spending insights</p>
+        <div class="proj-tags"><span>Next.js</span><span>D3.js</span><span>Plaid API</span></div>
+      </div>
+      <div class="proj-slide">
+        <div class="proj-num">03</div>
+        <div class="proj-img" style="background:linear-gradient(135deg,#6b4c8a,#3d2b54)"></div>
+        <h3>Wavefront CMS</h3>
+        <p>Headless CMS built for editorial teams with live collaboration</p>
+        <div class="proj-tags"><span>Node.js</span><span>Socket.io</span><span>MongoDB</span></div>
+      </div>
+      <div class="proj-slide">
+        <div class="proj-num">04</div>
+        <div class="proj-img" style="background:linear-gradient(135deg,#c49a4a,#8a6a20)"></div>
+        <h3>Terrain 3D</h3>
+        <p>WebGL terrain generator with procedural noise algorithms</p>
+        <div class="proj-tags"><span>Three.js</span><span>GLSL</span><span>WebGL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills section" id="skills">
+  <div class="section-label">/ 05 Skills</div>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <h3>Frontend</h3>
+      <div class="skill-bars">
+        <div class="skill-bar-item"><span>React / Next.js</span><div class="bar-track"><div class="bar-fill" data-width="95"></div></div><span class="skill-level">Expert</span></div>
+        <div class="skill-bar-item"><span>TypeScript</span><div class="bar-track"><div class="bar-fill" data-width="90"></div></div><span class="skill-level">Expert</span></div>
+        <div class="skill-bar-item"><span>CSS / GSAP</span><div class="bar-track"><div class="bar-fill" data-width="85"></div></div><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar-item"><span>Three.js</span><div class="bar-track"><div class="bar-fill" data-width="60"></div></div><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar-item"><span>Vue.js</span><div class="bar-track"><div class="bar-fill" data-width="40"></div></div><span class="skill-level">Beginner</span></div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h3>Backend</h3>
+      <div class="skill-bars">
+        <div class="skill-bar-item"><span>Node.js</span><div class="bar-track"><div class="bar-fill" data-width="88"></div></div><span class="skill-level">Expert</span></div>
+        <div class="skill-bar-item"><span>PostgreSQL</span><div class="bar-track"><div class="bar-fill" data-width="80"></div></div><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar-item"><span>Python / FastAPI</span><div class="bar-track"><div class="bar-fill" data-width="70"></div></div><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar-item"><span>Docker / K8s</span><div class="bar-track"><div class="bar-fill" data-width="55"></div></div><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar-item"><span>Rust</span><div class="bar-track"><div class="bar-fill" data-width="25"></div></div><span class="skill-level">Beginner</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS & LANGUAGES -->
+<section class="interests section dark-section" id="interests">
+  <div class="section-label light">/ 06 Interests & Languages</div>
+  <div class="interests-grid">
+    <div class="interests-col">
+      <h3>Interests</h3>
+      <div class="interest-list">
+        <div class="interest-item"><span class="interest-icon">◈</span>Open Source Contribution</div>
+        <div class="interest-item"><span class="interest-icon">◈</span>Generative Art & Creative Coding</div>
+        <div class="interest-item"><span class="interest-icon">◈</span>Hiking & Trail Running</div>
+        <div class="interest-item"><span class="interest-icon">◈</span>Photography — Film & Digital</div>
+        <div class="interest-item"><span class="interest-icon">◈</span>Jazz Guitar</div>
+      </div>
+    </div>
+    <div class="languages-col">
+      <h3>Known Languages</h3>
+      <div class="lang-list">
+        <div class="lang-item"><span>English</span><span class="lang-level native">Native</span></div>
+        <div class="lang-item"><span>Spanish</span><span class="lang-level fluent">Fluent</span></div>
+        <div class="lang-item"><span>French</span><span class="lang-level intermediate">Intermediate</span></div>
+        <div class="lang-item"><span>Japanese</span><span class="lang-level beginner">Beginner</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact section" id="contact">
+  <div class="section-label">/ 07 Contact</div>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <h2 class="contact-heading">Let's build<br><em>something</em><br>together.</h2>
+      <div class="contact-info">
+        <a href="mailto:alex@example.com">alex@example.com</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="john@company.com">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project..." rows="5"></textarea>
+      </div>
+      <button type="submit" class="btn-send">
+        <span>Send Message</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© 2024 Alex Morgan</span>
+  <span>Editorial Ink Template</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Midnight Copper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@200;300;400;500;600&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- Magnetic cursor -->
+<div class="mag-cursor" id="magCursor"></div>
+
+<nav class="nav">
+  <a class="nav-logo" href="#home">KAI.DEV</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-hire mag-target">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="ey-line"></span>
+      <span>Software Architect</span>
+    </div>
+    <h1 class="hero-title">
+      <div class="ht-line"><span class="ht-text">Kai</span></div>
+      <div class="ht-line"><span class="ht-text italic-dm">Nakamura</span></div>
+    </h1>
+    <p class="hero-tagline">Engineering systems that outlast trends.<br>Writing code that feels inevitable.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="hc-primary mag-target">See My Work</a>
+      <a href="#contact" class="hc-outline mag-target">Let's Talk</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" alt="Kai">
+      <div class="hif-corner tl"></div>
+      <div class="hif-corner tr"></div>
+      <div class="hif-corner bl"></div>
+      <div class="hif-corner br"></div>
+    </div>
+    <div class="hero-stats">
+      <div class="hs-item"><span class="hs-n" data-count="9">0</span><span class="hs-l">Years</span></div>
+      <div class="hs-item"><span class="hs-n" data-count="53">0</span><span class="hs-l">Projects</span></div>
+      <div class="hs-item"><span class="hs-n" data-count="24">0</span><span class="hs-l">Clients</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="sec-tag">// ABOUT</div>
+  <div class="about-layout">
+    <div class="about-para-col">
+      <div class="slide-in-block">
+        <h2>I make <em>hard things</em><br>look inevitable.</h2>
+      </div>
+      <div class="slide-in-block" style="--delay:.15s">
+        <p id="copperHighlightPara">Nine years building at the frontier — distributed systems at scale, developer tooling that ships, and UI that converts. I'm drawn to the hardest problems in a space because that's where the real craft lives. My code is terse. My APIs are intuitive. My documentation is thorough because past-me always appreciates present-me doing the work. I've built things used by thousands and led teams that shipped under impossible timelines. I believe engineering is ultimately a people problem — and I'm good with people.</p>
+      </div>
+    </div>
+    <div class="about-visual-col">
+      <div class="copper-card">
+        <div class="cc-header">
+          <span>Kai Nakamura</span>
+          <span class="cc-badge">Available</span>
+        </div>
+        <div class="cc-divider"></div>
+        <div class="cc-rows">
+          <div class="cc-row"><span class="ccr-key">Location</span><span>Tokyo → NYC</span></div>
+          <div class="cc-row"><span class="ccr-key">Role</span><span>Staff Engineer</span></div>
+          <div class="cc-row"><span class="ccr-key">Timezone</span><span>EST / JST</span></div>
+          <div class="cc-row"><span class="ccr-key">Response</span><span>&lt; 24h</span></div>
+        </div>
+        <a href="#contact" class="cc-cta">Start Conversation →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section edu-section" id="education">
+  <div class="sec-tag">// EDUCATION</div>
+  <div class="edu-stacked">
+    <div class="edu-s-item">
+      <div class="esi-left">
+        <div class="esi-year">2015</div>
+        <div class="esi-institution">University of Tokyo</div>
+      </div>
+      <div class="esi-right">
+        <h3>B.Eng. Information Science</h3>
+        <p>Valedictorian · Chairman's Award for Innovation</p>
+      </div>
+    </div>
+    <div class="edu-s-item">
+      <div class="esi-left">
+        <div class="esi-year">2017</div>
+        <div class="esi-institution">MIT CSAIL</div>
+      </div>
+      <div class="esi-right">
+        <h3>M.Sc. Computer Science</h3>
+        <p>Distributed Systems lab · NSF Fellowship</p>
+      </div>
+    </div>
+    <div class="edu-s-item">
+      <div class="esi-left">
+        <div class="esi-year">2021</div>
+        <div class="esi-institution">AWS Certified</div>
+      </div>
+      <div class="esi-right">
+        <h3>Solutions Architect — Professional</h3>
+        <p>AWS SA-Pro · Kubernetes Administrator (CKA)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE — Stacked slide reveal -->
+<section class="section exp-section dark-mid" id="experience">
+  <div class="sec-tag light">// EXPERIENCE</div>
+  <div class="exp-stack">
+    <div class="es-item" data-index="1">
+      <div class="esi-num">01</div>
+      <div class="esi-info">
+        <div class="esi-top"><h3>Staff Engineer</h3><span class="esi-co">Cloudflare</span></div>
+        <div class="esi-period">2022 → Present</div>
+        <p>Building the Workers runtime — the V8-based serverless platform serving 25M+ requests/second. Led the migration to a new process isolation model, reducing cold start latency by 90%.</p>
+        <div class="esi-skills"><span>Rust</span><span>V8</span><span>C++</span><span>TypeScript</span></div>
+      </div>
+    </div>
+    <div class="es-item" data-index="2">
+      <div class="esi-num">02</div>
+      <div class="esi-info">
+        <div class="esi-top"><h3>Senior Software Engineer</h3><span class="esi-co">Discord</span></div>
+        <div class="esi-period">2020 → 2022</div>
+        <p>Core Infrastructure team. Rebuilt the message routing system to handle 4B+ messages/day. Owned the WebSocket gateway serving 19M concurrent users at peak.</p>
+        <div class="esi-skills"><span>Elixir</span><span>Rust</span><span>Cassandra</span></div>
+      </div>
+    </div>
+    <div class="es-item" data-index="3">
+      <div class="esi-num">03</div>
+      <div class="esi-info">
+        <div class="esi-top"><h3>Software Engineer II</h3><span class="esi-co">Palantir</span></div>
+        <div class="esi-period">2017 → 2020</div>
+        <p>Gotham platform — data fusion and analysis for enterprise clients. Built the temporal query engine powering event reconstruction in defense applications.</p>
+        <div class="esi-skills"><span>Java</span><span>TypeScript</span><span>Spark</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section proj-section" id="projects">
+  <div class="sec-tag">// PROJECTS</div>
+  <div class="proj-list">
+    <a href="#" class="proj-list-item">
+      <div class="pli-left">
+        <span class="pli-num">01</span>
+        <div class="pli-preview" style="background:linear-gradient(135deg,#b87333,#6b3d1a)"></div>
+      </div>
+      <div class="pli-content">
+        <h3>Oxide Runtime</h3>
+        <p>WebAssembly serverless runtime in Rust. 200μs cold starts. Open-source, 2K GitHub stars.</p>
+        <div class="pli-tags"><span>Rust</span><span>WASM</span><span>Linux</span></div>
+      </div>
+      <div class="pli-arrow">→</div>
+    </a>
+    <a href="#" class="proj-list-item">
+      <div class="pli-left">
+        <span class="pli-num">02</span>
+        <div class="pli-preview" style="background:linear-gradient(135deg,#3a4a6a,#1a2a4a)"></div>
+      </div>
+      <div class="pli-content">
+        <h3>Phantom DNS</h3>
+        <p>Privacy-preserving DNS resolver with encrypted query routing. 50K daily users.</p>
+        <div class="pli-tags"><span>Go</span><span>DoH</span><span>Cloudflare</span></div>
+      </div>
+      <div class="pli-arrow">→</div>
+    </a>
+    <a href="#" class="proj-list-item">
+      <div class="pli-left">
+        <span class="pli-num">03</span>
+        <div class="pli-preview" style="background:linear-gradient(135deg,#4a6a3a,#2a4a1a)"></div>
+      </div>
+      <div class="pli-content">
+        <h3>Meridian Dashboard</h3>
+        <p>Real-time infrastructure monitoring with sub-second metric collection across 10K nodes.</p>
+        <div class="pli-tags"><span>Go</span><span>React</span><span>Prometheus</span></div>
+      </div>
+      <div class="pli-arrow">→</div>
+    </a>
+    <a href="#" class="proj-list-item">
+      <div class="pli-left">
+        <span class="pli-num">04</span>
+        <div class="pli-preview" style="background:linear-gradient(135deg,#6a3a5a,#3a1a3a)"></div>
+      </div>
+      <div class="pli-content">
+        <h3>Chronicle ORM</h3>
+        <p>Type-safe, zero-runtime ORM for TypeScript with temporal data modeling built in.</p>
+        <div class="pli-tags"><span>TypeScript</span><span>PostgreSQL</span><span>Zod</span></div>
+      </div>
+      <div class="pli-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- SKILLS & INTERESTS -->
+<section class="section skills-section dark-mid" id="skills">
+  <div class="sec-tag light">// SKILLS</div>
+  <div class="skills-copper-layout">
+    <div class="skl-left">
+      <div class="skill-copper-row" data-pct="97"><span>Rust</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge expert">Expert</span></div>
+      <div class="skill-copper-row" data-pct="92"><span>Go</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge expert">Expert</span></div>
+      <div class="skill-copper-row" data-pct="88"><span>TypeScript / React</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge expert">Expert</span></div>
+      <div class="skill-copper-row" data-pct="80"><span>Distributed Systems</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge advanced">Advanced</span></div>
+      <div class="skill-copper-row" data-pct="72"><span>AWS / GCP</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge advanced">Advanced</span></div>
+      <div class="skill-copper-row" data-pct="55"><span>C++ / LLVM</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge mid">Intermediate</span></div>
+      <div class="skill-copper-row" data-pct="30"><span>ML / PyTorch</span><div class="scr-track"><div class="scr-fill"></div></div><span class="scr-badge beg">Beginner</span></div>
+    </div>
+    <div class="skl-right">
+      <div class="lang-block">
+        <h4>Human Languages</h4>
+        <div class="lb-list">
+          <div class="lb-row"><span>Japanese</span><span class="lb-l native">Native</span></div>
+          <div class="lb-row"><span>English</span><span class="lb-l native">Native</span></div>
+          <div class="lb-row"><span>Korean</span><span class="lb-l fluent">Fluent</span></div>
+          <div class="lb-row"><span>Mandarin</span><span class="lb-l inter">Intermediate</span></div>
+        </div>
+      </div>
+      <div class="interests-block">
+        <h4>Interests</h4>
+        <div class="int-grid">
+          <div class="ig-item">Bouldering</div>
+          <div class="ig-item">Competitive Programming</div>
+          <div class="ig-item">Espresso</div>
+          <div class="ig-item">Film Photography</div>
+          <div class="ig-item">Go (board game)</div>
+          <div class="ig-item">Synthwave Production</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="sec-tag">// CONTACT</div>
+  <div class="contact-copper">
+    <h2 class="contact-big-h">Let's build<br><em>the future</em><br>together.</h2>
+    <div class="contact-right">
+      <div class="contact-methods">
+        <a href="mailto:kai@example.com" class="cm-link">kai@example.com</a>
+        <a href="#" class="cm-link">GitHub /kainakamura</a>
+        <a href="#" class="cm-link">Twitter @kainakamura</a>
+        <a href="#" class="cm-link">LinkedIn</a>
+      </div>
+      <form class="copper-form" id="contactForm">
+        <div class="cf-row">
+          <div class="cf-field"><label>NAME</label><input type="text" placeholder="Your name"></div>
+          <div class="cf-field"><label>EMAIL</label><input type="email" placeholder="email@example.com"></div>
+        </div>
+        <div class="cf-field"><label>MESSAGE</label><textarea rows="5" placeholder="What are we building?"></textarea></div>
+        <button type="submit" class="copper-btn mag-target">
+          Send Message
+          <span class="cb-arrow">↗</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer dark-mid">
+  <span>Kai Nakamura © 2024</span>
+  <span>Midnight Copper Template</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

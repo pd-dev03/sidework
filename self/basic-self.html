@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Priyanshu Dave — About Me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─── RESET ─────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#090909;color:#f0ede8;font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none}
+
+/* ─── CUSTOM CURSOR ──────────────────────────────── */
+.cursor{position:fixed;width:10px;height:10px;background:#f0ede8;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s,width .25s,height .25s,background .25s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(240,237,232,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,width .3s,height .3s,border-color .3s}
+.cursor-ring.hover{width:56px;height:56px;border-color:#f0ede8}
+.cursor.hover{width:6px;height:6px}
+
+/* ─── LOADER ─────────────────────────────────────── */
+#loader{position:fixed;inset:0;background:#090909;z-index:9000;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease, visibility .8s ease}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{overflow:hidden;height:80px}
+.loader-word{font-family:'Bebas Neue',sans-serif;font-size:5rem;letter-spacing:.08em;transform:translateY(100%);animation:loaderUp .9s cubic-bezier(.16,1,.3,1) .2s forwards}
+@keyframes loaderUp{to{transform:translateY(0)}}
+.loader-line{width:0;height:1px;background:rgba(240,237,232,.2);margin:.6rem auto;animation:loaderLine 1s ease .6s forwards}
+@keyframes loaderLine{to{width:200px}}
+.loader-sub{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;opacity:0;animation:loaderFade .6s ease 1s forwards;color:rgba(240,237,232,.4)}
+@keyframes loaderFade{to{opacity:1}}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.8rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s}
+nav.scrolled{background:rgba(9,9,9,.85);backdrop-filter:blur(16px);padding:1.2rem 3rem;border-bottom:1px solid rgba(240,237,232,.06)}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:#f0ede8}
+.nav-logo-icon{width:36px;height:36px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(240,237,232,.12);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;letter-spacing:.08em;color:rgba(240,237,232,.6);overflow:hidden}
+/* Replace with actual photo */
+.nav-logo-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nav-logo-name{font-size:.82rem;font-weight:400;letter-spacing:.04em}
+.nav-logo-title{font-size:.7rem;color:rgba(240,237,232,.4);letter-spacing:.04em}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a{font-size:.78rem;color:rgba(240,237,232,.55);letter-spacing:.06em;text-decoration:none;transition:color .25s;text-transform:uppercase}
+.nav-links a:hover{color:#f0ede8}
+.nav-contact{background:#f0ede8;color:#090909!important;padding:.55rem 1.4rem;border-radius:50px;font-weight:500;letter-spacing:.04em!important;transition:background .25s,transform .2s!important;font-size:.75rem!important}
+.nav-contact:hover{background:#d4cfc8;transform:scale(1.02)!important}
+
+/* ─── HERO ───────────────────────────────────────── */
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:#0d0d0d}
+/* Big name behind photo - like Aperture */
+.hero-name-bg{position:absolute;bottom:-0.1em;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:min(24vw,26vh);line-height:.85;letter-spacing:-.02em;white-space:nowrap;color:#f0ede8;z-index:2;pointer-events:none;opacity:0;animation:nameReveal 1.2s cubic-bezier(.16,1,.3,1) 1.4s forwards}
+@keyframes nameReveal{from{opacity:0;transform:translateX(-50%) translateY(30px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+/* Photo sits OVER the name text */
+.hero-photo-wrap{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(420px,55vw);z-index:3;opacity:0;animation:photoReveal 1s cubic-bezier(.16,1,.3,1) 1.7s forwards}
+@keyframes photoReveal{from{opacity:0;transform:translateX(-50%) scale(.96)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+.hero-photo{width:100%;display:block;object-fit:cover}
+/* Placeholder when no photo */
+.hero-photo-placeholder{width:100%;aspect-ratio:3/4;background:linear-gradient(180deg,#1a1a1a 0%,#252520 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:2rem;gap:.5rem;border-radius:4px 4px 0 0}
+.hero-photo-placeholder .ph-text{font-size:.7rem;color:rgba(240,237,232,.35);letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.hero-photo-placeholder .ph-note{font-size:.62rem;color:rgba(240,237,232,.2);text-align:center}
+/* Corner brackets like Aperture */
+.hero-bracket{position:absolute;width:30px;height:30px;z-index:4;opacity:0;animation:bracketIn .5s ease 2.2s forwards}
+.hero-bracket::before,.hero-bracket::after{content:'';position:absolute;background:#f0ede8}
+.hero-bracket--tl{top:15%;left:15%}
+.hero-bracket--tl::before{top:0;left:0;width:1px;height:18px}
+.hero-bracket--tl::after{top:0;left:0;width:18px;height:1px}
+.hero-bracket--tr{top:15%;right:15%}
+.hero-bracket--tr::before{top:0;right:0;width:1px;height:18px}
+.hero-bracket--tr::after{top:0;right:0;width:18px;height:1px}
+.hero-bracket--bl{bottom:18%;left:15%}
+.hero-bracket--bl::before{bottom:0;left:0;width:1px;height:18px}
+.hero-bracket--bl::after{bottom:0;left:0;width:18px;height:1px}
+.hero-bracket--br{bottom:18%;right:15%}
+.hero-bracket--br::before{bottom:0;right:0;width:1px;height:18px}
+.hero-bracket--br::after{bottom:0;right:0;width:18px;height:1px}
+@keyframes bracketIn{to{opacity:.6}}
+/* Bottom info bar */
+.hero-bar{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:flex-end;padding:2rem 3rem;background:linear-gradient(to top,rgba(9,9,9,.8),transparent);pointer-events:none;opacity:0;animation:barIn .6s ease 2.3s forwards}
+@keyframes barIn{to{opacity:1}}
+.hero-bar-l,.hero-bar-r{pointer-events:all}
+.hero-status{display:flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,237,232,.5)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+.hero-tagline{font-size:.78rem;color:rgba(240,237,232,.45);letter-spacing:.04em;max-width:220px;text-align:right;line-height:1.5}
+
+/* ─── SECTION COMMON ─────────────────────────────── */
+section{padding:7rem 3rem}
+.s-label{display:flex;align-items:center;gap:1rem;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,237,232,.35);margin-bottom:3rem}
+.s-label::after{content:'';flex:1;height:1px;background:rgba(240,237,232,.1)}
+.s-h{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(2.4rem,5vw,4.5rem);line-height:1.05;margin-bottom:1.5rem;font-weight:400}
+.s-h em{font-style:italic;color:rgba(240,237,232,.55)}
+
+/* REVEAL ANIMATION */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-left.in{opacity:1;transform:translateX(0)}
+
+/* ─── PHILOSOPHY ─────────────────────────────────── */
+.philosophy{background:#090909;border-top:1px solid rgba(240,237,232,.07)}
+.philosophy-inner{max-width:900px;margin:0 auto}
+.phil-quote{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);line-height:1.3;color:#f0ede8;font-weight:400;margin-bottom:2.5rem;position:relative;padding-left:2rem}
+.phil-quote::before{content:'"';position:absolute;left:0;top:-.3em;font-size:2em;color:rgba(240,237,232,.12);font-family:'DM Serif Display',serif;line-height:1}
+.phil-body{font-size:1rem;color:rgba(240,237,232,.55);line-height:1.85;max-width:640px;padding-left:2rem}
+
+/* ─── ABOUT / WHO I AM ───────────────────────────── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1200px;margin:0 auto}
+.about-img-wrap{position:relative}
+.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:3px;display:block}
+.about-img-placeholder{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#1a1a1a,#252520);border-radius:3px;display:flex;align-items:center;justify-content:center;color:rgba(240,237,232,.2);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.about-img-tag{position:absolute;bottom:-1rem;right:-1rem;background:#f0ede8;color:#090909;padding:.6rem 1.2rem;font-size:.72rem;font-weight:500;letter-spacing:.06em;border-radius:2px}
+.about-text .s-label{margin-bottom:2rem}
+.about-intro{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,3vw,2.4rem);line-height:1.25;margin-bottom:2rem;font-weight:400}
+.about-intro em{font-style:italic;color:rgba(240,237,232,.5)}
+.about-body{font-size:.93rem;color:rgba(240,237,232,.55);line-height:1.9;margin-bottom:2.5rem}
+/* Stats row */
+.about-stats{display:flex;gap:3rem;padding-top:2rem;border-top:1px solid rgba(240,237,232,.08)}
+.ast{display:flex;flex-direction:column;gap:.3rem}
+.ast-n{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;letter-spacing:.04em;color:#f0ede8}
+.ast-l{font-size:.7rem;color:rgba(240,237,232,.35);letter-spacing:.1em;text-transform:uppercase}
+
+/* ─── SOCIAL LINKS (like current page but way better) ─ */
+.socials{background:#111110;border-top:1px solid rgba(240,237,232,.07);border-bottom:1px solid rgba(240,237,232,.07)}
+.socials-inner{max-width:700px;margin:0 auto}
+.socials-title{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,237,232,.3);margin-bottom:2.5rem}
+.social-links{display:flex;flex-direction:column;gap:.8rem}
+.social-link{display:flex;align-items:center;gap:1.5rem;padding:1.3rem 1.8rem;border:1px solid rgba(240,237,232,.07);border-radius:10px;text-decoration:none;color:#f0ede8;background:rgba(240,237,232,.02);transition:background .3s,border-color .3s,transform .3s;position:relative;overflow:hidden}
+.social-link::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(240,237,232,.04);transition:width .4s cubic-bezier(.16,1,.3,1)}
+.social-link:hover::before{width:100%}
+.social-link:hover{border-color:rgba(240,237,232,.18);transform:translateX(6px)}
+.sl-icon{width:42px;height:42px;border-radius:8px;background:rgba(240,237,232,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;transition:background .3s}
+.social-link:hover .sl-icon{background:rgba(240,237,232,.1)}
+.sl-text{flex:1}
+.sl-name{font-size:.9rem;font-weight:500;margin-bottom:.2rem;display:block}
+.sl-desc{font-size:.78rem;color:rgba(240,237,232,.4);display:block}
+.sl-arrow{font-size:1rem;color:rgba(240,237,232,.2);transition:color .3s,transform .3s}
+.social-link:hover .sl-arrow{color:#f0ede8;transform:translate(4px,-4px)}
+
+/* ─── SKILLS ─────────────────────────────────────── */
+.skills{background:#090909}
+.skills-inner{max-width:1100px;margin:0 auto}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem;background:rgba(240,237,232,.06)}
+.skill-card{background:#090909;padding:2.5rem;transition:background .3s}
+.skill-card:hover{background:#111110}
+.sk-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(240,237,232,.07);line-height:1;margin-bottom:1rem;letter-spacing:.04em}
+.sk-title{font-size:.95rem;font-weight:500;margin-bottom:1rem;letter-spacing:-.01em}
+.sk-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.sk-tag{font-size:.7rem;color:rgba(240,237,232,.4);padding:.3rem .7rem;border:1px solid rgba(240,237,232,.1);border-radius:50px;letter-spacing:.04em;transition:all .25s}
+.skill-card:hover .sk-tag{border-color:rgba(240,237,232,.2);color:rgba(240,237,232,.65)}
+
+/* ─── CONTACT CTA ────────────────────────────────── */
+.cta{background:#090909;text-align:center;border-top:1px solid rgba(240,237,232,.07);padding:9rem 3rem}
+.cta-inner{max-width:700px;margin:0 auto}
+.cta h2{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,6vw,5.5rem);line-height:1;margin-bottom:1.5rem;font-weight:400}
+.cta h2 em{font-style:italic;color:rgba(240,237,232,.45)}
+.cta p{font-size:.95rem;color:rgba(240,237,232,.45);margin-bottom:3rem;line-height:1.8}
+.cta-btn{display:inline-flex;align-items:center;gap:.6rem;background:#f0ede8;color:#090909;padding:1rem 2.5rem;border-radius:50px;font-size:.85rem;font-weight:500;text-decoration:none;letter-spacing:.04em;transition:background .25s,transform .2s,box-shadow .3s}
+.cta-btn:hover{background:#fff;transform:scale(1.03);box-shadow:0 10px 40px rgba(240,237,232,.15)}
+.cta-btn svg{transition:transform .3s}
+.cta-btn:hover svg{transform:translate(4px,-4px)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{background:#090909;border-top:1px solid rgba(240,237,232,.07);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.f-copy{font-size:.72rem;color:rgba(240,237,232,.25);letter-spacing:.06em}
+.f-built{font-size:.72rem;color:rgba(240,237,232,.25);letter-spacing:.06em}
+.f-built span{color:rgba(240,237,232,.4)}
+
+/* ─── SCROLL PROGRESS ────────────────────────────── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:#f0ede8;z-index:999;transition:width .1s linear;width:0}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:1.4rem 1.5rem}
+  nav.scrolled{padding:.9rem 1.5rem}
+  .nav-links a:not(.nav-contact){display:none}
+  section{padding:5rem 1.5rem}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .about-img-tag{right:0;bottom:-1.5rem}
+  .skills-grid{grid-template-columns:1fr}
+  .hero-bar{padding:1.5rem}
+  .hero-photo-wrap{width:min(340px,80vw)}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Scroll progress -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div style="text-align:center">
+    <div class="loader-inner"><div class="loader-word">PRIYANSHU</div></div>
+    <div class="loader-line"></div>
+    <div class="loader-sub">Builder · Creator · Developer</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="https://buildmyfolio.in" class="nav-logo">
+    <div class="nav-logo-icon">
+      <!-- Replace src with your actual photo -->
+      <img src="[YOUR_PHOTO.jpg]" alt="PD" onerror="this.style.display='none';this.parentNode.textContent='PD'"/>
+    </div>
+    <div>
+      <div class="nav-logo-name">Priyanshu Dave</div>
+      <div class="nav-logo-title">Builder of BuildMyFolio</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="https://buildmyfolio.in">Home</a>
+    <a href="https://buildmyfolio.in/portfolio" class="nav-contact">Portfolio</a>
+  </div>
+</nav>
+
+<!-- HERO — Aperture style: giant name behind photo -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-name-bg">PRIYANSHU</div>
+
+  <!-- Photo sits over name -->
+  <div class="hero-photo-wrap">
+    <!-- Replace src with your actual photo path -->
+    <img class="hero-photo" src="[YOUR_PHOTO.jpg]" alt="Priyanshu Dave"
+      onerror="this.outerHTML='<div class=\'hero-photo-placeholder\'><div class=\'ph-text\'>Add your photo here</div><div class=\'ph-note\'>Replace [YOUR_PHOTO.jpg] with your image path</div></div>'"/>
+  </div>
+
+  <!-- Corner brackets -->
+  <div class="hero-bracket hero-bracket--tl"></div>
+  <div class="hero-bracket hero-bracket--tr"></div>
+  <div class="hero-bracket hero-bracket--bl"></div>
+  <div class="hero-bracket hero-bracket--br"></div>
+
+  <!-- Bottom bar -->
+  <div class="hero-bar">
+    <div class="hero-bar-l">
+      <div class="hero-status">
+        <div class="status-dot"></div>
+        Available for work
+      </div>
+    </div>
+    <div class="hero-bar-r">
+      <div class="hero-tagline">Builder of tools that help people get jobs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="philosophy-inner">
+    <div class="s-label reveal">Philosophy</div>
+    <div class="phil-quote reveal reveal-delay-1">
+      Every portfolio should open doors. I built the tool that makes that happen.
+    </div>
+    <div class="phil-body reveal reveal-delay-2">
+      I believe talented people deserve to be seen — not held back by clunky builders, missing PDFs, or generic templates. BuildMyFolio started as my own frustration and became a product used by thousands.
+    </div>
+  </div>
+</section>
+
+<!-- WHO I AM -->
+<section style="background:#0d0d0d;border-top:1px solid rgba(240,237,232,.07)">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal-left">
+      <!-- Replace with your actual photo -->
+      <img class="about-img" src="[YOUR_PHOTO.jpg]" alt="Priyanshu Dave"
+        onerror="this.outerHTML='<div class=\'about-img-placeholder\'>Your photo here</div>'"/>
+      <div class="about-img-tag">Builder · Developer</div>
+    </div>
+    <div class="about-text">
+      <div class="s-label reveal">Who I am</div>
+      <div class="about-intro reveal reveal-delay-1">
+        I'm Priyanshu,<br/>the person behind<br/><em>BuildMyFolio.</em>
+      </div>
+      <p class="about-body reveal reveal-delay-2">
+        I'm a developer, designer, and builder from India. I built BuildMyFolio because I was tired of watching talented people struggle to present themselves online. A great portfolio should take minutes — not a weekend of tutorials and broken drag-and-drop builders.<br/><br/>
+        My mission is simple: make it effortless for anyone — engineers, designers, managers, freelancers — to have a portfolio they're proud to share. Zero code. Personal URL. Live in minutes.
+      </p>
+      <div class="about-stats reveal reveal-delay-3">
+        <div class="ast"><div class="ast-n">5</div><div class="ast-l">Minutes to go live</div></div>
+        <div class="ast"><div class="ast-n">0</div><div class="ast-l">Lines of code needed</div></div>
+        <div class="ast"><div class="ast-n">₹69</div><div class="ast-l">To unlock it all</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIND ME ON — Beautiful version of the link page -->
+<section class="socials">
+  <div class="socials-inner">
+    <div class="s-label reveal">Find Me On</div>
+    <div class="social-links">
+
+      <a href="mailto:contact@buildmyfolio.in" class="social-link reveal reveal-delay-1">
+        <div class="sl-icon">✉</div>
+        <div class="sl-text">
+          <span class="sl-name">E-Mail</span>
+          <span class="sl-desc">My most polished responses are found here</span>
+        </div>
+        <div class="sl-arrow">↗</div>
+      </a>
+
+      <a href="https://linkedin.com/in/priyanshu-dave" class="social-link reveal reveal-delay-2" target="_blank" rel="noopener">
+        <div class="sl-icon">in</div>
+        <div class="sl-text">
+          <span class="sl-name">LinkedIn</span>
+          <span class="sl-desc">I rarely post here, but I do check notifications</span>
+        </div>
+        <div class="sl-arrow">↗</div>
+      </a>
+
+      <a href="https://github.com/priyanshu-dave" class="social-link reveal reveal-delay-3" target="_blank" rel="noopener">
+        <div class="sl-icon" style="font-size:.85rem;font-weight:700">GH</div>
+        <div class="sl-text">
+          <span class="sl-name">GitHub</span>
+          <span class="sl-desc">All my experiments, good or bad, live here</span>
+        </div>
+        <div class="sl-arrow">↗</div>
+      </a>
+
+      <a href="https://buildmyfolio.in/portfolio" class="social-link reveal reveal-delay-4" target="_blank" rel="noopener">
+        <div class="sl-icon" style="font-size:.85rem">⊞</div>
+        <div class="sl-text">
+          <span class="sl-name">Projects List</span>
+          <span class="sl-desc">A curated collection of things I've built</span>
+        </div>
+        <div class="sl-arrow">↗</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills">
+  <div class="skills-inner">
+    <div class="s-label reveal">What I Do</div>
+    <div class="s-h reveal reveal-delay-1">Skills &amp; <em>Expertise</em></div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="sk-num">01</div>
+        <div class="sk-title">Product Development</div>
+        <div class="sk-tags">
+          <span class="sk-tag">Full Stack</span><span class="sk-tag">SaaS</span><span class="sk-tag">APIs</span><span class="sk-tag">Databases</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="sk-num">02</div>
+        <div class="sk-title">UI/UX Design</div>
+        <div class="sk-tags">
+          <span class="sk-tag">Figma</span><span class="sk-tag">Prototyping</span><span class="sk-tag">User Research</span><span class="sk-tag">Motion</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="sk-num">03</div>
+        <div class="sk-title">Web Technology</div>
+        <div class="sk-tags">
+          <span class="sk-tag">React</span><span class="sk-tag">Node.js</span><span class="sk-tag">Next.js</span><span class="sk-tag">CSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-inner">
+    <div class="s-label reveal" style="justify-content:center;margin-bottom:2rem">Let's connect</div>
+    <h2 class="reveal reveal-delay-1">The perfect<br/>shot is just a<br/><em>conversation away.</em></h2>
+    <p class="reveal reveal-delay-2">If you'd like to work together, collaborate, or just say hello — my inbox is always open.</p>
+    <a href="mailto:contact@buildmyfolio.in" class="cta-btn reveal reveal-delay-3">
+      Get in touch
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-copy">© 2025 Priyanshu Dave</div>
+  <div class="f-built">Made with <span>BuildMyFolio</span></div>
+</footer>
+
+<script>
+(function(){
+  // ── Loader ──
+  window.addEventListener('load',()=>{
+    setTimeout(()=>document.getElementById('loader').classList.add('gone'),1800);
+  });
+
+  // ── Custom cursor ──
+  const cur=document.getElementById('cursor');
+  const ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
+  document.querySelectorAll('a,button,.social-link').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover');});
+    el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover');});
+  });
+
+  // ── Nav scroll ──
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',window.scrollY>60);
+    const p=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+    document.getElementById('progressBar').style.width=p+'%';
+  },{passive:true});
+
+  // ── Reveal on scroll ──
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal,.reveal-left').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>

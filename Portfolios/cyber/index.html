@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE GUARDIAN — Blue Team Portfolio</title>
+  <link rel="stylesheet" href="guardian_style.css" />
+
+  <!-- Neue Machina from Fontshare -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=neue-machina@400,500,700&display=swap" rel="stylesheet" />
+  <!-- DM Mono for data/code labels -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       SYSTEM BOOT OVERLAY
+  ══════════════════════════════════════ -->
+  <div id="boot-overlay">
+    <div class="boot-inner">
+      <div class="boot-logo">
+        <span class="bl-bracket">[</span>GUARDIAN<span class="bl-bracket">]</span>
+      </div>
+      <div class="boot-sequence" id="boot-sequence"></div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar-fill" id="boot-bar-fill"></div>
+        <div class="boot-bar-label" id="boot-bar-label">INITIALIZING...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       BLUEPRINT GRID (fixed bg)
+  ══════════════════════════════════════ -->
+  <div class="blueprint-bg" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════
+       CUSTOM CURSOR
+  ══════════════════════════════════════ -->
+  <div id="cursor-core"></div>
+  <div id="cursor-outer"></div>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <nav id="nav">
+    <div class="nav-logo">
+      <div class="nav-status-dot" id="nav-health-dot"></div>
+      <span class="nav-brand">[GUARDIAN]</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero"      data-num="00">System.Status()</a></li>
+      <li><a href="#about"     data-num="01">Operator.Profile()</a></li>
+      <li><a href="#tools"     data-num="02">Asset.Inventory()</a></li>
+      <li><a href="#incidents" data-num="03">Incident.Reports()</a></li>
+      <li><a href="#certs"     data-num="04">Credential.Vault()</a></li>
+      <li><a href="#contact"   data-num="05">Connect()</a></li>
+    </ul>
+    <div class="nav-system-info">
+      <span class="nsi-item" id="nav-clock">00:00:00</span>
+      <span class="nsi-sep">|</span>
+      <span class="nsi-item nsi-status">SYS HEALTHY</span>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO — System.Status()
+  ══════════════════════════════════════ -->
+  <section id="hero" class="section-hero">
+
+    <!-- Blueprint coordinate markers -->
+    <div class="coord-marker tl">X:00 Y:00</div>
+    <div class="coord-marker tr">X:FF Y:00</div>
+    <div class="coord-marker bl">X:00 Y:FF</div>
+
+    <!-- Live metrics panels — top row -->
+    <div class="hero-metrics-row">
+      <div class="metric-panel glass">
+        <div class="mp-label">THREAT LEVEL</div>
+        <div class="mp-val green">LOW</div>
+        <div class="mp-sub">0 Active Incidents</div>
+        <div class="mp-pulse"></div>
+      </div>
+      <div class="metric-panel glass">
+        <div class="mp-label">ENDPOINTS MONITORED</div>
+        <div class="mp-val">4,891</div>
+        <div class="mp-sub">+12 this week</div>
+      </div>
+      <div class="metric-panel glass">
+        <div class="mp-label">MEAN TIME TO DETECT</div>
+        <div class="mp-val">2.4<span class="mp-unit">min</span></div>
+        <div class="mp-sub">↓ 18% vs last month</div>
+      </div>
+      <div class="metric-panel glass">
+        <div class="mp-label">ALERTS TRIAGED</div>
+        <div class="mp-val">12,847</div>
+        <div class="mp-sub">This quarter</div>
+      </div>
+    </div>
+
+    <!-- Main hero content -->
+    <div class="hero-main">
+      <div class="hero-left">
+        <div class="hero-system-tag">SYSTEM.STATUS() — TERMINAL v4.2.1</div>
+
+        <!-- Typing terminal output -->
+        <div class="hero-terminal glass">
+          <div class="ht-topbar">
+            <span class="ht-dot r"></span>
+            <span class="ht-dot y"></span>
+            <span class="ht-dot g"></span>
+            <span class="ht-path">guardian@soc-01 ~ </span>
+          </div>
+          <div class="ht-body" id="hero-terminal-body"></div>
+        </div>
+
+        <div class="hero-name-block">
+          <div class="hnb-label">ANALYST DESIGNATION</div>
+          <h1 class="hero-name">
+            <span class="hn-first">ELENA</span>
+            <span class="hn-last">VASQUEZ</span>
+          </h1>
+          <div class="hero-roles">
+            <span class="hr-tag">SENIOR SOC ANALYST</span>
+            <span class="hr-dot">·</span>
+            <span class="hr-tag">THREAT HUNTER</span>
+            <span class="hr-dot">·</span>
+            <span class="hr-tag">INCIDENT COMMANDER</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <!-- Live activity panel -->
+        <div class="hero-activity-panel glass">
+          <div class="hap-header">
+            <span class="hap-title">LIVE ACTIVITY FEED</span>
+            <span class="hap-dot"></span>
+          </div>
+          <div class="hap-feed" id="activity-feed">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Radar / Ring chart -->
+        <div class="hero-radar-panel glass">
+          <div class="hrp-label">SYSTEM HEALTH</div>
+          <canvas id="radar-canvas" width="220" height="220"></canvas>
+          <div class="hrp-legend">
+            <span class="rl-item"><span class="rl-dot blue"></span>Detection</span>
+            <span class="rl-item"><span class="rl-dot green"></span>Response</span>
+            <span class="rl-item"><span class="rl-dot amber"></span>Coverage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue">
+      <span>SCROLL TO NAVIGATE</span>
+      <div class="sc-line"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       OPERATIONAL SCAN (scroll-decrypt)
+  ══════════════════════════════════════ -->
+  <section id="scan-section" class="section-scan">
+    <div class="coord-marker tl">X:01 Y:20</div>
+    <div class="scan-inner">
+      <div class="scan-tag">// OPERATOR.PROFILE — DATA SCAN IN PROGRESS</div>
+      <p class="scan-paragraph" id="scan-text">
+        Seven years defending enterprise perimeters across financial services,
+        critical infrastructure, and cloud-native environments. I don't wait
+        for alerts — I hunt the adversary before they surface. My methodology
+        fuses MITRE ATT&CK intelligence with behavioral analytics to compress
+        detection windows from hours to minutes. Every investigation I run is
+        a forensic reconstruction: evidence-led, hypothesis-driven, and
+        documented to a standard that holds up in a boardroom and a courtroom.
+        Threats don't hide. They just haven't been looked for correctly yet.
+      </p>
+    </div>
+    <div class="scan-stats">
+      <div class="ss-item glass">
+        <div class="ssi-val" data-count="7">7</div>
+        <div class="ssi-label">Years<br/>Experience</div>
+      </div>
+      <div class="ss-item glass">
+        <div class="ssi-val" data-count="340">340</div>
+        <div class="ssi-label">Incidents<br/>Closed</div>
+      </div>
+      <div class="ss-item glass">
+        <div class="ssi-val" data-count="99">99</div>
+        <div class="ssi-sup">%</div>
+        <div class="ssi-label">Detection<br/>Accuracy</div>
+      </div>
+      <div class="ss-item glass">
+        <div class="ssi-val" data-count="5">5</div>
+        <div class="ssi-label">Active<br/>Certs</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ABOUT — Operator.Profile()
+  ══════════════════════════════════════ -->
+  <section id="about" class="section-about">
+    <div class="coord-marker tl">X:02 Y:30</div>
+    <div class="coord-marker tr">X:FE Y:30</div>
+
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="section-eyebrow">// OPERATOR.PROFILE()</div>
+        <h2 class="section-heading">The<br/>Analyst<br/>Behind<br/>the Alert</h2>
+        <div class="about-id-card glass">
+          <div class="aic-row"><span class="aic-k">NAME</span><span class="aic-v">Elena M. Vasquez</span></div>
+          <div class="aic-row"><span class="aic-k">CLEARANCE</span><span class="aic-v amber">SECRET — ACTIVE</span></div>
+          <div class="aic-row"><span class="aic-k">SPECIALITY</span><span class="aic-v">Threat Intelligence · DFIR</span></div>
+          <div class="aic-row"><span class="aic-k">BASE</span><span class="aic-v">Austin, TX / Remote</span></div>
+          <div class="aic-row"><span class="aic-k">STACK</span><span class="aic-v">Splunk · Sentinel · CrowdStrike</span></div>
+          <div class="aic-row"><span class="aic-k">STATUS</span><span class="aic-v green-text">● AVAILABLE</span></div>
+        </div>
+      </div>
+
+      <div class="about-center">
+        <div class="about-photo-frame glass">
+          <div class="apf-scan-line"></div>
+          <div class="apf-corners">
+            <span class="apc tl"></span><span class="apc tr"></span>
+            <span class="apc bl"></span><span class="apc br"></span>
+          </div>
+          <div class="apf-avatar">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="36" r="20" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M14 96c0-19.882 16.118-36 36-36s36 16.118 36 36" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="50" cy="36" r="8" fill="currentColor" fill-opacity="0.12"/>
+            </svg>
+          </div>
+          <div class="apf-label">ID: EV-07 · VERIFIED</div>
+        </div>
+
+        <!-- Experience timeline — vertical stages -->
+        <div class="exp-stages">
+          <div class="exp-stage" data-stage="I">
+            <div class="es-line"></div>
+            <div class="es-content">
+              <div class="es-year">2018 — 2020</div>
+              <div class="es-role">Junior SOC Analyst</div>
+              <div class="es-company">Deloitte Cyber · Dallas, TX</div>
+            </div>
+          </div>
+          <div class="exp-stage" data-stage="II">
+            <div class="es-line"></div>
+            <div class="es-content">
+              <div class="es-year">2020 — 2022</div>
+              <div class="es-role">Threat Hunter L2</div>
+              <div class="es-company">Palo Alto Networks · Remote</div>
+            </div>
+          </div>
+          <div class="exp-stage" data-stage="III">
+            <div class="es-line"></div>
+            <div class="es-content">
+              <div class="es-year">2022 — 2024</div>
+              <div class="es-role">Senior SOC Analyst</div>
+              <div class="es-company">Microsoft MSRC · Remote</div>
+            </div>
+          </div>
+          <div class="exp-stage active" data-stage="IV">
+            <div class="es-line"></div>
+            <div class="es-content">
+              <div class="es-year">2024 — PRESENT</div>
+              <div class="es-role">Incident Commander</div>
+              <div class="es-company">Independent Consultant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <div class="about-bio">
+          <p>I built my career in the places where it's hardest to maintain vigilance: high-volume financial SOCs, cloud-native startups scaling faster than their security posture, and enterprise environments where legacy tooling meets modern adversaries.</p>
+          <p>My edge isn't the certifications — it's pattern recognition developed across thousands of real incidents. I've chased nation-state actors through Azure audit logs, reconstructed ransomware kill chains from memory dumps, and built detection rules that stopped campaigns before a single alert fired.</p>
+        </div>
+        <div class="about-interests glass">
+          <div class="ai-label">// KNOWN INTERESTS</div>
+          <div class="ai-tags">
+            <span>Threat Hunting</span><span>DFIR</span><span>MITRE ATT&CK</span>
+            <span>Cloud Security</span><span>Malware Analysis</span><span>Zero Trust</span>
+            <span>Purple Teaming</span><span>CTF (Blue)</span><span>Security Automation</span>
+            <span>OSINT</span><span>Deception Technology</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOLS — Asset.Inventory()
+  ══════════════════════════════════════ -->
+  <section id="tools" class="section-tools">
+    <div class="coord-marker tl">X:03 Y:50</div>
+    <div class="section-header">
+      <div class="section-eyebrow">// ASSET.INVENTORY()</div>
+      <h2 class="section-heading">Tool Stack</h2>
+      <p class="section-sub">Certified operational proficiency across tier-1 enterprise security platforms</p>
+    </div>
+
+    <div class="tools-dashboard">
+
+      <!-- SIEM Row -->
+      <div class="tool-category-label">SIEM / LOG MANAGEMENT</div>
+      <div class="tools-row">
+        <div class="tool-card glass" data-proficiency="97">
+          <div class="tc-header">
+            <div class="tc-icon siem">
+              <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4 14h32" stroke="currentColor" stroke-width="1.2"/><path d="M12 20h16M12 26h10" stroke="currentColor" stroke-width="1"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">Splunk Enterprise</div>
+              <div class="tc-category">SIEM · SPL · ES</div>
+            </div>
+            <div class="tc-level">EXPERT</div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="97"></div></div>
+          <div class="tc-tags"><span>Security Operations</span><span>Custom Dashboards</span><span>UEBA</span></div>
+        </div>
+
+        <div class="tool-card glass" data-proficiency="91">
+          <div class="tc-header">
+            <div class="tc-icon siem">
+              <svg viewBox="0 0 40 40" fill="none"><path d="M20 4L34 32H6L20 4Z" stroke="currentColor" stroke-width="1.2" fill="currentColor" fill-opacity="0.08"/><path d="M20 14L27 28H13L20 14Z" fill="currentColor" fill-opacity="0.25"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">Microsoft Sentinel</div>
+              <div class="tc-category">Cloud SIEM · KQL</div>
+            </div>
+            <div class="tc-level">ADVANCED</div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="91"></div></div>
+          <div class="tc-tags"><span>Azure Integration</span><span>KQL Analytics</span><span>SOAR</span></div>
+        </div>
+      </div>
+
+      <div class="tool-category-label">ENDPOINT · DETECTION · RESPONSE</div>
+      <div class="tools-row">
+        <div class="tool-card glass" data-proficiency="94">
+          <div class="tc-header">
+            <div class="tc-icon edr">
+              <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="1.2"/><path d="M14 20l5 5 8-8" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">CrowdStrike Falcon</div>
+              <div class="tc-category">EDR · XDR · Threat Intel</div>
+            </div>
+            <div class="tc-level">EXPERT</div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="94"></div></div>
+          <div class="tc-tags"><span>RTR Scripting</span><span>IOC Management</span><span>Falcon Fusion</span></div>
+        </div>
+
+        <div class="tool-card glass" data-proficiency="88">
+          <div class="tc-header">
+            <div class="tc-icon edr">
+              <svg viewBox="0 0 40 40" fill="none"><path d="M20 6L6 14v12l14 8 14-8V14L20 6Z" stroke="currentColor" stroke-width="1.2" fill="currentColor" fill-opacity="0.06"/><path d="M20 6v26M6 14l14 8 14-8" stroke="currentColor" stroke-width="0.8"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">Carbon Black</div>
+              <div class="tc-category">EDR · Behavioral Analysis</div>
+            </div>
+            <div class="tc-level">ADVANCED</div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="88"></div></div>
+          <div class="tc-tags"><span>Process Analysis</span><span>Live Response</span><span>Watchlists</span></div>
+        </div>
+      </div>
+
+      <div class="tool-category-label">NETWORK · VULNERABILITY · FORENSICS</div>
+      <div class="tools-row three-col">
+        <div class="tool-card glass compact" data-proficiency="95">
+          <div class="tc-header">
+            <div class="tc-icon net">
+              <svg viewBox="0 0 40 40" fill="none"><path d="M4 20h8M28 20h8M12 20a8 8 0 0016 0 8 8 0 00-16 0Z" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="3" fill="currentColor" fill-opacity="0.4"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">Wireshark</div>
+              <div class="tc-category">Packet Analysis</div>
+            </div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="95"></div></div>
+        </div>
+
+        <div class="tool-card glass compact" data-proficiency="86">
+          <div class="tc-header">
+            <div class="tc-icon vuln">
+              <svg viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M14 20h12M20 14v12" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="4" fill="currentColor" fill-opacity="0.15"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">Nessus Pro</div>
+              <div class="tc-category">Vulnerability Mgmt</div>
+            </div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="86"></div></div>
+        </div>
+
+        <div class="tool-card glass compact" data-proficiency="90">
+          <div class="tc-header">
+            <div class="tc-icon forensic">
+              <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 2"/><circle cx="20" cy="20" r="2" fill="currentColor" fill-opacity="0.5"/></svg>
+            </div>
+            <div>
+              <div class="tc-name">Volatility</div>
+              <div class="tc-category">Memory Forensics</div>
+            </div>
+          </div>
+          <div class="tc-bar"><div class="tc-fill" data-w="90"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       INCIDENTS — Incident.Reports()
+  ══════════════════════════════════════ -->
+  <section id="incidents" class="section-incidents">
+    <div class="coord-marker tl">X:04 Y:65</div>
+    <div class="coord-marker tr">X:FB Y:65</div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">// INCIDENT.REPORTS()</div>
+      <h2 class="section-heading">Case Files</h2>
+    </div>
+
+    <div class="incidents-layout">
+
+      <!-- Incident 01 — Featured -->
+      <div class="incident-card glass featured" data-id="IR-001">
+        <div class="ic-classification">CLASSIFICATION: CONFIDENTIAL</div>
+        <div class="ic-id">IR-001</div>
+        <h3 class="ic-title">Operation PHANTOM BEACON</h3>
+        <div class="ic-meta">
+          <span class="ic-tag">Ransomware</span>
+          <span class="ic-tag">Lateral Movement</span>
+          <span class="ic-tag">Data Exfil</span>
+        </div>
+
+        <!-- Detection → Analysis → Remediation flow -->
+        <div class="ic-flow">
+          <div class="icf-step detect">
+            <div class="icf-num">01</div>
+            <div class="icf-label">DETECT</div>
+            <div class="icf-detail">Anomalous LSASS memory reads flagged by CrowdStrike across 14 endpoints. Correlated with off-hours RDP sessions in Sentinel.</div>
+          </div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step analyse">
+            <div class="icf-num">02</div>
+            <div class="icf-label">ANALYSE</div>
+            <div class="icf-detail">Memory forensics via Volatility revealed injected shellcode. Traced C2 beaconing to Cobalt Strike via DNS over HTTPS tunnel.</div>
+          </div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step remediate">
+            <div class="icf-num">03</div>
+            <div class="icf-label">REMEDIATE</div>
+            <div class="icf-detail">Isolated 14 hosts via CrowdStrike RTR. Blocked 7 C2 IOCs at edge. Rebuilt from clean image. Full containment in 47 minutes.</div>
+          </div>
+        </div>
+
+        <div class="ic-footer">
+          <span class="ic-severity critical">P1 · CRITICAL</span>
+          <span class="ic-mttr">MTTR: 47 min</span>
+          <span class="ic-date">Q4 2023</span>
+        </div>
+        <div class="ic-hover-bar"></div>
+      </div>
+
+      <!-- Incident 02 -->
+      <div class="incident-card glass" data-id="IR-002">
+        <div class="ic-classification">CLASSIFICATION: INTERNAL</div>
+        <div class="ic-id">IR-002</div>
+        <h3 class="ic-title">Cloud IAM Privilege Escalation</h3>
+        <div class="ic-meta">
+          <span class="ic-tag">Azure AD</span>
+          <span class="ic-tag">Privilege Esc.</span>
+          <span class="ic-tag">Insider Threat</span>
+        </div>
+        <div class="ic-flow compact">
+          <div class="icf-step detect"><div class="icf-label">DETECT</div><div class="icf-detail">Sentinel KQL rule flagged a service principal assigned Owner role outside change window.</div></div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step analyse"><div class="icf-label">ANALYSE</div><div class="icf-detail">Audit logs showed lateral pivot from compromised dev account to production subscription.</div></div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step remediate"><div class="icf-label">REMEDIATE</div><div class="icf-detail">Revoked credentials, enforced PIM, deployed Conditional Access policies across all subs.</div></div>
+        </div>
+        <div class="ic-footer">
+          <span class="ic-severity high">P2 · HIGH</span>
+          <span class="ic-mttr">MTTR: 2.1 hrs</span>
+          <span class="ic-date">Q1 2024</span>
+        </div>
+        <div class="ic-hover-bar"></div>
+      </div>
+
+      <!-- Incident 03 -->
+      <div class="incident-card glass" data-id="IR-003">
+        <div class="ic-classification">CLASSIFICATION: INTERNAL</div>
+        <div class="ic-id">IR-003</div>
+        <h3 class="ic-title">Supply Chain Compromise — npm Package</h3>
+        <div class="ic-meta">
+          <span class="ic-tag">Supply Chain</span>
+          <span class="ic-tag">CI/CD</span>
+          <span class="ic-tag">Dependency</span>
+        </div>
+        <div class="ic-flow compact">
+          <div class="icf-step detect"><div class="icf-label">DETECT</div><div class="icf-detail">Splunk alert on outbound connection from build server to unknown IP post-npm install.</div></div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step analyse"><div class="icf-label">ANALYSE</div><div class="icf-detail">Typosquatted package contained obfuscated reverse shell. Identified 3 affected pipelines.</div></div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step remediate"><div class="icf-label">REMEDIATE</div><div class="icf-detail">Quarantined build agents, purged package cache, enforced SBOM policy and allowlisting.</div></div>
+        </div>
+        <div class="ic-footer">
+          <span class="ic-severity high">P2 · HIGH</span>
+          <span class="ic-mttr">MTTR: 3.8 hrs</span>
+          <span class="ic-date">Q2 2024</span>
+        </div>
+        <div class="ic-hover-bar"></div>
+      </div>
+
+      <!-- Incident 04 — Wide -->
+      <div class="incident-card glass wide" data-id="IR-004">
+        <div class="ic-classification">CLASSIFICATION: RESTRICTED</div>
+        <div class="ic-id">IR-004</div>
+        <h3 class="ic-title">BEC Campaign — CFO Impersonation Targeting Wire Transfer</h3>
+        <div class="ic-meta">
+          <span class="ic-tag">Business Email Compromise</span>
+          <span class="ic-tag">Phishing</span>
+          <span class="ic-tag">Financial Fraud</span>
+        </div>
+        <div class="ic-flow">
+          <div class="icf-step detect"><div class="icf-num">01</div><div class="icf-label">DETECT</div><div class="icf-detail">Defender for O365 flagged impossible travel: CFO account login from Lagos and Seattle within 4 minutes. Cross-correlated with unusual email forwarding rule creation.</div></div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step analyse"><div class="icf-num">02</div><div class="icf-label">ANALYSE</div><div class="icf-detail">Adversary-in-the-middle phishing kit captured session token, bypassing MFA. Email thread showed $2.4M wire transfer request staged for Monday morning.</div></div>
+          <div class="icf-arrow">→</div>
+          <div class="icf-step remediate"><div class="icf-num">03</div><div class="icf-label">REMEDIATE</div><div class="icf-detail">Terminated active sessions, reset credentials, notified finance 11 hours before wire was scheduled. $2.4M loss prevented. Published internal advisory on AiTM patterns.</div></div>
+        </div>
+        <div class="ic-footer">
+          <span class="ic-severity critical">P1 · CRITICAL</span>
+          <span class="ic-mttr">MTTR: 11 hrs · $2.4M PREVENTED</span>
+          <span class="ic-date">Q3 2023</span>
+        </div>
+        <div class="ic-hover-bar"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CERTS — Credential.Vault()
+  ══════════════════════════════════════ -->
+  <section id="certs" class="section-certs">
+    <div class="coord-marker tl">X:05 Y:80</div>
+    <div class="section-header">
+      <div class="section-eyebrow">// CREDENTIAL.VAULT()</div>
+      <h2 class="section-heading">Certifications</h2>
+    </div>
+
+    <div class="certs-grid">
+      <div class="cert-card glass featured-cert">
+        <div class="cc-body">
+          <div class="cc-year">2022</div>
+          <div class="cc-badge">
+            <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="26" stroke="currentColor" stroke-width="1.2"/><circle cx="30" cy="30" r="18" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3"/><path d="M22 30l6 6 10-12" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="cc-name">GCIH</h3>
+          <div class="cc-full">GIAC Certified Incident Handler</div>
+          <div class="cc-issuer">GIAC / SANS Institute</div>
+          <div class="cc-desc">Advanced incident handling and response. IR lifecycle, threat intelligence integration, and containment methodology.</div>
+          <div class="cc-status active">● ACTIVE</div>
+        </div>
+      </div>
+
+      <div class="cert-card glass">
+        <div class="cc-body">
+          <div class="cc-year">2021</div>
+          <div class="cc-badge small">
+            <svg viewBox="0 0 60 60" fill="none"><rect x="10" y="10" width="40" height="40" rx="4" stroke="currentColor" stroke-width="1.2"/><path d="M20 30l8 8 12-16" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="cc-name">BTL1</h3>
+          <div class="cc-full">Blue Team Level 1</div>
+          <div class="cc-issuer">Security Blue Team</div>
+          <div class="cc-desc">SOC fundamentals, log analysis, SIEM operations, phishing analysis, and threat intel.</div>
+          <div class="cc-status active">● ACTIVE</div>
+        </div>
+      </div>
+
+      <div class="cert-card glass">
+        <div class="cc-body">
+          <div class="cc-year">2023</div>
+          <div class="cc-badge small">
+            <svg viewBox="0 0 60 60" fill="none"><path d="M30 8L10 20v20l20 12 20-12V20L30 8Z" stroke="currentColor" stroke-width="1.2" fill="currentColor" fill-opacity="0.07"/><path d="M22 30l6 6 10-12" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="cc-name">CISSP</h3>
+          <div class="cc-full">Certified Information Systems Security Professional</div>
+          <div class="cc-issuer">(ISC)²</div>
+          <div class="cc-desc">Enterprise security architecture, risk management, and security governance across 8 domains.</div>
+          <div class="cc-status active">● ACTIVE</div>
+        </div>
+      </div>
+
+      <div class="cert-card glass">
+        <div class="cc-body">
+          <div class="cc-year">2020</div>
+          <div class="cc-badge small">
+            <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="22" stroke="currentColor" stroke-width="1.2"/><path d="M20 30h20M30 20v20" stroke="currentColor" stroke-width="1.2"/><circle cx="30" cy="30" r="6" fill="currentColor" fill-opacity="0.15"/></svg>
+          </div>
+          <h3 class="cc-name">SC-200</h3>
+          <div class="cc-full">Microsoft Security Operations Analyst</div>
+          <div class="cc-issuer">Microsoft Certified</div>
+          <div class="cc-desc">Azure Sentinel, Defender suite, KQL analytics, and Microsoft 365 security operations.</div>
+          <div class="cc-status active">● ACTIVE</div>
+        </div>
+      </div>
+
+      <div class="cert-card glass">
+        <div class="cc-body">
+          <div class="cc-year">2019</div>
+          <div class="cc-badge small">
+            <svg viewBox="0 0 60 60" fill="none"><rect x="8" y="16" width="44" height="28" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M8 24h44" stroke="currentColor" stroke-width="0.8"/><circle cx="46" cy="38" r="4" stroke="currentColor" stroke-width="1"/></svg>
+          </div>
+          <h3 class="cc-name">CEH</h3>
+          <div class="cc-full">Certified Ethical Hacker</div>
+          <div class="cc-issuer">EC-Council</div>
+          <div class="cc-desc">Offensive methodology knowledge for defensive application. Attack vector comprehension and countermeasure design.</div>
+          <div class="cc-status active">● ACTIVE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT — Connect()
+  ══════════════════════════════════════ -->
+  <section id="contact" class="section-contact">
+    <div class="coord-marker tl">X:06 Y:92</div>
+
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-eyebrow">// CONNECT()</div>
+        <h2 class="section-heading">Initialize<br/>Contact</h2>
+        <p class="contact-intro">Available for SOC architecture consulting, incident response retainers, and threat hunting engagements. Response within 24 hours — secure channels preferred.</p>
+
+        <div class="contact-channels">
+          <div class="ch-item glass">
+            <div class="ch-proto">EMAIL</div>
+            <div class="ch-val">elena@guardian-sec.io</div>
+          </div>
+          <div class="ch-item glass">
+            <div class="ch-proto">LINKEDIN</div>
+            <div class="ch-val">/in/elena-vasquez-sec</div>
+          </div>
+          <div class="ch-item glass">
+            <div class="ch-proto">SIGNAL</div>
+            <div class="ch-val">+1 (512) XXX-XXXX</div>
+          </div>
+        </div>
+
+        <div class="contact-availability glass">
+          <div class="ca-indicator"></div>
+          <div class="ca-text">
+            <div class="cat-status">AVAILABLE FOR ENGAGEMENTS</div>
+            <div class="cat-sub">Q1 2025 · Limited Capacity</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <div class="contact-form-panel glass">
+          <div class="cfp-header">
+            <span class="cfp-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></span>
+            <span class="cfp-title">secure-transmission://guardian-sec.io</span>
+          </div>
+          <form id="contact-form" novalidate>
+            <div class="cf-row">
+              <div class="cf-field">
+                <label class="cf-label">YOUR NAME <span class="req">*</span></label>
+                <input type="text" id="cf-name" class="cf-input" placeholder="Full Name" required />
+              </div>
+              <div class="cf-field">
+                <label class="cf-label">ORGANIZATION</label>
+                <input type="text" id="cf-org" class="cf-input" placeholder="Company / Agency" />
+              </div>
+            </div>
+            <div class="cf-row">
+              <div class="cf-field">
+                <label class="cf-label">EMAIL <span class="req">*</span></label>
+                <input type="email" id="cf-email" class="cf-input" placeholder="secure@domain.com" required />
+              </div>
+              <div class="cf-field">
+                <label class="cf-label">ENGAGEMENT TYPE</label>
+                <select id="cf-type" class="cf-input cf-select">
+                  <option value="">Select type...</option>
+                  <option>Incident Response Retainer</option>
+                  <option>SOC Architecture Review</option>
+                  <option>Threat Hunting</option>
+                  <option>DFIR Consulting</option>
+                  <option>Purple Team Exercise</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="cf-field full">
+              <label class="cf-label">MESSAGE <span class="req">*</span></label>
+              <textarea id="cf-msg" class="cf-input cf-textarea" placeholder="Describe your requirements, scope, and timeline..." required></textarea>
+            </div>
+            <div class="cf-footer">
+              <div class="cf-secure"><span class="cfs-dot"></span> TLS 1.3 · ENCRYPTED</div>
+              <button type="submit" class="cf-submit">
+                <span>SEND TRANSMISSION</span>
+                <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+          </form>
+          <div id="form-sent" class="form-sent hidden">
+            <div class="fs-check">✓</div>
+            <div class="fs-title">TRANSMISSION RECEIVED</div>
+            <div class="fs-body">Encrypted message delivered. Response within 24 hours via secure channel.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer id="footer" class="site-footer">
+    <div class="footer-grid">
+      <div class="fg-brand">
+        <div class="fg-logo">[GUARDIAN]</div>
+        <p class="fg-tagline">Defending the perimeter. Every packet. Every day.</p>
+        <div class="fg-links">
+          <a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">Twitter</a><a href="#">Keybase</a>
+        </div>
+      </div>
+      <div class="fg-status glass">
+        <div class="fgs-label">SYSTEM STATUS</div>
+        <div class="fgs-item"><span class="fgs-dot green"></span><span>SOC Dashboard — ONLINE</span></div>
+        <div class="fgs-item"><span class="fgs-dot green"></span><span>TLS Cert — VALID</span></div>
+        <div class="fgs-item"><span class="fgs-dot amber-dot"></span><span>Availability — LIMITED</span></div>
+        <div class="fgs-item"><span class="fgs-dot green"></span><span>Last Audit — <span id="footer-time">...</span></span></div>
+      </div>
+      <div class="fg-nav">
+        <div class="fgn-label">NAVIGATION</div>
+        <a href="#hero">System.Status()</a>
+        <a href="#about">Operator.Profile()</a>
+        <a href="#tools">Asset.Inventory()</a>
+        <a href="#incidents">Incident.Reports()</a>
+        <a href="#certs">Credential.Vault()</a>
+        <a href="#contact">Connect()</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ELENA VASQUEZ · ALL RIGHTS RESERVED</span>
+      <span>BUILD: G-07 · v1.0.0 · SIGNED</span>
+      <span>GUARDIAN PORTFOLIO SYSTEM</span>
+    </div>
+  </footer>
+
+  <!-- Scripts at bottom for reliable loading -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="guardian_script.js"></script>
+</body>
+</html>
