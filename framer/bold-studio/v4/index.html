@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BOLD — Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Anton+SC:wght@400&family=Clash+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- GRAIN -->
+  <canvas id="grain" aria-hidden="true"></canvas>
+
+  <!-- ═══════════════════════════════════
+       NAV — Fixed topbar
+  ════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo">BOLD</a>
+    <div class="nav__center">
+      <span class="nav__clock-icon">◎</span>
+      <span class="nav__clock" id="navClock">00:00:00 AM</span>
+    </div>
+    <div class="nav__right">
+      <div class="theme-btn" id="themeBtn" role="button" tabindex="0" aria-label="Toggle theme">
+        <span class="theme-btn__track"><span class="theme-btn__thumb"></span></span>
+      </div>
+      <button class="nav__menu-btn" id="menuBtn" aria-label="Menu">MENU</button>
+    </div>
+  </nav>
+
+  <!-- Full-screen menu overlay -->
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-overlay__inner">
+      <button class="menu-overlay__close" id="menuClose" aria-label="Close">✕</button>
+      <nav class="menu-overlay__nav">
+        <a href="#hero"       class="mo-link">Home</a>
+        <a href="#about-sec"  class="mo-link">About</a>
+        <a href="#projects"   class="mo-link">Work</a>
+        <a href="#contact"    class="mo-link">Contact</a>
+      </nav>
+      <div class="menu-overlay__foot">
+        <a href="mailto:hello@bold.studio">hello@bold.studio</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <div class="hero__img-col">
+        <div class="hero__img-wrap">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=900&fit=crop" alt="Hero"/>
+        </div>
+      </div>
+      <div class="hero__text-col">
+        <div class="hero__badge">
+          <span>✕</span>
+          <span>TRANSFORMING IDEAS INTO ICONIC BRANDS</span>
+        </div>
+        <h1 class="hero__headline">
+          <span class="hero__hl-word">NARRATIVE</span>
+          <span class="hero__hl-word">MEETS</span>
+          <span class="hero__hl-word">DESIGN</span>
+        </h1>
+        <p class="hero__sub">Designing stories that matter</p>
+        <div class="hero__secondary">
+          <div class="hero__rating">★★★★★</div>
+          <span class="hero__meta">Made in Framer</span>
+        </div>
+        <div class="hero__cta">
+          <a href="#projects" class="btn-primary">Get it for FREE <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SECTION DIVIDER + ABOUT
+  ════════════════════════════════════════ -->
+  <section class="divider-section" id="about-sec">
+    <div class="divider">
+      <span class="divider__num">[01]</span>
+      <span class="divider__line"></span>
+      <span class="divider__label">BUILT ON VISION</span>
+    </div>
+
+    <div class="about-hero">
+      <h2 class="about-hero__title">
+        <span class="about-word about-word--l" id="splitL">ABOUT</span>
+        <span class="about-word about-word--r" id="splitR">BOLD</span>
+      </h2>
+      <div class="about-portrait" id="splitPortrait">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=700&fit=crop" alt="About"/>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <p class="about-content__text">We are a creative studio devoted to crafting extraordinary brand experiences. Our work spans identity design, digital strategy, and motion craft—blending storytelling with cutting-edge design to create brands that resonate.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       PROJECTS SECTION
+  ════════════════════════════════════════ -->
+  <section class="projects-section" id="projects">
+    <div class="divider">
+      <span class="divider__num">[03]</span>
+      <span class="divider__line"></span>
+      <span class="divider__label">STORIES WE'VE TOLD</span>
+    </div>
+
+    <div class="projects-hero">
+      <h2 class="projects-hero__title">
+        <span class="proj-word proj-word--l" id="projSplitL">OUR</span>
+        <span class="proj-word proj-word--r" id="projSplitR">WORK</span>
+      </h2>
+      <div class="projects-portrait" id="projSplitImg">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=700&fit=crop" alt="Projects"/>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-card__img">
+          <img src="https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=800&h=600&fit=crop" alt="Synthesis Technologies"/>
+        </div>
+        <div class="project-card__info">
+          <h3>SYNTHESIS TECHNOLOGIES</h3>
+          <p>YEAR: <strong>2025</strong></p>
+          <p>CATEGORY: <strong>Brand Identity</strong></p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card__img">
+          <img src="https://images.unsplash.com/photo-1565183897294-e5c52f91b300?w=800&h=600&fit=crop" alt="Urbannest Interiors"/>
+        </div>
+        <div class="project-card__info">
+          <h3>URBANNEST INTERIORS</h3>
+          <p>YEAR: <strong>2025</strong></p>
+          <p>CATEGORY: <strong>Interior Design</strong></p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card__img">
+          <img src="https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop" alt="Design Studio"/>
+        </div>
+        <div class="project-card__info">
+          <h3>CREATIVE COLLECTIVE</h3>
+          <p>YEAR: <strong>2024</strong></p>
+          <p>CATEGORY: <strong>Digital Strategy</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CONTACT / FOOTER
+  ════════════════════════════════════════ -->
+  <footer class="footer" id="contact">
+    <div class="footer__grid">
+      <!-- Pages -->
+      <div class="footer__panel footer__panel--bordered">
+        <h3 class="footer__h">PAGES LINK</h3>
+        <div class="footer__links">
+          <a href="#hero">Home</a>
+          <a href="#about-sec">About</a>
+          <a href="#projects">Work</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__links" style="margin-top:24px;">
+          <a href="#">404</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Blog</a>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="footer__panel footer__panel--bordered footer__panel--right">
+        <h3 class="footer__h">STAY IN THE LOOP</h3>
+        <form class="footer__newsletter">
+          <input type="email" placeholder="Enter your email" required/>
+          <button type="submit" aria-label="Subscribe">→</button>
+        </form>
+        <h3 class="footer__h" style="margin-top:32px;">JOIN COMMUNITY</h3>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="X">𝕏</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <!-- Logo -->
+      <div class="footer__panel footer__panel--bordered">
+        <div class="footer__logo">B◎LD</div>
+        <p class="footer__tagline">✕ Designing with clarity, culture, and craft — blending strategy with creativity for lasting impact</p>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer__panel footer__panel--bordered">
+        <h3 class="footer__h">CONTACT INFO</h3>
+        <p>+1 (213) 555-0198</p>
+        <p><a href="mailto:example@gmail.com">example@gmail.com</a></p>
+        <p>123 Mercer St. New York</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

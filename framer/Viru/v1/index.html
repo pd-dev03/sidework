@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duncan Robert — Digital Designer</title>
+
+  <!-- Google Fonts: Antonio + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ GRAIN OVERLAY ░░ -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ░░ STICKY AVAILABLE BADGE ░░ -->
+  <div class="sticky-badge" id="stickyBadge">
+    <div class="sticky-badge__avatar">
+      <img src="https://framerusercontent.com/images/IUYreEo8ON7qCLgK2tgDOW0xoI.jpg" alt="Duncan Robert" />
+    </div>
+    <span class="sticky-badge__text">Available for work</span>
+    <span class="sticky-badge__dot"></span>
+  </div>
+
+  <!-- ░░ NAVIGATION ░░ -->
+  <nav class="nav" id="navbar">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <img src="https://framerusercontent.com/images/IUYreEo8ON7qCLgK2tgDOW0xoI.jpg" alt="Duncan Robert" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="#" class="nav__link active">Home</a></li>
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#projects" class="nav__link">Projects</a></li>
+        <li><a href="#blog" class="nav__link">Blogs</a></li>
+      </ul>
+      <a href="#contact" class="nav__cta">Contact</a>
+      <!-- Mobile hamburger -->
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div class="nav__mobile" id="mobileMenu">
+      <ul>
+        <li><a href="#" class="nav__link">Home</a></li>
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#projects" class="nav__link">Projects</a></li>
+        <li><a href="#blog" class="nav__link">Blogs</a></li>
+        <li><a href="#contact" class="nav__cta nav__cta--mobile">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO + SERVICES (GSAP SCROLL CONTAINER) ░░ -->
+  <section class="scroll-scene" id="scrollScene">
+    <!-- The travelling image card -->
+    <div class="card-traveller" id="cardTraveller">
+      <div class="portrait-card" id="portraitCard">
+        <img
+          src="https://framerusercontent.com/images/VRQgkdWsjawSg1qpCm45HfSY1I.jpeg"
+          alt="Duncan Robert back view"
+          class="portrait-card__img portrait-card__img--back"
+        />
+        <img
+          src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg"
+          alt="Duncan Robert front view"
+          class="portrait-card__img portrait-card__img--front"
+          id="portraitFront"
+        />
+        <div class="portrait-card__hi">Hi</div>
+      </div>
+    </div>
+
+    <!-- HERO PANEL -->
+    <div class="panel panel--hero" id="heroPanel">
+      <div class="hero__text-left">
+        <p class="hero__name">Duncan Robert</p>
+        <h1 class="hero__word hero__word--digital">DIGITAL</h1>
+      </div>
+      <!-- image slot (card sits here in hero state) -->
+      <div class="hero__image-slot" id="heroSlot"></div>
+      <div class="hero__text-right">
+        <h1 class="hero__word hero__word--designer">DESIGNER</h1>
+        <p class="hero__tagline">I'm a US-based digital designer and<br/>Framer developer</p>
+      </div>
+      <!-- bottom toggle pill -->
+      <div class="hero__toggle-pill">
+        <span class="hero__toggle-track">
+          <span class="hero__toggle-thumb"></span>
+        </span>
+      </div>
+      <!-- floating accent dots -->
+      <span class="accent-dot accent-dot--1" aria-hidden="true"></span>
+    </div>
+
+    <!-- SERVICES PANEL -->
+    <div class="panel panel--services" id="servicesPanel">
+      <div class="services__content">
+        <div class="services__left">
+          <h2 class="services__heading">WHAT I CAN<br/>DO FOR YOU</h2>
+          <p class="services__sub">As a digital designer, I am a visual storyteller, crafting experiences that connect deeply and spark creativity.</p>
+
+          <div class="accordion" id="accordion">
+            <div class="accordion__item accordion__item--open">
+              <button class="accordion__trigger">
+                <span class="accordion__num">1.</span>
+                <span class="accordion__title">UI/UX DESIGN</span>
+                <svg class="accordion__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <div class="accordion__body">
+                <ul>
+                  <li>Wireframing and prototyping</li>
+                  <li>User Interface design for web and mobile apps</li>
+                  <li>Usability testing and user feedback analysis</li>
+                  <li>Interaction design and micro-animations</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__trigger">
+                <span class="accordion__num">2.</span>
+                <span class="accordion__title">GRAPHIC DESIGN</span>
+                <svg class="accordion__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <div class="accordion__body">
+                <ul>
+                  <li>Logo and brand identity design</li>
+                  <li>Social media graphics and ad creatives</li>
+                  <li>Infographics and data visualization</li>
+                  <li>Custom illustrations and icons</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__trigger">
+                <span class="accordion__num">3.</span>
+                <span class="accordion__title">WEB DESIGN</span>
+                <svg class="accordion__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <div class="accordion__body">
+                <ul>
+                  <li>Responsive website design</li>
+                  <li>Landing page design and optimization</li>
+                  <li>Webflow development and customization</li>
+                  <li>Website maintenance and updates</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__trigger">
+                <span class="accordion__num">4.</span>
+                <span class="accordion__title">BRANDING</span>
+                <svg class="accordion__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <div class="accordion__body">
+                <ul>
+                  <li>Brand strategy and identity development</li>
+                  <li>Visual style guide creation</li>
+                  <li>Typography and color scheme selection</li>
+                  <li>Brand storytelling and messaging</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- right: workspace image -->
+        <div class="services__image-slot" id="servicesSlot">
+          <div class="services__workspace">
+            <img
+              src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&auto=format&fit=crop"
+              alt="Design workspace"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ ABOUT ME ░░ -->
+  <section class="about section-reveal" id="about">
+    <div class="about__inner">
+      <div class="about__left">
+        <h2 class="section-heading">ABOUT ME</h2>
+        <p class="about__bio">Hi, I'm Duncan — a digital designer and Framer developer passionate about crafting meaningful and impactful digital experiences.</p>
+
+        <div class="about__stats">
+          <div class="about__stat">
+            <span class="about__stat-num" data-target="12">0</span>
+            <span class="about__stat-label">Years of Experience</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num" data-target="270">0</span>
+            <span class="about__stat-label">Completed Projects</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num" data-target="50" data-suffix="+">0</span>
+            <span class="about__stat-label">Clients on Worldwide</span>
+          </div>
+        </div>
+
+        <div class="about__contact">
+          <div class="about__contact-item">
+            <span class="about__contact-label">Call Today :</span>
+            <a href="tel:+15551234567">+1 (555) 123-4567</a>
+          </div>
+          <div class="about__contact-item">
+            <span class="about__contact-label">Email :</span>
+            <a href="mailto:designer@example.com">designer@example.com</a>
+          </div>
+        </div>
+
+        <div class="about__socials">
+          <!-- X / Twitter -->
+          <a href="#" class="about__social" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#" class="about__social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <!-- Behance -->
+          <a href="#" class="about__social" aria-label="Behance">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.799 5.698C8.93 5.698 9.95 5.841 10.87 6.127C11.79 6.414 12.53 6.829 13.08 7.374C13.63 7.918 13.9 8.638 13.9 9.532C13.9 10.312 13.69 10.942 13.27 11.422C12.85 11.902 12.31 12.261 11.66 12.5C12.53 12.733 13.2 13.165 13.68 13.797C14.16 14.429 14.4 15.189 14.4 16.079C14.4 17.029 14.13 17.812 13.59 18.428C13.05 19.044 12.34 19.502 11.47 19.803C10.6 20.103 9.66 20.253 8.65 20.253H2V5.698H7.799ZM7.5 11.498C8.13 11.498 8.64 11.338 9.03 11.018C9.42 10.698 9.62 10.258 9.62 9.698C9.62 9.118 9.43 8.682 9.04 8.392C8.65 8.102 8.14 7.958 7.5 7.958H5.3V11.498H7.5ZM7.7 17.988C8.38 17.988 8.93 17.818 9.35 17.478C9.77 17.138 9.98 16.638 9.98 15.978C9.98 15.278 9.76 14.758 9.32 14.418C8.88 14.078 8.32 13.908 7.63 13.908H5.3V17.988H7.7ZM18.7 7.458H22.5V8.658H18.7V7.458ZM20.65 11.988C21.31 11.988 21.84 11.808 22.24 11.448C22.64 11.088 22.84 10.578 22.84 9.918H16.34C16.34 10.648 16.55 11.198 16.97 11.568C17.39 11.938 17.95 12.123 18.65 12.123L20.65 11.988ZM18.7 19.693C17.66 19.693 16.76 19.463 16.01 19.003C15.26 18.543 14.68 17.903 14.27 17.083C13.86 16.263 13.66 15.333 13.66 14.293C13.66 13.233 13.86 12.293 14.27 11.473C14.68 10.653 15.26 10.013 16.01 9.553C16.76 9.093 17.66 8.863 18.7 8.863C19.76 8.863 20.67 9.093 21.43 9.553C22.19 10.013 22.77 10.653 23.17 11.473C23.57 12.293 23.77 13.233 23.77 14.293V14.968H16.38C16.46 15.688 16.73 16.248 17.19 16.648C17.65 17.048 18.23 17.248 18.93 17.248C19.46 17.248 19.91 17.138 20.29 16.918C20.67 16.698 20.95 16.388 21.14 15.988H23.66C23.37 17.008 22.78 17.818 21.89 18.418C21 19.018 19.94 19.318 18.7 19.318V19.693Z"/></svg>
+          </a>
+          <!-- Dribbble -->
+          <a href="#" class="about__social" aria-label="Dribbble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </a>
+        </div>
+
+        <a href="#about" class="btn-outline">MY STORY</a>
+      </div>
+
+      <div class="about__right">
+        <div class="about__portrait-wrap">
+          <img
+            src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg"
+            alt="Duncan Robert"
+            class="about__portrait"
+          />
+          <div class="about__hi-badge">Hi</div>
+          <span class="accent-dot accent-dot--about" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURED PROJECTS ░░ -->
+  <section class="projects section-reveal" id="projects">
+    <div class="projects__inner">
+      <div class="projects__header">
+        <h2 class="section-heading">FEATURED PROJECTS</h2>
+        <p class="projects__sub">These selected projects reflect my passion for blending strategy with creativity — solving real problems through thoughtful design and impactful storytelling.</p>
+      </div>
+
+      <div class="projects__grid">
+
+        <article class="project-card project-card--large">
+          <a href="#" class="project-card__link">
+            <div class="project-card__img-wrap">
+              <img src="https://framerusercontent.com/images/w08JBQPFYIq2vr4OfcD9W6vxEug.jpeg" alt="Summer Vibes Festival Campaign" />
+              <div class="project-card__arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </div>
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__category">Graphic Design</span>
+              <h3 class="project-card__title">Summer Vibes Festival Campaign</h3>
+              <p class="project-card__desc">Created promotional materials for the "Summer Vibes Festival," including posters, flyers, and social media graphics.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <a href="#" class="project-card__link">
+            <div class="project-card__img-wrap">
+              <img src="https://framerusercontent.com/images/qbjsnnvP9w7UaA2syp36oUe8OSo.jpg" alt="Coral Spiral Abstract" />
+              <div class="project-card__arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </div>
+              <span class="project-card__category-tag">Branding</span>
+            </div>
+            <h3 class="project-card__title">Coral Spiral Abstract</h3>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <a href="#" class="project-card__link">
+            <div class="project-card__img-wrap">
+              <img src="https://framerusercontent.com/images/nTU7b0ZAdWdlqCI4mQ4tGTPpDs.jpeg" alt="ShopEase Redesign Sprint" />
+              <div class="project-card__arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </div>
+              <span class="project-card__category-tag">UI / UX Design</span>
+            </div>
+            <h3 class="project-card__title">ShopEase Redesign Sprint</h3>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <a href="#" class="project-card__link">
+            <div class="project-card__img-wrap">
+              <img src="https://framerusercontent.com/images/2nWXrWvPxxMHSpsOkNYf8KjzP7Q.jpeg" alt="Black Geometric Prisms" />
+              <div class="project-card__arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </div>
+              <span class="project-card__category-tag">Branding</span>
+            </div>
+            <h3 class="project-card__title">Black Geometric Prisms</h3>
+          </a>
+        </article>
+
+      </div>
+
+      <div class="projects__cta">
+        <a href="#" class="btn-outline">BROWSE ALL PROJECTS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ TESTIMONIALS ░░ -->
+  <section class="testimonials section-reveal" id="testimonials">
+    <div class="testimonials__inner">
+      <div class="testimonials__header">
+        <h2 class="section-heading">WHAT MY CLIENTS SAY</h2>
+        <p class="testimonials__sub">Here's what my clients have shared about their experiences working with me.</p>
+      </div>
+
+      <div class="testimonials__grid">
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">Duncan truly understood my vision and turned it into impactful designs. The results went beyond my expectations!</p>
+          <div class="testimonial-card__author">
+            <img src="https://framerusercontent.com/images/xPotMb4VrNT5rTGtXQvpYqXunU.jpg" alt="John Harris" />
+            <div>
+              <strong>John Harris</strong>
+              <span>Marketing Director</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">He took the time to understand our goals and delivered a design that resonated perfectly with our audience.</p>
+          <div class="testimonial-card__author">
+            <img src="https://framerusercontent.com/images/hleE21gbHw2Y29KULoer3tF8.jpg" alt="Michael Lee" />
+            <div>
+              <strong>Michael Lee</strong>
+              <span>Product Manager</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonials__stats-col">
+          <div class="testimonials__stat">
+            <p class="testimonials__stat-text">I've worked with <strong>50+ happy clients</strong></p>
+            <div class="testimonials__stat-num">
+              <span data-target="98" data-suffix="%">0%</span>
+              <small>Satisfaction Rate</small>
+            </div>
+          </div>
+          <div class="testimonials__stat">
+            <p class="testimonials__stat-text">My work helped clients grow their revenue by <strong>200%</strong></p>
+            <div class="testimonials__stat-num">
+              <span data-target="200" data-suffix="%">0%</span>
+              <small>Growth</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">His design skills are unmatched. He transformed my ideas into a high-performing, visually striking website.</p>
+          <div class="testimonial-card__author">
+            <img src="https://framerusercontent.com/images/RTNUbNmEH3Lg1VzA3NOYHdp3bHQ.jpg" alt="Sarah Johnson" />
+            <div>
+              <strong>Sarah Johnson</strong>
+              <span>CEO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">As a small business owner, I appreciated how stress-free Duncan made the entire process.</p>
+          <div class="testimonial-card__author">
+            <img src="https://framerusercontent.com/images/ZbUvwGb7xhhwmovo3t9YO4bAIGs.jpg" alt="Laura Bennett" />
+            <div>
+              <strong>Laura Bennett</strong>
+              <span>Small Business Owner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FAQ ░░ -->
+  <section class="faq section-reveal" id="faq">
+    <div class="faq__inner">
+      <h2 class="section-heading">FREQUENTLY ASKED QUESTIONS</h2>
+      <p class="faq__sub">Here are answers to some of the most common questions I receive as a freelance designer.</p>
+
+      <div class="faq__list" id="faqList">
+        <div class="faq__item">
+          <button class="faq__trigger">
+            <span class="faq__num">1.</span>
+            <span>What services do you offer?</span>
+            <svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <div class="faq__body">
+            <p>I offer UI/UX Design, Graphic Design, Web Design, and Branding services. Whether you need a full brand identity or just a landing page, I can help you craft compelling digital experiences.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__trigger">
+            <span class="faq__num">2.</span>
+            <span>How does the design process work?</span>
+            <svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <div class="faq__body">
+            <p>We begin with a discovery call to understand your goals. Then I move through research, wireframes, design mockups, and final delivery — keeping you in the loop at every stage.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__trigger">
+            <span class="faq__num">3.</span>
+            <span>How long does a project usually take?</span>
+            <svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <div class="faq__body">
+            <p>Project timelines vary depending on scope. A simple landing page can take 1–2 weeks, while a full brand identity or app design can take 4–8 weeks.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__trigger">
+            <span class="faq__num">4.</span>
+            <span>What do I need to provide before starting a project?</span>
+            <svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <div class="faq__body">
+            <p>A brief outlining your goals, target audience, and any existing brand assets. The more context you provide, the better I can tailor the design to your needs.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__trigger">
+            <span class="faq__num">5.</span>
+            <span>Do you offer revisions?</span>
+            <svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <div class="faq__body">
+            <p>Yes! Every project includes two rounds of revisions. Additional revisions can be arranged at an hourly rate.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__trigger">
+            <span class="faq__num">6.</span>
+            <span>How do I get started?</span>
+            <svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <div class="faq__body">
+            <p>Simply reach out via the contact form below or send me an email. I'll get back to you within 24 hours to schedule an intro call.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ BLOG ░░ -->
+  <section class="blog section-reveal" id="blog">
+    <div class="blog__inner">
+      <div class="blog__header">
+        <h2 class="section-heading">DESIGN INSIGHTS &amp; IDEAS</h2>
+        <p class="blog__sub">From design trends to creative processes, these articles offer insights to help you elevate your craft.</p>
+      </div>
+
+      <div class="blog__grid">
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <div class="blog-card__img-wrap">
+              <img src="https://framerusercontent.com/images/1wFj19qQG6zNr7gj3iTlH0Gdlu8.jpeg" alt="5 Design Trends" />
+            </div>
+            <div class="blog-card__info">
+              <div class="blog-card__meta">
+                <span class="blog-card__tag">Insights</span>
+                <span class="blog-card__date">Apr 30, 2025</span>
+              </div>
+              <h3 class="blog-card__title">5 Design Trends That Will Define 2024</h3>
+              <p>Explore the top design trends for 2024 that will influence web, UI/UX, and branding projects.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <div class="blog-card__img-wrap">
+              <img src="https://framerusercontent.com/images/xmKml0E7v2iBI4zbbj0yVccaQwg.jpeg" alt="Streamline Design Workflow" />
+            </div>
+            <div class="blog-card__info">
+              <div class="blog-card__meta">
+                <span class="blog-card__tag">Tutorials</span>
+                <span class="blog-card__date">Apr 27, 2025</span>
+              </div>
+              <h3 class="blog-card__title">How to Streamline Your Design Workflow</h3>
+              <p>Discover practical strategies to improve your design process, save time, and deliver quality work.</p>
+            </div>
+          </a>
+        </article>
+      </div>
+
+      <div class="blog__cta">
+        <a href="#" class="btn-outline">BROWSE ALL INSIGHTS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CONTACT ░░ -->
+  <section class="contact section-reveal" id="contact">
+    <div class="contact__inner">
+      <div class="contact__left">
+        <div class="contact__portrait-wrap">
+          <img
+            src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg"
+            alt="Duncan Robert"
+            class="contact__portrait"
+          />
+          <div class="contact__hi-badge">Hi</div>
+        </div>
+        <h2 class="contact__heading">LET'S WORK<br/>TOGETHER</h2>
+        <p class="contact__sub">Let's build something impactful together — whether it's your brand, your website, or your next big idea.</p>
+        <div class="contact__info">
+          <p>Email : <a href="mailto:designer@example.com">designer@example.com</a></p>
+          <p>Call Today : <a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+        </div>
+      </div>
+
+      <div class="contact__right">
+        <div class="contact__form-wrap">
+          <div class="contact__field">
+            <input type="text" placeholder="Name" class="contact__input" />
+          </div>
+          <div class="contact__field">
+            <input type="email" placeholder="Email" class="contact__input" />
+          </div>
+          <div class="contact__field">
+            <select class="contact__input contact__select">
+              <option value="" disabled selected>Service Needed?</option>
+              <option>Branding</option>
+              <option>Web Design</option>
+              <option>UI / UX</option>
+              <option>Graphic Design</option>
+            </select>
+          </div>
+          <div class="contact__field">
+            <textarea class="contact__input contact__textarea" placeholder="What Can I Help You..."></textarea>
+          </div>
+          <button class="contact__submit">SUBMIT</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__copy">© Copyright 2025. All Rights Reserved by Duncan Robert</p>
+      <div class="footer__socials">
+        <a href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Behance">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.799 5.698C8.93 5.698 9.95 5.841 10.87 6.127C11.79 6.414 12.53 6.829 13.08 7.374C13.63 7.918 13.9 8.638 13.9 9.532C13.9 10.312 13.69 10.942 13.27 11.422C12.85 11.902 12.31 12.261 11.66 12.5C12.53 12.733 13.2 13.165 13.68 13.797C14.16 14.429 14.4 15.189 14.4 16.079C14.4 17.029 14.13 17.812 13.59 18.428C13.05 19.044 12.34 19.502 11.47 19.803C10.6 20.103 9.66 20.253 8.65 20.253H2V5.698H7.799Z"/></svg>
+        </a>
+        <a href="#" aria-label="Dribbble">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

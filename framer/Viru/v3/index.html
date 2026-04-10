@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duncan Robert — Digital Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ CANVAS GRAIN ░░ -->
+  <canvas id="grainCanvas" aria-hidden="true"></canvas>
+
+  <!-- ░░ PORTRAIT CARD — Fixed, GSAP controlled (desktop) ░░ -->
+  <div class="portrait-card-fixed" id="portraitCard">
+    <img src="https://framerusercontent.com/images/VRQgkdWsjawSg1qpCm45HfSY1I.jpeg" alt="" class="pc-img pc-back" />
+    <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg"   alt="" class="pc-img pc-front" />
+    <div class="pc-hand-badge">
+      <span class="pc-hand-wave" aria-label="Waving hand">✋</span>
+    </div>
+  </div>
+
+  <!-- ░░ NAVIGATION ░░ -->
+  <nav class="nav" id="navbar">
+    <div class="nav__pill" id="navPill">
+      <div class="nav__default" id="navDefault">
+        <a href="#" class="nav__avatar"><img src="https://framerusercontent.com/images/IUYreEo8ON7qCLgK2tgDOW0xoI.jpg" alt="Duncan" /></a>
+        <ul class="nav__links">
+          <li><a href="#hero"       class="nav__link active">Home</a></li>
+          <li><a href="#about"      class="nav__link">About</a></li>
+          <li><a href="#projects"   class="nav__link">Projects</a></li>
+          <li><a href="#skills"     class="nav__link">Skills</a></li>
+          <li><a href="#contact"    class="nav__link">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav__cta">Hire Me</a>
+      </div>
+      <div class="nav__badge" id="navBadge">
+        <img src="https://framerusercontent.com/images/IUYreEo8ON7qCLgK2tgDOW0xoI.jpg" alt="Duncan" class="nav__badge-avatar" />
+        <span class="nav__badge-label">Available for work</span>
+        <span class="nav__badge-dot"></span>
+      </div>
+    </div>
+    <button class="nav__burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav__mobile" id="mobileMenu">
+      <ul>
+        <li><a href="#hero"     class="nav__link">Home</a></li>
+        <li><a href="#about"    class="nav__link">About</a></li>
+        <li><a href="#education" class="nav__link">Education</a></li>
+        <li><a href="#experience" class="nav__link">Experience</a></li>
+        <li><a href="#projects" class="nav__link">Projects</a></li>
+        <li><a href="#skills"   class="nav__link">Skills</a></li>
+        <li><a href="#contact"  class="nav__cta-mobile">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero" id="hero">
+    <div class="hero__split">
+      <div class="hero__left">
+        <p class="hero__name">Duncan Robert</p>
+        <h1 class="hero__word--digital">DIGITAL</h1>
+      </div>
+
+      <!-- Mobile portrait (only visible on mobile) -->
+      <div class="hero__mobile-card" id="heroMobileCard">
+        <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt="Duncan Robert" />
+        <div class="hero__mobile-hand">✋</div>
+      </div>
+
+      <div class="hero__right">
+        <h1 class="hero__word--designer">DESIGNER</h1>
+        <p class="hero__tagline">US-based digital designer &amp;<br/>Framer developer crafting<br/>impactful experiences.</p>
+      </div>
+    </div>
+    <span class="accent-dot accent-dot--hero" aria-hidden="true"></span>
+    <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+      <span class="theme-toggle__track">
+        <span class="theme-toggle__thumb"></span>
+      </span>
+    </div>
+    <!-- Scroll indicator -->
+    <div class="hero__scroll-indicator">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ░░ ABOUT ME ░░ -->
+  <section class="about section-reveal" id="about">
+    <div class="about__layout">
+      <div class="about__left">
+        <span class="section-label">WHO I AM</span>
+        <h2 class="section-heading">ABOUT ME</h2>
+        <p class="about__bio">Hi, I'm Duncan — a digital designer and Framer developer with over 12 years of experience crafting meaningful, impactful digital experiences. I believe that great design bridges the gap between business goals and human needs, creating products people love to use.</p>
+        <p class="about__bio about__bio--second">My work spans from pixel-perfect UI design to fully interactive Framer prototypes. I've collaborated with startups, agencies, and Fortune 500 companies across three continents.</p>
+
+        <div class="about__stats">
+          <div class="about__stat">
+            <span class="about__num counter" data-target="12">0</span>
+            <span class="about__lbl">Years Experience</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__num counter" data-target="270">0</span>
+            <span class="about__lbl">Projects Done</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__num counter" data-target="50" data-suffix="+">0</span>
+            <span class="about__lbl">Happy Clients</span>
+          </div>
+        </div>
+
+        <div class="about__contacts">
+          <div><span class="about__ctlbl">Call Today</span> <a href="tel:+15551234567">+1 (555) 123-4567</a></div>
+          <div><span class="about__ctlbl">Email</span> <a href="mailto:hello@duncanrobert.com">hello@duncanrobert.com</a></div>
+          <div><span class="about__ctlbl">Location</span> <span>New York, USA</span></div>
+        </div>
+
+        <div class="about__socials">
+          <a href="#" class="about__soc" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+          <a href="#" class="about__soc" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="about__soc" aria-label="Dribbble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </a>
+          <a href="#" class="about__soc" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <a href="#contact" class="btn-outline">WORK WITH ME</a>
+      </div>
+      <!-- right side — fixed card hovers here on desktop -->
+      <div class="about__right" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ░░ EDUCATION ░░ -->
+  <section class="education section-reveal" id="education">
+    <div class="edu__inner">
+      <span class="section-label">MY BACKGROUND</span>
+      <h2 class="section-heading">EDUCATION</h2>
+      <div class="timeline">
+
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Master of Fine Arts — Interaction Design</h3>
+                <p class="timeline__company">Rhode Island School of Design (RISD)</p>
+              </div>
+              <span class="timeline__date">2014 – 2016</span>
+            </div>
+            <p class="timeline__desc">Focused on human-centered design methodologies, prototyping, and the intersection of technology with visual storytelling. Thesis project explored adaptive UI systems for accessibility.</p>
+            <div class="timeline__tags">
+              <span>Interaction Design</span>
+              <span>Design Research</span>
+              <span>Prototyping</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Bachelor of Arts — Graphic Design</h3>
+                <p class="timeline__company">Parsons School of Design, New York</p>
+              </div>
+              <span class="timeline__date">2010 – 2014</span>
+            </div>
+            <p class="timeline__desc">Core studies in visual communication, typography, branding, and digital media. Graduated top of class with honors. Led student design collective for two years.</p>
+            <div class="timeline__tags">
+              <span>Typography</span>
+              <span>Branding</span>
+              <span>Visual Communication</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Google UX Design Certificate</h3>
+                <p class="timeline__company">Google / Coursera — Online</p>
+              </div>
+              <span class="timeline__date">2020</span>
+            </div>
+            <p class="timeline__desc">Completed seven-course professional certificate covering UX research, wireframing, low/high-fidelity design, and user testing with a focus on mobile-first design.</p>
+            <div class="timeline__tags">
+              <span>UX Research</span>
+              <span>Figma</span>
+              <span>User Testing</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ EXPERIENCE ░░ -->
+  <section class="experience section-reveal" id="experience">
+    <div class="exp__inner">
+      <span class="section-label">MY JOURNEY</span>
+      <h2 class="section-heading">EXPERIENCE</h2>
+      <div class="timeline">
+
+        <div class="timeline__item">
+          <div class="timeline__dot timeline__dot--lime"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Senior Product Designer</h3>
+                <p class="timeline__company">Figma · San Francisco, CA (Remote)</p>
+              </div>
+              <span class="timeline__date">2021 – Present</span>
+            </div>
+            <p class="timeline__desc">Lead design for core collaboration features used by 10M+ designers globally. Own the design system, drive quarterly design sprints, and mentor a team of 5 junior designers. Shipped the redesigned Components panel and Variable inspector.</p>
+            <div class="timeline__tags">
+              <span>Product Design</span>
+              <span>Design Systems</span>
+              <span>Leadership</span>
+              <span>Figma</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">UI/UX Designer</h3>
+                <p class="timeline__company">Spotify · New York, NY</p>
+              </div>
+              <span class="timeline__date">2018 – 2021</span>
+            </div>
+            <p class="timeline__desc">Designed key features for the Spotify mobile app including the Now Playing redesign and podcast discovery flow. Collaborated closely with product, engineering and research teams to ship experiences for 400M users.</p>
+            <div class="timeline__tags">
+              <span>Mobile UI</span>
+              <span>User Research</span>
+              <span>A/B Testing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Brand &amp; Visual Designer</h3>
+                <p class="timeline__company">Pentagram Design Studio · London, UK</p>
+              </div>
+              <span class="timeline__date">2016 – 2018</span>
+            </div>
+            <p class="timeline__desc">Worked alongside partners on identity systems, editorial design, and environmental graphics for global brands. Projects included rebrands for a major UK retailer and a Pan-European cultural institution.</p>
+            <div class="timeline__tags">
+              <span>Brand Identity</span>
+              <span>Editorial Design</span>
+              <span>Print</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Freelance Designer</h3>
+                <p class="timeline__company">Self-employed · Worldwide</p>
+              </div>
+              <span class="timeline__date">2014 – 2016</span>
+            </div>
+            <p class="timeline__desc">Designed websites, brand identities, and marketing materials for 40+ clients across the US, UK, and Australia. Built a reputation for delivering clean, effective design on tight timelines.</p>
+            <div class="timeline__tags">
+              <span>Web Design</span>
+              <span>Branding</span>
+              <span>Freelance</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURED PROJECTS — stacking cards ░░ -->
+  <section class="projects" id="projects">
+    <div class="projects__header section-reveal">
+      <span class="section-label">SELECTED WORK</span>
+      <h2 class="section-heading">FEATURED PROJECTS</h2>
+      <p>Selected projects reflecting my passion for blending strategy with creativity — solving real problems through thoughtful design.</p>
+    </div>
+
+    <!-- Desktop: pinned slide-up stacking -->
+    <div class="pss-container" id="pssContainer">
+      <div class="pss-pin-area" id="pssPinArea">
+        <div class="pss-stage" id="pssStage">
+
+          <div class="pss-card" data-index="0">
+            <img src="https://framerusercontent.com/images/w08JBQPFYIq2vr4OfcD9W6vxEug.jpeg" alt="Summer Vibes Festival" />
+            <div class="pss-overlay">
+              <a href="#" class="pss-arrow-btn" aria-label="View project">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+              <div class="pss-meta">
+                <span class="pss-tag">Graphic Design</span>
+                <h3 class="pss-title">Summer Vibes<br/>Festival Campaign</h3>
+                <p class="pss-desc">Promotional materials for the Summer Vibes Festival — posters, flyers, and social media graphics that captured the energy of 10,000+ attendees.</p>
+              </div>
+            </div>
+            <div class="pss-num">01</div>
+          </div>
+
+          <div class="pss-card" data-index="1">
+            <img src="https://framerusercontent.com/images/qbjsnnvP9w7UaA2syp36oUe8OSo.jpg" alt="Coral Spiral" />
+            <div class="pss-overlay">
+              <a href="#" class="pss-arrow-btn" aria-label="View project">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+              <div class="pss-meta">
+                <span class="pss-tag">Branding</span>
+                <h3 class="pss-title">Coral Spiral<br/>Abstract Art</h3>
+                <p class="pss-desc">A 3D abstract artwork featuring a coral-colored spiral — commissioned as a centerpiece installation for a NYC gallery opening.</p>
+              </div>
+            </div>
+            <div class="pss-num">02</div>
+          </div>
+
+          <div class="pss-card" data-index="2">
+            <img src="https://framerusercontent.com/images/nTU7b0ZAdWdlqCI4mQ4tGTPpDs.jpeg" alt="ShopEase" />
+            <div class="pss-overlay">
+              <a href="#" class="pss-arrow-btn" aria-label="View project">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+              <div class="pss-meta">
+                <span class="pss-tag">UI / UX Design</span>
+                <h3 class="pss-title">ShopEase<br/>Redesign Sprint</h3>
+                <p class="pss-desc">Full UX overhaul of an e-commerce app — simplified navigation and optimised checkout reduced cart abandonment by 34%.</p>
+              </div>
+            </div>
+            <div class="pss-num">03</div>
+          </div>
+
+          <div class="pss-card" data-index="3">
+            <img src="https://framerusercontent.com/images/2nWXrWvPxxMHSpsOkNYf8KjzP7Q.jpeg" alt="Black Prisms" />
+            <div class="pss-overlay">
+              <a href="#" class="pss-arrow-btn" aria-label="View project">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+              <div class="pss-meta">
+                <span class="pss-tag">Digital Art</span>
+                <h3 class="pss-title">Black Geometric<br/>Prisms Series</h3>
+                <p class="pss-desc">Angular black prisms floating against gradient dark backgrounds — part of a limited digital art series sold as NFTs.</p>
+              </div>
+            </div>
+            <div class="pss-num">04</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile: standard scrollable cards -->
+    <div class="projects__mobile">
+      <div class="pm-card">
+        <img src="https://framerusercontent.com/images/w08JBQPFYIq2vr4OfcD9W6vxEug.jpeg" alt="Summer Vibes Festival" />
+        <div class="pm-body">
+          <span class="pss-tag">Graphic Design</span>
+          <h3>Summer Vibes Festival Campaign</h3>
+          <p>Promotional materials for the Summer Vibes Festival — posters, flyers, and social media graphics.</p>
+          <a href="#" class="btn-outline btn-sm">View Project</a>
+        </div>
+      </div>
+      <div class="pm-card">
+        <img src="https://framerusercontent.com/images/qbjsnnvP9w7UaA2syp36oUe8OSo.jpg" alt="Coral Spiral" />
+        <div class="pm-body">
+          <span class="pss-tag">Branding</span>
+          <h3>Coral Spiral Abstract Art</h3>
+          <p>A 3D abstract artwork featuring a coral-colored spiral commissioned for a NYC gallery.</p>
+          <a href="#" class="btn-outline btn-sm">View Project</a>
+        </div>
+      </div>
+      <div class="pm-card">
+        <img src="https://framerusercontent.com/images/nTU7b0ZAdWdlqCI4mQ4tGTPpDs.jpeg" alt="ShopEase" />
+        <div class="pm-body">
+          <span class="pss-tag">UI / UX Design</span>
+          <h3>ShopEase Redesign Sprint</h3>
+          <p>Full UX overhaul reducing cart abandonment by 34% through simplified checkout.</p>
+          <a href="#" class="btn-outline btn-sm">View Project</a>
+        </div>
+      </div>
+      <div class="pm-card">
+        <img src="https://framerusercontent.com/images/2nWXrWvPxxMHSpsOkNYf8KjzP7Q.jpeg" alt="Black Prisms" />
+        <div class="pm-body">
+          <span class="pss-tag">Digital Art</span>
+          <h3>Black Geometric Prisms Series</h3>
+          <p>Limited digital art series of angular prisms sold as NFTs.</p>
+          <a href="#" class="btn-outline btn-sm">View Project</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects__browse section-reveal">
+      <a href="#" class="btn-outline">BROWSE ALL PROJECTS</a>
+    </div>
+  </section>
+
+  <!-- ░░ SKILLS ░░ -->
+  <section class="skills section-reveal" id="skills">
+    <div class="skills__inner">
+      <span class="section-label">WHAT I KNOW</span>
+      <h2 class="section-heading">SKILLS &amp;<br/>TOOLS</h2>
+
+      <div class="skills__grid">
+        <!-- Design Skills -->
+        <div class="skills__col">
+          <h3 class="skills__col-title">Design</h3>
+          <div class="skill-bar">
+            <div class="skill-bar__info"><span>UI / UX Design</span><span class="skill-bar__pct">96%</span></div>
+            <div class="skill-bar__track"><div class="skill-bar__fill" data-width="96"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar__info"><span>Brand Identity</span><span class="skill-bar__pct">92%</span></div>
+            <div class="skill-bar__track"><div class="skill-bar__fill" data-width="92"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar__info"><span>Motion Design</span><span class="skill-bar__pct">85%</span></div>
+            <div class="skill-bar__track"><div class="skill-bar__fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar__info"><span>Typography</span><span class="skill-bar__pct">94%</span></div>
+            <div class="skill-bar__track"><div class="skill-bar__fill" data-width="94"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar__info"><span>3D / Illustration</span><span class="skill-bar__pct">72%</span></div>
+            <div class="skill-bar__track"><div class="skill-bar__fill" data-width="72"></div></div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skills__col">
+          <h3 class="skills__col-title">Tools</h3>
+          <div class="skills__tools">
+            <div class="tool-tag">
+              <span class="tool-tag__icon">▲</span>Figma
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">◆</span>Framer
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">●</span>Adobe XD
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">■</span>Illustrator
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">◈</span>Photoshop
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">◉</span>After Effects
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">⬡</span>Webflow
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">◎</span>Blender
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">✦</span>Notion
+            </div>
+            <div class="tool-tag">
+              <span class="tool-tag__icon">⬢</span>Slack
+            </div>
+          </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="skills__col">
+          <h3 class="skills__col-title">Interests</h3>
+          <div class="interests__grid">
+            <div class="interest-item">
+              <div class="interest-item__icon">🎨</div>
+              <span>Visual Art</span>
+            </div>
+            <div class="interest-item">
+              <div class="interest-item__icon">📐</div>
+              <span>Architecture</span>
+            </div>
+            <div class="interest-item">
+              <div class="interest-item__icon">🎬</div>
+              <span>Film</span>
+            </div>
+            <div class="interest-item">
+              <div class="interest-item__icon">🎵</div>
+              <span>Music</span>
+            </div>
+            <div class="interest-item">
+              <div class="interest-item__icon">✈️</div>
+              <span>Travel</span>
+            </div>
+            <div class="interest-item">
+              <div class="interest-item__icon">📚</div>
+              <span>Reading</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="languages">
+        <h3 class="skills__col-title">Languages</h3>
+        <div class="languages__list">
+          <div class="lang-item">
+            <span class="lang-flag">🇺🇸</span>
+            <div class="lang-info">
+              <span class="lang-name">English</span>
+              <span class="lang-level lang-level--native">Native</span>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-flag">🇫🇷</span>
+            <div class="lang-info">
+              <span class="lang-name">French</span>
+              <span class="lang-level lang-level--fluent">Fluent</span>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-flag">🇩🇪</span>
+            <div class="lang-info">
+              <span class="lang-name">German</span>
+              <span class="lang-level lang-level--intermediate">Intermediate</span>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-flag">🇯🇵</span>
+            <div class="lang-info">
+              <span class="lang-name">Japanese</span>
+              <span class="lang-level lang-level--basic">Basic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ░░ CONTACT ░░ -->
+  <section class="contact section-reveal" id="contact">
+    <div class="contact__inner">
+      <div class="contact__left">
+        <div class="contact__portrait">
+          <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt="Duncan Robert" />
+          <div class="contact__hi-badge">Hi ✋</div>
+        </div>
+        <span class="section-label">GET IN TOUCH</span>
+        <h2 class="contact__heading">LET'S WORK<br/>TOGETHER</h2>
+        <p class="contact__sub">Got a project in mind? Let's build something impactful together — whether it's your brand, your website, or your next big idea.</p>
+        <div class="contact__details">
+          <div class="contact__detail-row">
+            <span class="contact__detail-icon">✉</span>
+            <div>
+              <span class="contact__detail-lbl">Email</span>
+              <a href="mailto:hello@duncanrobert.com">hello@duncanrobert.com</a>
+            </div>
+          </div>
+          <div class="contact__detail-row">
+            <span class="contact__detail-icon">☏</span>
+            <div>
+              <span class="contact__detail-lbl">Call</span>
+              <a href="tel:+15551234567">+1 (555) 123-4567</a>
+            </div>
+          </div>
+          <div class="contact__detail-row">
+            <span class="contact__detail-icon">◎</span>
+            <div>
+              <span class="contact__detail-lbl">Location</span>
+              <span>New York, USA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact__right">
+        <div class="contact__form-row">
+          <div class="contact__field">
+            <label class="c-label">Your Name</label>
+            <input type="text" placeholder="John Smith" class="c-input" />
+          </div>
+          <div class="contact__field">
+            <label class="c-label">Email Address</label>
+            <input type="email" placeholder="john@example.com" class="c-input" />
+          </div>
+        </div>
+        <div class="contact__field">
+          <label class="c-label">Service Needed</label>
+          <select class="c-input c-select">
+            <option value="" disabled selected>Select a service</option>
+            <option>UI / UX Design</option>
+            <option>Branding &amp; Identity</option>
+            <option>Web Design</option>
+            <option>Graphic Design</option>
+            <option>Framer Development</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="contact__field">
+          <label class="c-label">Your Message</label>
+          <textarea class="c-input c-textarea" placeholder="Tell me about your project, goals, and timeline..."></textarea>
+        </div>
+        <button class="contact__submit" id="contactSubmit">SEND MESSAGE →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__top-inner">
+        <div class="footer__col">
+          <span class="footer__col-label">Email</span>
+          <a href="mailto:hello@duncanrobert.com">hello@duncanrobert.com</a>
+        </div>
+        <div class="footer__col footer__col--center">
+          <p class="footer__name">Duncan Robert</p>
+          <p class="footer__tagline">Digital Designer &amp; Framer Dev</p>
+        </div>
+        <div class="footer__col footer__col--right">
+          <span class="footer__col-label">Social</span>
+          <div class="footer__socials">
+            <a href="#" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="Dribbble">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__bottom-inner">
+        <p>© 2025 Duncan Robert. All Rights Reserved.</p>
+        <p>Designed &amp; Built with ❤️ in New York</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

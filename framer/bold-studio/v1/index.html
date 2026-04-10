@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Duncan Robert — Digital Designer</title>
+
+  <!-- Anton SC + Inter (Clash Grotesk substitute via variable weight) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- GRAIN CANVAS -->
+<canvas id="grain" aria-hidden="true"></canvas>
+
+<!-- ═══════════════════════════════════════
+     NAV — no background, pure overlay
+════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo">DR</a>
+  <div class="nav-center">
+    <span class="nav-clock-ico">◎</span>
+    <time class="nav-clock" id="navClock">01:09:11 PM</time>
+  </div>
+  <div class="nav-right">
+    <button class="nav-menu-btn" id="menuBtn">MENU</button>
+  </div>
+</nav>
+
+<!-- FULL-SCREEN MENU OVERLAY -->
+<div class="menu-ov" id="menuOv">
+  <button class="menu-ov-close" id="menuClose">✕ CLOSE</button>
+  <nav class="menu-ov-nav">
+    <a href="#hero"      class="mol" data-n="01">Home</a>
+    <a href="#about-sec" class="mol" data-n="02">About</a>
+    <a href="#projects"  class="mol" data-n="03">Projects</a>
+    <a href="#skills"    class="mol" data-n="04">Skills</a>
+    <a href="#contact"   class="mol" data-n="05">Contact</a>
+  </nav>
+  <div class="menu-ov-foot">designer@example.com</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HERO — split layout, image left / text right
+════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <!-- LEFT PANEL: full-bleed portrait -->
+  <div class="hero-img-panel">
+    <img src="https://framerusercontent.com/images/VRQgkdWsjawSg1qpCm45HfSY1I.jpeg" alt="Duncan Robert"/>
+  </div>
+
+  <!-- RIGHT PANEL: text -->
+  <div class="hero-text-panel">
+    <!-- Top meta row -->
+    <div class="hero-meta">
+      <span class="hero-meta-left">✕ &nbsp;TRANSFORMING IDEAS<br/>INTO ICONIC WORK</span>
+      <span class="hero-meta-stars">★★★★★</span>
+      <span class="hero-meta-right">Designing stories<br/>that matter</span>
+    </div>
+
+    <!-- Big stacked headline -->
+    <div class="hero-headline">
+      <div class="hero-hl-row">NARRATIVE</div>
+      <div class="hero-hl-mid">
+        <div class="hero-hl-subimg">
+          <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt=""/>
+        </div>
+        <span class="hero-hl-row">MEETS</span>
+      </div>
+      <div class="hero-hl-row">DESIGN</div>
+    </div>
+
+    <!-- Bottom ctas -->
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-wh">VIEW WORK ↗</a>
+      <a href="#contact"  class="btn-outline-wh">HIRE ME</a>
+      <div class="hero-stats">
+        <div class="hs"><span class="hs-n counter" data-target="12">0</span><small>Yrs</small></div>
+        <div class="hs"><span class="hs-n counter" data-target="270">0</span><small>Projects</small></div>
+        <div class="hs"><span class="hs-n counter" data-target="50" data-suffix="+">0</span><small>Clients</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Digital Design</span><span class="mdot">✦</span>
+    <span>UI / UX</span><span class="mdot">✦</span>
+    <span>Branding</span><span class="mdot">✦</span>
+    <span>Web Development</span><span class="mdot">✦</span>
+    <span>Motion Design</span><span class="mdot">✦</span>
+    <span>Framer</span><span class="mdot">✦</span>
+    <span>Digital Design</span><span class="mdot">✦</span>
+    <span>UI / UX</span><span class="mdot">✦</span>
+    <span>Branding</span><span class="mdot">✦</span>
+    <span>Web Development</span><span class="mdot">✦</span>
+    <span>Motion Design</span><span class="mdot">✦</span>
+    <span>Framer</span><span class="mdot">✦</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ABOUT — Section divider sticks at top,
+     then ABOUT / ME split animation,
+     then content scrolls up underneath
+════════════════════════════════════════ -->
+<section class="about-scene" id="about-sec">
+
+  <!-- Sticky section rule — sticks to top during entire about section -->
+  <div class="sec-rule sticky-rule" id="aboutRule">
+    <span class="sr-num">[01]</span>
+    <span class="sr-line"></span>
+    <span class="sr-label">BUILT ON VISION</span>
+  </div>
+
+  <!-- ── SPLIT PIN: the pinned stage where words fly apart ── -->
+  <div class="split-pin" id="splitPin">
+    <!-- Pre-split: centred box with both words together -->
+    <div class="split-prebox" id="splitPrebox">
+      <span>ABOUT ME</span>
+    </div>
+
+    <!-- Post-split state: words fly to edges, portrait appears -->
+    <div class="split-stage" id="splitStage">
+      <span class="sw sw-l" id="swL">ABOUT</span>
+      <div class="split-portrait" id="splitPortrait">
+        <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt="Duncan Robert"/>
+        <div class="sp-hand">✋</div>
+      </div>
+      <span class="sw sw-r" id="swR">ME</span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT CONTENT: scrolls up after pin releases ── -->
+  <div class="about-content" id="aboutContent">
+    <div class="about-grid">
+      <!-- LEFT: identity + bio -->
+      <div class="about-left">
+        <h2 class="about-h">ABOUT<br/>DUNCAN</h2>
+        <p class="about-bio">Hi, I'm Duncan Robert — a digital designer and Framer developer with 12+ years of experience crafting meaningful, impactful digital experiences. I bridge the gap between design and technology, building products that are both beautiful and functional.</p>
+        <div class="about-contacts">
+          <div><b>Call :</b><a href="tel:+15551234567">+1 (555) 123-4567</a></div>
+          <div><b>Email :</b><a href="mailto:designer@example.com">designer@example.com</a></div>
+        </div>
+        <div class="about-socials">
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Dribbble"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></a>
+        </div>
+        <a href="#contact" class="btn-wh">HIRE ME ↗</a>
+      </div>
+
+      <!-- RIGHT: portrait echo + stats -->
+      <div class="about-right">
+        <div class="about-portrait-frame">
+          <img src="https://framerusercontent.com/images/VRQgkdWsjawSg1qpCm45HfSY1I.jpeg" alt="Duncan Robert"/>
+        </div>
+        <div class="about-stats">
+          <div class="as"><span class="as-n counter" data-target="12">0</span><span class="as-l">Years Experience</span></div>
+          <div class="as"><span class="as-n counter" data-target="270">0</span><span class="as-l">Projects Completed</span></div>
+          <div class="as"><span class="as-n counter" data-target="50" data-suffix="+">0</span><span class="as-l">Happy Clients</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     EDUCATION
+════════════════════════════════════════ -->
+<section class="edu-sec reveal" id="education">
+  <div class="sec-rule">
+    <span class="sr-num">[02]</span><span class="sr-line"></span><span class="sr-label">MY BACKGROUND</span>
+  </div>
+  <h2 class="sec-display-h">EDUCATION</h2>
+
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-year">2014 – 2016</div>
+      <div class="edu-body">
+        <h3>MASTER OF FINE ARTS — INTERACTION DESIGN</h3>
+        <p class="edu-inst">Rhode Island School of Design (RISD)</p>
+        <p class="edu-desc">Focused on human-centered design methodologies, prototyping, and the intersection of technology with visual storytelling. Thesis explored adaptive UI systems for accessibility.</p>
+        <div class="tag-row"><span>Interaction Design</span><span>Design Research</span><span>Prototyping</span></div>
+      </div>
+    </div>
+    <div class="edu-divider"></div>
+    <div class="edu-item">
+      <div class="edu-year">2010 – 2014</div>
+      <div class="edu-body">
+        <h3>BACHELOR OF ARTS — GRAPHIC DESIGN</h3>
+        <p class="edu-inst">Parsons School of Design, New York</p>
+        <p class="edu-desc">Core studies in visual communication, typography, branding, and digital media. Graduated top of class with honours. Led the student design collective for two years.</p>
+        <div class="tag-row"><span>Typography</span><span>Branding</span><span>Visual Communication</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     EXPERIENCE
+════════════════════════════════════════ -->
+<section class="edu-sec reveal" id="experience">
+  <div class="sec-rule">
+    <span class="sr-num">[03]</span><span class="sr-line"></span><span class="sr-label">WHAT I'VE DONE</span>
+  </div>
+  <h2 class="sec-display-h">EXPERIENCE</h2>
+
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-year">2020 – Present</div>
+      <div class="edu-body">
+        <h3>SENIOR UI/UX DESIGNER</h3>
+        <p class="edu-inst">Google LLC, New York</p>
+        <p class="edu-desc">Led end-to-end design for flagship consumer products serving 50M+ daily users. Established design systems adopted across 8 product teams. Shipped zero-to-one features in close collaboration with PMs and engineers.</p>
+        <div class="tag-row"><span>Figma</span><span>Design Systems</span><span>User Research</span><span>Prototyping</span></div>
+      </div>
+    </div>
+    <div class="edu-divider"></div>
+    <div class="edu-item">
+      <div class="edu-year">2017 – 2020</div>
+      <div class="edu-body">
+        <h3>UI/UX DESIGNER</h3>
+        <p class="edu-inst">Spotify AB, Stockholm</p>
+        <p class="edu-desc">Redesigned the podcast discovery experience, increasing engagement by 34%. Built high-fidelity prototypes for A/B testing and drove data-informed design decisions.</p>
+        <div class="tag-row"><span>Sketch</span><span>Motion Design</span><span>A/B Testing</span></div>
+      </div>
+    </div>
+    <div class="edu-divider"></div>
+    <div class="edu-item">
+      <div class="edu-year">2016 – 2017</div>
+      <div class="edu-body">
+        <h3>JUNIOR PRODUCT DESIGNER</h3>
+        <p class="edu-inst">IDEO, San Francisco</p>
+        <p class="edu-desc">Contributed to design sprints for Fortune 500 clients across fintech and health-tech. Delivered wireframes, journey maps, and interactive prototypes under tight deadlines.</p>
+        <div class="tag-row"><span>Design Sprints</span><span>Wireframing</span><span>User Testing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-strip marquee-strip--rev">
+  <div class="marquee-inner marquee-inner--rev">
+    <span>Education</span><span class="mdot">✦</span><span>Experience</span><span class="mdot">✦</span>
+    <span>Skills</span><span class="mdot">✦</span><span>Interests</span><span class="mdot">✦</span>
+    <span>Education</span><span class="mdot">✦</span><span>Experience</span><span class="mdot">✦</span>
+    <span>Skills</span><span class="mdot">✦</span><span>Interests</span><span class="mdot">✦</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PROJECTS — split text + stacking Bold-style cards
+════════════════════════════════════════ -->
+<section class="proj-scene" id="projects">
+
+  <!-- Sticky section rule -->
+  <div class="sec-rule sticky-rule" id="projRule">
+    <span class="sr-num">[04]</span><span class="sr-line"></span><span class="sr-label">SELECTED WORK</span>
+  </div>
+
+  <!-- SPLIT PIN for OUR WORK -->
+  <div class="split-pin" id="projSplitPin">
+    <div class="split-prebox" id="projPrebox"><span>OUR WORK</span></div>
+    <div class="split-stage" id="projSplitStage">
+      <span class="sw sw-l" id="pswL">OUR</span>
+      <div class="split-portrait split-portrait--proj" id="projSplitImg">
+        <img src="https://framerusercontent.com/images/w08JBQPFYIq2vr4OfcD9W6vxEug.jpeg" alt="Featured Project"/>
+      </div>
+      <span class="sw sw-r" id="pswR">WORK</span>
+    </div>
+  </div>
+
+  <!-- STACKING CARDS (Bold style: image left, info right) -->
+  <div class="proj-stack">
+
+    <div class="proj-wrap">
+      <div class="proj-card">
+        <div class="proj-card-img">
+          <img src="https://framerusercontent.com/images/w08JBQPFYIq2vr4OfcD9W6vxEug.jpeg" alt="Summer Vibes"/>
+          <div class="proj-card-cross">+</div>
+        </div>
+        <div class="proj-card-info">
+          <h3 class="proj-card-title">SUMMER VIBES FESTIVAL CAMPAIGN</h3>
+          <div class="proj-card-meta">
+            <p><span>YEAR:</span><strong>2025</strong></p>
+            <p><span>CATEGORY:</span><strong>Graphic Design</strong></p>
+          </div>
+          <a href="#" class="proj-card-btn">VIEW DETAIL ▸</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-wrap">
+      <div class="proj-card">
+        <div class="proj-card-img">
+          <img src="https://framerusercontent.com/images/qbjsnnvP9w7UaA2syp36oUe8OSo.jpg" alt="Coral Spiral"/>
+          <div class="proj-card-cross">+</div>
+        </div>
+        <div class="proj-card-info">
+          <h3 class="proj-card-title">CORAL SPIRAL ABSTRACT</h3>
+          <div class="proj-card-meta">
+            <p><span>YEAR:</span><strong>2025</strong></p>
+            <p><span>CATEGORY:</span><strong>Branding</strong></p>
+          </div>
+          <a href="#" class="proj-card-btn">VIEW DETAIL ▸</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-wrap">
+      <div class="proj-card">
+        <div class="proj-card-img">
+          <img src="https://framerusercontent.com/images/nTU7b0ZAdWdlqCI4mQ4tGTPpDs.jpeg" alt="ShopEase"/>
+          <div class="proj-card-cross">+</div>
+        </div>
+        <div class="proj-card-info">
+          <h3 class="proj-card-title">SHOPEASE REDESIGN SPRINT</h3>
+          <div class="proj-card-meta">
+            <p><span>YEAR:</span><strong>2025</strong></p>
+            <p><span>CATEGORY:</span><strong>UI/UX Design</strong></p>
+          </div>
+          <a href="#" class="proj-card-btn">VIEW DETAIL ▸</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-wrap">
+      <div class="proj-card">
+        <div class="proj-card-img">
+          <img src="https://framerusercontent.com/images/2nWXrWvPxxMHSpsOkNYf8KjzP7Q.jpeg" alt="Black Prisms"/>
+          <div class="proj-card-cross">+</div>
+        </div>
+        <div class="proj-card-info">
+          <h3 class="proj-card-title">BLACK GEOMETRIC PRISMS</h3>
+          <div class="proj-card-meta">
+            <p><span>YEAR:</span><strong>2024</strong></p>
+            <p><span>CATEGORY:</span><strong>Branding</strong></p>
+          </div>
+          <a href="#" class="proj-card-btn">VIEW DETAIL ▸</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /proj-stack -->
+  <div class="proj-cta-row"><a href="#" class="btn-wh">VIEW ALL PROJECTS ↗</a></div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SKILLS
+════════════════════════════════════════ -->
+<section class="skills-sec reveal" id="skills">
+  <div class="sec-rule">
+    <span class="sr-num">[05]</span><span class="sr-line"></span><span class="sr-label">WHAT I KNOW</span>
+  </div>
+  <h2 class="sec-display-h">SKILLS</h2>
+  <div class="skills-grid">
+    <div class="skills-col">
+      <h3 class="skills-gname">Design Tools</h3>
+      <div class="sbars">
+        <div class="sbar"><div class="sbar-meta"><span>Figma</span><span>98%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="98"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>Photoshop</span><span>95%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="95"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>Illustrator</span><span>90%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="90"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>Framer</span><span>92%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="92"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>After Effects</span><span>80%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="80"></div></div></div>
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3 class="skills-gname">Development</h3>
+      <div class="sbars">
+        <div class="sbar"><div class="sbar-meta"><span>HTML / CSS</span><span>88%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="88"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>JavaScript</span><span>75%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="75"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>React</span><span>65%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="65"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>GSAP</span><span>85%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="85"></div></div></div>
+        <div class="sbar"><div class="sbar-meta"><span>Webflow</span><span>90%</span></div><div class="sbar-track"><div class="sbar-fill" data-w="90"></div></div></div>
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3 class="skills-gname">Expertise</h3>
+      <div class="skills-pills">
+        <span>Design Thinking</span><span>Team Leadership</span><span>Client Communication</span>
+        <span>Agile / Scrum</span><span>Art Direction</span><span>Mentorship</span>
+        <span>Storytelling</span><span>Strategic Planning</span><span>Typography</span><span>Brand Identity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     INTERESTS + LANGUAGES
+════════════════════════════════════════ -->
+<section class="extras-sec reveal" id="extras">
+  <div class="extras-wrap">
+    <div class="extras-block">
+      <div class="sec-rule"><span class="sr-num">[06]</span><span class="sr-line"></span><span class="sr-label">BEYOND WORK</span></div>
+      <h2 class="sec-display-h">INTERESTS</h2>
+      <div class="int-grid">
+        <div class="int-item"><span>📷</span><span>Photography</span></div>
+        <div class="int-item"><span>🔤</span><span>Typography</span></div>
+        <div class="int-item"><span>✈️</span><span>Travel</span></div>
+        <div class="int-item"><span>🎵</span><span>Music</span></div>
+        <div class="int-item"><span>🏛️</span><span>Architecture</span></div>
+        <div class="int-item"><span>🎮</span><span>3D Art</span></div>
+        <div class="int-item"><span>📚</span><span>Books</span></div>
+        <div class="int-item"><span>🌿</span><span>Sustainability</span></div>
+      </div>
+    </div>
+    <div class="extras-block">
+      <div class="sec-rule"><span class="sr-num"></span><span class="sr-line"></span><span class="sr-label">COMMUNICATION</span></div>
+      <h2 class="sec-display-h">LANGUAGES</h2>
+      <div class="lang-list">
+        <div class="lang-item"><div class="lang-top"><span class="lflag">🇺🇸</span><div><strong>English</strong><small>Native / Bilingual</small></div></div><div class="lang-bar"><div class="lang-fill" data-w="100"></div></div></div>
+        <div class="lang-item"><div class="lang-top"><span class="lflag">🇪🇸</span><div><strong>Spanish</strong><small>Professional Working</small></div></div><div class="lang-bar"><div class="lang-fill" data-w="75"></div></div></div>
+        <div class="lang-item"><div class="lang-top"><span class="lflag">🇫🇷</span><div><strong>French</strong><small>Elementary</small></div></div><div class="lang-bar"><div class="lang-fill" data-w="30"></div></div></div>
+        <div class="lang-item"><div class="lang-top"><span class="lflag">🇩🇪</span><div><strong>German</strong><small>Basic / Learning</small></div></div><div class="lang-bar"><div class="lang-fill" data-w="20"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CONTACT
+════════════════════════════════════════ -->
+<section class="contact-sec reveal" id="contact">
+  <div class="sec-rule">
+    <span class="sr-num">[07]</span><span class="sr-line"></span><span class="sr-label">GET IN TOUCH</span>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-left">
+      <h2 class="contact-big">LET'S WORK TOGETHER</h2>
+      <p class="contact-sub">Let's build something impactful — whether it's your brand, website, or next big idea.</p>
+      <div class="contact-portrait-frame">
+        <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt="Duncan Robert"/>
+        <div class="cp-hand">✋</div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="cform">
+        <div class="cform-row">
+          <div class="cform-g"><label>Name</label><input type="text" class="cform-in" placeholder="John Smith"/></div>
+          <div class="cform-g"><label>Email</label><input type="email" class="cform-in" placeholder="johnsmith@gmail.com"/></div>
+        </div>
+        <div class="cform-g">
+          <label>Service Needed?</label>
+          <select class="cform-in cform-sel">
+            <option value="" disabled selected>Select...</option>
+            <option>Branding</option><option>Web Design</option><option>UI / UX</option><option>Graphic Design</option>
+          </select>
+        </div>
+        <div class="cform-g"><label>What Can I Help You...</label><textarea class="cform-in cform-ta" placeholder="Hello, I'd like to enquire about..."></textarea></div>
+        <button class="btn-wh btn-full" id="cformBtn">SUBMIT ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER — Bold Studio 4-panel grid
+     Panels separated by sharp-edged borders
+     with inner radius on corners
+════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <!-- Top left: Pages -->
+    <div class="fp fp-pages">
+      <h4 class="fp-h">PAGES LINK</h4>
+      <div class="fp-links">
+        <div>
+          <a href="#hero" class="fp-link fp-link--ul">Home</a>
+          <a href="#about-sec" class="fp-link">About</a>
+          <a href="#projects" class="fp-link">Work</a>
+          <a href="#contact" class="fp-link">Contact</a>
+          <a href="#" class="fp-link">Blog</a>
+        </div>
+        <div>
+          <a href="#" class="fp-link">404</a>
+          <a href="#" class="fp-link">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <!-- Top right: Newsletter -->
+    <div class="fp fp-news">
+      <h4 class="fp-h">STAY IN THE LOOP</h4>
+      <div class="fp-email-row">
+        <input type="email" placeholder="Enter your email" class="fp-email-in"/>
+        <button class="fp-email-btn">→</button>
+      </div>
+      <h4 class="fp-h fp-h--mt">JOIN OUR COMMUNITY</h4>
+      <div class="fp-socs">
+        <a href="#" class="fp-soc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" class="fp-soc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" class="fp-soc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" class="fp-soc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25z"/></svg></a>
+      </div>
+      <!-- Atmospheric background image -->
+      <div class="fp-bg-img"></div>
+    </div>
+    <!-- Bottom left: Wordmark -->
+    <div class="fp fp-wm">
+      <!-- Bold-style wordmark: B + bordered rectangle + LD -->
+      <div class="fp-wordmark">
+        <span class="fwm-b">D</span>
+        <div class="fwm-box"></div>
+        <span class="fwm-ld">R</span>
+      </div>
+      <span class="fp-wm-sub">Duncan Robert</span>
+    </div>
+    <!-- Bottom center: tagline -->
+    <div class="fp fp-tag">
+      <p class="fp-tagline">✕ &nbsp;Designing with clarity, culture, and craft — blending strategy with creativity for lasting impact.</p>
+      <p class="fp-credit">Designed by <u>Duncan Robert</u>, Powered by <u>Framer</u></p>
+    </div>
+    <!-- Bottom right: contact info -->
+    <div class="fp fp-contact">
+      <h4 class="fp-h">CONTACT INFO</h4>
+      <p>+1 (555) 123-4567</p>
+      <p>designer@example.com</p>
+      <p>123 Design St, New York</p>
+    </div>
+  </div>
+  <div class="footer-strip">
+    <span>© 2025 Duncan Robert. All Rights Reserved.</span>
+    <span>Made with ♥ in New York</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

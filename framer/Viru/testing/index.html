@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@700&display=swap"
+        rel="stylesheet">
+    <title>Alex Rivera | Brutalist Portfolio</title>
+    <style>
+        /* ---------- BASE VARIABLES & RESET ---------- */
+        :root {
+            --bg: #030303;
+            --fg: #e0e0e0;
+            --accent: #ccff00;
+            --secondary: #ff00ff;
+            --danger: #ff3333;
+            --easing: cubic-bezier(0.165, 0.84, 0.44, 1);
+            --card-bg: #0c0c0c;
+            --border-glow: rgba(204, 255, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        /* --- GRAIN OVERLAY --- */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        #scroll-content {
+            will-change: transform;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s var(--easing), height 0.3s var(--easing);
+        }
+
+        #cursor.magnet {
+            width: 90px;
+            height: 90px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            backdrop-filter: blur(0px);
+        }
+
+        #cursor.magnet::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* --- NAVBAR --- */
+        .brutal-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: padding 0.7s var(--easing), top 0.7s var(--easing), width 0.7s var(--easing), background 0.5s var(--easing), border-radius 0.7s var(--easing);
+            mix-blend-mode: exclusion;
+            transform-style: preserve-3d;
+            perspective: 1200px;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brutal-nav.scrolled {
+            top: 1.5rem;
+            padding: 0.8rem 2rem;
+            width: auto;
+            min-width: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            mix-blend-mode: normal;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .nav-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -2px;
+            color: #fff;
+            text-decoration: none;
+            user-select: none;
+            position: relative;
+        }
+
+        .nav-logo:hover {
+            animation: glitch-anim 0.3s infinite;
+        }
+
+        .nav-logo::before,
+        .nav-logo::after {
+            content: "A.RIVERA";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            opacity: 0.8;
+            display: none;
+        }
+
+        .nav-logo:hover::before,
+        .nav-logo:hover::after {
+            display: block;
+        }
+
+        .nav-logo:hover::before {
+            color: var(--secondary);
+            z-index: -1;
+            transform: translate(-2px, -2px);
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            animation: glitch-anim-2 0.5s infinite linear alternate-reverse;
+        }
+
+        .nav-logo:hover::after {
+            color: var(--accent);
+            z-index: -2;
+            transform: translate(2px, 2px);
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+            animation: glitch-anim-2 0.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px;
+        }
+
+        .nav-link::before {
+            content: '>';
+            position: absolute;
+            left: -10px;
+            opacity: 0;
+            transition: all 0.2s;
+            color: var(--accent);
+        }
+
+        .nav-link:hover::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        .cta-btn {
+            position: relative;
+            padding: 0.7rem 1.8rem;
+            background: #fff;
+            color: #000;
+            font-weight: 700;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            font-family: 'Space Grotesk';
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transform: translateX(-101%);
+            transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+            z-index: 1;
+        }
+
+        .cta-btn span {
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+
+        .cta-btn:hover span {
+            color: #000;
+        }
+
+        .cta-btn:hover::after {
+            transform: translateX(0);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 12vw;
+            line-height: 0.85;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--fg);
+            position: relative;
+            z-index: 10;
+            mix-blend-mode: color-dodge;
+        }
+
+        .hero h1 .char {
+            display: inline-block;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .hero h1:hover .char {
+            color: var(--accent);
+            -webkit-text-stroke: 0px;
+        }
+
+        .tape-wrapper {
+            position: absolute;
+            bottom: 5vh;
+            left: -10%;
+            width: 120%;
+            background: var(--accent);
+            color: #000;
+            transform: rotate(-1.5deg);
+            padding: 12px 0;
+            border-top: 2px solid #000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .tape-text {
+            font-family: 'Syncopate';
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            animation: tapeScroll 12s linear infinite;
+        }
+
+        @keyframes tapeScroll {
+            to { transform: translateX(-50%); }
+        }
+
+        /* --- GLOBAL SECTIONS --- */
+        .section {
+            padding: 6rem 8%;
+            border-bottom: 1px solid #1a1a1a;
+            background: #080808;
+        }
+
+        .section:nth-child(even) {
+            background: #050505;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+            border-left: 5px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        /* Profile Card */
+        .profile-grid {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .profile-avatar {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .avatar-shape {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            font-weight: bold;
+            color: #000;
+            font-family: 'Syncopate';
+        }
+
+        .profile-info {
+            flex: 2;
+        }
+
+        .profile-info h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .profile-tagline {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+
+        /* About & Text */
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Two column layout for exp/edu */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+        }
+
+        /* Skills & Services grids */
+        .skills-grid, .services-grid, .interests-grid, .lang-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-badge, .service-card, .interest-item, .lang-item {
+            background: var(--card-bg);
+            border: 1px solid #2a2a2a;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .service-card {
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .service-card:hover, .skill-badge:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: #0f0f0f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s var(--easing);
+            border: 1px solid #222;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+        }
+
+        .project-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-tech {
+            color: var(--accent);
+            font-size: 0.8rem;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 700px;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: #111;
+            border: 1px solid #2c2c2c;
+            padding: 1rem;
+            font-family: 'Space Grotesk', monospace;
+            color: #fff;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(204,255,0,0.2);
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Syncopate';
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        footer {
+            background: var(--fg);
+            color: var(--bg);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .brutal-nav {
+                padding: 1.2rem 2rem;
+                justify-content: center;
+            }
+            .nav-menu {
+                gap: 1.2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .profile-grid {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-info h2 {
+                font-size: 2rem;
+            }
+            .tape-text {
+                font-size: 1rem;
+            }
+            .hero h1 {
+                font-size: 15vw;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section {
+                padding: 3rem 1.5rem;
+            }
+            .nav-menu {
+                order: 3;
+                justify-content: center;
+                width: 100%;
+            }
+            .brutal-nav.scrolled {
+                min-width: 90%;
+                padding: 0.8rem 1rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll reveal animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s var(--easing), transform 0.7s var(--easing);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* misc */
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div id="cursor"></div>
+
+    <nav class="brutal-nav">
+        <a href="#" class="nav-logo magnetic" style="text-decoration: none;">A.RIVERA</a>
+        <ul class="nav-menu">
+            <li><a href="#profile" class="nav-link magnetic" data-text="PROFILE">PROFILE</a></li>
+            <li><a href="#about" class="nav-link magnetic" data-text="ABOUT">ABOUT</a></li>
+            <li><a href="#work" class="nav-link magnetic" data-text="WORK">WORK</a></li>
+            <li><a href="#contact" class="nav-link magnetic" data-text="CONTACT">CONTACT</a></li>
+        </ul>
+        <button class="cta-btn magnetic" id="talkBtn"><span>LET'S TALK</span></button>
+    </nav>
+
+    <div id="scroll-content">
+        <!-- Hero Section (retain brutal vibe) -->
+        <section class="hero">
+            <div class="hero-title-container">
+                <h1>
+                    <div class="word">BRUTAL</div><br>
+                    <div class="word">MAGIC</div>
+                </h1>
+            </div>
+            <div class="tape-wrapper">
+                <div class="tape-text">
+                    ✦ ALEX RIVERA — CREATIVE ENGINEER — INTERACTIVE SYSTEMS — BRUTALIST PORTFOLIO ✦ ALEX RIVERA — CREATIVE ENGINEER — INTERACTIVE SYSTEMS ✦
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE SECTION -->
+        <section id="profile" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title">PROFILE</h2>
+                <div class="profile-grid">
+                    <div class="profile-avatar">
+                        <div class="avatar-shape">AR</div>
+                    </div>
+                    <div class="profile-info">
+                        <h2>Alex Rivera</h2>
+                        <div class="profile-tagline">✦ Brutalist Code Alchemist ✦</div>
+                        <p>Pushing boundaries between raw aesthetics and functional digital experiences. I craft immersive web environments where performance meets avant-garde design.</p>
+                        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <span>📍 Berlin / Remote</span>
+                            <span>⚡ Open for collaborations</span>
+                            <span>🖥️ 7+ years exp.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME -->
+        <section id="about" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title">ABOUT ME</h2>
+                <div class="about-text">
+                    <p>I'm a creative developer obsessed with the intersection of brutalist design and fluid interaction. My workflow merges raw typography, glitch aesthetics, and micro-interactions that feel alive. I believe digital experiences should have weight, attitude, and personality — no templates, just custom-crafted systems.</p>
+                    <p style="margin-top: 1.5rem;">When I'm not coding, I experiment with generative art, contribute to open-source, and explore cyberpunk philosophies. Let's build something that breaks the grid.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION + EXPERIENCE (two column) -->
+        <section id="education-experience" class="section fade-up">
+            <div class="container">
+                <div class="two-col">
+                    <div>
+                        <h2 class="section-title" style="border-left-color: var(--secondary);">EDUCATION</h2>
+                        <div class="timeline-item">
+                            <h3>M.Sc. Interactive Media</h3>
+                            <div class="date">2019 - 2021 | Hyper Island</div>
+                            <p>Focus on real-time 3D, creative coding, and experimental UX.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>B.E. Computer Science</h3>
+                            <div class="date">2014 - 2018 | TU Berlin</div>
+                            <p>AI & visual computing, human-computer interaction thesis.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="section-title" style="border-left-color: var(--accent);">EXPERIENCE</h2>
+                        <div class="timeline-item">
+                            <h3>Lead Creative Developer</h3>
+                            <div class="date">2022 - Present | Algorhythm Studio</div>
+                            <p>Directing interactive campaigns for global brands, leading WebGL and frontend innovation.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Freelance Designer / Developer</h3>
+                            <div class="date">2019 - 2022 | Self-employed</div>
+                            <p>Built experimental portfolios, e-commerce experiences, and immersive brand identities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title">PROJECTS</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>GLITCH VERSE</h3>
+                        <p>Interactive webGL installation with real-time distortion and audio reactivity. Won Awwwards SOTD.</p>
+                        <div class="project-tech">Three.js · GLSL · WebAudio</div>
+                    </div>
+                    <div class="project-card">
+                        <h3>BRUTAL CMS</h3>
+                        <p>Headless portfolio system with brutalist frontend, drag-drop editor and custom cursor physics.</p>
+                        <div class="project-tech">React · Node · MongoDB</div>
+                    </div>
+                    <div class="project-card">
+                        <h3>NEON GRAVITY</h3>
+                        <p>Experimental e-commerce with 3D product viewer and scroll-driven transformations.</p>
+                        <div class="project-tech">GSAP · Shopify · WebGL</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title">SKILLS</h2>
+                <div class="skills-grid">
+                    <span class="skill-badge">JavaScript/TS</span>
+                    <span class="skill-badge">React/Vue</span>
+                    <span class="skill-badge">Three.js</span>
+                    <span class="skill-badge">GSAP</span>
+                    <span class="skill-badge">Node.js</span>
+                    <span class="skill-badge">WebGL/GLSL</span>
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">UI/UX Prototyping</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="services" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title">SERVICES</h2>
+                <div class="services-grid">
+                    <div class="service-card">✨ Interactive Web Dev</div>
+                    <div class="service-card">⚡ Creative Direction</div>
+                    <div class="service-card">🌀 3D & WebGL Experiences</div>
+                    <div class="service-card">📐 Brutalist UI/UX</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERESTS + KNOWN LANGUAGES combined row -->
+        <section class="section fade-up">
+            <div class="container">
+                <div class="two-col">
+                    <div>
+                        <h2 class="section-title" style="border-left-color: var(--secondary);">INTERESTS</h2>
+                        <div class="interests-grid">
+                            <span class="interest-item">🎧 Synthwave</span>
+                            <span class="interest-item">🧠 AI Art</span>
+                            <span class="interest-item">📡 Cyberpunk</span>
+                            <span class="interest-item">🎮 Indie Games</span>
+                            <span class="interest-item">⚙️ Hardware Hacks</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="section-title" style="border-left-color: var(--accent);">KNOWN LANGUAGES</h2>
+                        <div class="lang-grid">
+                            <span class="lang-item">🇬🇧 English (Native)</span>
+                            <span class="lang-item">🇪🇸 Spanish (Fluent)</span>
+                            <span class="lang-item">🇩🇪 German (Advanced)</span>
+                            <span class="lang-item">🇫🇷 French (Basic)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT ME FORM -->
+        <section id="contact" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title">CONTACT ME</h2>
+                <div class="contact-form">
+                    <form id="portfolioForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="FULL NAME" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="EMAIL ADDRESS" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" placeholder="YOUR MESSAGE..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn magnetic">SEND MESSAGE →</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <h2 style="font-family: 'Syncopate'; font-size: 2rem;">A.RIVERA</h2>
+            <p>© 2026 — Brutalist Manifesto · All code is poetry</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- TEXT SPLITTING for hero glitch characters
+        const words = document.querySelectorAll('.hero h1 .word');
+        words.forEach(word => {
+            const text = word.innerText;
+            word.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.classList.add('char');
+                span.innerText = char;
+                word.appendChild(span);
+            });
+        });
+
+        // --- CURSOR + MAGNET
+        const cursor = document.getElementById('cursor');
+        const magneticElements = document.querySelectorAll('.magnetic, .submit-btn, .cta-btn, .nav-link, .nav-logo, .project-card, .skill-badge, .service-card');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+        window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+        function lerp(start, end, factor) { return start + (end - start) * factor; }
+        function animateCursor() {
+            cursorX = lerp(cursorX, mouseX, 0.15);
+            cursorY = lerp(cursorY, mouseY, 0.15);
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const moveX = (e.clientX - centerX) * 0.4;
+                const moveY = (e.clientY - centerY) * 0.4;
+                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                cursor.classList.add('magnet');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+                cursor.classList.remove('magnet');
+            });
+        });
+
+        // --- NAVBAR SCROLL & 3D TILT
+        const nav = document.querySelector('.brutal-nav');
+        let isScrolled = false;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                if (!isScrolled) nav.classList.add('scrolled');
+                isScrolled = true;
+            } else {
+                if (isScrolled) nav.classList.remove('scrolled');
+                isScrolled = false;
+            }
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (!isScrolled) return;
+            const cx = window.innerWidth / 2, cy = 100;
+            const rx = (e.clientY - cy) * 0.02, ry = (e.clientX - cx) * 0.02;
+            const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+            nav.style.transform = `translateX(-50%) perspective(1000px) rotateX(${-clamp(rx, -8, 8)}deg) rotateY(${clamp(ry, -8, 8)}deg)`;
+        });
+
+        // --- SCROLL VELOCITY SKEW
+        const content = document.getElementById('scroll-content');
+        let lastScrollTop = 0, skew = 0;
+        function scrollLoop() {
+            const scrollTop = window.scrollY;
+            const velocity = scrollTop - lastScrollTop;
+            lastScrollTop = scrollTop;
+            let speed = Math.min(Math.max(velocity * 0.08, -3), 3);
+            skew = lerp(skew, speed, 0.1);
+            if (Math.abs(skew) > 0.02) content.style.transform = `skewY(${skew}deg)`;
+            else content.style.transform = `skewY(0deg)`;
+            requestAnimationFrame(scrollLoop);
+        }
+        scrollLoop();
+
+        // --- HACKER TEXT EFFECT
+        const alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        document.querySelectorAll('[data-text]').forEach(link => {
+            link.addEventListener('mouseenter', event => {
+                let iter = 0;
+                const original = event.target.dataset.text;
+                clearInterval(event.target.interval);
+                event.target.interval = setInterval(() => {
+                    event.target.innerText = original.split("").map((l, i) => i < iter ? original[i] : alpha[Math.floor(Math.random() * 26)]).join("");
+                    if (iter >= original.length) clearInterval(event.target.interval);
+                    iter += 1 / 2.5;
+                }, 35);
+            });
+            link.addEventListener('mouseleave', e => {
+                clearInterval(e.target.interval);
+                e.target.innerText = e.target.dataset.text;
+            });
+        });
+
+        // --- SCROLL REVEAL (fade-up)
+        const faders = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        faders.forEach(el => observer.observe(el));
+
+        // Contact form handler (prevent default + alert)
+        const form = document.getElementById('portfolioForm');
+        if(form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert("⚡ Message sent (demo) — I'll reach out through the ether.");
+                form.reset();
+            });
+        }
+
+        // Smooth scroll for nav links + talk button
+        document.querySelectorAll('.nav-link, .cta-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if(btn.getAttribute('href')?.startsWith('#') || btn.id === 'talkBtn') {
+                    e.preventDefault();
+                    let targetId = '#contact';
+                    if(btn.getAttribute('href') === '#profile') targetId = '#profile';
+                    if(btn.getAttribute('href') === '#about') targetId = '#about';
+                    if(btn.getAttribute('href') === '#work') targetId = '#projects';
+                    if(btn.id === 'talkBtn') targetId = '#contact';
+                    const section = document.querySelector(targetId);
+                    if(section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

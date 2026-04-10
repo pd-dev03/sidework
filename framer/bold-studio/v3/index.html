@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Portavia — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- Grain -->
+<canvas id="grainCanvas"></canvas>
+
+<!-- Custom cursor -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<!-- ══════════════════════════════════════════
+     NAV — Fixed topbar
+══════════════════════════════════════════ -->
+<nav class="nav" id="mainNav">
+  <div class="nav__left">
+    <a href="#home" class="nav__logo-text">PV</a>
+  </div>
+  <div class="nav__center">
+    <span class="nav__clock" id="navClock">00:00:00</span>
+  </div>
+  <div class="nav__right">
+    <!-- Theme toggle pill -->
+    <label class="theme-pill" id="themePill" tabindex="0" aria-label="Toggle theme">
+      <span class="tp-track"><span class="tp-thumb"></span></span>
+    </label>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Open menu">
+      <span>MENU</span>
+      <span class="nav__menu-icon">
+        <span></span><span></span>
+      </span>
+    </button>
+  </div>
+</nav>
+
+<!-- Full-screen menu overlay -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-overlay__inner">
+    <div class="menu-overlay__left">
+      <nav class="menu-overlay__links">
+        <a href="#home"      class="mo-link" data-num="01">Home</a>
+        <a href="#about"     class="mo-link" data-num="02">About</a>
+        <a href="#education" class="mo-link" data-num="03">Education</a>
+        <a href="#experience"class="mo-link" data-num="04">Experience</a>
+        <a href="#projects"  class="mo-link" data-num="05">Projects</a>
+        <a href="#skills"    class="mo-link" data-num="06">Skills</a>
+        <a href="#interests" class="mo-link" data-num="07">Interests</a>
+        <a href="#contact"   class="mo-link" data-num="08">Contact</a>
+      </nav>
+    </div>
+    <div class="menu-overlay__right">
+      <div class="mo-info">
+        <p class="mo-label">Based in</p>
+        <p class="mo-val">Mumbai, India</p>
+      </div>
+      <div class="mo-info">
+        <p class="mo-label">Available for</p>
+        <p class="mo-val">Freelance & Full-time</p>
+      </div>
+      <a href="#contact" class="mo-cta">Let's Work Together →</a>
+    </div>
+  </div>
+  <button class="menu-overlay__close" id="menuClose">CLOSE ✕</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero__divider-top">
+    <span class="hero__index">[00]</span>
+    <span class="hero__label">INTRO</span>
+  </div>
+
+  <!-- Portrait card (fixed, animated by JS) -->
+  <div class="pc" id="portraitCard">
+    <div class="pc__img pc__img--back">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Portrait back"/>
+    </div>
+    <div class="pc__img pc__img--front">
+      <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt="Portrait"/>
+    </div>
+    <div class="pc__hand"><span class="pc__wave">👋</span></div>
+  </div>
+
+  <div class="hero__grid">
+    <div class="hero__side hero__side--left">
+      <span class="hero__name">CREATIVE DEVELOPER</span>
+      <div class="hero__big">DUNCAN</div>
+      <p class="hero__tag">Crafting digital experiences<br>that live at the intersection<br>of art &amp; technology.</p>
+    </div>
+    <div class="hero__center"></div>
+    <div class="hero__side hero__side--right">
+      <span class="hero__name">&nbsp;</span>
+      <div class="hero__big">ROBERT</div>
+      <div class="hero__hire-wrap">
+        <a href="#contact" class="hero__hire">Hire Me →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile portrait -->
+  <div class="hero__mob-portrait">
+    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" alt="Portrait"/>
+    <div class="hero__mob-hand">👋</div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="hero__foot">
+    <div class="hero__scroll">
+      <i></i> SCROLL TO EXPLORE
+    </div>
+    <div class="hero__stats-mini">
+      <span><strong>5+</strong> Years Exp.</span>
+      <span><strong>40+</strong> Projects</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MARQUEE
+══════════════════════════════════════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Design</span><span class="marquee-dot">●</span>
+    <span>Develop</span><span class="marquee-dot">●</span>
+    <span>Deliver</span><span class="marquee-dot">●</span>
+    <span>Design</span><span class="marquee-dot">●</span>
+    <span>Develop</span><span class="marquee-dot">●</span>
+    <span>Deliver</span><span class="marquee-dot">●</span>
+    <span>Design</span><span class="marquee-dot">●</span>
+    <span>Develop</span><span class="marquee-dot">●</span>
+    <span>Deliver</span><span class="marquee-dot">●</span>
+    <span>Design</span><span class="marquee-dot">●</span>
+    <span>Develop</span><span class="marquee-dot">●</span>
+    <span>Deliver</span><span class="marquee-dot">●</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT — Split text animation
+══════════════════════════════════════════ -->
+<section class="about-sec" id="about">
+  <!-- Sticky section divider -->
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[01]</span>
+      <span class="sec-title">BUILT ON PASSION</span>
+    </div>
+  </div>
+
+  <!-- Split-text scene (GSAP pinned) -->
+  <div class="split-scene" id="splitAbout">
+    <div class="split-scene__inner">
+      <div class="split-word split-word--left" id="splitLeft">ABOUT</div>
+      <div class="split-portrait" id="splitPortrait">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80" alt="Portrait"/>
+      </div>
+      <div class="split-word split-word--right" id="splitRight">ME</div>
+    </div>
+  </div>
+
+  <!-- Content beneath the split scene -->
+  <div class="about__content" id="aboutContent">
+    <div class="about__wrap">
+      <div class="about__left">
+        <span class="eyebrow">WHO I AM</span>
+        <h2 class="sh reveal">Creative developer<br>& digital designer.</h2>
+        <p class="about__bio reveal">I'm a multidisciplinary designer and developer with 5+ years of experience building brands, websites, and digital products that people actually love to use.</p>
+        <p class="about__bio reveal">My work lives at the intersection of clean code and bold visual identity — I believe the best digital experiences are equal parts beautiful and functional.</p>
+        <div class="about__stats reveal">
+          <div><span class="about__n counter" data-target="5" data-suffix="+">0+</span><span class="about__l">Years Experience</span></div>
+          <div><span class="about__n counter" data-target="40" data-suffix="+">0+</span><span class="about__l">Projects Done</span></div>
+          <div><span class="about__n counter" data-target="18" data-suffix="+">0+</span><span class="about__l">Happy Clients</span></div>
+        </div>
+        <div class="about__contacts reveal">
+          <div><b>Email</b><a href="mailto:hello@portavia.co">hello@portavia.co</a></div>
+          <div><b>Phone</b><a href="tel:+919876543210">+91 98765 43210</a></div>
+          <div><b>Location</b><span>Mumbai, India</span></div>
+        </div>
+        <div class="about__socials reveal">
+          <a href="#" class="soc" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+          <a href="#" class="soc" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="soc" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </a>
+          <a href="#" class="soc" aria-label="Dribbble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </a>
+        </div>
+        <a href="#contact" class="btn-outline reveal">Get In Touch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="about__right" id="aboutRight">
+        <!-- placeholder for fixed portrait card in desktop -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MARQUEE 2
+══════════════════════════════════════════ -->
+<div class="marquee-wrap marquee-wrap--reverse">
+  <div class="marquee-track marquee-track--rev">
+    <span>UI/UX Design</span><span class="marquee-dot">◆</span>
+    <span>Branding</span><span class="marquee-dot">◆</span>
+    <span>Web Dev</span><span class="marquee-dot">◆</span>
+    <span>Motion</span><span class="marquee-dot">◆</span>
+    <span>UI/UX Design</span><span class="marquee-dot">◆</span>
+    <span>Branding</span><span class="marquee-dot">◆</span>
+    <span>Web Dev</span><span class="marquee-dot">◆</span>
+    <span>Motion</span><span class="marquee-dot">◆</span>
+    <span>UI/UX Design</span><span class="marquee-dot">◆</span>
+    <span>Branding</span><span class="marquee-dot">◆</span>
+    <span>Web Dev</span><span class="marquee-dot">◆</span>
+    <span>Motion</span><span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     EDUCATION
+══════════════════════════════════════════ -->
+<section class="tl-sec" id="education">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[02]</span>
+      <span class="sec-title">KNOWLEDGE BASE</span>
+    </div>
+  </div>
+  <div class="tl-sec__content">
+    <div class="tl-sec__hdr reveal">
+      <span class="eyebrow">Education</span>
+      <h2 class="sh">Academic<br>Journey</h2>
+    </div>
+    <div class="tl">
+      <div class="tl__item">
+        <div class="tl__spine"><div class="tl__dot tl__dot--on"></div><div class="tl__line"></div></div>
+        <div class="tl__card">
+          <div class="tl__card-hd"><h3>B.Tech — Computer Science</h3><span class="tl__yr">2018 – 2022</span></div>
+          <div class="tl__inst">IIT Bombay</div>
+          <p class="tl__desc">Specialized in Human-Computer Interaction and Software Engineering. Graduated with distinction and a thesis on accessible design systems.</p>
+          <div class="tl__tags"><span>HCI</span><span>React</span><span>Data Structures</span><span>Design Systems</span></div>
+        </div>
+      </div>
+      <div class="tl__item">
+        <div class="tl__spine"><div class="tl__dot tl__dot--on"></div><div class="tl__line"></div></div>
+        <div class="tl__card">
+          <div class="tl__card-hd"><h3>UI/UX Design Certification</h3><span class="tl__yr">2022</span></div>
+          <div class="tl__inst">Google / Coursera</div>
+          <p class="tl__desc">Comprehensive program covering user research, wireframing, prototyping, and usability testing using industry-standard tools.</p>
+          <div class="tl__tags"><span>Figma</span><span>Prototyping</span><span>User Research</span></div>
+        </div>
+      </div>
+      <div class="tl__item">
+        <div class="tl__spine"><div class="tl__dot"></div><div class="tl__line tl__line--short"></div></div>
+        <div class="tl__card">
+          <div class="tl__card-hd"><h3>Full-Stack Web Development</h3><span class="tl__yr">2021</span></div>
+          <div class="tl__inst">The Odin Project</div>
+          <p class="tl__desc">Self-directed curriculum covering JavaScript, Node.js, databases, and modern frontend frameworks.</p>
+          <div class="tl__tags"><span>JavaScript</span><span>Node.js</span><span>PostgreSQL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     EXPERIENCE
+══════════════════════════════════════════ -->
+<section class="tl-sec" id="experience">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[03]</span>
+      <span class="sec-title">THE JOURNEY</span>
+    </div>
+  </div>
+  <div class="tl-sec__content">
+    <div class="tl-sec__hdr reveal">
+      <span class="eyebrow">Experience</span>
+      <h2 class="sh">Work<br>History</h2>
+    </div>
+    <div class="tl">
+      <div class="tl__item">
+        <div class="tl__spine"><div class="tl__dot tl__dot--on"></div><div class="tl__line"></div></div>
+        <div class="tl__card">
+          <div class="tl__card-hd"><h3>Senior UI/UX Designer</h3><span class="tl__yr">2023 – Present</span></div>
+          <div class="tl__inst">Zeta Tech, Mumbai</div>
+          <p class="tl__desc">Leading the product design team — defining visual direction, building component libraries, and shipping features used by 2M+ users.</p>
+          <div class="tl__tags"><span>Product Design</span><span>Design Systems</span><span>Figma</span><span>Leadership</span></div>
+        </div>
+      </div>
+      <div class="tl__item">
+        <div class="tl__spine"><div class="tl__dot tl__dot--on"></div><div class="tl__line"></div></div>
+        <div class="tl__card">
+          <div class="tl__card-hd"><h3>Frontend Developer</h3><span class="tl__yr">2022 – 2023</span></div>
+          <div class="tl__inst">Razorpay, Bangalore</div>
+          <p class="tl__desc">Built responsive, accessible React components for the payments dashboard. Reduced bundle size by 32% and improved Lighthouse score to 97.</p>
+          <div class="tl__tags"><span>React</span><span>TypeScript</span><span>Performance</span></div>
+        </div>
+      </div>
+      <div class="tl__item">
+        <div class="tl__spine"><div class="tl__dot"></div><div class="tl__line tl__line--short"></div></div>
+        <div class="tl__card">
+          <div class="tl__card-hd"><h3>Design Intern</h3><span class="tl__yr">2021 – 2022</span></div>
+          <div class="tl__inst">Niyo Solutions</div>
+          <p class="tl__desc">Designed onboarding flows, icon systems, and marketing pages. Contributed directly to a 28% increase in user sign-ups.</p>
+          <div class="tl__tags"><span>Figma</span><span>Illustration</span><span>Motion</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROJECTS — Split-text + stacking cards
+══════════════════════════════════════════ -->
+<section class="proj-sec" id="projects">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[04]</span>
+      <span class="sec-title">SELECTED WORK</span>
+    </div>
+  </div>
+
+  <!-- Split-text scene for projects -->
+  <div class="split-scene split-scene--proj" id="splitProj">
+    <div class="split-scene__inner">
+      <div class="split-word split-word--left" id="splitProjLeft">FEATURED</div>
+      <div class="split-proj-center" id="splitProjImg">
+        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&q=80" alt="Project preview"/>
+      </div>
+      <div class="split-word split-word--right" id="splitProjRight">PROJECTS</div>
+    </div>
+  </div>
+
+  <!-- Stacking cards -->
+  <div class="proj__scene" id="projScene">
+    <div class="proj__wrapper">
+      <div class="proj__card" style="background:#1a1a2e">
+        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1400&q=80" alt="Project 1"/>
+        <div class="proj__card::before"></div>
+        <div class="proj__info">
+          <span class="proj__tag">UI / UX DESIGN</span>
+          <h3 class="proj__name">FINANCE<br>DASHBOARD</h3>
+          <p class="proj__desc">A next-generation personal finance platform with real-time analytics and beautiful data viz.</p>
+          <a href="#" class="proj__link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="proj__num">01</div>
+      </div>
+    </div>
+    <div class="proj__wrapper">
+      <div class="proj__card" style="background:#0d1117">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=1400&q=80" alt="Project 2"/>
+        <div class="proj__info">
+          <span class="proj__tag">BRANDING</span>
+          <h3 class="proj__name">NOVA<br>IDENTITY</h3>
+          <p class="proj__desc">Complete brand identity system for a Series-A SaaS startup — logo, type, color, and motion.</p>
+          <a href="#" class="proj__link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="proj__num">02</div>
+      </div>
+    </div>
+    <div class="proj__wrapper">
+      <div class="proj__card" style="background:#0a1628">
+        <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?w=1400&q=80" alt="Project 3"/>
+        <div class="proj__info">
+          <span class="proj__tag">WEB DEVELOPMENT</span>
+          <h3 class="proj__name">E-COMMERCE<br>PLATFORM</h3>
+          <p class="proj__desc">High-conversion storefront with headless CMS, 3D product viewer, and sub-1s load times.</p>
+          <a href="#" class="proj__link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="proj__num">03</div>
+      </div>
+    </div>
+    <div class="proj__wrapper">
+      <div class="proj__card" style="background:#0d0a1a">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&q=80" alt="Project 4"/>
+        <div class="proj__info">
+          <span class="proj__tag">MOTION DESIGN</span>
+          <h3 class="proj__name">PULSE<br>APP</h3>
+          <p class="proj__desc">Health &amp; wellness app with micro-animations, haptic-first interactions, and AI coaching.</p>
+          <a href="#" class="proj__link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="proj__num">04</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj__cta reveal">
+    <a href="#" class="btn-outline">View All Work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SKILLS
+══════════════════════════════════════════ -->
+<section class="skills" id="skills">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[05]</span>
+      <span class="sec-title">TOOLKIT</span>
+    </div>
+  </div>
+  <div class="skills__content">
+    <div class="skills__hdr reveal">
+      <span class="eyebrow">Skills</span>
+      <h2 class="sh">What I<br>Do Best</h2>
+    </div>
+    <div class="skills__cols">
+      <div class="skills__col reveal">
+        <div class="skills__gname">Design</div>
+        <div class="sbars">
+          <div class="sbar"><div class="sbar__meta"><span>UI/UX Design</span><span>95%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="95"></div></div></div>
+          <div class="sbar"><div class="sbar__meta"><span>Brand Identity</span><span>88%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="88"></div></div></div>
+          <div class="sbar"><div class="sbar__meta"><span>Motion Design</span><span>80%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="80"></div></div></div>
+          <div class="sbar"><div class="sbar__meta"><span>3D / Spline</span><span>65%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="65"></div></div></div>
+        </div>
+      </div>
+      <div class="skills__col reveal">
+        <div class="skills__gname">Development</div>
+        <div class="sbars">
+          <div class="sbar"><div class="sbar__meta"><span>React / Next.js</span><span>92%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="92"></div></div></div>
+          <div class="sbar"><div class="sbar__meta"><span>TypeScript</span><span>85%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="85"></div></div></div>
+          <div class="sbar"><div class="sbar__meta"><span>Node / Express</span><span>76%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="76"></div></div></div>
+          <div class="sbar"><div class="sbar__meta"><span>GSAP / Framer</span><span>82%</span></div><div class="sbar__track"><div class="sbar__fill" data-w="82"></div></div></div>
+        </div>
+      </div>
+      <div class="skills__col reveal">
+        <div class="skills__gname">Tools</div>
+        <div class="skills__pills">
+          <span>Figma</span><span>Framer</span><span>Webflow</span><span>After Effects</span>
+          <span>Blender</span><span>VS Code</span><span>Git</span><span>Notion</span>
+          <span>Slack</span><span>Jira</span><span>Lottie</span><span>Storybook</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     INTERESTS
+══════════════════════════════════════════ -->
+<section class="interests" id="interests">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[06]</span>
+      <span class="sec-title">BEYOND WORK</span>
+    </div>
+  </div>
+  <div class="interests__content">
+    <div class="interests__hdr reveal">
+      <span class="eyebrow">Interests</span>
+      <h2 class="sh">What Fuels<br>Creativity</h2>
+    </div>
+    <div class="interests__grid reveal">
+      <div class="int-card"><div class="int-card__icon">🎸</div><span>Music</span></div>
+      <div class="int-card"><div class="int-card__icon">📷</div><span>Photography</span></div>
+      <div class="int-card"><div class="int-card__icon">✈️</div><span>Travel</span></div>
+      <div class="int-card"><div class="int-card__icon">🎮</div><span>Gaming</span></div>
+      <div class="int-card"><div class="int-card__icon">📚</div><span>Reading</span></div>
+      <div class="int-card"><div class="int-card__icon">🏃</div><span>Running</span></div>
+      <div class="int-card"><div class="int-card__icon">🍳</div><span>Cooking</span></div>
+      <div class="int-card"><div class="int-card__icon">🎨</div><span>Painting</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     LANGUAGES
+══════════════════════════════════════════ -->
+<section class="langs" id="languages">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[07]</span>
+      <span class="sec-title">COMMUNICATION</span>
+    </div>
+  </div>
+  <div class="langs__content">
+    <div class="langs__hdr reveal">
+      <span class="eyebrow">Languages</span>
+      <h2 class="sh">How I<br>Connect</h2>
+    </div>
+    <div class="langs__grid reveal">
+      <div class="lang"><div class="lang__top"><span class="lang__flag">🇬🇧</span><div><h3>English</h3><span>Fluent</span></div></div><div class="lang__bar"><div class="lang__fill" data-w="98"></div></div></div>
+      <div class="lang"><div class="lang__top"><span class="lang__flag">🇮🇳</span><div><h3>Hindi</h3><span>Native</span></div></div><div class="lang__bar"><div class="lang__fill" data-w="100"></div></div></div>
+      <div class="lang"><div class="lang__top"><span class="lang__flag">🇩🇪</span><div><h3>German</h3><span>Intermediate</span></div></div><div class="lang__bar"><div class="lang__fill" data-w="55"></div></div></div>
+      <div class="lang"><div class="lang__top"><span class="lang__flag">🇯🇵</span><div><h3>Japanese</h3><span>Basic</span></div></div><div class="lang__bar"><div class="lang__fill" data-w="25"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="sec-divider">
+    <hr class="sec-hr"/>
+    <div class="sec-divider__row">
+      <span class="sec-num">[08]</span>
+      <span class="sec-title">GET IN TOUCH</span>
+    </div>
+  </div>
+  <div class="contact__content">
+    <div class="contact__top reveal">
+      <h2 class="contact__h">Let's Build<br>Something<br>Bold.</h2>
+      <p class="contact__sub">Whether you have a project in mind or just want to explore possibilities — I'd love to hear from you.</p>
+    </div>
+    <div class="contact__grid">
+      <div class="contact__form-col reveal">
+        <div class="cform">
+          <div class="cform__row">
+            <div class="cform__g"><label>Full Name</label><input class="cform__in" placeholder="Duncan Robert" type="text"/></div>
+            <div class="cform__g"><label>Email</label><input class="cform__in" placeholder="hello@you.com" type="email"/></div>
+          </div>
+          <div class="cform__row">
+            <div class="cform__g"><label>Phone</label><input class="cform__in" placeholder="+91 98765 43210" type="tel"/></div>
+            <div class="cform__g"><label>Service</label>
+              <select class="cform__in cform__sel">
+                <option value="">Select a service</option>
+                <option>UI/UX Design</option>
+                <option>Branding</option>
+                <option>Web Development</option>
+                <option>Motion Design</option>
+                <option>Consultation</option>
+              </select>
+            </div>
+          </div>
+          <div class="cform__g"><label>Message</label><textarea class="cform__in cform__ta" placeholder="Tell me about your project..."></textarea></div>
+          <button class="cform__btn" id="cformBtn">SEND MESSAGE</button>
+        </div>
+      </div>
+      <div class="contact__info-col reveal">
+        <div class="contact__info-item">
+          <span class="contact__info-label">Email</span>
+          <a href="mailto:hello@portavia.co" class="contact__info-val">hello@portavia.co</a>
+        </div>
+        <div class="contact__info-item">
+          <span class="contact__info-label">Phone</span>
+          <a href="tel:+919876543210" class="contact__info-val">+91 98765 43210</a>
+        </div>
+        <div class="contact__info-item">
+          <span class="contact__info-label">Location</span>
+          <span class="contact__info-val">Mumbai, India</span>
+        </div>
+        <div class="contact__info-item">
+          <span class="contact__info-label">Availability</span>
+          <span class="contact__info-val contact__avail"><span class="avail-dot"></span>Open to work</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer__grid">
+    <!-- Pages -->
+    <div class="footer__panel footer__panel--pages">
+      <span class="footer__panel-label">PAGES LINK</span>
+      <div class="footer__links-cols">
+        <div>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#education">Education</a>
+          <a href="#experience">Experience</a>
+        </div>
+        <div>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#interests">Interests</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <!-- Newsletter -->
+    <div class="footer__panel footer__panel--newsletter">
+      <span class="footer__panel-label">STAY IN THE LOOP</span>
+      <p class="footer__nl-sub">Get my latest work &amp; insights delivered to your inbox.</p>
+      <div class="footer__nl-form">
+        <input type="email" placeholder="your@email.com" class="footer__nl-input"/>
+        <button class="footer__nl-btn">→</button>
+      </div>
+      <div class="footer__socs">
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></a>
+        <a href="#" aria-label="Dribbble"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></a>
+      </div>
+    </div>
+    <!-- Logo / Brand -->
+    <div class="footer__panel footer__panel--brand">
+      <div class="footer__brand-logo">PV</div>
+      <p class="footer__tagline">Designing for<br>bold ideas &amp; bold futures.</p>
+      <p class="footer__credit">Designed by <strong>Duncan Robert</strong><br>Powered by <strong>GSAP &amp; Vanilla JS</strong></p>
+    </div>
+    <!-- Contact info -->
+    <div class="footer__panel footer__panel--contact">
+      <span class="footer__panel-label">CONTACT INFO</span>
+      <div class="footer__contact-items">
+        <div><span>📧</span><a href="mailto:hello@portavia.co">hello@portavia.co</a></div>
+        <div><span>📱</span><a href="tel:+919876543210">+91 98765 43210</a></div>
+        <div><span>📍</span><span>Mumbai, Maharashtra<br>India — 400001</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>© 2025 Duncan Robert — All rights reserved.</p>
+    <p>Built with ❤️ in Mumbai</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

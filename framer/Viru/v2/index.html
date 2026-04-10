@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duncan Robert — Digital Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ CANVAS GRAIN ░░ -->
+  <canvas id="grainCanvas" aria-hidden="true"></canvas>
+
+  <!-- ░░ PORTRAIT CARD — Fixed, GSAP controlled ░░ -->
+  <div class="portrait-card-fixed" id="portraitCard">
+    <img src="https://framerusercontent.com/images/VRQgkdWsjawSg1qpCm45HfSY1I.jpeg" alt="" class="pc-img pc-back" />
+    <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg"   alt="" class="pc-img pc-front" />
+    <div class="pc-hand-badge">
+      <span class="pc-hand-wave" aria-label="Waving hand">✋</span>
+    </div>
+  </div>
+
+  <!-- ░░ NAVIGATION ░░ -->
+  <nav class="nav" id="navbar">
+    <div class="nav__pill" id="navPill">
+      <!-- DEFAULT content -->
+      <div class="nav__default" id="navDefault">
+        <a href="#" class="nav__avatar"><img src="https://framerusercontent.com/images/IUYreEo8ON7qCLgK2tgDOW0xoI.jpg" alt="Duncan" /></a>
+        <ul class="nav__links">
+          <li><a href="#hero"     class="nav__link active">Home</a></li>
+          <li><a href="#about"    class="nav__link">About</a></li>
+          <li><a href="#projects" class="nav__link">Projects</a></li>
+          <li><a href="#blog"     class="nav__link">Blogs</a></li>
+        </ul>
+        <a href="#contact" class="nav__cta">Contact</a>
+      </div>
+
+      <!-- BADGE content (shown when scrolled) -->
+      <div class="nav__badge" id="navBadge">
+        <img src="https://framerusercontent.com/images/IUYreEo8ON7qCLgK2tgDOW0xoI.jpg" alt="Duncan" class="nav__badge-avatar" />
+        <span class="nav__badge-label">Available for work</span>
+        <span class="nav__badge-dot"></span>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <button class="nav__burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav__mobile" id="mobileMenu">
+      <ul>
+        <li><a href="#hero"     class="nav__link">Home</a></li>
+        <li><a href="#about"    class="nav__link">About</a></li>
+        <li><a href="#projects" class="nav__link">Projects</a></li>
+        <li><a href="#blog"     class="nav__link">Blogs</a></li>
+        <li><a href="#contact"  class="nav__cta-mobile">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero" id="hero">
+    <div class="hero__split">
+      <div class="hero__left">
+        <p class="hero__name">Duncan Robert</p>
+        <h1 class="hero__word--digital">DIGITAL</h1>
+      </div>
+
+      <!-- Mobile portrait (only visible on mobile; desktop uses the fixed card) -->
+      <div class="hero__mobile-card">
+        <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt="Duncan Robert" />
+        <div class="hero__mobile-hand">✋</div>
+      </div>
+
+      <div class="hero__right">
+        <h1 class="hero__word--designer">DESIGNER</h1>
+        <p class="hero__tagline">I'm a US-based digital designer and<br/>Framer developer</p>
+      </div>
+    </div>
+
+    <!-- Decorative accent dot -->
+    <span class="accent-dot accent-dot--hero" aria-hidden="true"></span>
+
+    <!-- Theme toggle pill -->
+    <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+      <span class="theme-toggle__track">
+        <span class="theme-toggle__thumb"></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ░░ SERVICES ░░ -->
+  <section class="services" id="services">
+    <div class="services__layout">
+      <div class="services__left">
+        <h2 class="services__heading">WHAT I CAN<br/>DO FOR YOU</h2>
+        <p class="services__intro">As a digital designer, I am a visual storyteller, crafting experiences that connect deeply and spark creativity.</p>
+
+        <div class="accordion" id="accordion">
+          <div class="accordion__item accordion__item--open">
+            <button class="accordion__trigger">
+              <span class="accordion__num">1.</span>
+              <span class="accordion__label">UI/UX DESIGN</span>
+              <svg class="accordion__chevron" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="accordion__panel">
+              <ul>
+                <li>Wireframing and prototyping</li>
+                <li>User Interface design for web and mobile apps</li>
+                <li>Usability testing and user feedback analysis</li>
+                <li>Interaction design and micro-animations</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span class="accordion__num">2.</span>
+              <span class="accordion__label">GRAPHIC DESIGN</span>
+              <svg class="accordion__chevron" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="accordion__panel">
+              <ul>
+                <li>Logo and brand identity design</li>
+                <li>Social media graphics and ad creatives</li>
+                <li>Infographics and data visualization</li>
+                <li>Custom illustrations and icons</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span class="accordion__num">3.</span>
+              <span class="accordion__label">WEB DESIGN</span>
+              <svg class="accordion__chevron" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="accordion__panel">
+              <ul>
+                <li>Responsive website design</li>
+                <li>Landing page design and optimization</li>
+                <li>Webflow development and customization</li>
+                <li>Website maintenance and updates</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span class="accordion__num">4.</span>
+              <span class="accordion__label">BRANDING</span>
+              <svg class="accordion__chevron" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="accordion__panel">
+              <ul>
+                <li>Brand strategy and identity development</li>
+                <li>Visual style guide creation</li>
+                <li>Typography and color scheme selection</li>
+                <li>Brand storytelling and messaging</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right col: workspace image behind the fixed portrait card -->
+      <div class="services__right">
+        <div class="services__workspace">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&auto=format&fit=crop" alt="Design workspace" />
+        </div>
+        <span class="accent-dot accent-dot--services" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ ABOUT ME ░░ -->
+  <section class="about section-reveal" id="about">
+    <div class="about__layout">
+      <div class="about__left">
+        <h2 class="section-heading">ABOUT ME</h2>
+        <p class="about__bio">Hi, I'm Duncan — a digital designer and Framer developer passionate about crafting meaningful and impactful digital experiences.</p>
+
+        <div class="about__stats">
+          <div class="about__stat">
+            <span class="about__num counter" data-target="12">0</span>
+            <span class="about__lbl">Years of Experience</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__num counter" data-target="270">0</span>
+            <span class="about__lbl">Completed Projects</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__num counter" data-target="50" data-suffix="+">0</span>
+            <span class="about__lbl">Clients on Worldwide</span>
+          </div>
+        </div>
+
+        <div class="about__contacts">
+          <div><span class="about__ctlbl">Call Today :</span> <a href="tel:+15551234567">+1 (555) 123-4567</a></div>
+          <div><span class="about__ctlbl">Email :</span> <a href="mailto:designer@example.com">designer@example.com</a></div>
+        </div>
+
+        <div class="about__socials">
+          <a href="#" class="about__soc" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+          <a href="#" class="about__soc" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="about__soc" aria-label="Behance">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 5.7C8.9 5.7 9.9 5.84 10.8 6.12 11.8 6.4 12.5 6.8 13 7.35 13.6 7.9 13.9 8.6 13.9 9.5c0 .8-.2 1.4-.7 1.9-.45.5-1 .85-1.7 1.1.87.24 1.57.67 2.07 1.3.43.6.73 1.4.73 2.3 0 1-.27 1.7-.82 2.3-.55.6-1.27 1.1-2.1 1.4-.83.3-1.73.5-2.73.5H2V5.7H7.8zM7.5 11.5c.6 0 1.1-.15 1.5-.48.4-.32.6-.77.6-1.32 0-.6-.2-1.02-.6-1.32-.4-.28-.9-.42-1.5-.42H5.3v3.54h2.2zm.2 6.5c.7 0 1.25-.18 1.65-.52.4-.34.6-.83.6-1.48 0-.7-.2-1.24-.6-1.58-.4-.34-1-.52-1.7-.52H5.3V18h2.4zM18.6 7.5H22.5v1.2h-3.9V7.5zm2 4.5c.7 0 1.25-.18 1.65-.54.4-.36.6-.86.6-1.54h-6.3c0 .73.2 1.28.6 1.65.45.36 1 .54 1.7.54l1.75-.11zm-1.9 7.7c-1.1 0-2-.23-2.7-.7-.77-.46-1.37-1.1-1.77-1.9-.4-.8-.6-1.74-.6-2.8 0-1.07.2-2.02.6-2.82.4-.82 1-1.46 1.77-1.92.7-.46 1.6-.69 2.7-.69 1 0 1.9.23 2.7.69.77.46 1.37 1.1 1.77 1.92.4.8.6 1.75.6 2.82v.7h-7.3c.1.7.32 1.25.77 1.64.44.39 1.04.59 1.74.59.5 0 .95-.1 1.35-.32.33-.22.63-.52.83-.92h2.5c-.3 1-.89 1.83-1.79 2.43-.83.6-1.93.9-3.17.9v-.34z"/></svg>
+          </a>
+          <a href="#" class="about__soc" aria-label="Dribbble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </a>
+        </div>
+
+        <a href="#" class="btn-outline">MY STORY</a>
+      </div>
+
+      <!-- right side — fixed card hovers here -->
+      <div class="about__right" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURED PROJECTS — stacking cards ░░ -->
+  <section class="projects section-reveal" id="projects">
+    <div class="projects__header">
+      <h2 class="section-heading">FEATURED PROJECTS</h2>
+      <p>These selected projects reflect my passion for blending strategy with creativity — solving real problems through thoughtful design and impactful storytelling.</p>
+    </div>
+
+    <div class="projects__stack">
+      <div class="ps-wrapper">
+        <div class="ps-card" data-index="0">
+          <img src="https://framerusercontent.com/images/w08JBQPFYIq2vr4OfcD9W6vxEug.jpeg" alt="Summer Vibes" />
+          <div class="ps-overlay">
+            <a href="#" class="ps-arrow-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <div class="ps-meta">
+              <span class="ps-tag">Graphic Design</span>
+              <h3 class="ps-title">Summer Vibes Festival Campaign</h3>
+              <p class="ps-desc">Created promotional materials for the "Summer Vibes Festival," including posters, flyers, and social media graphics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps-wrapper">
+        <div class="ps-card" data-index="1">
+          <img src="https://framerusercontent.com/images/qbjsnnvP9w7UaA2syp36oUe8OSo.jpg" alt="Coral Spiral" />
+          <div class="ps-overlay">
+            <a href="#" class="ps-arrow-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <div class="ps-meta">
+              <span class="ps-tag">Branding</span>
+              <h3 class="ps-title">Coral Spiral Abstract</h3>
+              <p class="ps-desc">A visually striking 3D abstract artwork featuring a coral-colored spiral form with smooth, flowing curves.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps-wrapper">
+        <div class="ps-card" data-index="2">
+          <img src="https://framerusercontent.com/images/nTU7b0ZAdWdlqCI4mQ4tGTPpDs.jpeg" alt="ShopEase" />
+          <div class="ps-overlay">
+            <a href="#" class="ps-arrow-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <div class="ps-meta">
+              <span class="ps-tag">UI / UX Design</span>
+              <h3 class="ps-title">ShopEase Redesign Sprint</h3>
+              <p class="ps-desc">Redesigned the "ShopEase" e-commerce app to enhance UX, simplifying navigation and optimizing checkout.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps-wrapper">
+        <div class="ps-card" data-index="3">
+          <img src="https://framerusercontent.com/images/2nWXrWvPxxMHSpsOkNYf8KjzP7Q.jpeg" alt="Black Prisms" />
+          <div class="ps-overlay">
+            <a href="#" class="ps-arrow-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <div class="ps-meta">
+              <span class="ps-tag">Branding</span>
+              <h3 class="ps-title">Black Geometric Prisms</h3>
+              <p class="ps-desc">Angular black prisms floating against a gradient dark background — modern, sophisticated digital art.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects__browse">
+      <a href="#" class="btn-outline">BROWSE ALL PROJECTS</a>
+    </div>
+  </section>
+
+  <!-- ░░ TESTIMONIALS ░░ -->
+  <section class="testimonials section-reveal" id="testimonials">
+    <div class="testi__inner">
+      <h2 class="section-heading">WHAT MY CLIENTS SAY</h2>
+      <p class="testi__sub">Here's what my clients have shared about their experiences working with me. Their trust and satisfaction motivate me to continue delivering designs that make an impact.</p>
+
+      <div class="testi__grid">
+        <div class="testi-card">
+          <p>"Duncan truly understood my vision and turned it into impactful designs. The results went beyond my expectations!"</p>
+          <div class="testi-author">
+            <img src="https://framerusercontent.com/images/xPotMb4VrNT5rTGtXQvpYqXunU.jpg" alt="John Harris" />
+            <div><strong>John Harris</strong><span>Marketing Director</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p>"He took the time to understand our goals and delivered a design that resonated perfectly with our audience."</p>
+          <div class="testi-author">
+            <img src="https://framerusercontent.com/images/hleE21gbHw2Y29KULoer3tF8.jpg" alt="Michael Lee" />
+            <div><strong>Michael Lee</strong><span>Product Manager</span></div>
+          </div>
+        </div>
+        <div class="testi-stat-box">
+          <p class="testi-stat-text">I've worked with <strong>50+ happy clients</strong></p>
+          <span class="testi-big-num counter" data-target="98" data-suffix="%">0</span>
+          <small>Satisfaction Rate</small>
+        </div>
+        <div class="testi-card">
+          <p>"His design skills are unmatched. He transformed my ideas into a high-performing, visually striking website."</p>
+          <div class="testi-author">
+            <img src="https://framerusercontent.com/images/RTNUbNmEH3Lg1VzA3NOYHdp3bHQ.jpg" alt="Sarah Johnson" />
+            <div><strong>Sarah Johnson</strong><span>CEO</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p>"As a small business owner, I appreciated how stress-free Duncan made the entire process from start to finish."</p>
+          <div class="testi-author">
+            <img src="https://framerusercontent.com/images/ZbUvwGb7xhhwmovo3t9YO4bAIGs.jpg" alt="Laura Bennett" />
+            <div><strong>Laura Bennett</strong><span>Small Business Owner</span></div>
+          </div>
+        </div>
+        <div class="testi-stat-box">
+          <p class="testi-stat-text">My work helped clients grow their revenue by <strong>200%</strong></p>
+          <span class="testi-big-num counter" data-target="200" data-suffix="%">0</span>
+          <small>Growth</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FAQ ░░ -->
+  <section class="faq section-reveal" id="faq">
+    <div class="faq__inner">
+      <h2 class="section-heading">FREQUENTLY ASKED<br/>QUESTIONS</h2>
+      <p class="faq__sub">Here are answers to some of the most common questions I receive as a freelance designer.</p>
+      <div class="faq__list" id="faqList">
+        <div class="faq__item">
+          <button class="faq__btn"><span class="faq__num">1.</span><span>What services do you offer?</span><svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <div class="faq__body"><p>I offer UI/UX Design, Graphic Design, Web Design, and Branding services. Whether you need a full brand identity or just a landing page, I can help you craft compelling digital experiences.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn"><span class="faq__num">2.</span><span>How does the design process work?</span><svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <div class="faq__body"><p>We begin with a discovery call, then move through research, wireframes, design mockups, and final delivery — keeping you in the loop at every stage.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn"><span class="faq__num">3.</span><span>How long does a project usually take?</span><svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <div class="faq__body"><p>A simple landing page takes 1–2 weeks. A full brand identity or app design typically takes 4–8 weeks depending on scope.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn"><span class="faq__num">4.</span><span>What do I need to provide before starting?</span><svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <div class="faq__body"><p>A brief outlining your goals, target audience, and any existing brand assets. The more context you provide, the better I can tailor the design to your needs.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn"><span class="faq__num">5.</span><span>Do you offer revisions?</span><svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <div class="faq__body"><p>Yes! Every project includes two rounds of revisions. Additional revisions can be arranged at an hourly rate.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn"><span class="faq__num">6.</span><span>How do I get started?</span><svg class="faq__icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <div class="faq__body"><p>Simply reach out via the contact form below or send me an email. I'll get back to you within 24 hours to schedule an intro call.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ BLOG ░░ -->
+  <section class="blog section-reveal" id="blog">
+    <div class="blog__inner">
+      <h2 class="section-heading">DESIGN INSIGHTS &amp; IDEAS</h2>
+      <p class="blog__sub">From design trends to creative processes, these articles offer insights to help you elevate your craft, solve challenges, and spark new ideas.</p>
+      <div class="blog__grid">
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <div class="blog-card__img"><img src="https://framerusercontent.com/images/1wFj19qQG6zNr7gj3iTlH0Gdlu8.jpeg" alt="" /></div>
+            <div class="blog-card__body">
+              <div class="blog-card__meta"><span class="blog-tag">Insights</span><span class="blog-date">Apr 30, 2025</span></div>
+              <h3>5 Design Trends That Will Define 2024</h3>
+              <p>Explore the top design trends for 2024 that will influence web, UI/UX, and branding projects, helping you stay ahead.</p>
+            </div>
+          </a>
+        </article>
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <div class="blog-card__img"><img src="https://framerusercontent.com/images/xmKml0E7v2iBI4zbbj0yVccaQwg.jpeg" alt="" /></div>
+            <div class="blog-card__body">
+              <div class="blog-card__meta"><span class="blog-tag">Tutorials</span><span class="blog-date">Apr 27, 2025</span></div>
+              <h3>How to Streamline Your Design Workflow</h3>
+              <p>Discover practical strategies to improve your design process, save time, and deliver quality work more efficiently.</p>
+            </div>
+          </a>
+        </article>
+      </div>
+      <div class="blog__cta"><a href="#" class="btn-outline">BROWSE ALL INSIGHTS</a></div>
+    </div>
+  </section>
+
+  <!-- ░░ CONTACT ░░ -->
+  <section class="contact section-reveal" id="contact">
+    <div class="contact__inner">
+      <div class="contact__left">
+        <div class="contact__portrait">
+          <img src="https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg" alt="Duncan Robert" />
+          <div class="contact__hi-badge">Hi</div>
+        </div>
+        <h2 class="contact__heading">LET'S WORK<br/>TOGETHER</h2>
+        <p class="contact__sub">Let's build something impactful together — whether it's your brand, your website, or your next big idea.</p>
+        <p class="contact__detail">Email : <a href="mailto:designer@example.com">designer@example.com</a></p>
+        <p class="contact__detail">Call Today : <a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+      </div>
+      <div class="contact__right">
+        <div class="contact__field"><input type="text"   placeholder="Name"   class="c-input" /></div>
+        <div class="contact__field"><input type="email"  placeholder="Email"  class="c-input" /></div>
+        <div class="contact__field">
+          <select class="c-input c-select">
+            <option value="" disabled selected>Service Needed?</option>
+            <option>Branding</option><option>Web Design</option><option>UI / UX</option><option>Graphic Design</option>
+          </select>
+        </div>
+        <div class="contact__field"><textarea class="c-input c-textarea" placeholder="What Can I Help You..."></textarea></div>
+        <button class="contact__submit" id="contactSubmit">SUBMIT</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>© Copyright 2025. All Rights Reserved by Duncan Robert</p>
+      <div class="footer__socials">
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.255 5.622L18.244 2.25z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Dribbble"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
